@@ -3,1399 +3,1239 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <title>StudyOS</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════
-   RESET & BASE
-═══════════════════════════════════════════ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:      #f5f2eb;
+  --bg2:     #ede9e0;
+  --white:   #ffffff;
+  --ink:     #1a1714;
+  --ink2:    #68615a;
+  --ink3:    #b0a89c;
+  --line:    #e5dfd4;
+  --line2:   #d4cdc0;
 
-:root {
-  --bg:        #f5f2ec;
-  --bg2:       #ede9e0;
-  --white:     #ffffff;
-  --ink:       #18160f;
-  --ink2:      #6b6456;
-  --ink3:      #b0a89a;
-  --line:      #e4dfd5;
+  --blue:    #2563eb;
+  --blue-lt: #dbeafe;
+  --blue-bd: #93c5fd;
 
-  --blue:      #2563eb;
-  --blue-lt:   #dbeafe;
-  --blue-mid:  #93c5fd;
+  --green:   #16a34a;
+  --green-lt:#dcfce7;
+  --green-bd:#86efac;
+  --green-dk:#14532d;
 
-  --green:     #16a34a;
-  --green-lt:  #dcfce7;
-  --green-mid: #86efac;
+  --amber:   #d97706;
+  --amber-lt:#fef3c7;
+  --amber-bd:#fcd34d;
 
-  --amber:     #b45309;
-  --amber-lt:  #fef3c7;
-  --amber-mid: #fcd34d;
+  --red:     #dc2626;
+  --red-lt:  #fee2e2;
+  --red-bd:  #fca5a5;
 
-  --red:       #dc2626;
-  --red-lt:    #fee2e2;
-  --red-mid:   #fca5a5;
+  --purple:  #7c3aed;
+  --purple-lt:#ede9fe;
 
-  --purple:    #7c3aed;
-  --purple-lt: #ede9fe;
-
-  --r:    12px;
-  --rsm:  8px;
-  --sh:   0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.07);
-  --sh2:  0 8px 32px rgba(0,0,0,.14);
-
-  --nav-h: 68px; /* bottom nav height */
-  --top-h: 56px; /* topbar height */
-  --safe-b: env(safe-area-inset-bottom, 0px);
+  --r:  14px;
+  --rsm: 9px;
+  --sh: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.07);
+  --sh2: 0 8px 40px rgba(0,0,0,.16);
+  --nav-h: 66px;
+  --top-h: 54px;
+  --sb: env(safe-area-inset-bottom, 0px);
 }
-
-html { height: 100%; }
+html, body { height:100%; overscroll-behavior:none; }
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg);
-  color: var(--ink);
-  font-size: 15px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100%;
-  overscroll-behavior: none;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  background:var(--bg); color:var(--ink);
+  font-size:15px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
 }
-button { font-family: inherit; cursor: pointer; border: none; background: none; }
-input, select, textarea { font-family: inherit; }
-img { display: block; }
+button { font-family:inherit; cursor:pointer; border:none; background:none; -webkit-tap-highlight-color:transparent; }
+input,select,textarea { font-family:inherit; }
 
-/* ═══════════════════════════════════════════
-   APP SHELL
-═══════════════════════════════════════════ */
+/* ── APP SHELL ── */
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--bg);
-  position: relative;
+  display:flex; flex-direction:column;
+  height:100dvh; max-width:480px;
+  margin:0 auto; background:var(--bg);
+  position:relative;
 }
 
 /* ── TOPBAR ── */
 .topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid var(--line);
-  height: var(--top-h);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  gap: 10px;
-  flex-shrink: 0;
+  position:sticky; top:0; z-index:100;
+  height:var(--top-h);
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:center;
+  padding:0 16px; gap:10px; flex-shrink:0;
 }
-.topbar-logo {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: var(--ink);
-  flex: 1;
+.tb-logo {
+  font-size:20px; font-weight:800;
+  letter-spacing:-.6px; flex:1; color:var(--ink);
 }
-.topbar-logo span { color: var(--blue); }
-.topbar-title {
-  font-size: 17px;
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.tb-logo span { color:var(--blue); }
+.tb-title {
+  font-size:17px; font-weight:700;
+  letter-spacing:-.3px; flex:1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.topbar-action {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: var(--rsm);
-  font-size: 13px;
-  font-weight: 700;
-  border: 1.5px solid;
-  transition: opacity .15s;
+.tb-back {
+  color:var(--blue); font-size:15px; font-weight:700;
+  display:flex; align-items:center; gap:4px;
+  padding:6px 10px 6px 0;
 }
-.topbar-action:active { opacity: .75; }
-.ta-primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-.ta-danger  { background: none; color: var(--red); border-color: var(--red-mid); }
+.tb-action {
+  padding:8px 14px; border-radius:var(--rsm);
+  font-size:13px; font-weight:700;
+  border:1.5px solid; transition:opacity .15s;
+}
+.tb-action:active { opacity:.7; }
+.tb-action.blue { background:var(--blue); color:#fff; border-color:var(--blue); }
+.tb-action.ghost { background:none; border-color:var(--line2); color:var(--ink2); }
 
-/* ── SCROLL AREA ── */
-.scroll-area {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: calc(var(--nav-h) + var(--safe-b) + 16px);
+/* ── SCROLL ── */
+.scroll {
+  flex:1; overflow-y:auto; overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding-bottom:calc(var(--nav-h) + var(--sb) + 20px);
 }
-.scroll-area::-webkit-scrollbar { display: none; }
+.scroll::-webkit-scrollbar { display:none; }
+.pad { padding:16px; }
 
 /* ── BOTTOM NAV ── */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 500px;
-  height: calc(var(--nav-h) + var(--safe-b));
-  background: var(--white);
-  border-top: 1px solid var(--line);
-  display: flex;
-  align-items: flex-start;
-  padding-top: 8px;
-  padding-bottom: var(--safe-b);
-  z-index: 100;
-  box-shadow: 0 -4px 20px rgba(0,0,0,.06);
+.bnav {
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:480px;
+  height:calc(var(--nav-h) + var(--sb));
+  background:var(--white); border-top:1px solid var(--line);
+  display:flex; align-items:flex-start;
+  padding-top:10px; padding-bottom:var(--sb);
+  z-index:100; box-shadow:0 -4px 24px rgba(0,0,0,.07);
 }
-.bn-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  padding: 4px 8px;
-  color: var(--ink3);
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: .03em;
-  transition: color .15s;
-  position: relative;
+.bn {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; gap:3px;
+  color:var(--ink3); font-size:10px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.05em;
+  transition:color .15s;
 }
-.bn-item.active { color: var(--blue); }
-.bn-icon {
-  font-size: 22px;
-  line-height: 1;
-  position: relative;
-}
+.bn.active { color:var(--blue); }
+.bn-ic { font-size:22px; line-height:1; position:relative; }
 .bn-badge {
-  position: absolute;
-  top: -4px; right: -8px;
-  background: var(--red);
-  color: white;
-  font-size: 10px;
-  font-weight: 800;
-  padding: 1px 5px;
-  border-radius: 99px;
-  min-width: 18px;
-  text-align: center;
-  border: 2px solid var(--white);
+  position:absolute; top:-5px; right:-10px;
+  background:var(--red); color:#fff;
+  font-size:9px; font-weight:800;
+  padding:1px 5px; border-radius:99px;
+  min-width:17px; text-align:center;
+  border:2px solid var(--white);
 }
-.bn-label { font-size: 10px; }
 
-/* ═══════════════════════════════════════════
-   VIEWS
-═══════════════════════════════════════════ */
-.view { display: none; }
-.view.active { display: block; }
+/* ── VIEWS ── */
+.view { display:none; }
+.view.active { display:block; }
 
-/* ─── PAGE PADDING ─── */
-.page-pad { padding: 16px; }
-
-/* ═══════════════════════════════════════════
-   COMPONENTS
-═══════════════════════════════════════════ */
-
-/* ── SECTION TITLE ── */
-.sec-title {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--ink3);
-  margin-bottom: 10px;
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ══════════════════════════════════
+   WEEKLY CALENDAR
+══════════════════════════════════ */
+.week-wrap {
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:var(--sh);
+  overflow:hidden;
+  margin-bottom:16px;
 }
-.sec-title:first-child { margin-top: 0; }
+.week-top {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px 10px;
+  border-bottom:1px solid var(--line);
+}
+.week-top-title { font-size:13px; font-weight:700; color:var(--ink2); }
+.week-top-sub { font-size:11px; color:var(--ink3); margin-top:1px; }
+.wk-arrows { display:flex; gap:5px; }
+.wk-arr {
+  width:30px; height:30px; border-radius:var(--rsm);
+  background:var(--bg); border:1.5px solid var(--line);
+  color:var(--ink2); font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .15s;
+}
+.wk-arr:active { background:var(--bg2); }
 
-/* ── STAT STRIP ── */
-.stat-strip {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 20px;
+/* 7-day grid */
+.week-grid {
+  display:grid; grid-template-columns:repeat(7,1fr);
+  padding:12px 10px 14px; gap:3px;
 }
-.stat-card {
-  background: var(--white);
-  border-radius: var(--r);
-  padding: 16px;
-  box-shadow: var(--sh);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+.wday {
+  display:flex; flex-direction:column;
+  align-items:center; gap:3px;
+  padding:6px 2px; border-radius:10px;
+  cursor:pointer; transition:background .12s;
 }
-.stat-emoji { font-size: 24px; margin-bottom: 6px; }
+.wday:active { background:var(--bg); }
+
+.wd-name {
+  font-size:9px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.06em;
+  color:var(--ink3);
+}
+.wd-num-wrap {
+  width:34px; height:34px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  position:relative;
+}
+.wday.is-today .wd-num-wrap { background:var(--blue); }
+.wd-num {
+  font-size:14px; font-weight:700;
+  color:var(--ink2);
+}
+.wday.is-today .wd-num { color:#fff; }
+
+/* the X mark for complete days */
+.wd-status { height:18px; display:flex; align-items:center; justify-content:center; }
+.wd-x {
+  font-size:13px; font-weight:900;
+  color:var(--green);
+  background:var(--green-lt);
+  width:20px; height:20px; border-radius:99px;
+  display:flex; align-items:center; justify-content:center;
+  line-height:1;
+}
+.wd-pending {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--blue-bd);
+}
+.wd-dots-row { display:flex; gap:2px; align-items:center; }
+.wd-dot { width:5px; height:5px; border-radius:50%; }
+.wd-dot-m { background:var(--blue-bd); }
+.wd-dot-t { background:var(--amber); }
+.wd-none { width:6px; height:6px; }
+
+/* ══════════════════════════════════
+   STAT CARDS
+══════════════════════════════════ */
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
+.stat {
+  background:var(--white); border-radius:var(--r);
+  padding:16px 16px 14px; box-shadow:var(--sh);
+}
+.stat-emoji { font-size:24px; margin-bottom:8px; display:block; }
 .stat-num {
-  font-size: 36px;
-  font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1;
+  font-size:34px; font-weight:800;
+  letter-spacing:-1.5px; line-height:1;
 }
-.stat-num.blue   { color: var(--blue); }
-.stat-num.green  { color: var(--green); }
-.stat-num.amber  { color: var(--amber); }
-.stat-num.red    { color: var(--red); }
-.stat-lbl { font-size: 13px; font-weight: 600; color: var(--ink2); margin-top: 2px; }
-.stat-sub { font-size: 11px; color: var(--ink3); }
+.stat-num.c-blue  { color:var(--blue); }
+.stat-num.c-green { color:var(--green); }
+.stat-num.c-amber { color:var(--amber); }
+.stat-num.c-red   { color:var(--red); }
+.stat-label { font-size:13px; font-weight:600; color:var(--ink2); margin-top:4px; }
+.stat-sub   { font-size:11px; color:var(--ink3); margin-top:2px; }
 
-/* ── CARD ── */
+/* ══════════════════════════════════
+   SECTION HEADING
+══════════════════════════════════ */
+.sec {
+  font-size:12px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink3);
+  margin:20px 0 10px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.sec:first-child { margin-top:0; }
+.sec-link {
+  font-size:12px; font-weight:700;
+  color:var(--blue); text-transform:none; letter-spacing:0;
+  cursor:pointer;
+}
+
+/* ══════════════════════════════════
+   CARD
+══════════════════════════════════ */
 .card {
-  background: var(--white);
-  border-radius: var(--r);
-  box-shadow: var(--sh);
-  overflow: hidden;
-  margin-bottom: 12px;
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:var(--sh);
+  overflow:hidden;
+  margin-bottom:12px;
 }
 
-/* ── SESSION CARD ── */
-.session-head {
-  padding: 14px 16px 10px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+/* ══════════════════════════════════
+   MATERI ITEM  — button-based action
+══════════════════════════════════ */
+.mitem {
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:12px;
+  transition:background .1s;
 }
-.session-head-info {}
-.session-head-title { font-size: 15px; font-weight: 700; }
-.session-head-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
-.shuffle-btn {
-  flex-shrink: 0;
-  background: var(--bg);
-  border: 1.5px solid var(--line);
-  border-radius: var(--rsm);
-  padding: 7px 12px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink2);
-  transition: all .15s;
+.mitem:last-child { border-bottom:none; }
+.mitem.is-done { opacity:.65; }
+
+/* left accent bar */
+.mitem.is-done  { border-left:3px solid var(--green); }
+.mitem.is-todo  { border-left:3px solid var(--blue-bd); }
+
+.mi-body { flex:1; min-width:0; }
+.mi-subj {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.06em;
+  margin-bottom:2px;
 }
-.shuffle-btn:active { background: var(--bg2); }
-.sess-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 13px 16px;
-  border-bottom: 1px solid var(--line);
+.mi-name {
+  font-size:15px; font-weight:600;
+  color:var(--ink); line-height:1.3;
 }
-.sess-item:last-child { border-bottom: none; }
-.sess-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.sess-body { flex: 1; min-width: 0; }
-.sess-name { font-size: 14px; font-weight: 600; line-height: 1.3; }
-.sess-meta { font-size: 12px; color: var(--ink3); margin-top: 3px; }
-.sess-time {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--blue);
-  background: var(--blue-lt);
-  padding: 4px 10px;
-  border-radius: 99px;
-  flex-shrink: 0;
-  white-space: nowrap;
+.mi-name.done { color:var(--ink3); text-decoration:line-through; }
+.mi-date { font-size:11px; color:var(--ink3); margin-top:4px; }
+
+/* THE ACTION BUTTON */
+.mi-btn {
+  flex-shrink:0;
+  padding:8px 14px;
+  border-radius:var(--rsm);
+  font-size:12px; font-weight:700;
+  border:1.5px solid;
+  transition:all .18s;
+  white-space:nowrap;
+  line-height:1.3;
+  text-align:center;
+}
+.mi-btn:active { opacity:.7; transform:scale(.96); }
+
+/* todo state */
+.mi-btn.todo {
+  background:var(--blue-lt);
+  border-color:var(--blue-bd);
+  color:var(--blue);
+}
+/* done state */
+.mi-btn.done {
+  background:var(--green-lt);
+  border-color:var(--green-bd);
+  color:var(--green);
 }
 
-/* ── TOPIC ITEM ── */
-.topic-item {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.mi-more {
+  flex-shrink:0; padding:6px 8px;
+  border-radius:8px; color:var(--ink3);
+  font-size:17px; line-height:1;
 }
-.topic-item:last-child { border-bottom: none; }
-.topic-item:active { background: var(--bg); }
-.topic-item.is-late  { border-left: 3px solid var(--red); }
-.topic-item.is-due   { border-left: 3px solid var(--amber); }
-.topic-item.is-ok    { border-left: 3px solid var(--green); }
+.mi-more:active { background:var(--bg); }
 
-.topic-idx { font-size: 11px; font-weight: 700; color: var(--ink3); width: 22px; flex-shrink: 0; text-align: right; padding-top: 3px; }
-.topic-body { flex: 1; min-width: 0; }
-.topic-subj-chip {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  margin-bottom: 3px;
+/* ══════════════════════════════════
+   TUGAS ITEM
+══════════════════════════════════ */
+.titem {
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:flex-start; gap:12px;
 }
-.topic-name { font-size: 15px; font-weight: 600; line-height: 1.3; color: var(--ink); }
-.topic-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; align-items: center; }
+.titem:last-child { border-bottom:none; }
+.titem.is-done { opacity:.6; }
 
-/* chips */
-.chip {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 3px 9px;
-  border-radius: 99px;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  white-space: nowrap;
+.ti-body { flex:1; min-width:0; }
+.ti-name {
+  font-size:15px; font-weight:600;
+  color:var(--ink); line-height:1.3;
 }
-.chip-ar    { background: var(--green-lt);  color: var(--green); }
-.chip-noar  { background: var(--bg2);       color: var(--ink3); }
-.chip-due   { background: var(--amber-lt);  color: var(--amber); }
-.chip-late  { background: var(--red-lt);    color: var(--red); }
-.chip-ok    { background: var(--bg2);       color: var(--ink3); }
-.chip-gen   { background: var(--purple-lt); color: var(--purple); }
+.ti-name.done { color:var(--ink3); text-decoration:line-through; }
+.ti-meta { display:flex; gap:5px; margin-top:6px; flex-wrap:wrap; align-items:center; }
 
-/* pips */
-.pips { display: flex; gap: 3px; align-items: center; }
-.pip { width: 14px; height: 4px; border-radius: 2px; background: var(--bg2); }
-.pip.on { background: var(--blue); }
+.ti-subj-chip {
+  font-size:11px; font-weight:700;
+  padding:3px 8px; border-radius:99px;
+}
+.ti-dl {
+  font-size:11px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+}
+.dl-ok   { background:var(--blue-lt);  color:var(--blue); }
+.dl-soon { background:var(--amber-lt); color:var(--amber); }
+.dl-late { background:var(--red-lt);   color:var(--red); }
+.dl-done { background:var(--bg2);      color:var(--ink3); }
 
-/* topic action area */
-.topic-acts { display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; }
-.tact {
-  font-size: 12px;
-  font-weight: 700;
-  padding: 7px 12px;
-  border-radius: var(--rsm);
-  border: 1.5px solid var(--line);
-  background: var(--white);
-  color: var(--ink2);
-  transition: all .15s;
-  white-space: nowrap;
+/* tugas action button */
+.ti-btn {
+  flex-shrink:0; padding:8px 12px;
+  border-radius:var(--rsm);
+  font-size:12px; font-weight:700;
+  border:1.5px solid;
+  transition:all .18s; white-space:nowrap;
+  margin-top:1px;
 }
-.tact:active { opacity: .75; }
-.tact.primary { background: var(--blue); color: white; border-color: var(--blue); }
-.tact.success { background: var(--green); color: white; border-color: var(--green); }
-.tact.ghost { border-color: transparent; color: var(--ink3); font-size: 18px; padding: 5px 8px; }
+.ti-btn:active { opacity:.7; transform:scale(.96); }
+.ti-btn.todo { background:var(--bg); border-color:var(--line2); color:var(--ink2); }
+.ti-btn.done { background:var(--green-lt); border-color:var(--green-bd); color:var(--green); }
 
-/* notes */
-.topic-notes {
-  background: var(--blue-lt);
-  border-left: 3px solid var(--blue-mid);
-  padding: 10px 16px 11px 52px;
-  font-size: 13px;
-  color: var(--ink2);
-  line-height: 1.7;
-  border-bottom: 1px solid var(--line);
-  white-space: pre-wrap;
-}
-.topic-notes:last-child { border-bottom: none; }
+.ti-more { flex-shrink:0; padding:6px 8px; border-radius:8px; color:var(--ink3); font-size:17px; margin-top:1px; }
+.ti-more:active { background:var(--bg); }
 
-/* ── SUBJECT NAV LIST ── */
-.subj-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--line);
-  cursor: pointer;
-  transition: background .1s;
-  -webkit-tap-highlight-color: transparent;
+/* ══════════════════════════════════
+   SUBJECT LIST ITEM
+══════════════════════════════════ */
+.sitem {
+  display:flex; align-items:center; gap:12px;
+  padding:14px 16px; border-bottom:1px solid var(--line);
+  cursor:pointer; transition:background .1s;
 }
-.subj-nav-item:last-child { border-bottom: none; }
-.subj-nav-item:active { background: var(--bg); }
-.subj-icon-circle {
-  width: 40px; height: 40px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
+.sitem:last-child { border-bottom:none; }
+.sitem:active { background:var(--bg); }
+.si-icon {
+  width:44px; height:44px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:21px; flex-shrink:0;
 }
-.subj-nav-info { flex: 1; min-width: 0; }
-.subj-nav-name { font-size: 15px; font-weight: 700; }
-.subj-nav-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
-.subj-nav-badge {
-  font-size: 12px; font-weight: 700;
-  padding: 3px 9px; border-radius: 99px;
-  background: var(--amber-lt); color: var(--amber);
+.si-body { flex:1; min-width:0; }
+.si-name { font-size:15px; font-weight:700; }
+.si-sub  { font-size:12px; color:var(--ink3); margin-top:2px; }
+.si-badge {
+  font-size:11px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+  background:var(--amber-lt); color:var(--amber);
+  flex-shrink:0;
 }
-.subj-nav-badge.hot { background: var(--red-lt); color: var(--red); }
-.subj-nav-chevron { font-size: 14px; color: var(--ink3); }
+.si-chev { color:var(--ink3); font-size:16px; }
 
-/* ── SUBJECT DETAIL HEADER ── */
-.subj-detail-header {
-  background: var(--white);
-  padding: 20px 16px 16px;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 0;
+/* ══════════════════════════════════
+   SUBJECT DETAIL HEADER
+══════════════════════════════════ */
+.sdh {
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:18px 16px 16px;
+  display:flex; align-items:center; gap:14px;
 }
-.sdh-icon {
-  width: 52px; height: 52px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 26px;
-  flex-shrink: 0;
+.sdh-ico {
+  width:52px; height:52px; border-radius:13px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; flex-shrink:0;
 }
-.sdh-info { flex: 1; }
-.sdh-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--ink3); margin-bottom: 3px; }
-.sdh-name { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
-.sdh-prog { font-size: 12px; color: var(--ink3); margin-top: 5px; }
-.prog-bar { height: 5px; background: var(--bg2); border-radius: 99px; overflow: hidden; margin-top: 6px; }
-.prog-fill { height: 100%; background: var(--blue); border-radius: 99px; transition: width .4s; }
+.sdh-info { flex:1; }
+.sdh-type {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink3); margin-bottom:3px;
+}
+.sdh-name {
+  font-size:21px; font-weight:800;
+  letter-spacing:-.5px; line-height:1.1;
+}
+.sdh-prog { font-size:12px; color:var(--ink3); margin-top:5px; }
+.pbar { height:5px; background:var(--bg2); border-radius:99px; overflow:hidden; margin-top:6px; }
+.pfill { height:100%; background:var(--blue); border-radius:99px; transition:width .4s; }
 
-/* ── CALENDAR ── */
-.cal-header {
-  padding: 14px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+/* ══════════════════════════════════
+   GUIDE BOX
+══════════════════════════════════ */
+.guide {
+  background:linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);
+  border-radius:var(--r);
+  padding:16px;
+  margin-bottom:14px;
+  display:flex; gap:12px;
 }
-.cal-month { font-size: 16px; font-weight: 700; }
-.cal-nav { display: flex; gap: 6px; }
-.cal-btn {
-  width: 34px; height: 34px;
-  border-radius: var(--rsm);
-  background: var(--bg);
-  border: 1.5px solid var(--line);
-  color: var(--ink2);
-  font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all .15s;
-}
-.cal-btn:active { background: var(--bg2); }
-.cal-inner { padding: 10px 12px 14px; }
-.cal-dows { display: grid; grid-template-columns: repeat(7,1fr); margin-bottom: 4px; }
-.cal-dow {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink3);
-  text-transform: uppercase;
-  letter-spacing: .04em;
-  padding: 3px 0;
-}
-.cal-days { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
-.cal-day {
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 500;
-  border-radius: var(--rsm);
-  cursor: pointer;
-  color: var(--ink2);
-  gap: 2px;
-  -webkit-tap-highlight-color: transparent;
-  transition: background .12s;
-}
-.cal-day:active { opacity: .7; }
-.cal-day.faded { color: var(--ink3); }
-.cal-day.today { background: var(--blue); color: white; font-weight: 700; }
-.cal-day.selected:not(.today) { background: var(--blue-lt); color: var(--blue); font-weight: 700; outline: 1.5px solid var(--blue-mid); }
-.cal-dots { display: flex; gap: 2px; }
-.cal-dot { width: 4px; height: 4px; border-radius: 50%; }
-.cd-l { background: var(--blue); }
-.cd-r { background: var(--amber); }
-
-/* ── CAL DETAIL ── */
-.cal-det-section {
-  padding: 10px 16px 7px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--ink3);
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
+.guide-ic { font-size:24px; flex-shrink:0; }
+.guide-title { font-size:14px; font-weight:800; color:#1e3a8a; margin-bottom:5px; }
+.guide-steps { display:flex; flex-direction:column; gap:4px; }
+.guide-step { font-size:12px; color:#1e40af; line-height:1.5; display:flex; gap:6px; }
+.guide-step-num {
+  font-size:10px; font-weight:800;
+  background:#2563eb; color:#fff;
+  width:16px; height:16px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:2px;
 }
 
-/* ── UPCOMING ── */
-.uprow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--line);
-}
-.uprow:last-child { border-bottom: none; }
-.up-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-.up-body { flex: 1; min-width: 0; }
-.up-name { font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.up-subj { font-size: 11px; color: var(--ink3); margin-top: 2px; }
-.up-when {
-  font-size: 12px; font-weight: 700;
-  padding: 4px 10px; border-radius: 99px;
-  flex-shrink: 0;
-}
-.wh-late  { background: var(--red-lt);   color: var(--red); }
-.wh-today { background: var(--amber-lt); color: var(--amber); }
-.wh-ok    { background: var(--bg2);      color: var(--ink3); }
+/* ══════════════════════════════════
+   EMPTY STATE
+══════════════════════════════════ */
+.empty { padding:36px 20px; text-align:center; }
+.empty-ic { font-size:32px; display:block; margin-bottom:10px; }
+.empty-t { font-size:15px; font-weight:700; color:var(--ink2); }
+.empty-s { font-size:13px; color:var(--ink3); margin-top:4px; }
 
-/* ── HEATMAP ── */
-.hm-wrap { padding: 14px 16px; }
-.hm-label { font-size: 12px; color: var(--ink3); margin-bottom: 8px; }
-.hm-grid { display: flex; gap: 2px; flex-wrap: wrap; }
-.hmc { width: 13px; height: 13px; border-radius: 3px; background: var(--bg2); }
-.hmc[data-v="1"] { background: #bfdbfe; }
-.hmc[data-v="2"] { background: #93c5fd; }
-.hmc[data-v="3"] { background: #3b82f6; }
-.hmc[data-v="4"] { background: var(--blue); }
-
-/* ── EMPTY STATE ── */
-.empty {
-  padding: 40px 20px;
-  text-align: center;
+/* ══════════════════════════════════
+   ADD BUTTON INSIDE CARD
+══════════════════════════════════ */
+.card-add {
+  display:flex; align-items:center; gap:8px;
+  width:100%; padding:13px 16px;
+  color:var(--blue); font-size:14px; font-weight:700;
+  border-top:1px solid var(--line);
+  transition:background .1s;
 }
-.empty-emoji { font-size: 36px; display: block; margin-bottom: 10px; }
-.empty-title { font-size: 16px; font-weight: 700; color: var(--ink2); }
-.empty-sub { font-size: 13px; color: var(--ink3); margin-top: 5px; }
+.card-add:active { background:var(--blue-lt); }
 
-/* ── INFO BANNER ── */
-.banner {
-  margin: 0 16px 12px;
-  padding: 12px 14px;
-  border-radius: var(--r);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13px;
-  line-height: 1.5;
-}
-.banner-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-.banner.blue  { background: var(--blue-lt);  color: #1e40af; }
-.banner.amber { background: var(--amber-lt); color: #92400e; }
-.banner.red   { background: var(--red-lt);   color: #991b1b; }
-.banner strong { font-weight: 700; }
-
-/* ═══════════════════════════════════════════
-   MODAL / SHEET
-═══════════════════════════════════════════ */
+/* ══════════════════════════════════
+   BOTTOM SHEET / MODAL
+══════════════════════════════════ */
 .overlay {
-  position: fixed; inset: 0;
-  z-index: 400;
-  background: rgba(0,0,0,.4);
-  backdrop-filter: blur(4px);
-  opacity: 0; pointer-events: none;
-  transition: opacity .2s;
-  display: flex;
-  align-items: flex-end; /* bottom sheet on mobile */
-  justify-content: center;
+  position:fixed; inset:0; z-index:500;
+  background:rgba(26,23,20,.45);
+  backdrop-filter:blur(5px);
+  opacity:0; pointer-events:none; transition:opacity .2s;
+  display:flex; align-items:flex-end; justify-content:center;
 }
-.overlay.open { opacity: 1; pointer-events: all; }
-
+.overlay.open { opacity:1; pointer-events:all; }
 .sheet {
-  background: var(--white);
-  border-radius: 20px 20px 0 0;
-  width: 100%;
-  max-width: 500px;
-  max-height: 92dvh;
-  overflow-y: auto;
-  padding: 0 0 calc(20px + var(--safe-b));
-  transform: translateY(100%);
-  transition: transform .25s cubic-bezier(.32,.72,0,1);
+  background:var(--white);
+  border-radius:22px 22px 0 0;
+  width:100%; max-width:480px;
+  max-height:92dvh; overflow-y:auto;
+  padding-bottom:calc(24px + var(--sb));
+  transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.32,.72,0,1);
 }
-.overlay.open .sheet { transform: translateY(0); }
+.overlay.open .sheet { transform:translateY(0); }
+.sh-handle { width:38px; height:4px; background:var(--line2); border-radius:99px; margin:13px auto 18px; }
+.sh-title {
+  font-size:19px; font-weight:800; letter-spacing:-.4px;
+  padding:0 20px 16px; border-bottom:1px solid var(--line);
+}
+.sh-title.danger { color:var(--red); }
+.sh-body { padding:18px 20px 0; }
 
-.sheet-handle {
-  width: 36px; height: 4px;
-  background: var(--bg2);
-  border-radius: 99px;
-  margin: 12px auto 16px;
+.field { margin-bottom:15px; }
+.flbl {
+  font-size:12px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.07em;
+  color:var(--ink3); margin-bottom:6px;
+  display:block;
 }
-.sheet-title {
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.4px;
-  padding: 0 20px 16px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 4px;
+.field input, .field select, .field textarea {
+  width:100%; padding:13px 14px;
+  background:var(--bg); border:1.5px solid var(--line);
+  border-radius:var(--rsm); font-size:15px; color:var(--ink);
+  outline:none; transition:border-color .15s; -webkit-appearance:none;
 }
-.sheet-title.danger { color: var(--red); }
-.sheet-body { padding: 8px 20px 0; }
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color:var(--blue); background:var(--white);
+}
+.field textarea { resize:none; min-height:80px; line-height:1.6; }
+.field select {
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b0a89c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:right 14px center; padding-right:36px;
+}
 
-.field { margin-bottom: 14px; }
-.field-label {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--ink3);
-  margin-bottom: 6px;
+.color-row { display:flex; gap:8px; flex-wrap:wrap; }
+.co {
+  width:30px; height:30px; border-radius:50%;
+  border:3px solid transparent; cursor:pointer; transition:all .15s;
 }
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  padding: 12px 14px;
-  background: var(--bg);
-  border: 1.5px solid var(--line);
-  border-radius: var(--rsm);
-  font-size: 15px;
-  color: var(--ink);
-  outline: none;
-  transition: border-color .15s;
-  -webkit-appearance: none;
-}
-.field input:focus,
-.field select:focus,
-.field textarea:focus { border-color: var(--blue); background: var(--white); }
-.field textarea { resize: none; min-height: 90px; line-height: 1.6; }
-.field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b0a89a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+.co.sel { border-color:var(--ink); transform:scale(1.15); }
 
-.color-row { display: flex; gap: 8px; flex-wrap: wrap; }
-.color-opt {
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  cursor: pointer;
-  transition: all .15s;
-}
-.color-opt.selected { border-color: var(--ink); transform: scale(1.12); }
-
-.sheet-footer {
-  padding: 16px 20px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.sheet-footer-row { display: flex; gap: 8px; }
+.sh-footer { padding:16px 20px 0; display:flex; flex-direction:column; gap:9px; }
+.sh-row { display:flex; gap:9px; }
 .sbtn {
-  flex: 1;
-  padding: 14px;
-  border-radius: var(--r);
-  font-size: 15px;
-  font-weight: 700;
-  text-align: center;
-  transition: opacity .15s;
-  border: 1.5px solid;
+  flex:1; padding:15px; border-radius:var(--r);
+  font-size:15px; font-weight:700; text-align:center;
+  border:1.5px solid; transition:opacity .15s;
 }
-.sbtn:active { opacity: .75; }
-.sbtn-primary { background: var(--blue); color: white; border-color: var(--blue); }
-.sbtn-ghost   { background: none; border-color: var(--line); color: var(--ink2); }
-.sbtn-danger  { background: var(--red-lt); border-color: var(--red-mid); color: var(--red); font-size: 13px; padding: 11px; }
+.sbtn:active { opacity:.75; }
+.sbtn-p { background:var(--blue);  color:#fff;       border-color:var(--blue); }
+.sbtn-g { background:none;         color:var(--ink2); border-color:var(--line2); }
+.sbtn-d { background:var(--red-lt); color:var(--red); border-color:var(--red-bd); font-size:13px; padding:12px; }
 
-.danger-body {
-  font-size: 15px;
-  color: var(--ink2);
-  line-height: 1.7;
-  padding: 8px 20px 16px;
-}
-.danger-body strong { color: var(--ink); font-weight: 700; }
+.danger-body { font-size:15px; color:var(--ink2); line-height:1.7; padding:14px 20px 16px; }
+.danger-body strong { color:var(--ink); font-weight:700; }
 
-/* ── TOAST ── */
+/* ══════════════════════════════════
+   TOAST
+══════════════════════════════════ */
 .toast {
-  position: fixed;
-  bottom: calc(var(--nav-h) + var(--safe-b) + 12px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: var(--ink);
-  color: #fff;
-  padding: 11px 18px;
-  border-radius: 99px;
-  font-size: 13px;
-  font-weight: 600;
-  z-index: 999;
-  box-shadow: var(--sh2);
-  opacity: 0;
-  transition: all .2s;
-  pointer-events: none;
-  white-space: nowrap;
-  max-width: calc(100% - 32px);
+  position:fixed;
+  bottom:calc(var(--nav-h) + var(--sb) + 14px);
+  left:50%; transform:translateX(-50%) translateY(8px);
+  background:var(--ink); color:#fff;
+  padding:11px 20px; border-radius:99px;
+  font-size:13px; font-weight:600;
+  box-shadow:var(--sh2); z-index:999;
+  opacity:0; transition:all .22s;
+  pointer-events:none; white-space:nowrap;
+  max-width:calc(100vw - 40px);
 }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* ═══════════════════════════════════════════
-   DESKTOP ENHANCEMENTS (≥600px)
-═══════════════════════════════════════════ */
-@media (min-width: 600px) {
-  .app { box-shadow: 0 0 60px rgba(0,0,0,.12); }
-  .stat-strip { grid-template-columns: repeat(4,1fr); }
-  .overlay { align-items: center; }
-  .sheet {
-    border-radius: 20px;
-    max-width: 460px;
-    width: 460px;
-    transform: translateY(20px) scale(.97);
-    margin-bottom: 0;
-  }
-  .overlay.open .sheet { transform: none; }
+@media(min-width:500px){
+  .app { box-shadow:0 0 80px rgba(0,0,0,.12); }
+  .overlay { align-items:center; }
+  .sheet { border-radius:22px; max-width:440px; width:440px; transform:translateY(18px) scale(.97); margin-bottom:0; }
+  .overlay.open .sheet { transform:none; }
 }
 </style>
 </head>
 <body>
-
 <div class="app">
 
-  <!-- ── TOPBAR ── -->
+  <!-- TOPBAR -->
   <div class="topbar" id="topbar">
-    <div class="topbar-logo">Study<span>OS</span></div>
+    <div class="tb-logo">Study<span>OS</span></div>
   </div>
 
-  <!-- ── SCROLL AREA ── -->
-  <div class="scroll-area" id="scroll-area">
+  <!-- SCROLL AREA -->
+  <div class="scroll" id="scroll">
 
-    <!-- ════ DASHBOARD ════ -->
-    <div class="view active" id="view-home">
-      <div class="page-pad">
+    <!-- ══ HOME ══ -->
+    <div class="view active" id="v-home">
+      <div class="pad">
 
-        <div class="stat-strip">
-          <div class="stat-card">
-            <div class="stat-emoji">📖</div>
-            <div class="stat-num blue" id="s-total">0</div>
-            <div class="stat-lbl">Total Materi</div>
-            <div class="stat-sub">Semua subjek</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-emoji">🔁</div>
-            <div class="stat-num amber" id="s-due">0</div>
-            <div class="stat-lbl">Due Hari Ini</div>
-            <div class="stat-sub" id="s-due-sub">—</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-emoji">✅</div>
-            <div class="stat-num green" id="s-ar">0</div>
-            <div class="stat-lbl">Active Recall</div>
-            <div class="stat-sub">Sudah selesai</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-emoji">⚠️</div>
-            <div class="stat-num red" id="s-ov">0</div>
-            <div class="stat-lbl">Overdue</div>
-            <div class="stat-sub" id="s-ov-sub">—</div>
-          </div>
-        </div>
-
-        <!-- Sesi Interleaving -->
-        <div class="sec-title">
-          🔀 Sesi Belajar Hari Ini
-        </div>
-        <div class="card">
-          <div class="session-head">
-            <div class="session-head-info">
-              <div class="session-head-title">Interleaving Session</div>
-              <div class="session-head-sub">Gado-gado · terbukti +43% lebih efektif</div>
+        <!-- Weekly Calendar -->
+        <div class="week-wrap">
+          <div class="week-top">
+            <div>
+              <div class="week-top-title" id="wk-title">Minggu ini</div>
+              <div class="week-top-sub" id="wk-sub"></div>
             </div>
-            <button class="shuffle-btn" onclick="buildSession()">🎲 Shuffle</button>
+            <div class="wk-arrows">
+              <button class="wk-arr" onclick="shiftWeek(-1)">‹</button>
+              <button class="wk-arr" onclick="shiftWeek(1)">›</button>
+            </div>
           </div>
-          <div id="session-rows"></div>
+          <div class="week-grid" id="week-grid"></div>
         </div>
 
-        <!-- Due & Overdue -->
-        <div class="sec-title">⚡ Due & Overdue</div>
-        <div class="card" id="due-card"></div>
+        <!-- Stats -->
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-emoji">📖</span>
+            <div class="stat-num c-blue" id="st-m">0</div>
+            <div class="stat-label">Total Materi</div>
+            <div class="stat-sub" id="st-m-s">—</div>
+          </div>
+          <div class="stat">
+            <span class="stat-emoji">📋</span>
+            <div class="stat-num c-amber" id="st-t">0</div>
+            <div class="stat-label">Tugas Aktif</div>
+            <div class="stat-sub" id="st-t-s">—</div>
+          </div>
+        </div>
+
+        <!-- Pending Materi -->
+        <div class="sec">
+          ⚡ Belum Latihan Soal
+          <span class="sec-link" onclick="goView('subjects', document.getElementById('bn-s'))">Lihat semua →</span>
+        </div>
+        <div class="card" id="home-pending"></div>
+
+        <!-- Upcoming Tugas -->
+        <div class="sec">📋 Tugas Aktif</div>
+        <div class="card" id="home-tugas"></div>
 
       </div>
     </div>
 
-    <!-- ════ SUBJECTS ════ -->
-    <div class="view" id="view-subjects">
-      <div class="page-pad">
-        <div class="sec-title">
-          📚 Mata Kuliah
-        </div>
-        <div class="card" id="subj-mk-list"></div>
+    <!-- ══ SUBJECTS ══ -->
+    <div class="view" id="v-subjects">
+      <div class="pad">
+        <div class="sec">📚 Mata Kuliah</div>
+        <div class="card" id="list-mk"></div>
 
-        <div class="sec-title">🧠 Personal / Self-Study</div>
-        <div class="card" id="subj-ps-list"></div>
+        <div class="sec">🧠 Personal / Self-Study</div>
+        <div class="card" id="list-ps"></div>
 
-        <button class="card" style="width:100%;padding:16px;display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:var(--blue);background:var(--blue-lt);border:1.5px dashed var(--blue-mid);box-shadow:none;margin-bottom:0;cursor:pointer;" onclick="openSheet('sh-addsubj')">
-          <span style="font-size:20px">＋</span> Tambah Subjek Baru
+        <button onclick="openSheet('sh-addsubj')"
+          style="display:flex;align-items:center;justify-content:center;gap:10px;
+                 width:100%;padding:16px;border-radius:var(--r);
+                 background:var(--blue-lt);border:1.5px dashed var(--blue-bd);
+                 color:var(--blue);font-size:14px;font-weight:700;margin-top:4px;">
+          ＋ Tambah Subjek Baru
         </button>
       </div>
     </div>
 
-    <!-- ════ SUBJECT DETAIL ════ -->
-    <div class="view" id="view-subj-detail">
-      <div class="subj-detail-header" id="sdh"></div>
-      <div class="page-pad" style="padding-top:16px;">
-        <div class="card" id="sdh-topics"></div>
-      </div>
-    </div>
+    <!-- ══ SUBJECT DETAIL ══ -->
+    <div class="view" id="v-detail">
+      <div class="sdh" id="sdh"></div>
+      <div class="pad" style="padding-top:16px">
 
-    <!-- ════ CALENDAR ════ -->
-    <div class="view" id="view-cal">
-      <div class="page-pad">
-        <div class="card">
-          <div class="cal-header">
-            <div class="cal-month" id="cal-mo"></div>
-            <div class="cal-nav">
-              <button class="cal-btn" onclick="shiftCal(-1)">‹</button>
-              <button class="cal-btn" onclick="shiftCal(1)">›</button>
+        <!-- Guide -->
+        <div class="guide">
+          <div class="guide-ic">💡</div>
+          <div>
+            <div class="guide-title">Cara Latihan Soal yang Bener</div>
+            <div class="guide-steps">
+              <div class="guide-step"><div class="guide-step-num">1</div><span>Kerjain <b>5 soal susah</b> per materi</span></div>
+              <div class="guide-step"><div class="guide-step-num">2</div><span>Pilih soal <b>tipe berbeda-beda</b></span></div>
+              <div class="guide-step"><div class="guide-step-num">3</div><span>Jangan lihat catatan dulu, coba sendiri</span></div>
+              <div class="guide-step"><div class="guide-step-num">4</div><span>Baru centang kalau udah selesai semua</span></div>
             </div>
           </div>
-          <div class="cal-inner" id="cal-grid"></div>
         </div>
 
-        <div class="sec-title" id="cal-det-label">Pilih tanggal di atas 👆</div>
-        <div class="card" id="cal-det-card">
-          <div class="empty">
-            <span class="empty-emoji">📅</span>
-            <div class="empty-title">Klik tanggal</div>
-            <div class="empty-sub">untuk lihat jadwal di hari itu</div>
-          </div>
-        </div>
+        <div class="sec" id="sec-m-label">📖 Materi</div>
+        <div class="card" id="d-materi"></div>
 
-        <div class="sec-title">⏳ Upcoming Reviews</div>
-        <div class="card" id="up-card"></div>
+        <div class="sec" id="sec-t-label">📋 Tugas</div>
+        <div class="card" id="d-tugas"></div>
 
-        <div class="sec-title">🔥 Aktivitas 10 Minggu</div>
-        <div class="card">
-          <div class="hm-wrap">
-            <div class="hm-label">Biru = ada aktivitas belajar / review</div>
-            <div class="hm-grid" id="heatmap"></div>
-          </div>
-        </div>
       </div>
     </div>
 
-  </div><!-- /scroll-area -->
+  </div><!-- /scroll -->
 
-  <!-- ── BOTTOM NAV ── -->
-  <nav class="bottom-nav">
-    <button class="bn-item active" id="bn-home" onclick="goView('home', this)">
-      <div class="bn-icon">
-        🏠
-        <span class="bn-badge" id="bn-badge" style="display:none">0</span>
-      </div>
-      <div class="bn-label">Home</div>
+  <!-- BOTTOM NAV -->
+  <nav class="bnav">
+    <button class="bn active" id="bn-h" onclick="goView('home', this)">
+      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="display:none">0</span></div>
+      <div>Home</div>
     </button>
-    <button class="bn-item" id="bn-subjects" onclick="goView('subjects', this)">
-      <div class="bn-icon">📚</div>
-      <div class="bn-label">Subjek</div>
-    </button>
-    <button class="bn-item" id="bn-cal" onclick="goView('cal', this)">
-      <div class="bn-icon">📅</div>
-      <div class="bn-label">Kalender</div>
+    <button class="bn" id="bn-s" onclick="goView('subjects', this)">
+      <div class="bn-ic">📚</div>
+      <div>Subjek</div>
     </button>
   </nav>
 
 </div><!-- /app -->
 
-<!-- ════ SHEETS / MODALS ════ -->
+<!-- ════ SHEETS ════ -->
 
-<!-- Add Subject -->
-<div class="overlay" id="sh-addsubj" onclick="bgClose(event,'sh-addsubj')">
+<!-- Add Subjek -->
+<div class="overlay" id="sh-addsubj" onclick="bgc(event,'sh-addsubj')">
   <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">📚 Tambah Subjek</div>
-    <div class="sheet-body">
-      <div class="field">
-        <div class="field-label">Nama Subjek</div>
-        <input id="as-name" type="text" placeholder="e.g. Kalkulus 2 / Deep Learning">
-      </div>
-      <div class="field">
-        <div class="field-label">Tipe</div>
-        <select id="as-type">
+    <div class="sh-handle"></div>
+    <div class="sh-title">📚 Tambah Subjek</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Subjek</label><input id="as-n" type="text" placeholder="e.g. Kalkulus 2 / Deep Learning"></div>
+      <div class="field"><label class="flbl">Tipe</label>
+        <select id="as-t">
           <option value="matkul">📚 Mata Kuliah</option>
           <option value="personal">🧠 Personal / Self-Study</option>
         </select>
       </div>
-      <div class="field">
-        <div class="field-label">Warna</div>
-        <div class="color-row" id="color-picker"></div>
-      </div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker"></div></div>
     </div>
-    <div class="sheet-footer">
-      <div class="sheet-footer-row">
-        <button class="sbtn sbtn-ghost" onclick="closeSheet('sh-addsubj')">Batal</button>
-        <button class="sbtn sbtn-primary" onclick="saveSubj()">Simpan ✓</button>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet('sh-addsubj')">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveSubj()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Add Materi -->
+<div class="overlay" id="sh-addmateri" onclick="bgc(event,'sh-addmateri')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">📖 Tambah Materi</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Materi / Pertemuan</label><input id="am-n" type="text" placeholder="e.g. Integral Parsial (Pertemuan 5)"></div>
+      <div class="field"><label class="flbl">Tanggal Dipelajari</label><input id="am-d" type="date"></div>
+    </div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet('sh-addmateri')">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveMateri()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Edit Materi -->
+<div class="overlay" id="sh-editm" onclick="bgc(event,'sh-editm')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">✏️ Edit Materi</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Materi</label><input id="em-n" type="text"></div>
+      <div class="field"><label class="flbl">Tanggal Dipelajari</label><input id="em-d" type="date"></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet('sh-editm')">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveEditM()">Simpan</button>
+      </div>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="delMateri()">🗑 Hapus Materi Ini</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Add Topic -->
-<div class="overlay" id="sh-addtopic" onclick="bgClose(event,'sh-addtopic')">
+<!-- Add Tugas -->
+<div class="overlay" id="sh-addtugas" onclick="bgc(event,'sh-addtugas')">
   <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">📝 Tambah Materi</div>
-    <div class="sheet-body">
-      <div class="field">
-        <div class="field-label">Nama Materi / Pertemuan</div>
-        <input id="at-name" type="text" placeholder="e.g. Pertemuan 3: Integral Parsial">
-      </div>
-      <div class="field">
-        <div class="field-label">Tanggal Belajar</div>
-        <input id="at-date" type="date">
-      </div>
+    <div class="sh-handle"></div>
+    <div class="sh-title">📋 Tambah Tugas</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Tugas</label><input id="at-n" type="text" placeholder="e.g. PR Kalkulus Bab 5"></div>
+      <div class="field"><label class="flbl">Deadline</label><input id="at-dl" type="date"></div>
     </div>
-    <div class="sheet-footer">
-      <div class="sheet-footer-row">
-        <button class="sbtn sbtn-ghost" onclick="closeSheet('sh-addtopic')">Batal</button>
-        <button class="sbtn sbtn-primary" onclick="saveTopic()">Simpan ✓</button>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet('sh-addtugas')">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveTugas()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Edit Tugas -->
+<div class="overlay" id="sh-editt" onclick="bgc(event,'sh-editt')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">✏️ Edit Tugas</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Tugas</label><input id="et-n" type="text"></div>
+      <div class="field"><label class="flbl">Deadline</label><input id="et-dl" type="date"></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet('sh-editt')">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveEditT()">Simpan</button>
+      </div>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="delTugas()">🗑 Hapus Tugas Ini</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Edit Topic -->
-<div class="overlay" id="sh-edit" onclick="bgClose(event,'sh-edit')">
+<!-- Del Subjek -->
+<div class="overlay" id="sh-dels" onclick="bgc(event,'sh-dels')">
   <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">✏️ Edit Materi</div>
-    <div class="sheet-body">
-      <div class="field">
-        <div class="field-label">Nama Materi</div>
-        <input id="et-name" type="text">
-      </div>
-      <div class="field">
-        <div class="field-label">Tanggal Belajar</div>
-        <input id="et-date" type="date">
-      </div>
-      <div class="field">
-        <div class="field-label">Generation Mode ❓</div>
-        <select id="et-gen">
-          <option value="0">Tidak aktif</option>
-          <option value="1">✅ Aktif — tebak dulu sebelum buka!</option>
-        </select>
-      </div>
-      <div class="field">
-        <div class="field-label">📝 Catatan Active Recall</div>
-        <textarea id="et-notes" placeholder="Tulis poin yang kamu ingat setelah AR..."></textarea>
-      </div>
-    </div>
-    <div class="sheet-footer">
-      <div class="sheet-footer-row">
-        <button class="sbtn sbtn-ghost" onclick="closeSheet('sh-edit')">Batal</button>
-        <button class="sbtn sbtn-primary" onclick="saveEdit()">Simpan</button>
-      </div>
-      <div class="sheet-footer-row">
-        <button class="sbtn sbtn-danger" onclick="doResetSR()">🔄 Reset SR</button>
-        <button class="sbtn sbtn-danger" onclick="doDelTopic()">🗑 Hapus Materi</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Subject -->
-<div class="overlay" id="sh-delsubj" onclick="bgClose(event,'sh-delsubj')">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title danger">⚠️ Hapus Subjek?</div>
-    <div class="danger-body">
-      Subjek <strong id="ds-name"></strong> dan semua materinya akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.
-    </div>
-    <div class="sheet-footer">
-      <div class="sheet-footer-row">
-        <button class="sbtn sbtn-ghost" onclick="closeSheet('sh-delsubj')">Batal</button>
-        <button class="sbtn sbtn-primary" style="background:var(--red);border-color:var(--red)" onclick="execDelSubj()">Hapus Selamanya</button>
-      </div>
-    </div>
+    <div class="sh-handle"></div>
+    <div class="sh-title danger">⚠️ Hapus Subjek?</div>
+    <div class="danger-body">Subjek <strong id="ds-name"></strong> beserta semua materi dan tugasnya akan dihapus permanen.</div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet('sh-dels')">Batal</button>
+      <button class="sbtn sbtn-p" style="background:var(--red);border-color:var(--red)" onclick="execDelSubj()">Hapus Selamanya</button>
+    </div></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════ DATA ═══════════════════
-const COLORS = ['#2563eb','#dc2626','#16a34a','#b45309','#7c3aed','#0891b2','#be185d','#65a30d'];
-const SR     = [1,3,7,14,30,60,90];
+// ════════ DATA ════════════════════════════════
+const COLORS=['#2563eb','#dc2626','#16a34a','#d97706','#7c3aed','#0891b2','#be185d','#65a30d'];
 
-const load = () => { try { return JSON.parse(localStorage.getItem('sos_m1')||'null'); } catch { return null; } };
-const save = () => localStorage.setItem('sos_m1', JSON.stringify(D));
-const ago  = n => { const d=new Date(); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); };
-const tod  = () => new Date().toISOString().slice(0,10);
-const addD = (s,n) => { const d=new Date(s); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); };
+const load=()=>{try{return JSON.parse(localStorage.getItem('sos_v6')||'null');}catch{return null;}};
+const save=()=>localStorage.setItem('sos_v6',JSON.stringify(D));
+const tod=()=>new Date().toISOString().slice(0,10);
+const ago=n=>{const d=new Date();d.setDate(d.getDate()-n);return d.toISOString().slice(0,10);};
+const fmtDate=ds=>{const d=new Date(ds+'T12:00:00');return d.toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short'});};
+const diffD=(a,b)=>Math.round((new Date(a+'T12:00:00')-new Date(b+'T12:00:00'))/86400000);
 
 let D = load() || { subjects:[
-  {id:'s1',name:'Kalkulus 2',             type:'matkul',  color:'#2563eb',emoji:'🔢'},
-  {id:'s2',name:'Algoritma & Pemrograman',type:'matkul',  color:'#dc2626',emoji:'💻'},
-  {id:'s3',name:'Competitive Programming',type:'personal',color:'#16a34a',emoji:'⚡'},
-  {id:'s4',name:'Deep Learning',          type:'personal',color:'#b45309',emoji:'🤖'},
-], topics:[
-  {id:'t1', sid:'s1',name:'Pertemuan 1: Integral Tak Tentu',   ld:ago(14),ar:true, stage:3,lr:ago(5), gen:false,notes:''},
-  {id:'t2', sid:'s1',name:'Pertemuan 2: Integral Substitusi',  ld:ago(10),ar:true, stage:2,lr:ago(8), gen:false,notes:''},
-  {id:'t3', sid:'s1',name:'Pertemuan 3: Integral Parsial',     ld:ago(7), ar:false,stage:0,lr:null,   gen:true, notes:''},
-  {id:'t4', sid:'s1',name:'Pertemuan 4: Integral Trigonometri',ld:ago(3), ar:true, stage:1,lr:ago(2), gen:false,notes:''},
-  {id:'t5', sid:'s2',name:'Pertemuan 1: Sorting Algorithms',   ld:ago(12),ar:true, stage:3,lr:ago(3), gen:false,notes:''},
-  {id:'t6', sid:'s2',name:'Pertemuan 2: Recursion',            ld:ago(8), ar:true, stage:1,lr:ago(6), gen:false,notes:''},
-  {id:'t7', sid:'s2',name:'Pertemuan 3: Dynamic Programming',  ld:ago(4), ar:false,stage:0,lr:null,   gen:true, notes:''},
-  {id:'t8', sid:'s3',name:'Graph Traversal (BFS/DFS)',         ld:ago(20),ar:true, stage:4,lr:ago(10),gen:false,notes:''},
-  {id:'t9', sid:'s3',name:'Segment Tree',                      ld:ago(9), ar:true, stage:2,lr:ago(7), gen:false,notes:''},
-  {id:'t10',sid:'s3',name:'Shortest Path (Dijkstra)',          ld:ago(5), ar:false,stage:0,lr:null,   gen:false,notes:''},
-  {id:'t11',sid:'s4',name:'Backpropagation',                   ld:ago(15),ar:true, stage:3,lr:ago(4), gen:false,notes:''},
-  {id:'t12',sid:'s4',name:'Convolutional Neural Networks',     ld:ago(6), ar:true, stage:1,lr:ago(5), gen:true, notes:''},
+  {id:'s1',name:'Kalkulus 2',        type:'matkul',  color:'#2563eb',emoji:'🔢'},
+  {id:'s2',name:'Algoritma & Pemro', type:'matkul',  color:'#dc2626',emoji:'💻'},
+  {id:'s3',name:'Deep Learning',     type:'personal',color:'#7c3aed',emoji:'🤖'},
+], materi:[
+  {id:'m1',sid:'s1',name:'Integral Tak Tentu',    date:ago(5), done:true },
+  {id:'m2',sid:'s1',name:'Integral Substitusi',   date:ago(4), done:true },
+  {id:'m3',sid:'s1',name:'Integral Parsial',      date:ago(1), done:false},
+  {id:'m4',sid:'s1',name:'Integral Trigonometri', date:tod(),  done:false},
+  {id:'m5',sid:'s2',name:'Sorting Algorithms',    date:ago(6), done:true },
+  {id:'m6',sid:'s2',name:'Dynamic Programming',   date:ago(1), done:false},
+  {id:'m7',sid:'s3',name:'Backpropagation',       date:ago(3), done:true },
+  {id:'m8',sid:'s3',name:'CNN Architecture',      date:tod(),  done:false},
+], tugas:[
+  {id:'t1',sid:'s1',name:'PR Integral Bab 6',      inputDate:ago(2), deadline:ago(-3), done:false},
+  {id:'t2',sid:'s2',name:'Implementasi Quicksort', inputDate:ago(1), deadline:tod(),   done:false},
+  {id:'t3',sid:'s2',name:'Laporan Praktikum 2',    inputDate:ago(5), deadline:ago(-7), done:true },
 ]};
 
-// ═══════════════════ HELPERS ════════════════
-const nrd     = t => { if(!t.ar)return null; return addD(t.lr||t.ld, SR[Math.min(t.stage,SR.length-1)]); };
-const daysL   = t => { const n=nrd(t); if(!n)return null; return Math.round((new Date(n)-new Date(tod()))/86400000); };
-const isOv    = t => { const d=daysL(t); return d!==null&&d<0; };
-const isDue   = t => { const d=daysL(t); return d!==null&&d<=0; };
-const getSubj = id => D.subjects.find(s=>s.id===id);
+// ════════ HELPERS ════════════════════════════
+const gS=id=>D.subjects.find(s=>s.id===id);
 
-// ═══════════════════ UI STATE ════════════════
-let curView   = 'home';
-let curSubjId = null;
-let editId    = null;
-let delSId    = null;
-let selColor  = COLORS[0];
-let selDate   = tod();
-let cal = { y: new Date().getFullYear(), m: new Date().getMonth() };
+// ════════ UI STATE ════════════════════════════
+let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, selColor=COLORS[0];
+let weekOff=0;
 
-// ═══════════════════ BOOT ════════════════════
-function boot() {
-  renderHome();
-  buildCal();
-  renderSubjectLists();
-}
+// ════════ BOOT ════════════════════════════════
+function boot(){ renderHome(); renderSubjLists(); }
 
-// ═══════════════════ VIEW SWITCH ══════════════
-function goView(name, btn) {
+// ════════ VIEW ════════════════════════════════
+function goView(name, btn){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-'+name).classList.add('active');
-  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
+  document.getElementById('v-'+name).classList.add('active');
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
-  curView = name;
-  curSubjId = null;
+  curView=name; curSid=null;
 
-  // topbar
-  const tb = document.getElementById('topbar');
-  if(name==='home') {
-    tb.innerHTML = `<div class="topbar-logo">Study<span>OS</span></div>`;
-  } else if(name==='subjects') {
-    tb.innerHTML = `<div class="topbar-title">📚 Subjek</div>`;
-  } else if(name==='cal') {
-    tb.innerHTML = `<div class="topbar-title">📅 Kalender</div>`;
-  }
-
+  const tb=document.getElementById('topbar');
+  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Study<span>OS</span></div>`;
+  if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div>`;
   if(name==='home')     renderHome();
-  if(name==='cal')      { buildCal(); renderUpcoming(); renderHeatmap(); showCalDet(tod()); }
-  if(name==='subjects') renderSubjectLists();
-  document.getElementById('scroll-area').scrollTop = 0;
+  if(name==='subjects') renderSubjLists();
+  document.getElementById('scroll').scrollTop=0;
 }
 
-function openSubjDetail(id) {
-  curSubjId = id; curView = 'subj-detail';
-  const s = getSubj(id);
+function openDetail(id){
+  curSid=id; curView='detail';
+  const s=gS(id);
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-subj-detail').classList.add('active');
-  document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));
-  document.getElementById('bn-subjects').classList.add('active');
+  document.getElementById('v-detail').classList.add('active');
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('bn-s').classList.add('active');
 
-  const tb = document.getElementById('topbar');
-  tb.innerHTML =
-    `<button onclick="goView('subjects',document.getElementById('bn-subjects'))" style="font-size:22px;padding:4px 8px 4px 0;color:var(--blue);background:none;border:none;cursor:pointer;">‹</button>`+
-    `<div class="topbar-title">${s.emoji||'📖'} ${s.name}</div>`+
-    `<button class="topbar-action ta-primary" onclick="openSheet('sh-addtopic')">＋ Materi</button>`;
+  document.getElementById('topbar').innerHTML=
+    `<button class="tb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Kembali</button>`+
+    `<div class="tb-title">${s.emoji} ${s.name}</div>`+
+    `<button class="tb-action ghost" onclick="openDelSubj('${id}')" style="padding:6px 10px;font-size:18px">🗑</button>`;
 
-  renderSubjDetail(id);
-  document.getElementById('scroll-area').scrollTop = 0;
+  document.getElementById('sec-m-label').onclick=null;
+  document.getElementById('sec-t-label').onclick=null;
+
+  renderDetail(id);
+  document.getElementById('scroll').scrollTop=0;
 }
 
-// ═══════════════════ HOME ════════════════════
-function renderHome() {
-  const all = D.topics, due = all.filter(isDue), ov = all.filter(isOv);
-  document.getElementById('s-total').textContent = all.length;
-  document.getElementById('s-due').textContent   = due.length;
-  document.getElementById('s-ar').textContent    = all.filter(t=>t.ar).length;
-  document.getElementById('s-ov').textContent    = ov.length;
-  document.getElementById('s-due-sub').textContent = due.length===0 ? 'Semua oke 👍' : `${due.length} menunggu`;
-  document.getElementById('s-ov-sub').textContent  = ov.length===0 ? 'Tidak ada ✓' : 'Jangan tunda!';
+// ════════ HOME ════════════════════════════════
+function renderHome(){
+  renderWeek();
 
-  const dc = document.getElementById('due-card');
-  if(!due.length) {
-    dc.innerHTML=`<div class="empty"><span class="empty-emoji">🎉</span><div class="empty-title">Semua beres!</div><div class="empty-sub">Ga ada yang due hari ini.</div></div>`;
+  const allM=D.materi, pending=allM.filter(m=>!m.done);
+  const activeTugas=D.tugas.filter(t=>!t.done);
+  document.getElementById('st-m').textContent=allM.length;
+  document.getElementById('st-m-s').textContent=pending.length?`${pending.length} belum latsoal`:'Semua selesai 🎉';
+  document.getElementById('st-t').textContent=activeTugas.length;
+  document.getElementById('st-t-s').textContent=activeTugas.length?`${activeTugas.length} aktif`:'Ga ada tugas ✌️';
+
+  // pending materi (belum latsoal)
+  const hp=document.getElementById('home-pending');
+  if(!pending.length){
+    hp.innerHTML=`<div class="empty"><span class="empty-ic">🎉</span><div class="empty-t">Semua sudah latihan soal!</div><div class="empty-s">Good job bro, lanjut!</div></div>`;
   } else {
-    dc.innerHTML='';
-    [...due].sort((a,b)=>daysL(a)-daysL(b)).forEach(t=>dc.appendChild(mkRow(t,true)));
+    hp.innerHTML='';
+    pending.sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6).forEach(m=>hp.appendChild(mkM(m,true)));
+    if(pending.length>6){
+      const more=document.createElement('div');
+      more.style.cssText='padding:12px 16px;font-size:13px;color:var(--ink3);font-weight:600;text-align:center;border-top:1px solid var(--line)';
+      more.textContent=`+${pending.length-6} materi lainnya`;
+      hp.appendChild(more);
+    }
   }
-  buildSession();
+
+  // upcoming tugas
+  const ht=document.getElementById('home-tugas');
+  if(!activeTugas.length){
+    ht.innerHTML=`<div class="empty"><span class="empty-ic">✌️</span><div class="empty-t">Ga ada tugas aktif</div></div>`;
+  } else {
+    ht.innerHTML='';
+    activeTugas.sort((a,b)=>a.deadline.localeCompare(b.deadline)).forEach(t=>ht.appendChild(mkT(t,true)));
+  }
   updateBadge();
 }
 
-function updateBadge() {
-  const n = D.topics.filter(isDue).length;
-  const b = document.getElementById('bn-badge');
-  b.textContent=n; b.style.display=n?'':'none';
-}
+// ════════ WEEKLY CALENDAR ═════════════════════
+function renderWeek(){
+  const now=new Date();
+  const dow=now.getDay(); // 0=Sun
+  // Monday as first day
+  const mon=new Date(now);
+  mon.setDate(now.getDate() - (dow===0?6:dow-1) + weekOff*7);
 
-// ═══════════════════ SESSION ══════════════════
-function buildSession() {
-  const pool = D.topics.filter(t=>!t.ar||isDue(t));
-  const el = document.getElementById('session-rows');
-  if(!pool.length) {
-    el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-emoji" style="font-size:28px">🎉</span><div class="empty-title" style="font-size:14px">Semua up to date!</div></div>`;
-    return;
-  }
-  const sh=[...pool].sort(()=>Math.random()-.5);
-  const pk=[]; const us=new Set();
-  for(const t of sh){if(pk.length>=4)break;if(!us.has(t.sid)){pk.push(t);us.add(t.sid);}}
-  for(const t of sh){if(pk.length>=4)break;if(!pk.includes(t))pk.push(t);}
-  const mins=Math.round(60/pk.length);
-  el.innerHTML='';
-  pk.forEach(t=>{
-    const s=getSubj(t.sid);
-    const r=document.createElement('div'); r.className='sess-item';
-    const flags=[t.gen?'❓ Generation':'', isDue(t)?'🔁 Due':'', !t.ar?'🆕 Belum AR':''].filter(Boolean).join(' · ');
-    r.innerHTML=`<div class="sess-dot" style="background:${s.color}"></div>`
-      +`<div class="sess-body"><div class="sess-name">${t.name}</div><div class="sess-meta">${s.emoji||'📖'} ${s.name}${flags?' · '+flags:''}</div></div>`
-      +`<div class="sess-time">${mins} min</div>`;
-    el.appendChild(r);
+  const days=[];
+  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);days.push(d);}
+
+  const s=days[0],e=days[6];
+  const todayStr=tod();
+  const sameMonth=s.getMonth()===e.getMonth();
+  const rangeStr=sameMonth
+    ?`${s.getDate()}–${e.getDate()} ${e.toLocaleDateString('id-ID',{month:'long'})}`
+    :`${s.getDate()} ${s.toLocaleDateString('id-ID',{month:'short'})} – ${e.getDate()} ${e.toLocaleDateString('id-ID',{month:'short'})}`;
+
+  document.getElementById('wk-title').textContent=weekOff===0?'Minggu ini':weekOff===-1?'Minggu lalu':'Minggu depan';
+  document.getElementById('wk-sub').textContent=rangeStr+' '+e.getFullYear();
+
+  const DNAMES=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const grid=document.getElementById('week-grid');
+  grid.innerHTML='';
+
+  days.forEach((d,i)=>{
+    const ds=d.toISOString().slice(0,10);
+    const isToday=ds===todayStr;
+
+    // materi & tugas on this date
+    const matHari=D.materi.filter(m=>m.date===ds);
+    const tgsHari=D.tugas.filter(t=>t.inputDate===ds);
+    const hasM=matHari.length>0, hasT=tgsHari.length>0;
+    const allDone=hasM && matHari.every(m=>m.done);
+
+    const el=document.createElement('div');
+    el.className='wday'+(isToday?' is-today':'');
+
+    // status indicator
+    let statusHTML='';
+    if(hasM && allDone){
+      statusHTML=`<div class="wd-status"><div class="wd-x">✕</div></div>`;
+    } else if(hasM || hasT){
+      let dots='';
+      if(hasM) dots+=`<div class="wd-dot wd-dot-m"></div>`;
+      if(hasT) dots+=`<div class="wd-dot wd-dot-t"></div>`;
+      statusHTML=`<div class="wd-status"><div class="wd-dots-row">${dots}</div></div>`;
+    } else {
+      statusHTML=`<div class="wd-status"><div class="wd-none"></div></div>`;
+    }
+
+    el.innerHTML=
+      `<div class="wd-name">${DNAMES[i]}</div>`+
+      `<div class="wd-num-wrap"><div class="wd-num">${d.getDate()}</div></div>`+
+      statusHTML;
+    grid.appendChild(el);
   });
 }
 
-// ═══════════════════ SUBJECT LISTS ════════════
-function renderSubjectLists() {
+function shiftWeek(dir){ weekOff+=dir; renderWeek(); }
+
+// ════════ SUBJECT LISTS ═══════════════════════
+function renderSubjLists(){
   ['matkul','personal'].forEach(type=>{
-    const el=document.getElementById(type==='matkul'?'subj-mk-list':'subj-ps-list');
+    const el=document.getElementById(type==='matkul'?'list-mk':'list-ps');
     const list=D.subjects.filter(s=>s.type===type);
     if(!list.length){
-      el.innerHTML=`<div class="empty" style="padding:24px"><span class="empty-emoji" style="font-size:24px">📭</span><div class="empty-title" style="font-size:14px">Belum ada subjek</div></div>`;
+      el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:24px">📭</span><div class="empty-t" style="font-size:14px">Belum ada</div></div>`;
       return;
     }
     el.innerHTML='';
     list.forEach(s=>{
-      const topics=D.topics.filter(t=>t.sid===s.id);
-      const due=topics.filter(isDue).length;
-      const done=topics.filter(t=>t.ar).length;
-      const row=document.createElement('div'); row.className='subj-nav-item';
+      const mat=D.materi.filter(m=>m.sid===s.id);
+      const pending=mat.filter(m=>!m.done).length;
+      const activeTugas=D.tugas.filter(t=>t.sid===s.id&&!t.done).length;
+      const row=document.createElement('div'); row.className='sitem';
       row.innerHTML=
-        `<div class="subj-icon-circle" style="background:${s.color}22">${s.emoji||'📖'}</div>`
-        +`<div class="subj-nav-info">`
-        +`<div class="subj-nav-name">${s.name}</div>`
-        +`<div class="subj-nav-sub">${done}/${topics.length} AR selesai${due?` · <span style="color:var(--amber);font-weight:700">${due} due</span>`:''}</div>`
-        +`</div>`
-        +(due?`<span class="subj-nav-badge${due>=3?' hot':''}">${due}</span>`:'')
-        +`<span class="subj-nav-chevron">›</span>`;
-      row.onclick=()=>openSubjDetail(s.id);
+        `<div class="si-icon" style="background:${s.color}22">${s.emoji}</div>`+
+        `<div class="si-body">`+
+        `<div class="si-name">${s.name}</div>`+
+        `<div class="si-sub">${mat.length} materi · ${activeTugas} tugas aktif${pending?` · <b style="color:var(--amber);font-weight:700">${pending} belum latsoal</b>`:''}</div>`+
+        `</div>`+
+        (pending?`<span class="si-badge">${pending}</span>`:'')+
+        `<span class="si-chev">›</span>`;
+      row.onclick=()=>openDetail(s.id);
       el.appendChild(row);
     });
   });
 }
 
-// ═══════════════════ SUBJECT DETAIL ═══════════
-function renderSubjDetail(id) {
-  const s=getSubj(id), ts=D.topics.filter(t=>t.sid===id), done=ts.filter(t=>t.ar).length;
-  const pct=ts.length?(done/ts.length*100):0;
+// ════════ SUBJECT DETAIL ══════════════════════
+function renderDetail(id){
+  const s=gS(id);
+  const mat=D.materi.filter(m=>m.sid===id);
+  const tgs=D.tugas.filter(t=>t.sid===id);
+  const done=mat.filter(m=>m.done).length;
+  const pct=mat.length?done/mat.length*100:0;
+
   document.getElementById('sdh').innerHTML=
-    `<div class="sdh-icon" style="background:${s.color}22">${s.emoji||'📖'}</div>`
-    +`<div class="sdh-info">`
-    +`<div class="sdh-type">${s.type==='matkul'?'📚 Mata Kuliah':'🧠 Personal Study'}</div>`
-    +`<div class="sdh-name" style="color:${s.color}">${s.name}</div>`
-    +`<div class="sdh-prog">${done} dari ${ts.length} materi selesai AR</div>`
-    +`<div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div>`
-    +`</div>`
-    +`<button onclick="openDelSubj('${id}')" style="font-size:20px;padding:8px;color:var(--ink3);border-radius:8px;background:none;border:none;cursor:pointer;">🗑</button>`;
+    `<div class="sdh-ico" style="background:${s.color}22">${s.emoji}</div>`+
+    `<div class="sdh-info">`+
+    `<div class="sdh-type">${s.type==='matkul'?'Mata Kuliah':'Personal Study'}</div>`+
+    `<div class="sdh-name" style="color:${s.color}">${s.name}</div>`+
+    `<div class="sdh-prog">${done} dari ${mat.length} materi sudah latihan soal</div>`+
+    `<div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>`+
+    `</div>`;
 
-  const card=document.getElementById('sdh-topics'); card.innerHTML='';
-  if(!ts.length){
-    card.innerHTML=`<div class="empty"><span class="empty-emoji">📂</span><div class="empty-title">Belum ada materi</div><div class="empty-sub">Tambah materi baru!</div></div>`;
-    return;
+  // set up add buttons on section labels
+  const smEl=document.getElementById('sec-m-label');
+  smEl.innerHTML=`📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span>`;
+  document.getElementById('add-m-btn').onclick=()=>{
+    document.getElementById('am-n').value='';
+    document.getElementById('am-d').value=tod();
+    openSheet('sh-addmateri');
+  };
+
+  const stEl=document.getElementById('sec-t-label');
+  stEl.innerHTML=`📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span>`;
+  document.getElementById('add-t-btn').onclick=()=>{
+    document.getElementById('at-n').value='';
+    document.getElementById('at-dl').value='';
+    openSheet('sh-addtugas');
+  };
+
+  // render materi
+  const dm=document.getElementById('d-materi');
+  dm.innerHTML='';
+  if(!mat.length){
+    dm.innerHTML=`<div class="empty"><span class="empty-ic">📂</span><div class="empty-t">Belum ada materi</div><div class="empty-s">Tap "+ Tambah" di atas</div></div>`;
+  } else {
+    mat.sort((a,b)=>b.date.localeCompare(a.date)).forEach(m=>dm.appendChild(mkM(m,false)));
   }
-  ts.forEach((t,i)=>{
-    card.appendChild(mkRow(t,false,i+1));
-    if(t.notes){ const n=document.createElement('div'); n.className='topic-notes'; n.textContent='📝 '+t.notes; card.appendChild(n); }
-  });
+
+  // render tugas
+  const dt=document.getElementById('d-tugas');
+  dt.innerHTML='';
+  if(!tgs.length){
+    dt.innerHTML=`<div class="empty"><span class="empty-ic">📋</span><div class="empty-t">Belum ada tugas</div><div class="empty-s">Tap "+ Tambah" di atas</div></div>`;
+  } else {
+    tgs.sort((a,b)=>a.done-b.done||a.deadline.localeCompare(b.deadline)).forEach(t=>dt.appendChild(mkT(t,false)));
+  }
 }
 
-// ═══════════════════ TOPIC ROW ════════════════
-function mkRow(t, showSubj=false, idx=null) {
-  const s=getSubj(t.sid), d=daysL(t);
-  const wrap=document.createElement('div');
-  let cls='topic-item';
-  if(isOv(t)) cls+=' is-late';
-  else if(isDue(t)) cls+=' is-due';
-  else if(t.ar&&d>0) cls+=' is-ok';
-  wrap.className=cls;
+// ════════ MATERI ITEM ════════════════════════
+function mkM(m, showSubj){
+  const s=gS(m.sid);
+  const row=document.createElement('div');
+  row.className='mitem '+(m.done?'is-done':'is-todo');
 
-  const pips=SR.map((_,i)=>`<div class="pip${i<t.stage?' on':''}"></div>`).join('');
-  let srChip='';
-  if(!t.ar)        srChip=`<span class="chip chip-noar">⏳ Belum AR</span>`;
-  else if(isOv(t)) srChip=`<span class="chip chip-late">🚨 Telat ${Math.abs(d)} hari</span>`;
-  else if(isDue(t))srChip=`<span class="chip chip-due">📅 Review hari ini!</span>`;
-  else             srChip=`<span class="chip chip-ok">✓ ${d}h lagi · S${t.stage+1}</span>`;
+  row.innerHTML=
+    `<div class="mi-body">`+
+    (showSubj?`<div class="mi-subj" style="color:${s.color}">${s.emoji} ${s.name}</div>`:'')+
+    `<div class="mi-name${m.done?' done':''}">${m.name}</div>`+
+    `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`+
+    `</div>`+
+    `<button class="mi-btn ${m.done?'done':'todo'}" onclick="toggleM('${m.id}')">`+
+    (m.done?'✅ Selesai':'📝 Latsoal')+
+    `</button>`+
+    `<button class="mi-more" onclick="openEditM('${m.id}')">···</button>`;
 
-  const arChip=t.ar?`<span class="chip chip-ar">✅ AR</span>`:'';
-  const gnChip=t.gen?`<span class="chip chip-gen">❓ Gen</span>`:'';
-
-  wrap.innerHTML=
-    `<div class="topic-idx">${idx!==null?String(idx).padStart(2,'0'):''}</div>`
-    +`<div class="topic-body">`
-    +(showSubj?`<div class="topic-subj-chip" style="color:${s.color}">${s.emoji||'📖'} ${s.name}</div>`:'')
-    +`<div class="topic-name">${t.name}</div>`
-    +`<div class="topic-tags">${arChip}${srChip}${gnChip}<div class="pips">${pips}</div></div>`
-    +`</div>`
-    +`<div class="topic-acts">`
-    +(!t.ar?`<button class="tact primary" onclick="doAR('${t.id}')">AR ✓</button>`:'')
-    +(t.ar&&d<=0?`<button class="tact success" onclick="doSR('${t.id}')">Review ↑</button>`:'')
-    +`<button class="tact ghost" onclick="openEditTopic('${t.id}')">···</button>`
-    +`</div>`;
-  return wrap;
+  return row;
 }
 
-// ═══════════════════ ACTIONS ══════════════════
-function doAR(id){
-  const t=D.topics.find(x=>x.id===id);
-  t.ar=true; t.lr=tod(); t.stage=0;
-  save(); refresh(); toast('✅ Active recall selesai! Next review '+SR[0]+' hari lagi.');
+function toggleM(id){
+  const m=D.materi.find(x=>x.id===id);
+  m.done=!m.done; save(); refresh();
+  toast(m.done?'✅ Latihan soal selesai! GG 🔥':'↩️ Oke, belum selesai');
 }
-function doSR(id){
-  const t=D.topics.find(x=>x.id===id);
-  t.stage=Math.min(t.stage+1,SR.length-1); t.lr=tod();
-  save(); refresh(); toast('🔁 Review done! Stage '+(t.stage+1)+' — '+SR[t.stage]+' hari lagi.');
+
+// ════════ TUGAS ITEM ═════════════════════════
+function mkT(t, showSubj){
+  const s=gS(t.sid);
+  const diff=diffD(t.deadline,tod());
+  let dlClass=t.done?'dl-done':diff<0?'dl-late':diff===0?'dl-soon':diff<=3?'dl-soon':'dl-ok';
+  let dlText=t.done?'✓ Selesai':diff<0?`🚨 Telat ${Math.abs(diff)}h`:diff===0?'⏰ Hari ini!':diff===1?'⚡ Besok':`📅 ${diff}h lagi`;
+
+  const row=document.createElement('div');
+  row.className='titem'+(t.done?' is-done':'');
+
+  row.innerHTML=
+    `<div class="ti-body">`+
+    `<div class="ti-name${t.done?' done':''}">${t.name}</div>`+
+    `<div class="ti-meta">`+
+    (showSubj?`<span class="ti-subj-chip" style="background:${s.color}22;color:${s.color}">${s.emoji} ${s.name}</span>`:'')+
+    `<span class="ti-dl ${dlClass}">${dlText}</span>`+
+    `</div></div>`+
+    `<button class="ti-btn ${t.done?'done':'todo'}" onclick="toggleT('${t.id}')">`+
+    (t.done?'✅ Selesai':'Selesai?')+
+    `</button>`+
+    `<button class="ti-more" onclick="openEditT('${t.id}')">···</button>`;
+
+  return row;
 }
+
+function toggleT(id){
+  const t=D.tugas.find(x=>x.id===id);
+  t.done=!t.done; save(); refresh();
+  toast(t.done?'✅ Tugas selesai! 🎉':'↩️ Ditandai belum selesai');
+}
+
+// ════════ ACTIONS ════════════════════════════
 function refresh(){
   updateBadge();
-  if(curView==='home')        renderHome();
-  else if(curView==='subjects') renderSubjectLists();
-  else if(curView==='subj-detail'&&curSubjId) renderSubjDetail(curSubjId);
-  else if(curView==='cal')    buildCal();
+  if(curView==='home')    renderHome();
+  if(curView==='subjects') renderSubjLists();
+  if(curView==='detail'&&curSid) renderDetail(curSid);
 }
 
-// ═══════════════════ CALENDAR ═════════════════
-const MOS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-const DWS=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
-
-function shiftCal(dir){
-  cal.m+=dir;
-  if(cal.m>11){cal.m=0;cal.y++;} if(cal.m<0){cal.m=11;cal.y--;}
-  buildCal();
-}
-function buildCal(){
-  const {y,m}=cal;
-  document.getElementById('cal-mo').textContent=MOS[m]+' '+y;
-  const grid=document.getElementById('cal-grid'); grid.innerHTML='';
-  const dr=document.createElement('div'); dr.className='cal-dows';
-  DWS.forEach(d=>{const e=document.createElement('div');e.className='cal-dow';e.textContent=d;dr.appendChild(e);});
-  grid.appendChild(dr);
-  const ds=document.createElement('div'); ds.className='cal-days';
-  const f=new Date(y,m,1),l=new Date(y,m+1,0),tday=tod(),pad=f.getDay(),pl=new Date(y,m,0).getDate();
-  for(let i=pad-1;i>=0;i--){const e=document.createElement('div');e.className='cal-day faded';e.textContent=pl-i;ds.appendChild(e);}
-  for(let d=1;d<=l.getDate();d++){
-    const date=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const e=document.createElement('div');
-    e.className='cal-day'+(date===tday?' today':date===selDate?' selected':'');
-    e.textContent=d;
-    const lc=D.topics.filter(t=>t.ld===date).length, rc=D.topics.filter(t=>nrd(t)===date).length;
-    if(lc||rc){const dots=document.createElement('div');dots.className='cal-dots';
-      for(let k=0;k<Math.min(lc,2);k++){const dot=document.createElement('div');dot.className='cal-dot cd-l';dots.appendChild(dot);}
-      for(let k=0;k<Math.min(rc,2);k++){const dot=document.createElement('div');dot.className='cal-dot cd-r';dots.appendChild(dot);}
-      e.appendChild(dots);}
-    e.onclick=()=>{selDate=date;buildCal();showCalDet(date);};
-    ds.appendChild(e);
-  }
-  const rem=7-((pad+l.getDate())%7);
-  if(rem<7)for(let d=1;d<=rem;d++){const e=document.createElement('div');e.className='cal-day faded';e.textContent=d;ds.appendChild(e);}
-  grid.appendChild(ds);
-}
-function showCalDet(date){
-  selDate=date;
-  const d=new Date(date);
-  document.getElementById('cal-det-label').textContent='📋 '+d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});
-  const card=document.getElementById('cal-det-card');
-  const ln=D.topics.filter(t=>t.ld===date), rv=D.topics.filter(t=>nrd(t)===date);
-  card.innerHTML='';
-  if(!ln.length&&!rv.length){card.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-emoji" style="font-size:24px">😴</span><div class="empty-title" style="font-size:14px">Ga ada kegiatan</div></div>`;return;}
-  if(ln.length){const lb=document.createElement('div');lb.className='cal-det-section';lb.textContent='📖 Belajar Pertama Kali';card.appendChild(lb);ln.forEach(t=>card.appendChild(mkRow(t,true)));}
-  if(rv.length){const lb=document.createElement('div');lb.className='cal-det-section';lb.textContent='🔁 Spaced Repetition Review';card.appendChild(lb);rv.forEach(t=>card.appendChild(mkRow(t,true)));}
-}
-function renderUpcoming(){
-  const uc=document.getElementById('up-card');
-  const list=D.topics.filter(t=>t.ar&&nrd(t)).map(t=>({t,d:daysL(t)})).sort((a,b)=>a.d-b.d).slice(0,8);
-  if(!list.length){uc.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-emoji" style="font-size:24px">📭</span><div class="empty-title" style="font-size:14px">Belum ada data</div></div>`;return;}
-  uc.innerHTML='';
-  list.forEach(({t,d})=>{
-    const s=getSubj(t.sid);const r=document.createElement('div');r.className='uprow';
-    const wc=d<0?'wh-late':d===0?'wh-today':'wh-ok';
-    const wt=d<0?`${Math.abs(d)}h telat`:d===0?'Hari ini!':d+'h lagi';
-    r.innerHTML=`<div class="up-dot" style="background:${s.color}"></div>`
-      +`<div class="up-body"><div class="up-name">${t.name}</div><div class="up-subj">${s.emoji||'📖'} ${s.name}</div></div>`
-      +`<span class="up-when ${wc}">${wt}</span>`;
-    uc.appendChild(r);
-  });
-}
-function renderHeatmap(){
-  const wrap=document.getElementById('heatmap');if(!wrap)return;
-  const c={};D.topics.forEach(t=>{if(t.ld)c[t.ld]=(c[t.ld]||0)+1;if(t.lr)c[t.lr]=(c[t.lr]||0)+1;});
-  wrap.innerHTML='';
-  for(let i=69;i>=0;i--){
-    const d=new Date();d.setDate(d.getDate()-i);const ds=d.toISOString().slice(0,10);
-    const el=document.createElement('div');el.className='hmc';el.setAttribute('data-v',Math.min(c[ds]||0,4));el.title=`${ds}: ${c[ds]||0}`;wrap.appendChild(el);
-  }
+function updateBadge(){
+  const n=D.materi.filter(m=>!m.done).length;
+  const b=document.getElementById('bn-badge');
+  b.textContent=n; b.style.display=n?'':'none';
 }
 
-// ═══════════════════ EDIT ═════════════════════
-function openEditTopic(id){
-  editId=id; const t=D.topics.find(x=>x.id===id);
-  document.getElementById('et-name').value=t.name;
-  document.getElementById('et-date').value=t.ld;
-  document.getElementById('et-gen').value=t.gen?'1':'0';
-  document.getElementById('et-notes').value=t.notes||'';
-  openSheet('sh-edit');
+// ════════ EDIT MATERI ════════════════════════
+function openEditM(id){
+  editMid=id;
+  const m=D.materi.find(x=>x.id===id);
+  document.getElementById('em-n').value=m.name;
+  document.getElementById('em-d').value=m.date;
+  openSheet('sh-editm');
 }
-function saveEdit(){
-  const t=D.topics.find(x=>x.id===editId);
-  t.name=document.getElementById('et-name').value.trim()||t.name;
-  t.ld=document.getElementById('et-date').value||t.ld;
-  t.gen=document.getElementById('et-gen').value==='1';
-  t.notes=document.getElementById('et-notes').value.trim();
-  save();closeSheet('sh-edit');refresh();toast('✏️ Materi diperbarui!');
+function saveEditM(){
+  const m=D.materi.find(x=>x.id===editMid);
+  m.name=document.getElementById('em-n').value.trim()||m.name;
+  m.date=document.getElementById('em-d').value||m.date;
+  save(); closeSheet('sh-editm'); refresh(); toast('✏️ Materi diperbarui!');
 }
-function doResetSR(){
-  const t=D.topics.find(x=>x.id===editId);
-  t.stage=0;t.lr=null;t.ar=false;
-  save();closeSheet('sh-edit');refresh();toast('🔄 SR direset ke awal!');
-}
-function doDelTopic(){
+function delMateri(){
   if(!confirm('Hapus materi ini?'))return;
-  D.topics=D.topics.filter(x=>x.id!==editId);
-  save();closeSheet('sh-edit');refresh();toast('🗑 Materi dihapus.');
+  D.materi=D.materi.filter(x=>x.id!==editMid);
+  save(); closeSheet('sh-editm'); refresh(); toast('🗑 Materi dihapus');
 }
 
-// ═══════════════════ SUBJECT CRUD ═════════════
-function openSheet(id){ document.getElementById(id).classList.add('open'); }
-function closeSheet(id){ document.getElementById(id).classList.remove('open'); }
-const bgClose=(e,id)=>{if(e.target===document.getElementById(id))closeSheet(id);};
+// ════════ EDIT TUGAS ═════════════════════════
+function openEditT(id){
+  editTid=id;
+  const t=D.tugas.find(x=>x.id===id);
+  document.getElementById('et-n').value=t.name;
+  document.getElementById('et-dl').value=t.deadline;
+  openSheet('sh-editt');
+}
+function saveEditT(){
+  const t=D.tugas.find(x=>x.id===editTid);
+  t.name=document.getElementById('et-n').value.trim()||t.name;
+  t.deadline=document.getElementById('et-dl').value||t.deadline;
+  save(); closeSheet('sh-editt'); refresh(); toast('✏️ Tugas diperbarui!');
+}
+function delTugas(){
+  if(!confirm('Hapus tugas ini?'))return;
+  D.tugas=D.tugas.filter(x=>x.id!==editTid);
+  save(); closeSheet('sh-editt'); refresh(); toast('🗑 Tugas dihapus');
+}
 
+// ════════ SUBJEK CRUD ════════════════════════
 function saveSubj(){
-  const name=document.getElementById('as-name').value.trim();if(!name)return;
-  const type=document.getElementById('as-type').value;
+  const name=document.getElementById('as-n').value.trim(); if(!name)return;
+  const type=document.getElementById('as-t').value;
   D.subjects.push({id:'s'+Date.now(),name,type,color:selColor,emoji:type==='matkul'?'📚':'🧠'});
-  save();closeSheet('sh-addsubj');renderSubjectLists();toast(`📚 "${name}" ditambahkan!`);
+  save(); closeSheet('sh-addsubj'); renderSubjLists(); toast(`"${name}" ditambahkan!`);
+}
+function saveMateri(){
+  const name=document.getElementById('am-n').value.trim(); if(!name||!curSid)return;
+  D.materi.push({id:'m'+Date.now(),sid:curSid,name,date:document.getElementById('am-d').value||tod(),done:false});
+  save(); closeSheet('sh-addmateri'); renderDetail(curSid); refresh(); toast('📖 Materi ditambahkan!');
+}
+function saveTugas(){
+  const name=document.getElementById('at-n').value.trim(); if(!name||!curSid)return;
+  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),done:false});
+  save(); closeSheet('sh-addtugas'); renderDetail(curSid); refresh(); toast('📋 Tugas ditambahkan!');
 }
 function openDelSubj(id){
-  delSId=id;document.getElementById('ds-name').textContent=getSubj(id).name;openSheet('sh-delsubj');
+  delSid=id;
+  document.getElementById('ds-name').textContent=gS(id).name;
+  openSheet('sh-dels');
 }
 function execDelSubj(){
-  D.subjects=D.subjects.filter(x=>x.id!==delSId);
-  D.topics=D.topics.filter(x=>x.sid!==delSId);
-  save();closeSheet('sh-delsubj');
-  goView('subjects',document.getElementById('bn-subjects'));
-  toast('🗑 Subjek dihapus.');
-}
-function saveTopic(){
-  const name=document.getElementById('at-name').value.trim();if(!name||!curSubjId)return;
-  D.topics.push({id:'t'+Date.now(),sid:curSubjId,name,ld:document.getElementById('at-date').value||tod(),ar:false,stage:0,lr:null,gen:false,notes:''});
-  save();closeSheet('sh-addtopic');if(curView==='subj-detail'&&curSubjId)renderSubjDetail(curSubjId);refresh();toast('📝 Materi ditambahkan!');
+  D.subjects=D.subjects.filter(x=>x.id!==delSid);
+  D.materi  =D.materi.filter(x=>x.sid!==delSid);
+  D.tugas   =D.tugas.filter(x=>x.sid!==delSid);
+  save(); closeSheet('sh-dels');
+  goView('subjects',document.getElementById('bn-s'));
+  toast('🗑 Subjek dihapus');
 }
 
-// color picker
-function buildColorPicker(){
-  const el=document.getElementById('color-picker');el.innerHTML='';
-  COLORS.forEach(c=>{const d=document.createElement('div');d.className='color-opt'+(c===selColor?' selected':'');d.style.background=c;d.onclick=()=>{selColor=c;buildColorPicker();};el.appendChild(d);});
-}
-document.getElementById('sh-addsubj').addEventListener('click', e=>{
-  if(e.target.closest('.sheet')) return;
-});
+// ════════ SHEET ══════════════════════════════
+function openSheet(id){ document.getElementById(id).classList.add('open'); }
+function closeSheet(id){ document.getElementById(id).classList.remove('open'); }
+const bgc=(e,id)=>{ if(e.target===document.getElementById(id)) closeSheet(id); };
 
-// ═══════════════════ TOAST ════════════════════
+function buildCpicker(){
+  const el=document.getElementById('cpicker'); el.innerHTML='';
+  COLORS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='co'+(c===selColor?' sel':'');
+    d.style.background=c;
+    d.onclick=()=>{selColor=c; buildCpicker();};
+    el.appendChild(d);
+  });
+}
+
+// override openSheet to init color picker
+const _open=openSheet;
+window.openSheet=id=>{
+  _open(id);
+  if(id==='sh-addsubj'){
+    document.getElementById('as-n').value='';
+    document.getElementById('as-t').value='matkul';
+    buildCpicker();
+  }
+};
+
+// ════════ TOAST ══════════════════════════════
 let _tt;
 function toast(msg){
   const el=document.getElementById('toast');
-  el.textContent=msg;el.classList.add('show');
-  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2600);
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),2500);
 }
-
-// Init color picker when sheet opens
-document.getElementById('sh-addsubj').addEventListener('transitionend', ()=>{
-  if(document.getElementById('sh-addsubj').classList.contains('open')) buildColorPicker();
-});
-
-// Also init on first open
-const origOpenSheet = openSheet;
-window.openSheet = function(id) {
-  origOpenSheet(id);
-  if(id==='sh-addsubj') { document.getElementById('as-name').value=''; buildColorPicker(); }
-  if(id==='sh-addtopic') { document.getElementById('at-name').value=''; document.getElementById('at-date').value=tod(); }
-};
 
 boot();
 </script>
