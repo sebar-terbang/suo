@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>StudyOS</title>
+<title>Kulyeah!</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -566,6 +566,50 @@ input,select,textarea { font-family:inherit; }
   .sheet { border-radius:22px; max-width:440px; width:440px; transform:translateY(18px) scale(.97); margin-bottom:0; }
   .overlay.open .sheet { transform:none; }
 }
+
+/* ══ MONTHLY CALENDAR ══ */
+.mcal-wrap { background:var(--white); border-radius:var(--r); box-shadow:var(--sh); overflow:hidden; margin-bottom:12px; }
+.mcal-head { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--line); }
+.mcal-title { font-size:16px; font-weight:800; letter-spacing:-.3px; }
+.mcal-nav { display:flex; gap:5px; }
+.mcal-btn { width:32px; height:32px; border-radius:var(--rsm); background:var(--bg); border:1.5px solid var(--line); color:var(--ink2); font-size:16px; display:flex; align-items:center; justify-content:center; }
+.mcal-btn:active { background:var(--bg2); }
+.mcal-inner { padding:10px 10px 14px; }
+.mcal-dows { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
+.mcal-dow { text-align:center; font-size:10px; font-weight:700; color:var(--ink3); text-transform:uppercase; letter-spacing:.05em; padding:2px 0; }
+.mcal-days { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+.mday { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:10px; font-size:13px; font-weight:600; color:var(--ink2); cursor:pointer; gap:3px; transition:background .1s; -webkit-tap-highlight-color:transparent; }
+.mday:active { background:var(--bg2); }
+.mday.faded { color:var(--ink3); font-weight:400; }
+.mday.is-today { background:var(--blue); color:#fff; }
+.mday.is-today:active { opacity:.85; }
+.mday-num { line-height:1; }
+.mday-x { font-size:10px; font-weight:900; color:var(--green); background:var(--green-lt); width:16px; height:16px; border-radius:99px; display:flex; align-items:center; justify-content:center; line-height:1; }
+.mday-dots { display:flex; gap:2px; }
+.mday-dot { width:4px; height:4px; border-radius:50%; }
+.mday-dot-m { background:var(--blue-bd); }
+.mday-dot-t { background:var(--amber); }
+
+/* ══ CAL LEGEND ══ */
+.cal-legend { display:flex; gap:12px; padding:0 10px 12px; flex-wrap:wrap; }
+.cal-leg-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--ink3); font-weight:500; }
+.cal-leg-dot { width:8px; height:8px; border-radius:50%; }
+
+/* ══ REWARDING BANNER ══ */
+.sip-banner {
+  background:linear-gradient(135deg,#dcfce7,#d1fae5);
+  border-radius:var(--r); padding:18px 20px;
+  display:flex; align-items:center; gap:14px;
+  margin-bottom:12px; box-shadow:var(--sh);
+}
+.sip-emoji { font-size:36px; flex-shrink:0; }
+.sip-title { font-size:17px; font-weight:800; color:var(--green-dk); letter-spacing:-.3px; }
+.sip-sub { font-size:13px; color:#166534; margin-top:3px; }
+
+/* ══ PENDING SECTION ══ */
+.pending-header { font-size:13px; font-weight:700; color:var(--ink2); margin-bottom:10px; margin-top:4px; display:flex; align-items:center; justify-content:space-between; }
+.pending-count { font-size:11px; font-weight:700; background:var(--amber-lt); color:var(--amber); padding:2px 8px; border-radius:99px; }
+
 </style>
 </head>
 <body>
@@ -573,7 +617,7 @@ input,select,textarea { font-family:inherit; }
 
   <!-- TOPBAR -->
   <div class="topbar" id="topbar">
-    <div class="tb-logo">Study<span>OS</span></div>
+    <div class="tb-logo">Kul<span>yeah</span>! 🎓</div>
   </div>
 
   <!-- SCROLL AREA -->
@@ -598,28 +642,8 @@ input,select,textarea { font-family:inherit; }
           <div class="week-grid" id="week-grid"></div>
         </div>
 
-        <!-- Stats -->
-        <div class="stats">
-          <div class="stat">
-            <span class="stat-emoji">📖</span>
-            <div class="stat-num c-blue" id="st-m">0</div>
-            <div class="stat-label">Total Materi</div>
-            <div class="stat-sub" id="st-m-s">—</div>
-          </div>
-          <div class="stat">
-            <span class="stat-emoji">📋</span>
-            <div class="stat-num c-amber" id="st-t">0</div>
-            <div class="stat-label">Tugas Aktif</div>
-            <div class="stat-sub" id="st-t-s">—</div>
-          </div>
-        </div>
-
-        <!-- Pending Materi -->
-        <div class="sec">
-          ⚡ Belum Latihan Soal
-          <span class="sec-link" onclick="goView('subjects', document.getElementById('bn-s'))">Lihat semua →</span>
-        </div>
-        <div class="card" id="home-pending"></div>
+        <!-- Pending Materi / Sip Banner -->
+        <div id="home-pending-section"></div>
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
@@ -675,10 +699,38 @@ input,select,textarea { font-family:inherit; }
       </div>
     </div>
 
+    <!-- ══ CALENDAR ══ -->
+    <div class="view" id="v-cal">
+      <div class="pad">
+        <div class="mcal-wrap">
+          <div class="mcal-head">
+            <div class="mcal-title" id="mc-title"></div>
+            <div class="mcal-nav">
+              <button class="mcal-btn" onclick="shiftMcal(-1)">‹</button>
+              <button class="mcal-btn" onclick="shiftMcal(1)">›</button>
+            </div>
+          </div>
+          <div class="mcal-inner">
+            <div class="mcal-dows" id="mc-dows"></div>
+            <div class="mcal-days" id="mc-days"></div>
+          </div>
+          <div class="cal-legend">
+            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Ada materi</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Ada tugas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /scroll -->
 
-  <!-- BOTTOM NAV -->
+  <!-- BOTTOM NAV — 3 tabs: Kalender | Home | Subjek -->
   <nav class="bnav">
+    <button class="bn" id="bn-cal" onclick="goView('cal', this)">
+      <div class="bn-ic">📅</div>
+      <div>Kalender</div>
+    </button>
     <button class="bn active" id="bn-h" onclick="goView('home', this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="display:none">0</span></div>
       <div>Home</div>
@@ -802,6 +854,25 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
+<!-- Edit Subjek -->
+<div class="overlay" id="sh-editsubj" onclick="bgc(event,'sh-editsubj')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">✏️ Edit Subjek</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Emoji</label><input id="es-e" type="text" placeholder="e.g. 🔢" maxlength="4" style="font-size:24px;text-align:center;padding:10px;"></div>
+      <div class="field"><label class="flbl">Nama Subjek</label><input id="es-n" type="text" placeholder="Nama matkul"></div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-edit"></div></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet('sh-editsubj')">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveEditSubj()">Simpan ✓</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -838,11 +909,12 @@ let D = load() || { subjects:[
 const gS=id=>D.subjects.find(s=>s.id===id);
 
 // ════════ UI STATE ════════════════════════════
-let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, selColor=COLORS[0];
+let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, editSid=null, selColor=COLORS[0], selColorEdit=COLORS[0];
 let weekOff=0;
+let mcalY=new Date().getFullYear(), mcalM=new Date().getMonth();
 
 // ════════ BOOT ════════════════════════════════
-function boot(){ renderHome(); renderSubjLists(); }
+function boot(){ renderHome(); renderSubjLists(); renderMcal(); }
 
 // ════════ VIEW ════════════════════════════════
 function goView(name, btn){
@@ -853,10 +925,12 @@ function goView(name, btn){
   curView=name; curSid=null;
 
   const tb=document.getElementById('topbar');
-  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Study<span>OS</span></div>`;
+  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div>`;
   if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div>`;
+  if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div>`;
   if(name==='home')     renderHome();
   if(name==='subjects') renderSubjLists();
+  if(name==='cal')      renderMcal();
   document.getElementById('scroll').scrollTop=0;
 }
 
@@ -871,7 +945,7 @@ function openDetail(id){
   document.getElementById('topbar').innerHTML=
     `<button class="tb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Kembali</button>`+
     `<div class="tb-title">${s.emoji} ${s.name}</div>`+
-    `<button class="tb-action ghost" onclick="openDelSubj('${id}')" style="padding:6px 10px;font-size:18px">🗑</button>`;
+    `<button class="tb-action ghost" onclick="openEditSubj('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
   document.getElementById('sec-m-label').onclick=null;
   document.getElementById('sec-t-label').onclick=null;
@@ -884,26 +958,55 @@ function openDetail(id){
 function renderHome(){
   renderWeek();
 
-  const allM=D.materi, pending=allM.filter(m=>!m.done);
+  const pending=D.materi.filter(m=>!m.done);
   const activeTugas=D.tugas.filter(t=>!t.done);
-  document.getElementById('st-m').textContent=allM.length;
-  document.getElementById('st-m-s').textContent=pending.length?`${pending.length} belum latsoal`:'Semua selesai 🎉';
-  document.getElementById('st-t').textContent=activeTugas.length;
-  document.getElementById('st-t-s').textContent=activeTugas.length?`${activeTugas.length} aktif`:'Ga ada tugas ✌️';
+  const sec=document.getElementById('home-pending-section');
 
-  // pending materi (belum latsoal)
-  const hp=document.getElementById('home-pending');
   if(!pending.length){
-    hp.innerHTML=`<div class="empty"><span class="empty-ic">🎉</span><div class="empty-t">Semua sudah latihan soal!</div><div class="empty-s">Good job bro, lanjut!</div></div>`;
+    // REWARDING STATE — all done!
+    const msgs=[
+      {e:'🔥',t:'Gasss! Semua latsoal selesai!',s:'Lo literally the goat hari ini. Keep it up!'},
+      {e:'🎉',t:'Sip! Semua udah kelar!',s:'Ga ada yang pending. Lanjut santai dulu atau tambahin materi baru!'},
+      {e:'🏆',t:'Clean slate!',s:'Semua materi udah dilatsoalin. Legend.'},
+      {e:'⚡',t:'Semua beres, bro!',s:'Ga ada yang ketinggalan. Lo on track banget!'},
+    ];
+    const msg=msgs[Math.floor(new Date().getDate()%msgs.length)];
+    sec.innerHTML=`
+      <div class="sip-banner">
+        <div class="sip-emoji">${msg.e}</div>
+        <div><div class="sip-title">${msg.t}</div><div class="sip-sub">${msg.s}</div></div>
+      </div>`;
   } else {
-    hp.innerHTML='';
-    pending.sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6).forEach(m=>hp.appendChild(mkM(m,true)));
-    if(pending.length>6){
-      const more=document.createElement('div');
-      more.style.cssText='padding:12px 16px;font-size:13px;color:var(--ink3);font-weight:600;text-align:center;border-top:1px solid var(--line)';
-      more.textContent=`+${pending.length-6} materi lainnya`;
-      hp.appendChild(more);
-    }
+    // Group by subject
+    const bySubj={};
+    pending.forEach(m=>{
+      if(!bySubj[m.sid]) bySubj[m.sid]=[];
+      bySubj[m.sid].push(m);
+    });
+
+    let html=`<div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">${pending.length}</span></div>`;
+    // render grouped by subject
+    Object.keys(bySubj).forEach(sid=>{
+      const s=gS(sid);
+      const items=bySubj[sid];
+      html+=`<div style="margin-bottom:10px;">`;
+      html+=`<div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:${s.color};margin-bottom:6px;padding-left:2px;">${s.emoji} ${s.name}</div>`;
+      sec.innerHTML=html+'</div>'; // temp set to get container
+    });
+
+    // Rebuild properly
+    sec.innerHTML=`<div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">${pending.length}</span></div>`;
+    Object.keys(bySubj).forEach(sid=>{
+      const s=gS(sid);
+      const grpCard=document.createElement('div');
+      grpCard.className='card'; grpCard.style.marginBottom='10px';
+      const grpHead=document.createElement('div');
+      grpHead.style.cssText=`padding:10px 16px 8px;border-bottom:1px solid var(--line);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:${s.color};display:flex;align-items:center;gap:6px;`;
+      grpHead.innerHTML=`${s.emoji} ${s.name}`;
+      grpCard.appendChild(grpHead);
+      bySubj[sid].forEach(m=>grpCard.appendChild(mkM(m,false)));
+      sec.appendChild(grpCard);
+    });
   }
 
   // upcoming tugas
@@ -1120,15 +1223,72 @@ function toggleT(id){
 // ════════ ACTIONS ════════════════════════════
 function refresh(){
   updateBadge();
-  if(curView==='home')    renderHome();
+  if(curView==='home')     renderHome();
   if(curView==='subjects') renderSubjLists();
   if(curView==='detail'&&curSid) renderDetail(curSid);
+  if(curView==='cal')      renderMcal();
 }
 
 function updateBadge(){
   const n=D.materi.filter(m=>!m.done).length;
   const b=document.getElementById('bn-badge');
   b.textContent=n; b.style.display=n?'':'none';
+}
+
+// ════════ MONTHLY CALENDAR ════════════════════
+const MOS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const DWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+
+function shiftMcal(dir){
+  mcalM+=dir;
+  if(mcalM>11){mcalM=0;mcalY++;}
+  if(mcalM<0){mcalM=11;mcalY--;}
+  renderMcal();
+}
+
+function renderMcal(){
+  document.getElementById('mc-title').textContent=MOS[mcalM]+' '+mcalY;
+  // dows
+  const dowsEl=document.getElementById('mc-dows');
+  dowsEl.innerHTML='';
+  DWS.forEach(d=>{const e=document.createElement('div');e.className='mcal-dow';e.textContent=d;dowsEl.appendChild(e);});
+  // days
+  const daysEl=document.getElementById('mc-days');
+  daysEl.innerHTML='';
+  const first=new Date(mcalY,mcalM,1);
+  const last=new Date(mcalY,mcalM+1,0);
+  const todayStr=tod();
+  // Monday-first padding
+  let pad=first.getDay()-1; if(pad<0)pad=6;
+  const prevLast=new Date(mcalY,mcalM,0).getDate();
+  for(let i=pad-1;i>=0;i--){
+    const e=document.createElement('div');e.className='mday faded';
+    e.innerHTML=`<div class="mday-num">${prevLast-i}</div>`;
+    daysEl.appendChild(e);
+  }
+  for(let d=1;d<=last.getDate();d++){
+    const ds=`${mcalY}-${String(mcalM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=ds===todayStr;
+    const matHari=D.materi.filter(m=>m.date===ds);
+    const tgsHari=D.tugas.filter(t=>t.inputDate===ds);
+    const hasM=matHari.length>0, hasT=tgsHari.length>0;
+    const allDone=hasM&&matHari.every(m=>m.done);
+    const e=document.createElement('div');
+    e.className='mday'+(isToday?' is-today':'');
+    let indicator='';
+    if(hasM&&allDone){
+      indicator=`<div class="mday-x">✕</div>`;
+    } else if(hasM||hasT){
+      let dots='';
+      if(hasM) dots+=`<div class="mday-dot mday-dot-m"></div>`;
+      if(hasT) dots+=`<div class="mday-dot mday-dot-t"></div>`;
+      indicator=`<div class="mday-dots">${dots}</div>`;
+    }
+    e.innerHTML=`<div class="mday-num">${d}</div>${indicator}`;
+    daysEl.appendChild(e);
+  }
+  const rem=7-((pad+last.getDate())%7);
+  if(rem<7) for(let d=1;d<=rem;d++){const e=document.createElement('div');e.className='mday faded';e.innerHTML=`<div class="mday-num">${d}</div>`;daysEl.appendChild(e);}
 }
 
 // ════════ EDIT MATERI ════════════════════════
@@ -1202,8 +1362,48 @@ function execDelSubj(){
   toast('🗑 Subjek dihapus');
 }
 
+// ════════ EDIT SUBJEK ════════════════════════
+function openEditSubj(id){
+  editSid=id;
+  const s=gS(id);
+  document.getElementById('es-e').value=s.emoji||'';
+  document.getElementById('es-n').value=s.name;
+  selColorEdit=s.color;
+  buildCpickerEdit();
+  openSheet('sh-editsubj');
+}
+function saveEditSubj(){
+  const s=gS(editSid);
+  const newEmoji=document.getElementById('es-e').value.trim();
+  const newName=document.getElementById('es-n').value.trim();
+  if(newEmoji) s.emoji=newEmoji;
+  if(newName)  s.name=newName;
+  s.color=selColorEdit;
+  save(); closeSheet('sh-editsubj');
+  // re-render detail with updated info
+  openDetail(editSid);
+  toast('✏️ Subjek diperbarui!');
+}
+function buildCpickerEdit(){
+  const el=document.getElementById('cpicker-edit'); el.innerHTML='';
+  COLORS.forEach(c=>{
+    const d=document.createElement('div');
+    d.className='co'+(c===selColorEdit?' sel':'');
+    d.style.background=c;
+    d.onclick=()=>{selColorEdit=c; buildCpickerEdit();};
+    el.appendChild(d);
+  });
+}
+
 // ════════ SHEET ══════════════════════════════
-function openSheet(id){ document.getElementById(id).classList.add('open'); }
+function openSheet(id){
+  document.getElementById(id).classList.add('open');
+  if(id==='sh-addsubj'){
+    document.getElementById('as-n').value='';
+    document.getElementById('as-t').value='matkul';
+    buildCpicker();
+  }
+}
 function closeSheet(id){ document.getElementById(id).classList.remove('open'); }
 const bgc=(e,id)=>{ if(e.target===document.getElementById(id)) closeSheet(id); };
 
@@ -1217,17 +1417,6 @@ function buildCpicker(){
     el.appendChild(d);
   });
 }
-
-// override openSheet to init color picker
-const _open=openSheet;
-window.openSheet=id=>{
-  _open(id);
-  if(id==='sh-addsubj'){
-    document.getElementById('as-n').value='';
-    document.getElementById('as-t').value='matkul';
-    buildCpicker();
-  }
-};
 
 // ════════ TOAST ══════════════════════════════
 let _tt;
