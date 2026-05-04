@@ -869,6 +869,9 @@ input,select,textarea { font-family:inherit; }
         <button class="sbtn sbtn-g" onclick="closeSheet('sh-editsubj')">Batal</button>
         <button class="sbtn sbtn-p" onclick="saveEditSubj()">Simpan ✓</button>
       </div>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="hapusSubjDariEdit()">🗑 Hapus Subjek Ini</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1380,9 +1383,18 @@ function saveEditSubj(){
   if(newName)  s.name=newName;
   s.color=selColorEdit;
   save(); closeSheet('sh-editsubj');
-  // re-render detail with updated info
   openDetail(editSid);
   toast('✏️ Subjek diperbarui!');
+}
+function hapusSubjDariEdit(){
+  const s=gS(editSid);
+  if(!confirm(`Hapus "${s.name}" dan semua isinya?`))return;
+  D.subjects=D.subjects.filter(x=>x.id!==editSid);
+  D.materi  =D.materi.filter(x=>x.sid!==editSid);
+  D.tugas   =D.tugas.filter(x=>x.sid!==editSid);
+  save(); closeSheet('sh-editsubj');
+  goView('subjects',document.getElementById('bn-s'));
+  toast('🗑 Subjek dihapus');
 }
 function buildCpickerEdit(){
   const el=document.getElementById('cpicker-edit'); el.innerHTML='';
