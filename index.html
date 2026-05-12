@@ -717,7 +717,7 @@ input,select,textarea { font-family:inherit; }
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
             <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Ada materi</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Ada tugas</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Deadline tugas</div>
           </div>
         </div>
       </div>
@@ -1197,7 +1197,7 @@ function mkT(t, showSubj){
   const s=gS(t.sid);
   const diff=diffD(t.deadline,tod());
   let dlClass=t.done?'dl-done':diff<0?'dl-late':diff===0?'dl-soon':diff<=3?'dl-soon':'dl-ok';
-  let dlText=t.done?'✓ Selesai':diff<0?`🚨 Telat ${Math.abs(diff)}h`:diff===0?'⏰ Hari ini!':diff===1?'⚡ Besok':`📅 ${diff}h lagi`;
+  let dlText=t.done?'✓ Selesai':diff<0?`🚨 Telat ${Math.abs(diff)}h`:diff===0?'⏰ Deadline hari ini!':diff===1?'⚡ Deadline besok':`📅 Deadline ${diff}h lagi`;
 
   const row=document.createElement('div');
   row.className='titem'+(t.done?' is-done':'');
@@ -1208,7 +1208,11 @@ function mkT(t, showSubj){
     `<div class="ti-meta">`+
     (showSubj?`<span class="ti-subj-chip" style="background:${s.color}22;color:${s.color}">${s.emoji} ${s.name}</span>`:'')+
     `<span class="ti-dl ${dlClass}">${dlText}</span>`+
-    `</div></div>`+
+    `</div>`+
+    `<div class="ti-meta" style="margin-top:3px">`+
+    `<span style="font-size:11px;color:var(--ink3);">📌 Muncul ${fmtDate(t.inputDate)}</span>`+
+    `</div>`+
+    `</div>`+
     `<button class="ti-btn ${t.done?'done':'todo'}" onclick="toggleT('${t.id}')">`+
     (t.done?'✅ Selesai':'Selesai?')+
     `</button>`+
@@ -1273,7 +1277,7 @@ function renderMcal(){
     const ds=`${mcalY}-${String(mcalM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const isToday=ds===todayStr;
     const matHari=D.materi.filter(m=>m.date===ds);
-    const tgsHari=D.tugas.filter(t=>t.inputDate===ds);
+    const tgsHari=D.tugas.filter(t=>t.deadline===ds);
     const hasM=matHari.length>0, hasT=tgsHari.length>0;
     const allDone=hasM&&matHari.every(m=>m.done);
     const e=document.createElement('div');
