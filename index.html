@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_28.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_29.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -952,7 +952,7 @@ function save(){
   clearTimeout(_saveTimer);
   _saveTimer=setTimeout(async()=>{
     try{
-      const r=await sbFetch(SB_TABLE,{
+      const r=await sbFetch(SB_TABLE+'?on_conflict=user_key',{
         method:'POST',
         prefer:'resolution=merge-duplicates',
         body:JSON.stringify({user_key:USER_KEY, data:JSON.stringify(D)})
