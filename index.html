@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_27.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_28.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -883,7 +883,9 @@ const SB_URL = 'https://wgskqcxfanwzkgraoizj.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnc2txY3hmYW53emtncmFvaXpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjYzMDAsImV4cCI6MjA5NDg0MjMwMH0.RWyTRmmc5aFLeGdSDMb7kZHqowM9gFJQk-59c8ctLfY';
 const SB_TABLE = 'tracker_data';
 
-// user_key: identitas unik per browser (bisa diganti manual kalau mau sync antar device)
+// user_key: cek dari URL param dulu, lalu localStorage, lalu generate baru
+const _urlKey = new URLSearchParams(location.search).get('key');
+if(_urlKey){ localStorage.setItem('kulyeah_userkey',_urlKey); history.replaceState({},'',location.pathname); }
 let USER_KEY = localStorage.getItem('kulyeah_userkey');
 if(!USER_KEY){ USER_KEY='u'+Date.now(); localStorage.setItem('kulyeah_userkey',USER_KEY); }
 
@@ -972,20 +974,19 @@ let D = loadLocal() || DEFAULT_DATA;
 
 // ════════ BOOT ════════════════════════════════
 async function boot(){
-  // Tampil dulu pakai data lokal (cepet)
-  renderHome(); renderSubjLists(); renderMcal();
-
-  // Lalu sync dari cloud di background
   showSyncStatus('☁️ Sinkronisasi...');
+
   const cloud=await loadFromCloud();
   if(cloud){
     D=cloud;
     saveLocal();
-    renderHome(); renderSubjLists(); renderMcal();
     showSyncStatus('✅ Tersinkron');
   } else {
+    D=loadLocal()||DEFAULT_DATA;
     showSyncStatus('📱 Mode lokal');
   }
+
+  renderHome(); renderSubjLists(); renderMcal();
   setTimeout(()=>hideSyncStatus(),2500);
 }
 
