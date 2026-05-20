@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_26.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_27.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -919,22 +919,21 @@ const loadLocal=()=>{try{return JSON.parse(localStorage.getItem('sos_v6')||'null
 const saveLocal=()=>localStorage.setItem('sos_v6',JSON.stringify(D));
 
 // Supabase fetch helper
-const sbFetch=(path,opts={})=>fetch(SB_URL+'/rest/v1/'+path,{
-  ...opts,
-  headers:{
+const sbFetch=(path,opts={})=>{
+  const headers={
     'apikey': SB_KEY,
     'Authorization': 'Bearer '+SB_KEY,
     'Content-Type': 'application/json',
-    'Prefer': opts.prefer||'',
-    ...opts.headers
-  }
-});
+  };
+  if(opts.prefer) headers['Prefer']=opts.prefer;
+  return fetch(SB_URL+'/rest/v1/'+path,{method:opts.method||'GET', headers, body:opts.body});
+};
 
 // Load dari Supabase
 async function loadFromCloud(){
   try{
-    const r=await sbFetch(`${SB_TABLE}?user_key=eq.${USER_KEY}&select=data`);
-    if(!r.ok) throw new Error('fetch fail');
+    const r=await sbFetch(`${SB_TABLE}?user_key=eq.${encodeURIComponent(USER_KEY)}&select=data`);
+    if(!r.ok) throw new Error('status '+r.status);
     const rows=await r.json();
     if(rows.length>0) return JSON.parse(rows[0].data);
     return null;
@@ -947,19 +946,19 @@ async function loadFromCloud(){
 // Save ke Supabase (upsert)
 let _saveTimer=null;
 function save(){
-  saveLocal(); // simpan lokal dulu (instant)
+  saveLocal();
   clearTimeout(_saveTimer);
   _saveTimer=setTimeout(async()=>{
     try{
-      const payload={user_key:USER_KEY, data:JSON.stringify(D)};
-      await sbFetch(SB_TABLE,{
+      const r=await sbFetch(SB_TABLE,{
         method:'POST',
         prefer:'resolution=merge-duplicates',
-        headers:{'Prefer':'resolution=merge-duplicates'},
-        body:JSON.stringify(payload)
+        body:JSON.stringify({user_key:USER_KEY, data:JSON.stringify(D)})
       });
+      if(!r.ok){ const t=await r.text(); throw new Error(r.status+' '+t); }
+      console.log('☁️ Cloud save OK');
     }catch(e){ console.warn('Cloud save gagal:',e); }
-  },800); // debounce 800ms supaya ga spam request
+  },800);
 }
 
 // ════════ HELPERS ════════════════════════════
