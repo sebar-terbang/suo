@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_36.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_37.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -686,6 +686,9 @@ input,select,textarea { font-family:inherit; }
 .mday-dot-u { background:var(--purple); }
 .wd-dot-u   { background:var(--purple); }
 
+/* riwayat ujian past chip */
+.ujian-materi-chip.past { background:var(--bg2); color:var(--ink3); }
+
 /* ══ MONTHLY CALENDAR ══ */
 .mcal-wrap { background:var(--white); border-radius:var(--r); box-shadow:var(--sh); overflow:hidden; margin-bottom:12px; }
 .mcal-head { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--line); }
@@ -723,6 +726,32 @@ input,select,textarea { font-family:inherit; }
 }
 .field select:focus { outline:none; border-color:var(--blue); }
 
+.field textarea {
+  width:100%; padding:12px 14px;
+  border:1.5px solid var(--line2); border-radius:var(--rsm);
+  background:var(--bg); color:var(--ink);
+  font-size:14px; font-weight:500; line-height:1.5;
+  resize:vertical; min-height:80px; font-family:inherit;
+}
+.field textarea:focus { outline:none; border-color:var(--blue); }
+
+/* notes panel — hidden by default, shown on tap */
+.item-notes {
+  display:none;
+  padding:10px 14px 12px;
+  background:var(--bg);
+  border-top:1.5px solid var(--line);
+  font-size:13px; line-height:1.6;
+  color:var(--ink2); white-space:pre-wrap;
+  word-break:break-word;
+}
+.item-notes.visible { display:block; }
+
+/* make item body tappable */
+.mi-body  { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
+.ti-body  { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
+.ujian-body { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
+
 /* ══ REWARDING BANNER ══ */
 .sip-banner {
   background:linear-gradient(135deg,#dcfce7,#d1fae5);
@@ -744,13 +773,15 @@ input,select,textarea { font-family:inherit; }
 <div class="app">
 
   <!-- TOPBAR -->
-  <div class="topbar" id="topbar"><div class="tb-title">📚 Subjek</div></div>
+  <div class="topbar" id="topbar">
+    <div class="tb-logo">Kul<span>yeah</span>! 🎓</div>
+  </div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view" id="v-home">
+    <div class="view active" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -770,16 +801,16 @@ input,select,textarea { font-family:inherit; }
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body" onclick="tapNotes(&#39;notes-t-t2&#39;)"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body" onclick="tapNotes(&#39;notes-t-t1&#39;)"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
-        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
+        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m3&#39;)"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m4&#39;)"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m6&#39;)"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m8&#39;)"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
 
       </div>
     </div>
 
     <!-- ══ SUBJECTS ══ -->
-    <div class="view active" id="v-subjects">
+    <div class="view" id="v-subjects">
       <div class="pad">
         <div class="sec">📚 Mata Kuliah</div>
         <div class="card" id="list-mk"><div class="sitem"><div class="si-icon" style="background:#2563eb22">🔢</div><div class="si-body"><div class="si-name">Kalkulus 2</div><div class="si-sub">4 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">2 belum latsoal</b></div></div><span class="si-badge">2</span><span class="si-chev">›</span></div><div class="sitem"><div class="si-icon" style="background:#dc262622">💻</div><div class="si-body"><div class="si-name">Algoritma &amp; Pemro</div><div class="si-sub">2 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div>
@@ -824,6 +855,9 @@ input,select,textarea { font-family:inherit; }
         <div class="sec" id="sec-t-label">📋 Tugas</div>
         <div class="card" id="d-tugas"></div>
 
+        <div class="sec" id="sec-r-label" style="color:var(--ink3)">🗂 Riwayat Ujian</div>
+        <div id="d-riwayat-ujian"></div>
+
       </div>
     </div>
 
@@ -853,7 +887,7 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:11px;font-weight:700;color:#dc2626">💻 Algoritma &amp; Pemro</span></div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:11px;font-weight:700;color:#2563eb">🔢 Kalkulus 2</span></div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:11px;font-weight:700;color:#2563eb">🔢 Kalkulus 2</span></div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body" onclick="tapNotes(&#39;notes-u-u3&#39;)"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body" onclick="tapNotes(&#39;notes-u-u1&#39;)"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body" onclick="tapNotes(&#39;notes-u-u2&#39;)"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
@@ -866,11 +900,11 @@ input,select,textarea { font-family:inherit; }
       <div class="bn-ic">📅</div>
       <div>Kalender</div>
     </button>
-    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">4</span></div>
       <div>Home</div>
     </button>
-    <button class="bn active" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
+    <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div>
       <div>Subjek</div>
     </button>
@@ -910,6 +944,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Materi / Pertemuan</label><input id="am-n" type="text" placeholder="e.g. Integral Parsial (Pertemuan 5)"></div>
       <div class="field"><label class="flbl">Tanggal Dipelajari</label><input id="am-d" type="date"></div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="am-notes" rows="3" placeholder="Catatan, link, hal yang perlu diingat..."></textarea></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
       <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addmateri&#39;)">Batal</button>
@@ -926,6 +961,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Materi</label><input id="em-n" type="text"></div>
       <div class="field"><label class="flbl">Tanggal Dipelajari</label><input id="em-d" type="date"></div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="em-notes" rows="3" placeholder="Catatan, link, hal yang perlu diingat..."></textarea></div>
     </div>
     <div class="sh-footer">
       <div class="sh-row">
@@ -947,6 +983,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="at-n" type="text" placeholder="e.g. PR Kalkulus Bab 5"></div>
       <div class="field"><label class="flbl">Deadline</label><input id="at-dl" type="date"></div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="at-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
       <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addtugas&#39;)">Batal</button>
@@ -963,6 +1000,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="et-n" type="text"></div>
       <div class="field"><label class="flbl">Deadline</label><input id="et-dl" type="date"></div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="et-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
     </div>
     <div class="sh-footer">
       <div class="sh-row">
@@ -996,6 +1034,7 @@ input,select,textarea { font-family:inherit; }
         <label class="flbl">Materi yang Diujikan</label>
         <div class="materi-check-list" id="au-materi-list"></div>
       </div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="au-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
       <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addujian&#39;)">Batal</button>
@@ -1024,6 +1063,7 @@ input,select,textarea { font-family:inherit; }
         <label class="flbl">Materi yang Diujikan</label>
         <div class="materi-check-list" id="eu-materi-list"></div>
       </div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="eu-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
     </div>
     <div class="sh-footer">
       <div class="sh-row">
@@ -1433,43 +1473,32 @@ function renderDetail(id){
     openSheet('sh-addujian');
   };
 
-  // render ujian
+  // render ujian (upcoming only)
   const du=document.getElementById('d-ujian');
   du.innerHTML='';
-  const ujianList=D.ujian.filter(u=>u.sid===id).sort((a,b)=>a.date.localeCompare(b.date));
-  if(!ujianList.length){
+  const ujianAll=D.ujian.filter(u=>u.sid===id).sort((a,b)=>a.date.localeCompare(b.date));
+  const ujianUpcoming=ujianAll.filter(u=>diffD(u.date,tod())>=0);
+  const ujianPast=ujianAll.filter(u=>diffD(u.date,tod())<0).reverse(); // terbaru dulu
+
+  if(!ujianUpcoming.length){
     du.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🗓️</span><div class="empty-t">Belum ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
   } else {
-    ujianList.forEach(u=>{
-      const diff=diffD(u.date,tod());
-      const isPast=diff<0;
-      const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type];
-      const typeCls=`ujian-type-${u.type}`;
-      let numCls= isPast?'uc-done':diff===0?'uc-crit':diff<=3?'uc-crit':diff<=7?'uc-warn':'uc-ok';
-      let countdownTxt= isPast?`Selesai`:`H-${diff}`;
-      let countdownLbl= isPast?fmtDate(u.date):(diff===0?'HARI INI':'lagi');
-      const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
-      const card=document.createElement('div'); card.className='ujian-card';
-      const item=document.createElement('div'); item.className='ujian-item';
-      item.innerHTML=
-        `<div class="ujian-badge-wrap">`+
-        `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
-        `<div class="ujian-countdown ${numCls}">${countdownTxt}</div>`+
-        `<div class="ujian-countdown-label">${countdownLbl}</div>`+
-        `</div>`+
-        `<div class="ujian-body">`+
-        `<div class="ujian-name">${u.name||typeLabel}</div>`+
-        `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
-        (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
-        `<div class="ujian-actions">`+
-        `<button class="ujian-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
-        (u.ready?'✅ Udah Siap':'📖 Belum Siap')+
-        `</button>`+
-        `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
-        `</div>`+
-        `</div>`;
-      card.appendChild(item);
-      du.appendChild(card);
+    ujianUpcoming.forEach(u=>du.appendChild(mkUjianCard(u)));
+  }
+
+  // render riwayat ujian (past)
+  const dr=document.getElementById('d-riwayat-ujian');
+  const secR=document.getElementById('sec-r-label');
+  dr.innerHTML='';
+  if(!ujianPast.length){
+    secR.style.display='none';
+    dr.style.display='none';
+  } else {
+    secR.style.display='';
+    dr.style.display='';
+    ujianPast.forEach(u=>{
+      const card=mkUjianCard(u, true);
+      dr.appendChild(card);
     });
   }
 
@@ -1479,6 +1508,7 @@ function renderDetail(id){
   document.getElementById('add-m-btn').onclick=()=>{
     document.getElementById('am-n').value='';
     document.getElementById('am-d').value=tod();
+    document.getElementById('am-notes').value='';
     openSheet('sh-addmateri');
   };
 
@@ -1487,6 +1517,7 @@ function renderDetail(id){
   document.getElementById('add-t-btn').onclick=()=>{
     document.getElementById('at-n').value='';
     document.getElementById('at-dl').value='';
+    document.getElementById('at-notes').value='';
     openSheet('sh-addtugas');
   };
 
@@ -1515,12 +1546,15 @@ function mkM(m, showSubj){
   const row=document.createElement('div');
   row.className='mitem '+(m.done?'is-done':'is-todo');
 
+  const notesHtml=m.notes?`<div class="item-notes" id="notes-m-${m.id}">${escHtml(m.notes)}</div>`:'';
+
   row.innerHTML=
-    `<div class="mi-body">`+
+    `<div class="mi-body" onclick="tapNotes('notes-m-${m.id}')">`+
     (showSubj?`<div class="mi-subj" style="color:${s.color}">${s.emoji} ${s.name}</div>`:'')+
     `<div class="mi-name${m.done?' done':''}">${m.name}</div>`+
     `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`+
     `</div>`+
+    notesHtml+
     `<button class="mi-btn ${m.done?'done':'todo'}" onclick="toggleM('${m.id}')">`+
     (m.done?'✅ Selesai':'📝 Latsoal')+
     `</button>`+
@@ -1545,8 +1579,10 @@ function mkT(t, showSubj){
   const row=document.createElement('div');
   row.className='titem'+(t.done?' is-done':'');
 
+  const notesHtml=t.notes?`<div class="item-notes" id="notes-t-${t.id}">${escHtml(t.notes)}</div>`:'';
+
   row.innerHTML=
-    `<div class="ti-body">`+
+    `<div class="ti-body" onclick="tapNotes('notes-t-${t.id}')">`+
     `<div class="ti-name${t.done?' done':''}">${t.name}</div>`+
     `<div class="ti-meta">`+
     (showSubj?`<span class="ti-subj-chip" style="background:${s.color}22;color:${s.color}">${s.emoji} ${s.name}</span>`:'')+
@@ -1556,6 +1592,7 @@ function mkT(t, showSubj){
     `<span style="font-size:11px;color:var(--ink3);">📌 Muncul ${fmtDate(t.inputDate)}</span>`+
     `</div>`+
     `</div>`+
+    notesHtml+
     `<button class="ti-btn ${t.done?'done':'todo'}" onclick="toggleT('${t.id}')">`+
     (t.done?'✅ Selesai':'Selesai?')+
     `</button>`+
@@ -1568,6 +1605,67 @@ function toggleT(id){
   const t=D.tugas.find(x=>x.id===id);
   t.done=!t.done; save(); refresh();
   toast(t.done?'✅ Tugas selesai! 🎉':'↩️ Ditandai belum selesai');
+}
+
+// ════════ NOTES HELPERS ══════════════════════
+const escHtml=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+
+function tapNotes(id){
+  const el=document.getElementById(id);
+  if(!el) return; // no notes, do nothing silently
+  el.classList.toggle('visible');
+}
+
+// ════════ UJIAN CARD BUILDER ═════════════════
+function mkUjianCard(u, isPastOverride=false){
+  const diff=diffD(u.date,tod());
+  const isPast=isPastOverride||diff<0;
+  const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type];
+  const typeCls=`ujian-type-${u.type}`;
+  let numCls=isPast?'uc-done':diff===0?'uc-crit':diff<=3?'uc-crit':diff<=7?'uc-warn':'uc-ok';
+  let countdownTxt=isPast?'Selesai':`H-${diff}`;
+  let countdownLbl=isPast?fmtDate(u.date):diff===0?'HARI INI':'lagi';
+  const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
+
+  const card=document.createElement('div');
+  card.className='ujian-card';
+  if(isPast) card.style.opacity='.75';
+  const item=document.createElement('div'); item.className='ujian-item';
+
+  let actionsHtml='';
+  if(isPast){
+    // riwayat: hanya tombol edit/hapus, status ready di-grey
+    actionsHtml=`<div class="ujian-actions">`+
+      `<span style="font-size:12px;font-weight:600;color:var(--ink3);flex:1;padding:8px 0;">`+
+      (u.ready?'✅ Sudah siap saat itu':'📖 Belum sempat siap')+
+      `</span>`+
+      `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
+      `</div>`;
+  } else {
+    actionsHtml=`<div class="ujian-actions">`+
+      `<button class="ujian-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
+      (u.ready?'✅ Udah Siap':'📖 Belum Siap')+`</button>`+
+      `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
+      `</div>`;
+  }
+
+  const notesHtml=u.notes?`<div class="item-notes" id="notes-u-${u.id}">${escHtml(u.notes)}</div>`:'';
+
+  item.innerHTML=
+    `<div class="ujian-badge-wrap">`+
+    `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
+    `<div class="ujian-countdown ${numCls}">${countdownTxt}</div>`+
+    `<div class="ujian-countdown-label">${countdownLbl}</div>`+
+    `</div>`+
+    `<div class="ujian-body" onclick="tapNotes('notes-u-${u.id}')">`+
+    `<div class="ujian-name">${u.name||typeLabel}</div>`+
+    `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
+    (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
+    actionsHtml+
+    `</div>`;
+  card.appendChild(item);
+  if(notesHtml) item.insertAdjacentHTML('afterend', notesHtml);
+  return card;
 }
 
 // ════════ UJIAN CRUD ═════════════════════════
@@ -1598,8 +1696,10 @@ function saveUjian(){
   const type=document.getElementById('au-type').value;
   const name=document.getElementById('au-n').value.trim();
   const date=document.getElementById('au-d').value||tod();
-  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,materiIds:[...selUjianMat],ready:false,createdAt:tod()});
+  const notes=document.getElementById('au-notes').value.trim();
+  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,materiIds:[...selUjianMat],ready:false,notes,createdAt:tod()});
   save(); closeSheet('sh-addujian');
+  document.getElementById('au-notes').value='';
   if(curView==='detail') renderDetail(curSid);
   renderCalUjian(); renderMcal(); refresh();
   toast('📝 Ujian ditambahkan!');
@@ -1611,6 +1711,7 @@ function openEditUjian(id){
   document.getElementById('eu-type').value=u.type;
   document.getElementById('eu-n').value=u.name||'';
   document.getElementById('eu-d').value=u.date;
+  document.getElementById('eu-notes').value=u.notes||'';
   selUjianMat=new Set(u.materiIds);
   buildUjianMateriList('eu-materi-list', u.sid, selUjianMat);
   openSheet('sh-editujian');
@@ -1622,6 +1723,7 @@ function saveEditUjian(){
   u.name=document.getElementById('eu-n').value.trim();
   u.date=document.getElementById('eu-d').value||u.date;
   u.materiIds=[...selUjianMat];
+  u.notes=document.getElementById('eu-notes').value.trim();
   save(); closeSheet('sh-editujian');
   if(curView==='detail') renderDetail(u.sid);
   renderCalUjian(); renderMcal(); refresh();
@@ -1727,53 +1829,27 @@ function renderCalUjian(){
   if(!el) return;
   el.innerHTML='';
 
-  // Show upcoming + this month ujian, sorted by date
-  const ujianSorted=[...D.ujian].sort((a,b)=>a.date.localeCompare(b.date));
-  const upcoming=ujianSorted.filter(u=>diffD(u.date,tod())>=0);
-  const pastThisMonth=ujianSorted.filter(u=>{
-    const diff=diffD(u.date,tod());
-    return diff<0 && u.date.startsWith(`${mcalY}-${String(mcalM+1).padStart(2,'0')}`);
-  });
-  const toShow=[...upcoming,...pastThisMonth].slice(0,10);
+  // Only show upcoming (H-0 and above)
+  const upcoming=[...D.ujian]
+    .filter(u=>diffD(u.date,tod())>=0)
+    .sort((a,b)=>a.date.localeCompare(b.date));
 
-  if(!toShow.length){
-    el.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🎉</span><div class="empty-t">Ga ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
+  if(!upcoming.length){
+    el.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🎉</span><div class="empty-t">Ga ada ujian mendatang</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
     return;
   }
 
-  toShow.forEach(u=>{
-    const s=gS(u.sid);
-    const diff=diffD(u.date,tod());
-    const isPast=diff<0;
-    const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type];
-    const typeCls=`ujian-type-${u.type}`;
-    let numCls=isPast?'uc-done':diff===0?'uc-crit':diff<=3?'uc-crit':diff<=7?'uc-warn':'uc-ok';
-    let countdownNum=isPast?'✓':`H-${diff}`;
-    let countdownLbl=isPast?'selesai':diff===0?'HARI INI':'lagi';
-    const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
-
-    const card=document.createElement('div'); card.className='ujian-card';
-    const item=document.createElement('div'); item.className='ujian-item';
-    item.innerHTML=
-      `<div class="ujian-badge-wrap">`+
-      `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
-      `<div class="ujian-countdown ${numCls}">${countdownNum}</div>`+
-      `<div class="ujian-countdown-label">${countdownLbl}</div>`+
-      `</div>`+
-      `<div class="ujian-body">`+
-      `<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">`+
-      `<span style="font-size:11px;font-weight:700;color:${s.color}">${s.emoji} ${s.name}</span>`+
-      `</div>`+
-      `<div class="ujian-name">${u.name||typeLabel}</div>`+
-      `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
-      (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
-      `<div class="ujian-actions">`+
-      `<button class="ujian-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
-      (u.ready?'✅ Udah Siap':'📖 Belum Siap')+`</button>`+
-      `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
-      `</div>`+
-      `</div>`;
-    card.appendChild(item);
+  upcoming.forEach(u=>{
+    const card=mkUjianCard(u);
+    // inject subjek label for cross-subject context
+    const nameDiv=card.querySelector('.ujian-name');
+    if(nameDiv){
+      const s=gS(u.sid);
+      const subjSpan=document.createElement('div');
+      subjSpan.style.cssText=`font-size:11px;font-weight:700;color:${s.color};margin-bottom:2px`;
+      subjSpan.textContent=`${s.emoji} ${s.name}`;
+      nameDiv.before(subjSpan);
+    }
     el.appendChild(card);
   });
 }
@@ -1818,12 +1894,14 @@ function openEditM(id){
   const m=D.materi.find(x=>x.id===id);
   document.getElementById('em-n').value=m.name;
   document.getElementById('em-d').value=m.date;
+  document.getElementById('em-notes').value=m.notes||'';
   openSheet('sh-editm');
 }
 function saveEditM(){
   const m=D.materi.find(x=>x.id===editMid);
   m.name=document.getElementById('em-n').value.trim()||m.name;
   m.date=document.getElementById('em-d').value||m.date;
+  m.notes=document.getElementById('em-notes').value.trim();
   save(); closeSheet('sh-editm'); refresh(); toast('✏️ Materi diperbarui!');
 }
 function delMateri(){
@@ -1838,12 +1916,14 @@ function openEditT(id){
   const t=D.tugas.find(x=>x.id===id);
   document.getElementById('et-n').value=t.name;
   document.getElementById('et-dl').value=t.deadline;
+  document.getElementById('et-notes').value=t.notes||'';
   openSheet('sh-editt');
 }
 function saveEditT(){
   const t=D.tugas.find(x=>x.id===editTid);
   t.name=document.getElementById('et-n').value.trim()||t.name;
   t.deadline=document.getElementById('et-dl').value||t.deadline;
+  t.notes=document.getElementById('et-notes').value.trim();
   save(); closeSheet('sh-editt'); refresh(); toast('✏️ Tugas diperbarui!');
 }
 function delTugas(){
@@ -1861,13 +1941,19 @@ function saveSubj(){
 }
 function saveMateri(){
   const name=document.getElementById('am-n').value.trim(); if(!name||!curSid)return;
-  D.materi.push({id:'m'+Date.now(),sid:curSid,name,date:document.getElementById('am-d').value||tod(),done:false});
-  save(); closeSheet('sh-addmateri'); renderDetail(curSid); refresh(); toast('📖 Materi ditambahkan!');
+  const notes=document.getElementById('am-notes').value.trim();
+  D.materi.push({id:'m'+Date.now(),sid:curSid,name,date:document.getElementById('am-d').value||tod(),done:false,notes});
+  save(); closeSheet('sh-addmateri');
+  document.getElementById('am-notes').value='';
+  renderDetail(curSid); refresh(); toast('📖 Materi ditambahkan!');
 }
 function saveTugas(){
   const name=document.getElementById('at-n').value.trim(); if(!name||!curSid)return;
-  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),done:false});
-  save(); closeSheet('sh-addtugas'); renderDetail(curSid); refresh(); toast('📋 Tugas ditambahkan!');
+  const notes=document.getElementById('at-notes').value.trim();
+  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),done:false,notes});
+  save(); closeSheet('sh-addtugas');
+  document.getElementById('at-notes').value='';
+  renderDetail(curSid); refresh(); toast('📋 Tugas ditambahkan!');
 }
 function openDelSubj(id){
   delSid=id;
