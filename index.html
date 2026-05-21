@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_30.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_36.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -567,6 +567,125 @@ input,select,textarea { font-family:inherit; }
   .overlay.open .sheet { transform:none; }
 }
 
+/* ══ UJIAN CARDS ══ */
+.ujian-card {
+  background:var(--white); border-radius:var(--r);
+  box-shadow:var(--sh); margin-bottom:10px;
+  overflow:hidden;
+}
+.ujian-item {
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:flex-start; gap:12px;
+}
+.ujian-item:last-child { border-bottom:none; }
+.ujian-badge-wrap {
+  flex-shrink:0;
+  display:flex; flex-direction:column; align-items:center; gap:4px;
+}
+.ujian-type-badge {
+  font-size:10px; font-weight:800;
+  padding:3px 8px; border-radius:6px;
+  text-transform:uppercase; letter-spacing:.04em;
+  white-space:nowrap;
+}
+.ujian-type-quiz  { background:var(--blue-lt);   color:var(--blue); }
+.ujian-type-uts   { background:var(--amber-lt);  color:var(--amber); }
+.ujian-type-uas   { background:var(--red-lt);    color:var(--red); }
+.ujian-countdown {
+  font-size:20px; font-weight:900;
+  letter-spacing:-1px; line-height:1;
+  text-align:center;
+}
+.ujian-countdown-label {
+  font-size:9px; font-weight:700; color:var(--ink3);
+  text-transform:uppercase; letter-spacing:.05em;
+  text-align:center;
+}
+.uc-ok   { color:var(--blue); }
+.uc-warn { color:var(--amber); }
+.uc-crit { color:var(--red); }
+.uc-done { color:var(--ink3); }
+
+.ujian-body { flex:1; min-width:0; }
+.ujian-name { font-size:15px; font-weight:700; color:var(--ink); line-height:1.3; }
+.ujian-subj { font-size:11px; font-weight:700; margin-bottom:4px; }
+.ujian-date { font-size:11px; color:var(--ink3); margin-top:3px; }
+.ujian-materi-list {
+  display:flex; flex-wrap:wrap; gap:4px; margin-top:7px;
+}
+.ujian-materi-chip {
+  font-size:10px; font-weight:600;
+  background:var(--bg2); color:var(--ink2);
+  padding:2px 7px; border-radius:99px;
+}
+.ujian-actions {
+  display:flex; gap:6px; margin-top:10px;
+}
+.ujian-ready-btn {
+  flex:1; padding:8px 10px;
+  border-radius:var(--rsm);
+  font-size:12px; font-weight:700;
+  border:1.5px solid;
+  transition:all .18s; text-align:center;
+}
+.ujian-ready-btn:active { opacity:.7; transform:scale(.96); }
+.ujian-ready-btn.not-ready { background:var(--bg); border-color:var(--line2); color:var(--ink2); }
+.ujian-ready-btn.ready     { background:var(--green-lt); border-color:var(--green-bd); color:var(--green); }
+.ujian-edit-btn {
+  padding:8px 10px; border-radius:var(--rsm);
+  font-size:14px; color:var(--ink3);
+  border:1.5px solid var(--line); background:var(--bg);
+}
+.ujian-edit-btn:active { background:var(--bg2); }
+
+/* ══ HOME ujian section ══ */
+.home-ujian-item {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 16px; border-bottom:1px solid var(--line);
+}
+.home-ujian-item:last-child { border-bottom:none; }
+.huj-left { display:flex; flex-direction:column; align-items:center; gap:2px; min-width:46px; }
+.huj-num  { font-size:22px; font-weight:900; letter-spacing:-1px; line-height:1; }
+.huj-lbl  { font-size:9px; font-weight:700; color:var(--ink3); text-transform:uppercase; letter-spacing:.05em; }
+.huj-body { flex:1; min-width:0; }
+.huj-name { font-size:14px; font-weight:700; color:var(--ink); }
+.huj-sub  { font-size:11px; color:var(--ink3); margin-top:2px; }
+.huj-status {
+  font-size:11px; font-weight:700;
+  padding:4px 10px; border-radius:99px;
+  flex-shrink:0;
+}
+.huj-status.ready     { background:var(--green-lt); color:var(--green); }
+.huj-status.not-ready { background:var(--red-lt);   color:var(--red); }
+.huj-status.done-ev   { background:var(--bg2);      color:var(--ink3); }
+
+/* ══ Materi checklist di sheet ══ */
+.materi-check-list { display:flex; flex-direction:column; gap:6px; margin-top:4px; }
+.materi-check-item {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px; border-radius:var(--rsm);
+  background:var(--bg); border:1.5px solid var(--line);
+  cursor:pointer; transition:all .15s;
+}
+.materi-check-item.selected {
+  background:var(--blue-lt); border-color:var(--blue-bd);
+}
+.materi-check-box {
+  width:20px; height:20px; border-radius:5px;
+  border:2px solid var(--line2); background:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-size:12px; transition:all .15s;
+}
+.materi-check-item.selected .materi-check-box {
+  background:var(--blue); border-color:var(--blue); color:#fff;
+}
+.materi-check-text { font-size:13px; font-weight:600; color:var(--ink); flex:1; }
+
+/* dot ujian di kalender */
+.mday-dot-u { background:var(--purple); }
+.wd-dot-u   { background:var(--purple); }
+
 /* ══ MONTHLY CALENDAR ══ */
 .mcal-wrap { background:var(--white); border-radius:var(--r); box-shadow:var(--sh); overflow:hidden; margin-bottom:12px; }
 .mcal-head { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid var(--line); }
@@ -595,6 +714,15 @@ input,select,textarea { font-family:inherit; }
 .cal-leg-item { display:flex; align-items:center; gap:5px; font-size:11px; color:var(--ink3); font-weight:500; }
 .cal-leg-dot { width:8px; height:8px; border-radius:50%; }
 
+.field select {
+  width:100%; padding:12px 14px;
+  border:1.5px solid var(--line2); border-radius:var(--rsm);
+  background:var(--bg); color:var(--ink);
+  font-size:14px; font-weight:600;
+  -webkit-appearance:none; appearance:none;
+}
+.field select:focus { outline:none; border-color:var(--blue); }
+
 /* ══ REWARDING BANNER ══ */
 .sip-banner {
   background:linear-gradient(135deg,#dcfce7,#d1fae5);
@@ -616,15 +744,13 @@ input,select,textarea { font-family:inherit; }
 <div class="app">
 
   <!-- TOPBAR -->
-  <div class="topbar" id="topbar">
-    <div class="tb-logo">Kul<span>yeah</span>! 🎓</div>
-  </div>
+  <div class="topbar" id="topbar"><div class="tb-title">📚 Subjek</div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -639,21 +765,21 @@ input,select,textarea { font-family:inherit; }
               <button class="wk-arr" onclick="shiftWeek(1)">›</button>
             </div>
           </div>
-          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday is-today"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
+          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday is-today"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
         </div>
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sen, 18 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
-        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Sel, 19 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Sel, 19 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
+        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
 
       </div>
     </div>
 
     <!-- ══ SUBJECTS ══ -->
-    <div class="view" id="v-subjects">
+    <div class="view active" id="v-subjects">
       <div class="pad">
         <div class="sec">📚 Mata Kuliah</div>
         <div class="card" id="list-mk"><div class="sitem"><div class="si-icon" style="background:#2563eb22">🔢</div><div class="si-body"><div class="si-name">Kalkulus 2</div><div class="si-sub">4 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">2 belum latsoal</b></div></div><span class="si-badge">2</span><span class="si-chev">›</span></div><div class="sitem"><div class="si-icon" style="background:#dc262622">💻</div><div class="si-body"><div class="si-name">Algoritma &amp; Pemro</div><div class="si-sub">2 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div>
@@ -689,6 +815,9 @@ input,select,textarea { font-family:inherit; }
           </div>
         </div>
 
+        <div class="sec" id="sec-u-label">📝 Ujian</div>
+        <div id="d-ujian"></div>
+
         <div class="sec" id="sec-m-label">📖 Materi</div>
         <div class="card" id="d-materi"></div>
 
@@ -711,14 +840,21 @@ input,select,textarea { font-family:inherit; }
           </div>
           <div class="mcal-inner">
             <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">15</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday is-today"><div class="mday-num">20</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">21</div></div><div class="mday"><div class="mday-num">22</div></div><div class="mday"><div class="mday-num">23</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">24</div></div><div class="mday"><div class="mday-num">25</div></div><div class="mday"><div class="mday-num">26</div></div><div class="mday"><div class="mday-num">27</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
+            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div></div><div class="mday"><div class="mday-num">20</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday is-today"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">22</div></div><div class="mday"><div class="mday-num">23</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">26</div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">29</div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
           </div>
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
             <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Ada materi</div>
             <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Deadline tugas</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-u"></div> Ujian/Quiz</div>
           </div>
         </div>
+        <div class="sec" style="display:flex;align-items:center;justify-content:space-between;">
+          📝 Ujian Mendatang
+          <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
+        </div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:11px;font-weight:700;color:#dc2626">💻 Algoritma &amp; Pemro</span></div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:11px;font-weight:700;color:#2563eb">🔢 Kalkulus 2</span></div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="display:flex;align-items:center;gap:6px;margin-bottom:2px"><span style="font-size:11px;font-weight:700;color:#2563eb">🔢 Kalkulus 2</span></div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+
       </div>
     </div>
 
@@ -730,11 +866,11 @@ input,select,textarea { font-family:inherit; }
       <div class="bn-ic">📅</div>
       <div>Kalender</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">4</span></div>
       <div>Home</div>
     </button>
-    <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
+    <button class="bn active" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div>
       <div>Subjek</div>
     </button>
@@ -840,6 +976,67 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
+<!-- Add Ujian -->
+<div class="overlay" id="sh-addujian" onclick="bgc(event,&#39;sh-addujian&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">📝 Tambah Ujian</div>
+    <div class="sh-body">
+      <div class="field">
+        <label class="flbl">Tipe Ujian</label>
+        <select id="au-type">
+          <option value="quiz">📝 Quiz</option>
+          <option value="uts">📖 UTS (Ujian Tengah Semester)</option>
+          <option value="uas">🎓 UAS (Ujian Akhir Semester)</option>
+        </select>
+      </div>
+      <div class="field"><label class="flbl">Nama / Keterangan (opsional)</label><input id="au-n" type="text" placeholder="e.g. Quiz 2, UTS Genap"></div>
+      <div class="field"><label class="flbl">Tanggal Ujian</label><input id="au-d" type="date"></div>
+      <div class="field">
+        <label class="flbl">Materi yang Diujikan</label>
+        <div class="materi-check-list" id="au-materi-list"></div>
+      </div>
+    </div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addujian&#39;)">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveUjian()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Edit Ujian -->
+<div class="overlay" id="sh-editujian" onclick="bgc(event,&#39;sh-editujian&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">✏️ Edit Ujian</div>
+    <div class="sh-body">
+      <div class="field">
+        <label class="flbl">Tipe Ujian</label>
+        <select id="eu-type">
+          <option value="quiz">📝 Quiz</option>
+          <option value="uts">📖 UTS</option>
+          <option value="uas">🎓 UAS</option>
+        </select>
+      </div>
+      <div class="field"><label class="flbl">Nama / Keterangan</label><input id="eu-n" type="text"></div>
+      <div class="field"><label class="flbl">Tanggal Ujian</label><input id="eu-d" type="date"></div>
+      <div class="field">
+        <label class="flbl">Materi yang Diujikan</label>
+        <div class="materi-check-list" id="eu-materi-list"></div>
+      </div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editujian&#39;)">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveEditUjian()">Simpan</button>
+      </div>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="delUjian()">🗑 Hapus Ujian Ini</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Del Subjek -->
 <div class="overlay" id="sh-dels" onclick="bgc(event,&#39;sh-dels&#39;)">
   <div class="sheet">
@@ -914,6 +1111,10 @@ const DEFAULT_DATA = { subjects:[
   {id:'t1',sid:'s1',name:'PR Integral Bab 6',      inputDate:ago(2), deadline:ago(-3), done:false},
   {id:'t2',sid:'s2',name:'Implementasi Quicksort', inputDate:ago(1), deadline:tod(),   done:false},
   {id:'t3',sid:'s2',name:'Laporan Praktikum 2',    inputDate:ago(5), deadline:ago(-7), done:true },
+], ujian:[
+  {id:'u1',sid:'s1',type:'quiz',name:'Quiz 2',date:ago(-4), materiIds:['m3','m4'],ready:false,createdAt:tod()},
+  {id:'u2',sid:'s1',type:'uts', name:'UTS Genap',date:ago(-14),materiIds:['m1','m2','m3','m4'],ready:false,createdAt:tod()},
+  {id:'u3',sid:'s2',type:'quiz',name:'Quiz 1',   date:ago(-2), materiIds:['m5','m6'],ready:true, createdAt:tod()},
 ]};
 
 // localStorage sebagai cache offline
@@ -967,7 +1168,8 @@ function save(){
 const gS=id=>D.subjects.find(s=>s.id===id);
 
 // ════════ UI STATE ════════════════════════════
-let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, editSid=null, selColor=COLORS[0], selColorEdit=COLORS[0];
+let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, editSid=null, editUid=null, selColor=COLORS[0], selColorEdit=COLORS[0];
+let selUjianMat=new Set(); // selected materiIds for add/edit ujian sheet
 let weekOff=0;
 let mcalY=new Date().getFullYear(), mcalM=new Date().getMonth();
 let D = loadLocal() || DEFAULT_DATA;
@@ -979,10 +1181,12 @@ async function boot(){
   const cloud=await loadFromCloud();
   if(cloud){
     D=cloud;
+    if(!D.ujian) D.ujian=[];
     saveLocal();
     showSyncStatus('✅ Tersinkron');
   } else {
     D=loadLocal()||DEFAULT_DATA;
+    if(!D.ujian) D.ujian=[];
     showSyncStatus('📱 Mode lokal');
   }
 
@@ -1218,6 +1422,58 @@ function renderDetail(id){
     `</div>`;
 
   // set up add buttons on section labels
+  const suEl=document.getElementById('sec-u-label');
+  suEl.innerHTML=`📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span>`;
+  document.getElementById('add-u-btn').onclick=()=>{
+    document.getElementById('au-n').value='';
+    document.getElementById('au-type').value='quiz';
+    document.getElementById('au-d').value='';
+    selUjianMat=new Set();
+    buildUjianMateriList('au-materi-list', id, selUjianMat);
+    openSheet('sh-addujian');
+  };
+
+  // render ujian
+  const du=document.getElementById('d-ujian');
+  du.innerHTML='';
+  const ujianList=D.ujian.filter(u=>u.sid===id).sort((a,b)=>a.date.localeCompare(b.date));
+  if(!ujianList.length){
+    du.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🗓️</span><div class="empty-t">Belum ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
+  } else {
+    ujianList.forEach(u=>{
+      const diff=diffD(u.date,tod());
+      const isPast=diff<0;
+      const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type];
+      const typeCls=`ujian-type-${u.type}`;
+      let numCls= isPast?'uc-done':diff===0?'uc-crit':diff<=3?'uc-crit':diff<=7?'uc-warn':'uc-ok';
+      let countdownTxt= isPast?`Selesai`:`H-${diff}`;
+      let countdownLbl= isPast?fmtDate(u.date):(diff===0?'HARI INI':'lagi');
+      const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
+      const card=document.createElement('div'); card.className='ujian-card';
+      const item=document.createElement('div'); item.className='ujian-item';
+      item.innerHTML=
+        `<div class="ujian-badge-wrap">`+
+        `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
+        `<div class="ujian-countdown ${numCls}">${countdownTxt}</div>`+
+        `<div class="ujian-countdown-label">${countdownLbl}</div>`+
+        `</div>`+
+        `<div class="ujian-body">`+
+        `<div class="ujian-name">${u.name||typeLabel}</div>`+
+        `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
+        (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
+        `<div class="ujian-actions">`+
+        `<button class="ujian-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
+        (u.ready?'✅ Udah Siap':'📖 Belum Siap')+
+        `</button>`+
+        `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
+        `</div>`+
+        `</div>`;
+      card.appendChild(item);
+      du.appendChild(card);
+    });
+  }
+
+  // set up add buttons on section labels
   const smEl=document.getElementById('sec-m-label');
   smEl.innerHTML=`📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span>`;
   document.getElementById('add-m-btn').onclick=()=>{
@@ -1314,6 +1570,82 @@ function toggleT(id){
   toast(t.done?'✅ Tugas selesai! 🎉':'↩️ Ditandai belum selesai');
 }
 
+// ════════ UJIAN CRUD ═════════════════════════
+function buildUjianMateriList(elId, sid, selectedSet){
+  const el=document.getElementById(elId); el.innerHTML='';
+  const mats=D.materi.filter(m=>m.sid===sid);
+  if(!mats.length){
+    el.innerHTML=`<div style="font-size:13px;color:var(--ink3);padding:8px 0">Belum ada materi di subjek ini.</div>`;
+    return;
+  }
+  mats.forEach(m=>{
+    const item=document.createElement('div');
+    item.className='materi-check-item'+(selectedSet.has(m.id)?' selected':'');
+    item.innerHTML=
+      `<div class="materi-check-box">${selectedSet.has(m.id)?'✓':''}</div>`+
+      `<div class="materi-check-text">${m.name}</div>`;
+    item.onclick=()=>{
+      if(selectedSet.has(m.id)) selectedSet.delete(m.id);
+      else selectedSet.add(m.id);
+      buildUjianMateriList(elId, sid, selectedSet);
+    };
+    el.appendChild(item);
+  });
+}
+
+function saveUjian(){
+  if(!curSid) return;
+  const type=document.getElementById('au-type').value;
+  const name=document.getElementById('au-n').value.trim();
+  const date=document.getElementById('au-d').value||tod();
+  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,materiIds:[...selUjianMat],ready:false,createdAt:tod()});
+  save(); closeSheet('sh-addujian');
+  if(curView==='detail') renderDetail(curSid);
+  renderCalUjian(); renderMcal(); refresh();
+  toast('📝 Ujian ditambahkan!');
+}
+
+function openEditUjian(id){
+  editUid=id;
+  const u=D.ujian.find(x=>x.id===id);
+  document.getElementById('eu-type').value=u.type;
+  document.getElementById('eu-n').value=u.name||'';
+  document.getElementById('eu-d').value=u.date;
+  selUjianMat=new Set(u.materiIds);
+  buildUjianMateriList('eu-materi-list', u.sid, selUjianMat);
+  openSheet('sh-editujian');
+}
+
+function saveEditUjian(){
+  const u=D.ujian.find(x=>x.id===editUid);
+  u.type=document.getElementById('eu-type').value;
+  u.name=document.getElementById('eu-n').value.trim();
+  u.date=document.getElementById('eu-d').value||u.date;
+  u.materiIds=[...selUjianMat];
+  save(); closeSheet('sh-editujian');
+  if(curView==='detail') renderDetail(u.sid);
+  renderCalUjian(); renderMcal(); refresh();
+  toast('✏️ Ujian diperbarui!');
+}
+
+function delUjian(){
+  if(!confirm('Hapus ujian ini?')) return;
+  const u=D.ujian.find(x=>x.id===editUid);
+  const sid=u.sid;
+  D.ujian=D.ujian.filter(x=>x.id!==editUid);
+  save(); closeSheet('sh-editujian');
+  if(curView==='detail') renderDetail(sid);
+  renderCalUjian(); renderMcal(); refresh();
+  toast('🗑 Ujian dihapus');
+}
+
+function toggleUjianReady(id){
+  const u=D.ujian.find(x=>x.id===id);
+  u.ready=!u.ready; save(); renderCalUjian();
+  if(curSid) renderDetail(curSid);
+  toast(u.ready?'✅ Siap ujian! 💪':'📖 Oke, tandai belum siap');
+}
+
 // ════════ ACTIONS ════════════════════════════
 function refresh(){
   updateBadge();
@@ -1365,17 +1697,20 @@ function renderMcal(){
     const isToday=ds===todayStr;
     const matHari=D.materi.filter(m=>m.date===ds);
     const tgsHari=D.tugas.filter(t=>t.deadline===ds);
-    const hasM=matHari.length>0, hasT=tgsHari.length>0;
+    const ujHari=D.ujian.filter(u=>u.date===ds);
+    const hasM=matHari.length>0, hasT=tgsHari.length>0, hasU=ujHari.length>0;
     const allDone=hasM&&matHari.every(m=>m.done);
     const e=document.createElement('div');
     e.className='mday'+(isToday?' is-today':'');
     let indicator='';
-    if(hasM&&allDone){
+    if(hasM&&allDone&&!hasT&&!hasU){
       indicator=`<div class="mday-x">✕</div>`;
-    } else if(hasM||hasT){
+    } else if(hasM||hasT||hasU){
       let dots='';
-      if(hasM) dots+=`<div class="mday-dot mday-dot-m"></div>`;
+      if(hasM&&allDone) dots+=`<div class="mday-dot" style="background:var(--green);border-radius:2px;width:8px;height:4px;"></div>`;
+      else if(hasM) dots+=`<div class="mday-dot mday-dot-m"></div>`;
       if(hasT) dots+=`<div class="mday-dot mday-dot-t"></div>`;
+      if(hasU) dots+=`<div class="mday-dot mday-dot-u"></div>`;
       indicator=`<div class="mday-dots">${dots}</div>`;
     }
     e.innerHTML=`<div class="mday-num">${d}</div>${indicator}`;
@@ -1383,9 +1718,101 @@ function renderMcal(){
   }
   const rem=7-((pad+last.getDate())%7);
   if(rem<7) for(let d=1;d<=rem;d++){const e=document.createElement('div');e.className='mday faded';e.innerHTML=`<div class="mday-num">${d}</div>`;daysEl.appendChild(e);}
+  renderCalUjian();
 }
 
-// ════════ EDIT MATERI ════════════════════════
+// ════════ CALENDAR UJIAN SECTION ══════════════
+function renderCalUjian(){
+  const el=document.getElementById('cal-ujian-section');
+  if(!el) return;
+  el.innerHTML='';
+
+  // Show upcoming + this month ujian, sorted by date
+  const ujianSorted=[...D.ujian].sort((a,b)=>a.date.localeCompare(b.date));
+  const upcoming=ujianSorted.filter(u=>diffD(u.date,tod())>=0);
+  const pastThisMonth=ujianSorted.filter(u=>{
+    const diff=diffD(u.date,tod());
+    return diff<0 && u.date.startsWith(`${mcalY}-${String(mcalM+1).padStart(2,'0')}`);
+  });
+  const toShow=[...upcoming,...pastThisMonth].slice(0,10);
+
+  if(!toShow.length){
+    el.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🎉</span><div class="empty-t">Ga ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
+    return;
+  }
+
+  toShow.forEach(u=>{
+    const s=gS(u.sid);
+    const diff=diffD(u.date,tod());
+    const isPast=diff<0;
+    const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type];
+    const typeCls=`ujian-type-${u.type}`;
+    let numCls=isPast?'uc-done':diff===0?'uc-crit':diff<=3?'uc-crit':diff<=7?'uc-warn':'uc-ok';
+    let countdownNum=isPast?'✓':`H-${diff}`;
+    let countdownLbl=isPast?'selesai':diff===0?'HARI INI':'lagi';
+    const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
+
+    const card=document.createElement('div'); card.className='ujian-card';
+    const item=document.createElement('div'); item.className='ujian-item';
+    item.innerHTML=
+      `<div class="ujian-badge-wrap">`+
+      `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
+      `<div class="ujian-countdown ${numCls}">${countdownNum}</div>`+
+      `<div class="ujian-countdown-label">${countdownLbl}</div>`+
+      `</div>`+
+      `<div class="ujian-body">`+
+      `<div style="display:flex;align-items:center;gap:6px;margin-bottom:2px">`+
+      `<span style="font-size:11px;font-weight:700;color:${s.color}">${s.emoji} ${s.name}</span>`+
+      `</div>`+
+      `<div class="ujian-name">${u.name||typeLabel}</div>`+
+      `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
+      (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
+      `<div class="ujian-actions">`+
+      `<button class="ujian-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
+      (u.ready?'✅ Udah Siap':'📖 Belum Siap')+`</button>`+
+      `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
+      `</div>`+
+      `</div>`;
+    card.appendChild(item);
+    el.appendChild(card);
+  });
+}
+
+// Tambah ujian dari tab kalender — pilih subjek dulu
+let _calAddUjianSid=null;
+function openAddUjianFromCal(){
+  // Jika hanya 1 subjek, langsung ke sheet
+  if(D.subjects.length===1){
+    _calAddUjianSid=D.subjects[0].id;
+    _openAddUjianSheet(_calAddUjianSid);
+    return;
+  }
+  // Buat quick-pick modal subjek
+  let opts=D.subjects.map(s=>`<button onclick="_calPickSubj('${s.id}')" style="width:100%;padding:12px 16px;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:6px"><span style="color:${s.color}">${s.emoji}</span>${s.name}</button>`).join('');
+  const overlay=document.createElement('div');
+  overlay.id='subj-pick-overlay';
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:flex-end;justify-content:center;';
+  overlay.innerHTML=`<div style="background:var(--white);border-radius:22px 22px 0 0;padding:20px 20px 32px;width:100%;max-width:440px;"><div style="font-size:15px;font-weight:800;margin-bottom:14px;">📝 Pilih Subjek untuk Ujian</div>${opts}<button onclick="document.getElementById('subj-pick-overlay').remove()" style="width:100%;padding:12px;background:var(--bg2);border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;font-weight:600;color:var(--ink3);margin-top:4px;">Batal</button></div>`;
+  overlay.onclick=e=>{if(e.target===overlay)overlay.remove();};
+  document.body.appendChild(overlay);
+}
+function _calPickSubj(sid){
+  document.getElementById('subj-pick-overlay')?.remove();
+  _openAddUjianSheet(sid);
+}
+function _openAddUjianSheet(sid){
+  _calAddUjianSid=sid;
+  // Temporarily set curSid so saveUjian works
+  curSid=sid;
+  document.getElementById('au-n').value='';
+  document.getElementById('au-type').value='quiz';
+  document.getElementById('au-d').value='';
+  selUjianMat=new Set();
+  buildUjianMateriList('au-materi-list', sid, selUjianMat);
+  openSheet('sh-addujian');
+}
+
+
 function openEditM(id){
   editMid=id;
   const m=D.materi.find(x=>x.id===id);
@@ -1530,7 +1957,7 @@ function toast(msg){
 }
 
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 </body></html>
