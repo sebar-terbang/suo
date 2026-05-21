@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_38.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_40.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -56,7 +56,12 @@ body {
 button { font-family:inherit; cursor:pointer; border:none; background:none; -webkit-tap-highlight-color:transparent; }
 input,select,textarea { font-family:inherit; }
 
-/* ── APP SHELL ── */
+/* ══ DESKTOP LAYOUT VARS ══ */
+:root {
+  --sb-w: 220px; /* sidebar width */
+}
+
+/* ── APP SHELL — mobile default ── */
 .app {
   display:flex; flex-direction:column;
   height:100dvh; max-width:480px;
@@ -137,6 +142,209 @@ input,select,textarea { font-family:inherit; }
 /* ── VIEWS ── */
 .view { display:none; }
 .view.active { display:block; }
+
+/* ══════════════════════════════════
+   DESKTOP OVERRIDE (≥768px)
+══════════════════════════════════ */
+@media (min-width:768px){
+  :root { --sb-w: 260px; }
+
+  body { overflow:hidden; }
+
+  .app {
+    max-width:100%; width:100%; height:100dvh;
+    flex-direction:row; margin:0;
+  }
+
+  .topbar { display:none; }
+  .bnav   { display:none; }
+
+  /* ════ SIDEBAR ════ */
+  .sidebar {
+    width:var(--sb-w); flex-shrink:0;
+    height:100dvh;
+    background:var(--white);
+    border-right:1px solid var(--line);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+
+  /* Brand */
+  .sb-brand {
+    padding:22px 18px 16px;
+    border-bottom:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .sb-logo {
+    font-size:20px; font-weight:800;
+    letter-spacing:-.6px; color:var(--ink); line-height:1;
+  }
+  .sb-logo span { color:var(--blue); }
+  .sb-tagline {
+    font-size:11.5px; color:var(--ink3);
+    font-weight:600; margin-top:4px;
+  }
+
+  /* Main nav */
+  .sb-nav {
+    padding:10px 10px 8px;
+    border-bottom:1px solid var(--line);
+    flex-shrink:0; display:flex; flex-direction:column; gap:2px;
+  }
+  .sb-item {
+    display:flex; align-items:center; gap:11px;
+    padding:10px 12px; border-radius:11px;
+    font-size:13.5px; font-weight:700; color:var(--ink2);
+    cursor:pointer; transition:background .12s, color .12s;
+    width:100%; text-align:left;
+    -webkit-tap-highlight-color:transparent; position:relative;
+  }
+  .sb-item:hover { background:var(--bg); color:var(--ink); }
+  .sb-item.active { background:var(--blue-lt); color:var(--blue); }
+  .sb-item-ic { font-size:17px; line-height:1; flex-shrink:0; }
+  .sb-item-badge {
+    margin-left:auto;
+    background:var(--red); color:#fff;
+    font-size:9px; font-weight:800;
+    padding:2px 7px; border-radius:99px; min-width:20px;
+    text-align:center;
+  }
+
+  /* Subjects section */
+  .sb-section-label {
+    font-size:10px; font-weight:800; text-transform:uppercase;
+    letter-spacing:.08em; color:var(--ink3);
+    padding:14px 18px 5px;
+    flex-shrink:0;
+  }
+  .sb-subjects {
+    flex:1; overflow-y:auto;
+    padding:0 10px 10px;
+  }
+  .sb-subjects::-webkit-scrollbar { width:3px; }
+  .sb-subjects::-webkit-scrollbar-thumb {
+    background:var(--line2); border-radius:99px;
+  }
+  .sb-subj-group-label {
+    font-size:10px; font-weight:700; color:var(--ink3);
+    text-transform:uppercase; letter-spacing:.06em;
+    padding:8px 8px 3px;
+  }
+  .sb-subj-item {
+    display:flex; align-items:center; gap:10px;
+    padding:9px 12px; border-radius:10px;
+    font-size:13.5px; font-weight:600; color:var(--ink2);
+    cursor:pointer; transition:background .12s, color .12s;
+    width:100%; text-align:left;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .sb-subj-item:hover { background:var(--bg); color:var(--ink); }
+  .sb-subj-item.active {
+    background:var(--bg2); color:var(--ink);
+    font-weight:700;
+  }
+  .sb-subj-emoji { font-size:15px; flex-shrink:0; }
+  .sb-subj-name {
+    flex:1; min-width:0;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .sb-subj-pending {
+    flex-shrink:0;
+    font-size:10px; font-weight:800;
+    background:var(--amber-lt); color:var(--amber);
+    padding:2px 7px; border-radius:99px;
+  }
+
+  /* Footer */
+  .sb-footer {
+    padding:12px 18px 16px;
+    border-top:1px solid var(--line);
+    flex-shrink:0;
+  }
+  .sb-sync {
+    font-size:11.5px; font-weight:600; color:var(--ink3);
+    display:flex; align-items:center; gap:6px;
+  }
+  .sb-add-subj {
+    margin-top:10px;
+    width:100%; padding:9px 12px;
+    border-radius:10px;
+    border:1.5px dashed var(--blue-bd);
+    background:var(--blue-lt);
+    color:var(--blue); font-size:13px; font-weight:700;
+    cursor:pointer; transition:opacity .12s;
+    display:flex; align-items:center; gap:8px;
+  }
+  .sb-add-subj:hover { opacity:.8; }
+
+  /* ════ DESKTOP MAIN ════ */
+  .desktop-main {
+    flex:1; min-width:0;
+    display:flex; flex-direction:column;
+    height:100dvh; background:var(--bg);
+  }
+
+  /* Desktop topbar */
+  .desktop-topbar {
+    height:56px; flex-shrink:0;
+    background:var(--white);
+    border-bottom:1px solid var(--line);
+    display:flex; align-items:center;
+    padding:0 28px; gap:14px;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .dtb-title {
+    font-size:17px; font-weight:700;
+    letter-spacing:-.3px; flex:1; color:var(--ink);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .dtb-back {
+    color:var(--blue); font-size:13.5px; font-weight:700;
+    display:flex; align-items:center; gap:5px;
+    padding:8px 16px 8px 0;
+    cursor:pointer; transition:opacity .12s;
+    border-right:1px solid var(--line);
+    margin-right:4px;
+  }
+  .dtb-back:hover { opacity:.7; }
+  .dtb-actions { display:flex; gap:8px; }
+  .dtb-btn {
+    padding:7px 16px; border-radius:var(--rsm);
+    font-size:13px; font-weight:700;
+    border:1.5px solid; transition:all .12s;
+    cursor:pointer;
+  }
+  .dtb-btn:hover { opacity:.85; }
+  .dtb-btn.blue  { background:var(--blue); color:#fff; border-color:var(--blue); }
+  .dtb-btn.ghost { background:none; border-color:var(--line2); color:var(--ink2); }
+
+  /* Scroll + content */
+  .desktop-main .scroll { padding-bottom:40px; }
+  .desktop-main .pad {
+    max-width:660px; margin:0 auto; padding:24px 28px;
+  }
+
+  /* Hover states */
+  .mitem:hover    { background:var(--bg); cursor:pointer; }
+  .titem:hover    { background:var(--bg); cursor:pointer; }
+  .sitem:hover    { background:var(--bg); }
+  .ujian-item:hover { background:var(--bg); }
+  .home-ujian-item:hover { background:var(--bg); cursor:default; }
+
+  /* Sheets centered */
+  .sheet        { max-width:500px; margin:0 auto; border-radius:22px 22px 0 0; }
+  .notes-sheet  { max-width:500px; margin:0 auto; }
+
+  /* Subject detail header padding */
+  .sdh { padding:22px 28px 18px; }
+  .sdh-name { font-size:23px; }
+}
+
+@media (max-width:767px){
+  .sidebar        { display:none; }
+  .desktop-main   { display:contents; }
+  .desktop-topbar { display:none !important; }
+}
 
 /* ══════════════════════════════════
    WEEKLY CALENDAR
@@ -817,16 +1025,46 @@ input,select,textarea { font-family:inherit; }
 <body>
 <div class="app">
 
-  <!-- TOPBAR -->
-  <div class="topbar" id="topbar">
-    <div class="tb-logo">Kul<span>yeah</span>! 🎓</div>
-  </div>
+  <!-- ══ SIDEBAR (desktop only) ══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">Kul<span>yeah</span>! 🎓</div>
+      <div class="sb-tagline">Study tracker lo 📚</div>
+    </div>
+    <div class="sb-nav">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+        <span class="sb-item-ic">🏠</span> Home
+        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
+      </button>
+      <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
+        <span class="sb-item-ic">📅</span> Kalender
+      </button>
+      <button class="sb-item active" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
+        <span class="sb-item-ic">📚</span> Semua Subjek
+      </button>
+    </div>
+    <div class="sb-section-label">Subjek lo</div>
+    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Mata Kuliah</div><button class="sb-subj-item" data-sid="s1"><span class="sb-subj-emoji">🔢</span><span class="sb-subj-name">Kalkulus 2</span><span class="sb-subj-pending">2</span></button><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Personal</div><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button></div>
+    <div class="sb-footer">
+      <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
+      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">📱 Mode lokal</div>
+    </div>
+  </aside>
+
+  <!-- ══ DESKTOP MAIN WRAPPER ══ -->
+  <div class="desktop-main">
+
+  <!-- desktop topbar — filled by JS -->
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">📚 Semua Subjek</div></div>
+
+  <!-- TOPBAR (mobile) -->
+  <div class="topbar" id="topbar"><div class="tb-title">📚 Subjek</div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -855,7 +1093,7 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ SUBJECTS ══ -->
-    <div class="view" id="v-subjects">
+    <div class="view active" id="v-subjects">
       <div class="pad">
         <div class="sec">📚 Mata Kuliah</div>
         <div class="card" id="list-mk"><div class="sitem"><div class="si-icon" style="background:#2563eb22">🔢</div><div class="si-body"><div class="si-name">Kalkulus 2</div><div class="si-sub">4 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">2 belum latsoal</b></div></div><span class="si-badge">2</span><span class="si-chev">›</span></div><div class="sitem"><div class="si-icon" style="background:#dc262622">💻</div><div class="si-body"><div class="si-name">Algoritma &amp; Pemro</div><div class="si-sub">2 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div>
@@ -874,7 +1112,7 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ SUBJECT DETAIL ══ -->
     <div class="view" id="v-detail">
-      <div class="sdh" id="sdh"></div>
+      <div class="sdh" id="sdh"><div class="sdh-ico" style="background:#2563eb22">🔢</div><div class="sdh-info"><div class="sdh-type">Mata Kuliah</div><div class="sdh-name" style="color:#2563eb">Kalkulus 2</div><div class="sdh-prog">2 dari 4 materi sudah latihan soal</div><div class="pbar"><div class="pfill" style="width:50%"></div></div></div></div>
       <div class="pad" style="padding-top:16px">
 
         <!-- Guide -->
@@ -891,17 +1129,17 @@ input,select,textarea { font-family:inherit; }
           </div>
         </div>
 
-        <div class="sec" id="sec-u-label">📝 Ujian</div>
-        <div id="d-ujian"></div>
+        <div class="sec" id="sec-u-label">📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span></div>
+        <div id="d-ujian"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
-        <div class="sec" id="sec-m-label">📖 Materi</div>
-        <div class="card" id="d-materi"></div>
+        <div class="sec" id="sec-m-label">📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
+        <div class="card" id="d-materi"><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-done"><div class="mi-body"><div class="mi-name done">Integral Substitusi</div><div class="mi-date">📅 Min, 17 Mei</div></div><button class="mi-btn done" onclick="toggleM(&#39;m2&#39;)">✅ Selesai</button><button class="mi-more" onclick="openEditM(&#39;m2&#39;)">···</button></div><div class="mitem is-done"><div class="mi-body"><div class="mi-name done">Integral Tak Tentu</div><div class="mi-date">📅 Sab, 16 Mei</div></div><button class="mi-btn done" onclick="toggleM(&#39;m1&#39;)">✅ Selesai</button><button class="mi-more" onclick="openEditM(&#39;m1&#39;)">···</button></div></div>
 
-        <div class="sec" id="sec-t-label">📋 Tugas</div>
-        <div class="card" id="d-tugas"></div>
+        <div class="sec" id="sec-t-label">📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span></div>
+        <div class="card" id="d-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
-        <div class="sec" id="sec-r-label" style="color:var(--ink3)">🗂 Riwayat Ujian</div>
-        <div id="d-riwayat-ujian"></div>
+        <div class="sec" id="sec-r-label" style="color: var(--ink3); display: none;">🗂 Riwayat Ujian</div>
+        <div id="d-riwayat-ujian" style="display: none;"></div>
 
       </div>
     </div>
@@ -932,7 +1170,7 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
@@ -945,17 +1183,19 @@ input,select,textarea { font-family:inherit; }
       <div class="bn-ic">📅</div>
       <div>Kalender</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">4</span></div>
       <div>Home</div>
     </button>
-    <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
+    <button class="bn active" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div>
       <div>Subjek</div>
     </button>
   </nav>
 
-<!-- Notes Bottom Sheet -->
+  </div><!-- /desktop-main -->
+
+</div><!-- /app -->
 <div class="notes-overlay" id="notes-overlay" onclick="notesOverlayTap(event)">
   <div class="notes-sheet">
     <div class="notes-sheet-handle"></div>
@@ -969,8 +1209,6 @@ input,select,textarea { font-family:inherit; }
     </div>
   </div>
 </div>
-
-</div><!-- /app -->
 
 <!-- ════ SHEETS ════ -->
 
@@ -1290,7 +1528,22 @@ async function boot(){
     showSyncStatus('📱 Mode lokal');
   }
 
-  renderHome(); renderSubjLists(); renderMcal();
+  renderHome(); renderSubjLists(); renderMcal(); renderSidebar();
+  updateDesktopTopbar('home', null);
+
+  // Keyboard: Escape closes sheets/notes
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      closeNotesSheet();
+      document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'));
+    }
+  });
+
+  // Resize: update desktop topbar visibility
+  window.addEventListener('resize', ()=>{
+    updateDesktopTopbar(curView, curSid?gS(curSid):null);
+  });
+
   setTimeout(()=>hideSyncStatus(),2500);
 }
 
@@ -1304,6 +1557,9 @@ function showSyncStatus(msg){
   }
   el.style.opacity='1';
   el.textContent=msg;
+  // mirror to sidebar footer
+  const sbSync=document.getElementById('sb-sync-status');
+  if(sbSync) sbSync.textContent=msg;
 }
 function hideSyncStatus(){
   const el=document.getElementById('sync-status');
@@ -1311,6 +1567,8 @@ function hideSyncStatus(){
 }
 
 // ════════ VIEW ════════════════════════════════
+const isDesktop=()=>window.innerWidth>=768;
+
 function goView(name, btn){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('v-'+name).classList.add('active');
@@ -1318,10 +1576,18 @@ function goView(name, btn){
   if(btn) btn.classList.add('active');
   curView=name; curSid=null;
 
+  // mobile topbar
   const tb=document.getElementById('topbar');
   if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div>`;
   if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div>`;
   if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div>`;
+
+  // desktop topbar
+  updateDesktopTopbar(name, null);
+
+  // sidebar active
+  updateSidebarActive(name, null);
+
   if(name==='home')     renderHome();
   if(name==='subjects') renderSubjLists();
   if(name==='cal')      renderMcal();
@@ -1336,16 +1602,102 @@ function openDetail(id){
   document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
   document.getElementById('bn-s').classList.add('active');
 
+  // mobile topbar
   document.getElementById('topbar').innerHTML=
     `<button class="tb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Kembali</button>`+
     `<div class="tb-title">${s.emoji} ${s.name}</div>`+
     `<button class="tb-action ghost" onclick="openEditSubj('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
+  // desktop topbar
+  updateDesktopTopbar('detail', s);
+
+  // sidebar active — highlight this subject
+  updateSidebarActive('detail', id);
+
   document.getElementById('sec-m-label').onclick=null;
   document.getElementById('sec-t-label').onclick=null;
-
   renderDetail(id);
   document.getElementById('scroll').scrollTop=0;
+}
+
+function updateDesktopTopbar(view, subj){
+  const dtb=document.getElementById('desktop-topbar');
+  if(!dtb) return;
+  if(!isDesktop()){ dtb.style.display='none'; return; }
+  dtb.style.display='flex';
+  if(view==='home'){
+    dtb.innerHTML=`<div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div>`;
+  } else if(view==='subjects'){
+    dtb.innerHTML=`<div class="dtb-title">📚 Semua Subjek</div>`;
+  } else if(view==='cal'){
+    dtb.innerHTML=`<div class="dtb-title">📅 Kalender</div>`;
+  } else if(view==='detail' && subj){
+    dtb.innerHTML=
+      `<button class="dtb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Subjek</button>`+
+      `<div class="dtb-title">${subj.emoji} ${subj.name}</div>`+
+      `<div class="dtb-actions">`+
+      `<button class="dtb-btn ghost" onclick="openEditSubj('${subj.id}')">✏️ Edit</button>`+
+      `</div>`;
+  }
+}
+
+function updateSidebarActive(view, sid){
+  // nav items
+  document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
+  if(view==='home')     document.getElementById('sbn-home')?.classList.add('active');
+  if(view==='cal')      document.getElementById('sbn-cal')?.classList.add('active');
+  if(view==='subjects') document.getElementById('sbn-subjects')?.classList.add('active');
+  // subject items
+  document.querySelectorAll('.sb-subj-item').forEach(el=>{
+    el.classList.toggle('active', el.dataset.sid===sid);
+  });
+}
+
+function renderSidebar(){
+  const el=document.getElementById('sb-subjects-list');
+  if(!el) return;
+  el.innerHTML='';
+
+  const matkul=D.subjects.filter(s=>s.type==='matkul');
+  const personal=D.subjects.filter(s=>s.type==='personal');
+
+  const renderGroup=(list, label)=>{
+    if(!list.length) return;
+    const grpLbl=document.createElement('div');
+    grpLbl.className='sb-subj-group-label';
+    grpLbl.textContent=label;
+    el.appendChild(grpLbl);
+    list.forEach(s=>{
+      const pending=D.materi.filter(m=>m.sid===s.id&&!m.done).length;
+      const btn=document.createElement('button');
+      btn.className='sb-subj-item';
+      btn.dataset.sid=s.id;
+      btn.innerHTML=
+        `<span class="sb-subj-emoji">${s.emoji}</span>`+
+        `<span class="sb-subj-name">${s.name}</span>`+
+        (pending?`<span class="sb-subj-pending">${pending}</span>`:'');
+      btn.onclick=()=>openDetail(s.id);
+      el.appendChild(btn);
+    });
+  };
+
+  renderGroup(matkul,'Mata Kuliah');
+  renderGroup(personal,'Personal');
+
+  if(!D.subjects.length){
+    el.innerHTML=`<div style="padding:12px 12px;font-size:12px;color:var(--ink3);font-weight:600;">Belum ada subjek</div>`;
+  }
+
+  // sync badge
+  const badge=document.getElementById('sb-badge');
+  const totalPending=D.materi.filter(m=>!m.done).length;
+  if(badge){
+    badge.textContent=totalPending;
+    badge.style.display=totalPending?'inline-block':'none';
+  }
+
+  // update active states
+  updateSidebarActive(curView, curSid);
 }
 
 // ════════ HOME ════════════════════════════════
@@ -1837,12 +2189,16 @@ function refresh(){
   if(curView==='subjects') renderSubjLists();
   if(curView==='detail'&&curSid) renderDetail(curSid);
   if(curView==='cal')      renderMcal();
+  renderSidebar();
 }
 
 function updateBadge(){
   const n=D.materi.filter(m=>!m.done).length;
   const b=document.getElementById('bn-badge');
   b.textContent=n; b.style.display=n?'':'none';
+  // also update sidebar badge
+  const sb=document.getElementById('sb-badge');
+  if(sb){ sb.textContent=n; sb.style.display=n?'inline-block':'none'; }
 }
 
 // ════════ MONTHLY CALENDAR ════════════════════
@@ -1911,10 +2267,13 @@ function renderCalUjian(){
   if(!el) return;
   el.innerHTML='';
 
-  // Only show upcoming (H-0 and above)
+  // Only show upcoming (H-0 and above), sort: not-ready by date first, ready by date last
   const upcoming=[...D.ujian]
     .filter(u=>diffD(u.date,tod())>=0)
-    .sort((a,b)=>a.date.localeCompare(b.date));
+    .sort((a,b)=>{
+      if(a.ready!==b.ready) return a.ready?1:-1; // not-ready first
+      return a.date.localeCompare(b.date);
+    });
 
   if(!upcoming.length){
     el.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🎉</span><div class="empty-t">Ga ada ujian mendatang</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
@@ -2019,7 +2378,7 @@ function saveSubj(){
   const name=document.getElementById('as-n').value.trim(); if(!name)return;
   const type=document.getElementById('as-t').value;
   D.subjects.push({id:'s'+Date.now(),name,type,color:selColor,emoji:type==='matkul'?'📚':'🧠'});
-  save(); closeSheet('sh-addsubj'); renderSubjLists(); toast(`"${name}" ditambahkan!`);
+  save(); closeSheet('sh-addsubj'); renderSubjLists(); renderSidebar(); toast(`"${name}" ditambahkan!`);
 }
 function saveMateri(){
   const name=document.getElementById('am-n').value.trim(); if(!name||!curSid)return;
