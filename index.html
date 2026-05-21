@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_37.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_38.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -279,8 +279,7 @@ input,select,textarea { font-family:inherit; }
 .mitem.is-done  { border-left:3px solid var(--green); }
 .mitem.is-todo  { border-left:3px solid var(--blue-bd); }
 
-.mi-body { flex:1; min-width:0; }
-.mi-subj {
+.mi-body { flex:1; min-width:0; }.mi-subj {
   font-size:10px; font-weight:800;
   text-transform:uppercase; letter-spacing:.06em;
   margin-bottom:2px;
@@ -735,22 +734,68 @@ input,select,textarea { font-family:inherit; }
 }
 .field textarea:focus { outline:none; border-color:var(--blue); }
 
-/* notes panel — hidden by default, shown on tap */
-.item-notes {
-  display:none;
-  padding:10px 14px 12px;
-  background:var(--bg);
-  border-top:1.5px solid var(--line);
-  font-size:13px; line-height:1.6;
-  color:var(--ink2); white-space:pre-wrap;
-  word-break:break-word;
+/* ══ NOTES BOTTOM SHEET ══ */
+.notes-overlay {
+  position:fixed; inset:0; z-index:600;
+  background:rgba(26,23,20,.5);
+  backdrop-filter:blur(4px);
+  opacity:0; pointer-events:none;
+  transition:opacity .22s;
+  display:flex; align-items:flex-end; justify-content:center;
 }
-.item-notes.visible { display:block; }
+.notes-overlay.open { opacity:1; pointer-events:all; }
+.notes-sheet {
+  background:var(--white);
+  border-radius:22px 22px 0 0;
+  width:100%; max-width:440px;
+  max-height:70vh;
+  display:flex; flex-direction:column;
+  transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.32,0,.15,1);
+  box-shadow:0 -4px 32px rgba(0,0,0,.14);
+}
+.notes-overlay.open .notes-sheet { transform:translateY(0); }
 
-/* make item body tappable */
-.mi-body  { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
-.ti-body  { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
-.ujian-body { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
+.notes-sheet-handle {
+  width:36px; height:4px; border-radius:99px;
+  background:var(--line2); margin:12px auto 0; flex-shrink:0;
+}
+.notes-sheet-head {
+  display:flex; align-items:center; gap:10px;
+  padding:14px 16px 12px; border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+.notes-sheet-type {
+  font-size:10px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.06em; padding:3px 8px; border-radius:6px;
+  flex-shrink:0;
+}
+.notes-sheet-title {
+  flex:1; min-width:0;
+  font-size:14px; font-weight:700; color:var(--ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.notes-sheet-edit {
+  flex-shrink:0; padding:7px 12px;
+  background:var(--bg); border:1.5px solid var(--line2);
+  border-radius:var(--rsm);
+  font-size:12px; font-weight:700; color:var(--ink2);
+  transition:background .12s;
+}
+.notes-sheet-edit:active { background:var(--bg2); }
+
+.notes-sheet-body {
+  flex:1; overflow-y:auto; padding:18px 20px 32px;
+  -webkit-overflow-scrolling:touch;
+}
+.notes-sheet-body p {
+  font-size:15px; font-weight:500; line-height:1.75;
+  color:var(--ink2); white-space:pre-wrap; word-break:break-word;
+  margin:0;
+}
+
+/* make item body tappable — only when notes exist */
+.has-notes { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
 
 /* ══ REWARDING BANNER ══ */
 .sip-banner {
@@ -801,10 +846,10 @@ input,select,textarea { font-family:inherit; }
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body" onclick="tapNotes(&#39;notes-t-t2&#39;)"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body" onclick="tapNotes(&#39;notes-t-t1&#39;)"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
-        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m3&#39;)"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m4&#39;)"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m6&#39;)"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body" onclick="tapNotes(&#39;notes-m-m8&#39;)"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
+        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
 
       </div>
     </div>
@@ -887,7 +932,7 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body" onclick="tapNotes(&#39;notes-u-u3&#39;)"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body" onclick="tapNotes(&#39;notes-u-u1&#39;)"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body" onclick="tapNotes(&#39;notes-u-u2&#39;)"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
@@ -909,6 +954,21 @@ input,select,textarea { font-family:inherit; }
       <div>Subjek</div>
     </button>
   </nav>
+
+<!-- Notes Bottom Sheet -->
+<div class="notes-overlay" id="notes-overlay" onclick="notesOverlayTap(event)">
+  <div class="notes-sheet">
+    <div class="notes-sheet-handle"></div>
+    <div class="notes-sheet-head">
+      <span class="notes-sheet-type" id="ns-type"></span>
+      <span class="notes-sheet-title" id="ns-title"></span>
+      <button class="notes-sheet-edit" id="ns-edit-btn">✏️ Edit</button>
+    </div>
+    <div class="notes-sheet-body">
+      <p id="ns-body"></p>
+    </div>
+  </div>
+</div>
 
 </div><!-- /app -->
 
@@ -1546,20 +1606,23 @@ function mkM(m, showSubj){
   const row=document.createElement('div');
   row.className='mitem '+(m.done?'is-done':'is-todo');
 
-  const notesHtml=m.notes?`<div class="item-notes" id="notes-m-${m.id}">${escHtml(m.notes)}</div>`:'';
-
-  row.innerHTML=
-    `<div class="mi-body" onclick="tapNotes('notes-m-${m.id}')">`+
+  const bodyDiv=document.createElement('div');
+  bodyDiv.className='mi-body'+(m.notes?' has-notes':'');
+  if(m.notes) bodyDiv.onclick=()=>openNotesSheet(
+    m.notes, m.name, '📖 Materi', 'ujian-type-quiz',
+    ()=>openEditM(m.id)
+  );
+  bodyDiv.innerHTML=
     (showSubj?`<div class="mi-subj" style="color:${s.color}">${s.emoji} ${s.name}</div>`:'')+
     `<div class="mi-name${m.done?' done':''}">${m.name}</div>`+
-    `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`+
-    `</div>`+
-    notesHtml+
-    `<button class="mi-btn ${m.done?'done':'todo'}" onclick="toggleM('${m.id}')">`+
-    (m.done?'✅ Selesai':'📝 Latsoal')+
-    `</button>`+
-    `<button class="mi-more" onclick="openEditM('${m.id}')">···</button>`;
+    `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`;
 
+  row.appendChild(bodyDiv);
+  row.insertAdjacentHTML('beforeend',
+    `<button class="mi-btn ${m.done?'done':'todo'}" onclick="toggleM('${m.id}')">`+
+    (m.done?'✅ Selesai':'📝 Latsoal')+`</button>`+
+    `<button class="mi-more" onclick="openEditM('${m.id}')">···</button>`
+  );
   return row;
 }
 
@@ -1579,10 +1642,13 @@ function mkT(t, showSubj){
   const row=document.createElement('div');
   row.className='titem'+(t.done?' is-done':'');
 
-  const notesHtml=t.notes?`<div class="item-notes" id="notes-t-${t.id}">${escHtml(t.notes)}</div>`:'';
-
-  row.innerHTML=
-    `<div class="ti-body" onclick="tapNotes('notes-t-${t.id}')">`+
+  const bodyDiv=document.createElement('div');
+  bodyDiv.className='ti-body'+(t.notes?' has-notes':'');
+  if(t.notes) bodyDiv.onclick=()=>openNotesSheet(
+    t.notes, t.name, '📋 Tugas', 'ujian-type-uts',
+    ()=>openEditT(t.id)
+  );
+  bodyDiv.innerHTML=
     `<div class="ti-name${t.done?' done':''}">${t.name}</div>`+
     `<div class="ti-meta">`+
     (showSubj?`<span class="ti-subj-chip" style="background:${s.color}22;color:${s.color}">${s.emoji} ${s.name}</span>`:'')+
@@ -1590,14 +1656,14 @@ function mkT(t, showSubj){
     `</div>`+
     `<div class="ti-meta" style="margin-top:3px">`+
     `<span style="font-size:11px;color:var(--ink3);">📌 Muncul ${fmtDate(t.inputDate)}</span>`+
-    `</div>`+
-    `</div>`+
-    notesHtml+
-    `<button class="ti-btn ${t.done?'done':'todo'}" onclick="toggleT('${t.id}')">`+
-    (t.done?'✅ Selesai':'Selesai?')+
-    `</button>`+
-    `<button class="ti-more" onclick="openEditT('${t.id}')">···</button>`;
+    `</div>`;
 
+  row.appendChild(bodyDiv);
+  row.insertAdjacentHTML('beforeend',
+    `<button class="ti-btn ${t.done?'done':'todo'}" onclick="toggleT('${t.id}')">`+
+    (t.done?'✅ Selesai':'Selesai?')+`</button>`+
+    `<button class="ti-more" onclick="openEditT('${t.id}')">···</button>`
+  );
   return row;
 }
 
@@ -1607,13 +1673,25 @@ function toggleT(id){
   toast(t.done?'✅ Tugas selesai! 🎉':'↩️ Ditandai belum selesai');
 }
 
-// ════════ NOTES HELPERS ══════════════════════
-const escHtml=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+// ════════ NOTES SHEET ════════════════════════
+const escHtml=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 
-function tapNotes(id){
-  const el=document.getElementById(id);
-  if(!el) return; // no notes, do nothing silently
-  el.classList.toggle('visible');
+function openNotesSheet(notes, title, typeLabel, typeCls, editFn){
+  if(!notes || !notes.trim()) return; // silently ignore if no notes
+  document.getElementById('ns-type').textContent=typeLabel;
+  document.getElementById('ns-type').className='notes-sheet-type '+typeCls;
+  document.getElementById('ns-title').textContent=title;
+  // render newlines as <br>
+  document.getElementById('ns-body').innerHTML=escHtml(notes).replace(/\n/g,'<br>');
+  const editBtn=document.getElementById('ns-edit-btn');
+  editBtn.onclick=()=>{ closeNotesSheet(); setTimeout(editFn,180); };
+  document.getElementById('notes-overlay').classList.add('open');
+}
+function closeNotesSheet(){
+  document.getElementById('notes-overlay').classList.remove('open');
+}
+function notesOverlayTap(e){
+  if(e.target===document.getElementById('notes-overlay')) closeNotesSheet();
 }
 
 // ════════ UJIAN CARD BUILDER ═════════════════
@@ -1634,11 +1712,9 @@ function mkUjianCard(u, isPastOverride=false){
 
   let actionsHtml='';
   if(isPast){
-    // riwayat: hanya tombol edit/hapus, status ready di-grey
     actionsHtml=`<div class="ujian-actions">`+
       `<span style="font-size:12px;font-weight:600;color:var(--ink3);flex:1;padding:8px 0;">`+
-      (u.ready?'✅ Sudah siap saat itu':'📖 Belum sempat siap')+
-      `</span>`+
+      (u.ready?'✅ Sudah siap saat itu':'📖 Belum sempat siap')+`</span>`+
       `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
       `</div>`;
   } else {
@@ -1649,22 +1725,28 @@ function mkUjianCard(u, isPastOverride=false){
       `</div>`;
   }
 
-  const notesHtml=u.notes?`<div class="item-notes" id="notes-u-${u.id}">${escHtml(u.notes)}</div>`:'';
+  const bodyDiv=document.createElement('div');
+  bodyDiv.className='ujian-body'+(u.notes?' has-notes':'');
+  if(u.notes) bodyDiv.onclick=(e)=>{
+    // don't intercept button clicks inside
+    if(e.target.closest('button')) return;
+    openNotesSheet(u.notes, u.name||(typeLabel), `📝 ${typeLabel}`, typeCls, ()=>openEditUjian(u.id));
+  };
+  bodyDiv.innerHTML=
+    `<div class="ujian-name">${u.name||typeLabel}</div>`+
+    `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
+    (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
+    actionsHtml;
 
   item.innerHTML=
     `<div class="ujian-badge-wrap">`+
     `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
     `<div class="ujian-countdown ${numCls}">${countdownTxt}</div>`+
     `<div class="ujian-countdown-label">${countdownLbl}</div>`+
-    `</div>`+
-    `<div class="ujian-body" onclick="tapNotes('notes-u-${u.id}')">`+
-    `<div class="ujian-name">${u.name||typeLabel}</div>`+
-    `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
-    (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
-    actionsHtml+
     `</div>`;
+  item.appendChild(bodyDiv);
   card.appendChild(item);
-  if(notesHtml) item.insertAdjacentHTML('afterend', notesHtml);
+  return card;
   return card;
 }
 
