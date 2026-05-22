@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_40.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_43.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -38,7 +38,10 @@
   --purple:  #7c3aed;
   --purple-lt:#ede9fe;
 
-  --r:  14px;
+  --pomo-red:    #e53e2f;
+  --pomo-red-lt: #fdf0ee;
+  --pomo-break:  #0e7a5c;
+  --pomo-break-lt:#e6f7f2;
   --rsm: 9px;
   --sh: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.07);
   --sh2: 0 8px 40px rgba(0,0,0,.16);
@@ -1005,6 +1008,269 @@ input,select,textarea { font-family:inherit; }
 /* make item body tappable — only when notes exist */
 .has-notes { cursor:pointer; -webkit-tap-highlight-color:transparent; user-select:none; }
 
+/* ══ SUBJECT SEARCH & ARCHIVE ══ */
+.subj-search-wrap {
+  margin-bottom:14px;
+}
+.subj-search-wrap input[type="search"] {
+  width:100%; padding:11px 16px;
+  border:1.5px solid var(--line2); border-radius:var(--r);
+  background:var(--white); color:var(--ink);
+  font-size:14px; font-weight:500;
+  -webkit-appearance:none; appearance:none;
+}
+.subj-search-wrap input[type="search"]:focus {
+  outline:none; border-color:var(--blue);
+}
+
+.subj-sem-label {
+  font-size:11px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--ink3);
+  padding:2px 0 6px; margin-top:4px;
+}
+
+.archive-toggle-btn {
+  width:100%; padding:13px 16px;
+  display:flex; align-items:center; gap:10px;
+  background:var(--white); border-radius:var(--r);
+  border:1.5px solid var(--line);
+  font-size:13px; font-weight:700; color:var(--ink3);
+  transition:background .12s;
+}
+.archive-toggle-btn:hover { background:var(--bg); }
+.archive-toggle-btn .atb-count {
+  margin-left:auto;
+  background:var(--bg2); color:var(--ink3);
+  font-size:11px; font-weight:800;
+  padding:2px 8px; border-radius:99px;
+}
+.archive-toggle-btn .atb-chev { font-size:12px; color:var(--ink3); }
+
+.sitem-archived { opacity:.65; }
+.sitem-arch-chip {
+  font-size:10px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.05em; color:var(--ink3);
+  background:var(--bg2); padding:2px 7px; border-radius:6px;
+  flex-shrink:0;
+}
+.unarchive-btn {
+  font-size:11px; font-weight:700; color:var(--blue);
+  padding:4px 10px; border-radius:6px;
+  background:var(--blue-lt); border:1px solid var(--blue-bd);
+  flex-shrink:0; margin-left:4px;
+}
+
+/* ══ POMODORO TAB ══════════════════════════ */
+
+/* Active indicator pill in topbar */
+.pomo-topbar-pill {
+  display:none;
+  align-items:center; gap:6px;
+  padding:5px 12px; border-radius:99px;
+  font-size:12px; font-weight:800;
+  letter-spacing:.02em;
+  animation:pomo-pulse 2.4s ease-in-out infinite;
+}
+.pomo-topbar-pill.focus { background:var(--pomo-red-lt); color:var(--pomo-red); }
+.pomo-topbar-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); }
+.pomo-topbar-pill.show  { display:flex; }
+@keyframes pomo-pulse {
+  0%,100%{opacity:1} 50%{opacity:.6}
+}
+
+/* Main pomo view */
+.pomo-view {
+  min-height:100%;
+  display:flex; flex-direction:column;
+}
+
+/* ── IDLE STATE ── */
+.pomo-idle {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; padding:32px 20px 20px;
+}
+.pomo-idle-emoji {
+  font-size:56px; line-height:1; margin-bottom:16px;
+  animation:none;
+}
+.pomo-idle-title {
+  font-size:22px; font-weight:800;
+  letter-spacing:-.5px; color:var(--ink);
+  margin-bottom:6px; text-align:center;
+}
+.pomo-idle-sub {
+  font-size:14px; color:var(--ink3); font-weight:600;
+  text-align:center; margin-bottom:28px;
+}
+
+/* Duration picker */
+.pomo-dur-label {
+  font-size:11px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--ink3); margin-bottom:10px;
+  align-self:flex-start;
+}
+.pomo-dur-row {
+  display:flex; gap:8px; margin-bottom:24px; align-self:stretch;
+}
+.pomo-dur-btn {
+  flex:1; padding:12px 0;
+  border-radius:var(--r); border:2px solid var(--line2);
+  background:var(--white); color:var(--ink2);
+  font-size:15px; font-weight:800;
+  transition:all .15s;
+}
+.pomo-dur-btn.active {
+  border-color:var(--pomo-red); background:var(--pomo-red-lt);
+  color:var(--pomo-red);
+}
+
+/* Task picker */
+.pomo-task-label {
+  font-size:11px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--ink3); margin-bottom:8px;
+  align-self:flex-start;
+}
+.pomo-task-pick {
+  align-self:stretch; margin-bottom:28px;
+}
+.pomo-task-pick select {
+  width:100%; padding:13px 16px;
+  border:2px solid var(--line2); border-radius:var(--r);
+  background:var(--white); color:var(--ink);
+  font-size:14px; font-weight:600;
+  -webkit-appearance:none; appearance:none;
+}
+.pomo-task-pick select:focus { outline:none; border-color:var(--pomo-red); }
+
+/* Start button */
+.pomo-start-btn {
+  align-self:stretch; padding:18px;
+  background:var(--pomo-red); color:#fff;
+  border-radius:var(--r); font-size:17px; font-weight:800;
+  letter-spacing:-.2px;
+  box-shadow:0 4px 20px rgba(229,62,47,.35);
+  transition:all .15s;
+}
+.pomo-start-btn:active { transform:scale(.97); opacity:.9; }
+
+/* History section */
+.pomo-history {
+  padding:20px 20px 32px;
+  border-top:1px solid var(--line);
+  margin-top:auto;
+}
+.pomo-history-title {
+  font-size:11px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--ink3); margin-bottom:12px;
+}
+.pomo-stats-row {
+  display:flex; gap:10px; margin-bottom:14px;
+}
+.pomo-stat {
+  flex:1; background:var(--white); border-radius:var(--r);
+  padding:14px 16px; text-align:center;
+  border:1.5px solid var(--line);
+}
+.pomo-stat-num {
+  font-size:24px; font-weight:900; color:var(--pomo-red);
+  letter-spacing:-1px; line-height:1;
+}
+.pomo-stat-lbl {
+  font-size:11px; font-weight:700; color:var(--ink3);
+  margin-top:3px;
+}
+.pomo-session-list { display:flex; flex-direction:column; gap:6px; }
+.pomo-session-item {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px; background:var(--white);
+  border-radius:var(--rsm); border:1.5px solid var(--line);
+}
+.pomo-session-ic { font-size:16px; flex-shrink:0; }
+.pomo-session-body { flex:1; min-width:0; }
+.pomo-session-name {
+  font-size:13px; font-weight:700; color:var(--ink);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.pomo-session-meta { font-size:11px; color:var(--ink3); font-weight:600; margin-top:1px; }
+.pomo-session-dur {
+  font-size:12px; font-weight:800; color:var(--pomo-red);
+  flex-shrink:0;
+}
+
+/* ── ACTIVE STATE (focus / break) ── */
+.pomo-active {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:40px 28px;
+  transition:background .6s;
+}
+.pomo-active.is-focus { background:var(--bg); }
+.pomo-active.is-break { background:var(--pomo-break-lt); }
+
+.pomo-active-emoji {
+  font-size:72px; line-height:1; margin-bottom:24px;
+}
+.pomo-active-emoji.is-focus { animation:pomo-breathe 4s ease-in-out infinite; }
+.pomo-active-emoji.is-break { animation:pomo-float 3s ease-in-out infinite; }
+@keyframes pomo-breathe {
+  0%,100%{transform:scale(1)} 50%{transform:scale(1.08)}
+}
+@keyframes pomo-float {
+  0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
+}
+
+.pomo-active-state {
+  font-size:13px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.1em; margin-bottom:10px;
+}
+.pomo-active-state.is-focus { color:var(--pomo-red); }
+.pomo-active-state.is-break { color:var(--pomo-break); }
+
+.pomo-active-task {
+  font-size:18px; font-weight:800; color:var(--ink);
+  text-align:center; margin-bottom:6px;
+  letter-spacing:-.3px; line-height:1.3;
+}
+.pomo-active-task.is-break {
+  font-size:16px; font-weight:600; color:var(--pomo-break);
+}
+.pomo-active-hint {
+  font-size:13px; color:var(--ink3); font-weight:600;
+  text-align:center; margin-bottom:48px;
+}
+
+.pomo-stop-btn {
+  padding:12px 28px; border-radius:99px;
+  border:2px solid var(--line2); background:var(--white);
+  font-size:13px; font-weight:700; color:var(--ink3);
+  transition:all .15s;
+}
+.pomo-stop-btn:hover { border-color:var(--red); color:var(--red); }
+.pomo-stop-btn:active { transform:scale(.96); }
+
+.pomo-session-count {
+  margin-top:24px;
+  font-size:12px; font-weight:700; color:var(--ink3);
+  display:flex; align-items:center; gap:6px;
+}
+.pomo-session-dots { display:flex; gap:4px; }
+.pomo-session-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--line2);
+}
+.pomo-session-dot.done { background:var(--pomo-red); }
+
+/* desktop sidebar pomo item */
+.sb-pomo-pill {
+  display:none; margin:0 10px 8px;
+  padding:8px 12px; border-radius:10px;
+  font-size:12px; font-weight:800;
+  align-items:center; gap:8px;
+  animation:pomo-pulse 2.4s ease-in-out infinite;
+}
+.sb-pomo-pill.focus { background:var(--pomo-red-lt); color:var(--pomo-red); display:flex; }
+.sb-pomo-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); display:flex; }
+
 /* ══ REWARDING BANNER ══ */
 .sip-banner {
   background:linear-gradient(135deg,#dcfce7,#d1fae5);
@@ -1032,22 +1298,26 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
       <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
         <span class="sb-item-ic">📅</span> Kalender
       </button>
-      <button class="sb-item active" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
+      <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
+        <span class="sb-item-ic">🍅</span> Pomodoro
+      </button>
+      <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
-    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Mata Kuliah</div><button class="sb-subj-item" data-sid="s1"><span class="sb-subj-emoji">🔢</span><span class="sb-subj-name">Kalkulus 2</span><span class="sb-subj-pending">2</span></button><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Personal</div><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button></div>
+    <div class="sb-pomo-pill" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
+    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
-      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">📱 Mode lokal</div>
+      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">✅ Tersinkron</div>
     </div>
   </aside>
 
@@ -1055,16 +1325,21 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">📚 Semua Subjek</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-title">📚 Subjek</div></div>
+  <div class="topbar" id="topbar">
+    <div class="tb-logo">Kul<span>yeah</span>! 🎓</div>
+    <div class="pomo-topbar-pill" id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
+      🍅 <span id="pomo-pill-label">Fokus</span>
+    </div>
+  </div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view" id="v-home">
+    <div class="view active" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -1079,27 +1354,28 @@ input,select,textarea { font-family:inherit; }
               <button class="wk-arr" onclick="shiftWeek(1)">›</button>
             </div>
           </div>
-          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday is-today"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
+          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday is-today"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
         </div>
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
-        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
+        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
 
       </div>
     </div>
 
     <!-- ══ SUBJECTS ══ -->
-    <div class="view active" id="v-subjects">
+    <div class="view" id="v-subjects">
       <div class="pad">
-        <div class="sec">📚 Mata Kuliah</div>
-        <div class="card" id="list-mk"><div class="sitem"><div class="si-icon" style="background:#2563eb22">🔢</div><div class="si-body"><div class="si-name">Kalkulus 2</div><div class="si-sub">4 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">2 belum latsoal</b></div></div><span class="si-badge">2</span><span class="si-chev">›</span></div><div class="sitem"><div class="si-icon" style="background:#dc262622">💻</div><div class="si-body"><div class="si-name">Algoritma &amp; Pemro</div><div class="si-sub">2 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div>
 
-        <div class="sec">🧠 Personal / Self-Study</div>
-        <div class="card" id="list-ps"><div class="sitem"><div class="si-icon" style="background:#7c3aed22">🤖</div><div class="si-body"><div class="si-name">Deep Learning</div><div class="si-sub">2 materi · 0 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div>
+        <div class="subj-search-wrap">
+          <input id="subj-search" type="search" placeholder="🔍 Cari subjek (aktif &amp; arsip)..." oninput="renderSubjLists()" autocomplete="off">
+        </div>
+
+        <div id="subj-active-list"><div class="subj-sem-label">Semester 4</div><div class="card" style="margin-bottom: 12px;"><div class="sitem"><div class="si-icon" style="background:#dc262622">💻</div><div class="si-body"><div class="si-name">Algoritma &amp; Pemro</div><div class="si-sub">2 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div><div class="sitem"><div class="si-icon" style="background:#7c3aed22">🤖</div><div class="si-body"><div class="si-name">Deep Learning</div><div class="si-sub">2 materi · 0 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div><div class="subj-sem-label">Semester 3</div><div class="card" style="margin-bottom: 12px;"><div class="sitem"><div class="si-icon" style="background:#0891b222">📐</div><div class="si-body"><div class="si-name">Kalkulus 1</div><div class="si-sub">0 materi · 0 tugas aktif</div></div><span class="si-chev">›</span></div></div></div>
 
         <button onclick="openSheet(&#39;sh-addsubj&#39;)" style="display:flex;align-items:center;justify-content:center;gap:10px;
                  width:100%;padding:16px;border-radius:var(--r);
@@ -1107,12 +1383,15 @@ input,select,textarea { font-family:inherit; }
                  color:var(--blue);font-size:14px;font-weight:700;margin-top:4px;">
           ＋ Tambah Subjek Baru
         </button>
+
+        <div id="subj-archive-wrap" style="margin-top:8px"><button class="archive-toggle-btn"><span>🗂</span><span>Arsip Subjek</span><span class="atb-count">2 subjek</span><span class="atb-chev">▼</span></button></div>
+
       </div>
     </div>
 
     <!-- ══ SUBJECT DETAIL ══ -->
     <div class="view" id="v-detail">
-      <div class="sdh" id="sdh"><div class="sdh-ico" style="background:#2563eb22">🔢</div><div class="sdh-info"><div class="sdh-type">Mata Kuliah</div><div class="sdh-name" style="color:#2563eb">Kalkulus 2</div><div class="sdh-prog">2 dari 4 materi sudah latihan soal</div><div class="pbar"><div class="pfill" style="width:50%"></div></div></div></div>
+      <div class="sdh" id="sdh"></div>
       <div class="pad" style="padding-top:16px">
 
         <!-- Guide -->
@@ -1129,17 +1408,66 @@ input,select,textarea { font-family:inherit; }
           </div>
         </div>
 
-        <div class="sec" id="sec-u-label">📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span></div>
-        <div id="d-ujian"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div class="sec" id="sec-u-label">📝 Ujian</div>
+        <div id="d-ujian"></div>
 
-        <div class="sec" id="sec-m-label">📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
-        <div class="card" id="d-materi"><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Rab, 20 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-done"><div class="mi-body"><div class="mi-name done">Integral Substitusi</div><div class="mi-date">📅 Min, 17 Mei</div></div><button class="mi-btn done" onclick="toggleM(&#39;m2&#39;)">✅ Selesai</button><button class="mi-more" onclick="openEditM(&#39;m2&#39;)">···</button></div><div class="mitem is-done"><div class="mi-body"><div class="mi-name done">Integral Tak Tentu</div><div class="mi-date">📅 Sab, 16 Mei</div></div><button class="mi-btn done" onclick="toggleM(&#39;m1&#39;)">✅ Selesai</button><button class="mi-more" onclick="openEditM(&#39;m1&#39;)">···</button></div></div>
+        <div class="sec" id="sec-m-label">📖 Materi</div>
+        <div class="card" id="d-materi"></div>
 
-        <div class="sec" id="sec-t-label">📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span></div>
-        <div class="card" id="d-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sel, 19 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="sec" id="sec-t-label">📋 Tugas</div>
+        <div class="card" id="d-tugas"></div>
 
-        <div class="sec" id="sec-r-label" style="color: var(--ink3); display: none;">🗂 Riwayat Ujian</div>
-        <div id="d-riwayat-ujian" style="display: none;"></div>
+        <div class="sec" id="sec-r-label" style="color:var(--ink3)">🗂 Riwayat Ujian</div>
+        <div id="d-riwayat-ujian"></div>
+
+      </div>
+    </div>
+
+    <!-- ══ POMODORO ══ -->
+    <div class="view" id="v-pomo">
+      <div class="pomo-view">
+
+        <!-- IDLE UI -->
+        <div class="pomo-idle" id="pomo-idle">
+          <div class="pomo-idle-emoji">🍅</div>
+          <div class="pomo-idle-title">Siap Fokus?</div>
+          <div class="pomo-idle-sub">Pilih durasi dan yang mau dikerjain</div>
+
+          <div class="pomo-dur-label">Durasi Fokus</div>
+          <div class="pomo-dur-row" id="pomo-dur-row">
+            <button class="pomo-dur-btn" onclick="selectDur(20)">20'</button>
+            <button class="pomo-dur-btn active" onclick="selectDur(25)">25'</button>
+            <button class="pomo-dur-btn" onclick="selectDur(30)">30'</button>
+            <button class="pomo-dur-btn" onclick="selectDur(45)">45'</button>
+          </div>
+
+          <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
+          <div class="pomo-task-pick">
+            <select id="pomo-task-sel">
+              <option value="">— Pilih materi / tugas / ujian —</option>
+            </select>
+          </div>
+
+          <button class="pomo-start-btn" onclick="startPomo()">Mulai Fokus 🍅</button>
+        </div>
+
+        <!-- ACTIVE UI (focus / break) -->
+        <div class="pomo-active is-focus" id="pomo-active" style="display:none">
+          <div class="pomo-active-emoji is-focus" id="pomo-active-emoji">🍅</div>
+          <div class="pomo-active-state is-focus" id="pomo-active-state">FOKUS</div>
+          <div class="pomo-active-task" id="pomo-active-task">Sesi Fokus</div>
+          <div class="pomo-active-hint" id="pomo-active-hint">Singkirin HP, buka buku, mulai.</div>
+
+          <button class="pomo-stop-btn" onclick="stopPomo()">Akhiri Sesi</button>
+
+          <div class="pomo-session-count">
+            <span>Sesi hari ini:</span>
+            <div class="pomo-session-dots" id="pomo-session-dots"></div>
+          </div>
+        </div>
+
+        <!-- HISTORY (shown in idle) -->
+        <div class="pomo-history" id="pomo-history"></div>
 
       </div>
     </div>
@@ -1157,7 +1485,7 @@ input,select,textarea { font-family:inherit; }
           </div>
           <div class="mcal-inner">
             <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div></div><div class="mday"><div class="mday-num">20</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday is-today"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">22</div></div><div class="mday"><div class="mday-num">23</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">26</div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">29</div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
+            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday is-today"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
           </div>
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
@@ -1170,7 +1498,7 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sen, 25 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Kam, 4 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sab, 23 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Min, 24 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
@@ -1183,11 +1511,15 @@ input,select,textarea { font-family:inherit; }
       <div class="bn-ic">📅</div>
       <div>Kalender</div>
     </button>
-    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">4</span></div>
       <div>Home</div>
     </button>
-    <button class="bn active" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
+    <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
+      <div class="bn-ic">🍅</div>
+      <div>Pomodoro</div>
+    </button>
+    <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div>
       <div>Subjek</div>
     </button>
@@ -1224,6 +1556,12 @@ input,select,textarea { font-family:inherit; }
           <option value="matkul">📚 Mata Kuliah</option>
           <option value="personal">🧠 Personal / Self-Study</option>
         </select>
+      </div>
+      <div class="field"><label class="flbl">Semester (opsional)</label>
+        <select id="as-sm">
+          <option value="">— Pilih atau buat baru —</option>
+        </select>
+        <input id="as-sm-new" type="text" placeholder="Nama semester baru, e.g. Semester 5" style="display:none;margin-top:8px;width:100%;padding:12px 14px;border:1.5px solid var(--blue);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
       </div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker"></div></div>
     </div>
@@ -1396,12 +1734,21 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Emoji</label><input id="es-e" type="text" placeholder="e.g. 🔢" maxlength="4" style="font-size:24px;text-align:center;padding:10px;"></div>
       <div class="field"><label class="flbl">Nama Subjek</label><input id="es-n" type="text" placeholder="Nama matkul"></div>
+      <div class="field"><label class="flbl">Semester</label>
+        <select id="es-sm">
+          <option value="">— Tanpa semester —</option>
+        </select>
+        <input id="es-sm-new" type="text" placeholder="Nama semester baru, e.g. Semester 5" style="display:none;margin-top:8px;width:100%;padding:12px 14px;border:1.5px solid var(--blue);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+      </div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-edit"></div></div>
     </div>
     <div class="sh-footer">
       <div class="sh-row">
         <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editsubj&#39;)">Batal</button>
         <button class="sbtn sbtn-p" onclick="saveEditSubj()">Simpan ✓</button>
+      </div>
+      <div class="sh-row">
+        <button class="sbtn" style="background:var(--amber-lt);border-color:var(--amber);color:var(--amber);flex:1" onclick="archiveSubj()">🗂 Archive Subjek</button>
       </div>
       <div class="sh-row">
         <button class="sbtn sbtn-d" onclick="hapusSubjDariEdit()">🗑 Hapus Subjek Ini</button>
@@ -1433,10 +1780,12 @@ const fmtDate=ds=>{const d=new Date(ds+'T12:00:00');return d.toLocaleDateString(
 const diffD=(a,b)=>Math.round((new Date(a+'T12:00:00')-new Date(b+'T12:00:00'))/86400000);
 
 const DEFAULT_DATA = { subjects:[
-  {id:'s1',name:'Kalkulus 2',        type:'matkul',  color:'#2563eb',emoji:'🔢'},
-  {id:'s2',name:'Algoritma & Pemro', type:'matkul',  color:'#dc2626',emoji:'💻'},
-  {id:'s3',name:'Deep Learning',     type:'personal',color:'#7c3aed',emoji:'🤖'},
-], materi:[
+  {id:'s1',name:'Kalkulus 2',        type:'matkul',  color:'#2563eb',emoji:'🔢',semester:'Semester 4',archived:false},
+  {id:'s2',name:'Algoritma & Pemro', type:'matkul',  color:'#dc2626',emoji:'💻',semester:'Semester 4',archived:false},
+  {id:'s3',name:'Deep Learning',     type:'personal',color:'#7c3aed',emoji:'🤖',semester:'Semester 4',archived:false},
+  {id:'s4',name:'Kalkulus 1',        type:'matkul',  color:'#0891b2',emoji:'📐',semester:'Semester 3',archived:true},
+  {id:'s5',name:'Fisika Dasar',      type:'matkul',  color:'#16a34a',emoji:'⚛️', semester:'Semester 3',archived:true},
+], semesters:['Semester 4','Semester 3'], materi:[
   {id:'m1',sid:'s1',name:'Integral Tak Tentu',    date:ago(5), done:true },
   {id:'m2',sid:'s1',name:'Integral Substitusi',   date:ago(4), done:true },
   {id:'m3',sid:'s1',name:'Integral Parsial',      date:ago(1), done:false},
@@ -1507,10 +1856,13 @@ const gS=id=>D.subjects.find(s=>s.id===id);
 
 // ════════ UI STATE ════════════════════════════
 let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, editSid=null, editUid=null, selColor=COLORS[0], selColorEdit=COLORS[0];
-let selUjianMat=new Set(); // selected materiIds for add/edit ujian sheet
+let selUjianMat=new Set();
 let weekOff=0;
 let mcalY=new Date().getFullYear(), mcalM=new Date().getMonth();
 let D = loadLocal() || DEFAULT_DATA;
+// pomo state (session-only, not persisted)
+let pomoState=false, pomoPhase='focus', pomoTimer=null, pomoEndMs=0;
+let pomoDurIdx=1, pomoTask='', pomoSessions=[], pomoBreakDur=5;
 
 // ════════ BOOT ════════════════════════════════
 async function boot(){
@@ -1520,11 +1872,15 @@ async function boot(){
   if(cloud){
     D=cloud;
     if(!D.ujian) D.ujian=[];
+    if(!D.semesters) D.semesters=[];
+    D.subjects.forEach(s=>{ if(!s.semester) s.semester=''; if(s.archived===undefined) s.archived=false; });
     saveLocal();
     showSyncStatus('✅ Tersinkron');
   } else {
     D=loadLocal()||DEFAULT_DATA;
     if(!D.ujian) D.ujian=[];
+    if(!D.semesters) D.semesters=[];
+    D.subjects.forEach(s=>{ if(!s.semester) s.semester=''; if(s.archived===undefined) s.archived=false; });
     showSyncStatus('📱 Mode lokal');
   }
 
@@ -1578,9 +1934,10 @@ function goView(name, btn){
 
   // mobile topbar
   const tb=document.getElementById('topbar');
-  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div>`;
-  if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div>`;
-  if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div>`;
+  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
+  if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
+  if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
+  if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
 
   // desktop topbar
   updateDesktopTopbar(name, null);
@@ -1626,11 +1983,16 @@ function updateDesktopTopbar(view, subj){
   if(!isDesktop()){ dtb.style.display='none'; return; }
   dtb.style.display='flex';
   if(view==='home'){
-    dtb.innerHTML=`<div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div>`;
+    dtb.innerHTML=`<div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div>`+
+      (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
   } else if(view==='subjects'){
-    dtb.innerHTML=`<div class="dtb-title">📚 Semua Subjek</div>`;
+    dtb.innerHTML=`<div class="dtb-title">📚 Semua Subjek</div>`+
+      (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
   } else if(view==='cal'){
-    dtb.innerHTML=`<div class="dtb-title">📅 Kalender</div>`;
+    dtb.innerHTML=`<div class="dtb-title">📅 Kalender</div>`+
+      (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
+  } else if(view==='pomo'){
+    dtb.innerHTML=`<div class="dtb-title">🍅 Pomodoro</div>`;
   } else if(view==='detail' && subj){
     dtb.innerHTML=
       `<button class="dtb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Subjek</button>`+
@@ -1646,6 +2008,7 @@ function updateSidebarActive(view, sid){
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
   if(view==='home')     document.getElementById('sbn-home')?.classList.add('active');
   if(view==='cal')      document.getElementById('sbn-cal')?.classList.add('active');
+  if(view==='pomo')     document.getElementById('sbn-pomo')?.classList.add('active');
   if(view==='subjects') document.getElementById('sbn-subjects')?.classList.add('active');
   // subject items
   document.querySelectorAll('.sb-subj-item').forEach(el=>{
@@ -1658,45 +2021,45 @@ function renderSidebar(){
   if(!el) return;
   el.innerHTML='';
 
-  const matkul=D.subjects.filter(s=>s.type==='matkul');
-  const personal=D.subjects.filter(s=>s.type==='personal');
+  const active=D.subjects.filter(s=>!s.archived);
 
-  const renderGroup=(list, label)=>{
-    if(!list.length) return;
-    const grpLbl=document.createElement('div');
-    grpLbl.className='sb-subj-group-label';
-    grpLbl.textContent=label;
-    el.appendChild(grpLbl);
-    list.forEach(s=>{
-      const pending=D.materi.filter(m=>m.sid===s.id&&!m.done).length;
-      const btn=document.createElement('button');
-      btn.className='sb-subj-item';
-      btn.dataset.sid=s.id;
-      btn.innerHTML=
-        `<span class="sb-subj-emoji">${s.emoji}</span>`+
-        `<span class="sb-subj-name">${s.name}</span>`+
-        (pending?`<span class="sb-subj-pending">${pending}</span>`:'');
-      btn.onclick=()=>openDetail(s.id);
-      el.appendChild(btn);
-    });
-  };
+  if(!active.length){
+    el.innerHTML=`<div style="padding:12px;font-size:12px;color:var(--ink3);font-weight:600;">Belum ada subjek aktif</div>`;
+  } else {
+    // group by semester, order by D.semesters
+    const sems=[...new Set(active.map(s=>s.semester||'').filter(Boolean))];
+    sems.sort((a,b)=>D.semesters.indexOf(a)-D.semesters.indexOf(b));
+    const noSem=active.filter(s=>!s.semester);
 
-  renderGroup(matkul,'Mata Kuliah');
-  renderGroup(personal,'Personal');
+    const renderGroup=(list, label)=>{
+      if(!list.length) return;
+      if(label){
+        const lbl=document.createElement('div');
+        lbl.className='sb-subj-group-label'; lbl.textContent=label;
+        el.appendChild(lbl);
+      }
+      list.forEach(s=>{
+        const pending=D.materi.filter(m=>m.sid===s.id&&!m.done).length;
+        const btn=document.createElement('button');
+        btn.className='sb-subj-item'; btn.dataset.sid=s.id;
+        btn.innerHTML=
+          `<span class="sb-subj-emoji">${s.emoji}</span>`+
+          `<span class="sb-subj-name">${s.name}</span>`+
+          (pending?`<span class="sb-subj-pending">${pending}</span>`:'');
+        btn.onclick=()=>openDetail(s.id);
+        el.appendChild(btn);
+      });
+    };
 
-  if(!D.subjects.length){
-    el.innerHTML=`<div style="padding:12px 12px;font-size:12px;color:var(--ink3);font-weight:600;">Belum ada subjek</div>`;
+    sems.forEach(sm=>renderGroup(active.filter(s=>s.semester===sm), sm));
+    renderGroup(noSem, noSem.length&&sems.length?'Lainnya':null);
   }
 
-  // sync badge
+  // badge
   const badge=document.getElementById('sb-badge');
   const totalPending=D.materi.filter(m=>!m.done).length;
-  if(badge){
-    badge.textContent=totalPending;
-    badge.style.display=totalPending?'inline-block':'none';
-  }
+  if(badge){ badge.textContent=totalPending; badge.style.display=totalPending?'inline-block':'none'; }
 
-  // update active states
   updateSidebarActive(curView, curSid);
 }
 
@@ -1828,32 +2191,122 @@ function renderWeek(){
 function shiftWeek(dir){ weekOff+=dir; renderWeek(); }
 
 // ════════ SUBJECT LISTS ═══════════════════════
+let archiveExpanded = false;
+
 function renderSubjLists(){
-  ['matkul','personal'].forEach(type=>{
-    const el=document.getElementById(type==='matkul'?'list-mk':'list-ps');
-    const list=D.subjects.filter(s=>s.type===type);
-    if(!list.length){
-      el.innerHTML=`<div class="empty" style="padding:20px"><span class="empty-ic" style="font-size:24px">📭</span><div class="empty-t" style="font-size:14px">Belum ada</div></div>`;
+  const query = (document.getElementById('subj-search')?.value||'').trim().toLowerCase();
+  const isSearch = query.length > 0;
+
+  const activeEl = document.getElementById('subj-active-list');
+  const archiveWrap = document.getElementById('subj-archive-wrap');
+  activeEl.innerHTML = '';
+  archiveWrap.innerHTML = '';
+
+  // ── SEARCH MODE: show all matching (active + archived) flat ──
+  if(isSearch){
+    const all = D.subjects.filter(s => s.name.toLowerCase().includes(query));
+    if(!all.length){
+      activeEl.innerHTML=`<div class="card"><div class="empty"><span class="empty-ic">🔍</span><div class="empty-t">Ga ketemu</div><div class="empty-s">Coba kata lain</div></div></div>`;
       return;
     }
-    el.innerHTML='';
-    list.forEach(s=>{
-      const mat=D.materi.filter(m=>m.sid===s.id);
-      const pending=mat.filter(m=>!m.done).length;
-      const activeTugas=D.tugas.filter(t=>t.sid===s.id&&!t.done).length;
-      const row=document.createElement('div'); row.className='sitem';
-      row.innerHTML=
-        `<div class="si-icon" style="background:${s.color}22">${s.emoji}</div>`+
-        `<div class="si-body">`+
-        `<div class="si-name">${s.name}</div>`+
-        `<div class="si-sub">${mat.length} materi · ${activeTugas} tugas aktif${pending?` · <b style="color:var(--amber);font-weight:700">${pending} belum latsoal</b>`:''}</div>`+
-        `</div>`+
-        (pending?`<span class="si-badge">${pending}</span>`:'')+
-        `<span class="si-chev">›</span>`;
-      row.onclick=()=>openDetail(s.id);
-      el.appendChild(row);
+    const card = document.createElement('div'); card.className='card';
+    card.style.marginBottom='12px';
+    all.forEach(s => card.appendChild(mkSubjItem(s, s.archived)));
+    activeEl.appendChild(card);
+    return;
+  }
+
+  // ── NORMAL MODE: active subjects grouped by semester ──
+  const active = D.subjects.filter(s => !s.archived);
+
+  if(!active.length){
+    activeEl.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">📭</span><div class="empty-t">Belum ada subjek aktif</div><div class="empty-s">Tambah subjek baru di bawah</div></div></div>`;
+  } else {
+    // group by semester — ordered by D.semesters array (newest first)
+    const sems = [...new Set(active.map(s=>s.semester||'').filter(Boolean))];
+    // sort by D.semesters order (index 0 = newest)
+    sems.sort((a,b)=>{
+      const ia=D.semesters.indexOf(a), ib=D.semesters.indexOf(b);
+      return ia-ib;
     });
-  });
+    const noSem = active.filter(s=>!s.semester);
+
+    const renderGroup=(list, label)=>{
+      if(!list.length) return;
+      if(label){
+        const lbl=document.createElement('div'); lbl.className='subj-sem-label';
+        lbl.textContent=label; activeEl.appendChild(lbl);
+      }
+      const card=document.createElement('div'); card.className='card';
+      card.style.marginBottom='12px';
+      list.forEach(s=>card.appendChild(mkSubjItem(s, false)));
+      activeEl.appendChild(card);
+    };
+
+    sems.forEach(sm => renderGroup(active.filter(s=>s.semester===sm), sm));
+    renderGroup(noSem, noSem.length&&sems.length ? 'Tanpa Semester' : null);
+  }
+
+  // ── ARCHIVE SECTION ──
+  const archived = D.subjects.filter(s => s.archived);
+  if(!archived.length) return;
+
+  const toggleBtn = document.createElement('button');
+  toggleBtn.className = 'archive-toggle-btn';
+  toggleBtn.innerHTML =
+    `<span>🗂</span>`+
+    `<span>Arsip Subjek</span>`+
+    `<span class="atb-count">${archived.length} subjek</span>`+
+    `<span class="atb-chev">${archiveExpanded?'▲':'▼'}</span>`;
+  toggleBtn.onclick = ()=>{ archiveExpanded=!archiveExpanded; renderSubjLists(); };
+  archiveWrap.appendChild(toggleBtn);
+
+  if(archiveExpanded){
+    // group archived by semester too
+    const archSems=[...new Set(archived.map(s=>s.semester||'').filter(Boolean))];
+    archSems.sort((a,b)=>D.semesters.indexOf(a)-D.semesters.indexOf(b));
+    const archNoSem=archived.filter(s=>!s.semester);
+
+    const archCard=(list,label)=>{
+      if(!list.length) return;
+      if(label){
+        const lbl=document.createElement('div'); lbl.className='subj-sem-label';
+        lbl.style.marginTop='10px'; lbl.textContent=label; archiveWrap.appendChild(lbl);
+      }
+      const card=document.createElement('div'); card.className='card';
+      card.style.marginTop='6px'; card.style.marginBottom='6px';
+      list.forEach(s=>card.appendChild(mkSubjItem(s,true)));
+      archiveWrap.appendChild(card);
+    };
+
+    archSems.forEach(sm=>archCard(archived.filter(s=>s.semester===sm),sm));
+    archCard(archNoSem, archNoSem.length&&archSems.length?'Tanpa Semester':null);
+  }
+}
+
+function mkSubjItem(s, isArchived){
+  const mat=D.materi.filter(m=>m.sid===s.id);
+  const pending=mat.filter(m=>!m.done).length;
+  const activeTugas=D.tugas.filter(t=>t.sid===s.id&&!t.done).length;
+
+  const row=document.createElement('div');
+  row.className='sitem'+(isArchived?' sitem-archived':'');
+
+  let rightHtml = isArchived
+    ? `<button class="unarchive-btn" onclick="event.stopPropagation();unarchiveSubj('${s.id}')">Aktifkan</button>`+
+      `<span class="si-chev">›</span>`
+    : (pending?`<span class="si-badge">${pending}</span>`:'')+`<span class="si-chev">›</span>`;
+
+  row.innerHTML=
+    `<div class="si-icon" style="background:${s.color}22">${s.emoji}</div>`+
+    `<div class="si-body">`+
+    `<div class="si-name">${s.name}`+(isArchived?` <span class="sitem-arch-chip">Arsip</span>`:'')+`</div>`+
+    `<div class="si-sub">${mat.length} materi · ${activeTugas} tugas aktif`+
+    (pending&&!isArchived?` · <b style="color:var(--amber);font-weight:700">${pending} belum latsoal</b>`:'')+
+    `</div></div>`+rightHtml;
+
+  row.onclick=()=>openDetail(s.id);
+  return row;
 }
 
 // ════════ SUBJECT DETAIL ══════════════════════
@@ -2023,6 +2476,215 @@ function toggleT(id){
   const t=D.tugas.find(x=>x.id===id);
   t.done=!t.done; save(); refresh();
   toast(t.done?'✅ Tugas selesai! 🎉':'↩️ Ditandai belum selesai');
+}
+
+// ════════ POMODORO ENGINE ════════════════════
+const POMO_DURATIONS = { focus:[20,25,30,45], break:[5,5,5,10] };
+
+function pomoDurMinutes(){ return POMO_DURATIONS.focus[pomoDurIdx]; }
+
+// ── Audio (Web Audio API, no external files needed) ──
+function pomoBeep(type){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const notes = type==='focus_done'
+      ? [{f:523,d:.12},{f:659,d:.12},{f:784,d:.25}]   // C-E-G ding
+      : [{f:392,d:.15},{f:523,d:.35}];                  // gentle two-tone for break done
+    let t=ctx.currentTime;
+    notes.forEach(n=>{
+      const osc=ctx.createOscillator(); const gain=ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value=n.f; osc.type='sine';
+      gain.gain.setValueAtTime(0,t);
+      gain.gain.linearRampToValueAtTime(.32,t+.01);
+      gain.gain.exponentialRampToValueAtTime(.001,t+n.d+.3);
+      osc.start(t); osc.stop(t+n.d+.35);
+      t+=n.d+.05;
+    });
+  }catch(e){}
+}
+
+function selectDur(min){
+  const idx=POMO_DURATIONS.focus.indexOf(min);
+  if(idx<0) return;
+  pomoDurIdx=idx;
+  document.querySelectorAll('.pomo-dur-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+}
+
+function buildPomoTaskOptions(){
+  const sel=document.getElementById('pomo-task-sel');
+  if(!sel) return;
+  sel.innerHTML=`<option value="">— Pilih materi / tugas / ujian —</option>`;
+  const active=D.subjects.filter(s=>!s.archived);
+  active.forEach(s=>{
+    // materi belum done
+    const mat=D.materi.filter(m=>m.sid===s.id&&!m.done);
+    if(mat.length){
+      const og=document.createElement('optgroup'); og.label=`📖 ${s.name} — Materi`;
+      mat.forEach(m=>{ const o=new Option(`${m.name}`,`m::${m.id}::${m.name}`); og.appendChild(o); });
+      sel.appendChild(og);
+    }
+    // tugas belum done
+    const tgs=D.tugas.filter(t=>t.sid===s.id&&!t.done);
+    if(tgs.length){
+      const og=document.createElement('optgroup'); og.label=`📋 ${s.name} — Tugas`;
+      tgs.forEach(t=>{ const o=new Option(`${t.name}`,`t::${t.id}::${t.name}`); og.appendChild(o); });
+      sel.appendChild(og);
+    }
+    // ujian upcoming
+    const uji=D.ujian.filter(u=>u.sid===s.id&&diffD(u.date,tod())>=0);
+    if(uji.length){
+      const og=document.createElement('optgroup'); og.label=`📝 ${s.name} — Ujian`;
+      uji.forEach(u=>{ const typeL={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type]; const o=new Option(`Persiapan ${typeL}${u.name?' – '+u.name:''}`,`u::${u.id}::Persiapan ${typeL}${u.name?' – '+u.name:''}`); og.appendChild(o); });
+      sel.appendChild(og);
+    }
+  });
+}
+
+function renderPomoIdle(){
+  buildPomoTaskOptions();
+  renderPomoHistory();
+  if(pomoState) showPomoActive();
+  else showPomoIdleUI();
+}
+
+function showPomoIdleUI(){
+  document.getElementById('pomo-idle').style.display='flex';
+  document.getElementById('pomo-active').style.display='none';
+  document.getElementById('pomo-history').style.display='';
+}
+
+function showPomoActive(){
+  document.getElementById('pomo-idle').style.display='none';
+  document.getElementById('pomo-active').style.display='flex';
+  document.getElementById('pomo-history').style.display='none';
+  updatePomoActiveUI();
+}
+
+function updatePomoActiveUI(){
+  const isFocus=pomoPhase==='focus';
+  const activeDiv=document.getElementById('pomo-active');
+  activeDiv.className='pomo-active '+(isFocus?'is-focus':'is-break');
+  const emoji=document.getElementById('pomo-active-emoji');
+  emoji.textContent=isFocus?'🍅':'☕';
+  emoji.className='pomo-active-emoji '+(isFocus?'is-focus':'is-break');
+  const stateEl=document.getElementById('pomo-active-state');
+  stateEl.textContent=isFocus?'FOKUS':'ISTIRAHAT';
+  stateEl.className='pomo-active-state '+(isFocus?'is-focus':'is-break');
+  const taskEl=document.getElementById('pomo-active-task');
+  const hintEl=document.getElementById('pomo-active-hint');
+  if(isFocus){
+    taskEl.className='pomo-active-task is-focus';
+    taskEl.textContent=pomoTask||'Sesi Fokus';
+    hintEl.textContent='Singkirin HP, buka buku, mulai.';
+  } else {
+    taskEl.className='pomo-active-task is-break';
+    taskEl.textContent='Tenang dulu ☕';
+    hintEl.textContent='Regangkan badan, minum air, napas.';
+  }
+  // session dots — max 8
+  const dots=document.getElementById('pomo-session-dots');
+  dots.innerHTML=pomoSessions.slice(-8).map((s,i)=>`<div class="pomo-session-dot done"></div>`).join('');
+}
+
+function updatePomoPill(){
+  // mobile topbar pill
+  const pill=document.getElementById('pomo-topbar-pill');
+  const pillLbl=document.getElementById('pomo-pill-label');
+  const sbPill=document.getElementById('sb-pomo-pill');
+  const sbLbl=document.getElementById('sb-pomo-label');
+  if(pomoState){
+    const cls=pomoPhase==='focus'?'focus':'brk';
+    const txt=pomoPhase==='focus'?'Fokus aktif':'Break';
+    if(pill){ pill.className='pomo-topbar-pill '+cls+' show'; if(pillLbl) pillLbl.textContent=txt; }
+    if(sbPill){ sbPill.className='sb-pomo-pill '+cls; if(sbLbl) sbLbl.textContent=txt; }
+  } else {
+    if(pill) pill.className='pomo-topbar-pill';
+    if(sbPill) sbPill.className='sb-pomo-pill';
+  }
+}
+
+function startPomo(){
+  const sel=document.getElementById('pomo-task-sel');
+  const val=sel?.value||'';
+  pomoTask=val?val.split('::')[2]:'';
+  pomoPhase='focus';
+  pomoState=true;
+  pomoBreakDur=POMO_DURATIONS.break[pomoDurIdx];
+  pomoEndMs=Date.now()+(pomoDurMinutes()*60*1000);
+  clearInterval(pomoTimer);
+  pomoTimer=setInterval(pomoTick,1000);
+  showPomoActive();
+  updatePomoPill();
+}
+
+function pomoTick(){
+  if(Date.now()>=pomoEndMs) phaseEnd();
+}
+
+function phaseEnd(){
+  clearInterval(pomoTimer);
+  if(pomoPhase==='focus'){
+    // log session
+    pomoSessions.push({label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
+    pomoBeep('focus_done');
+    pomoPhase='break';
+    pomoEndMs=Date.now()+(pomoBreakDur*60*1000);
+    pomoTimer=setInterval(pomoTick,1000);
+    updatePomoActiveUI();
+    updatePomoPill();
+    // if not on pomo view, toast
+    if(curView!=='pomo') toast('🍅 Sesi selesai! Istirahat dulu ☕');
+  } else {
+    // break done
+    pomoBeep('break_done');
+    pomoState=false; pomoPhase='focus';
+    updatePomoPill();
+    if(curView==='pomo'){ showPomoIdleUI(); renderPomoHistory(); }
+    else toast('☕ Break selesai! Siap fokus lagi?');
+  }
+}
+
+function stopPomo(){
+  if(!confirm('Akhiri sesi sekarang?')) return;
+  clearInterval(pomoTimer);
+  if(pomoPhase==='focus' && Date.now()<pomoEndMs){
+    // partial session still counts
+    const elapsed=Math.round((pomoDurMinutes()*60*1000-(pomoEndMs-Date.now()))/60000);
+    if(elapsed>=5) pomoSessions.push({label:pomoTask||'Sesi Fokus',dur:elapsed,endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
+  }
+  pomoState=false; pomoPhase='focus';
+  updatePomoPill();
+  showPomoIdleUI(); renderPomoHistory();
+}
+
+function renderPomoHistory(){
+  const el=document.getElementById('pomo-history');
+  if(!el) return;
+  const today=pomoSessions;
+  const totalMin=today.reduce((s,x)=>s+x.dur,0);
+  if(!today.length){
+    el.innerHTML=`<div class="pomo-history-title">Hari Ini</div><div style="text-align:center;padding:16px 0;color:var(--ink3);font-size:13px;font-weight:600;">Belum ada sesi hari ini 🍅<br>Yuk mulai!</div>`;
+    return;
+  }
+  el.innerHTML=
+    `<div class="pomo-history-title">Hari Ini</div>`+
+    `<div class="pomo-stats-row">`+
+    `<div class="pomo-stat"><div class="pomo-stat-num">${today.length}</div><div class="pomo-stat-lbl">Sesi 🍅</div></div>`+
+    `<div class="pomo-stat"><div class="pomo-stat-num">${totalMin}</div><div class="pomo-stat-lbl">Menit fokus</div></div>`+
+    `</div>`+
+    `<div class="pomo-session-list">`+
+    [...today].reverse().map(s=>
+      `<div class="pomo-session-item">`+
+      `<div class="pomo-session-ic">🍅</div>`+
+      `<div class="pomo-session-body">`+
+      `<div class="pomo-session-name">${escHtml(s.label)}</div>`+
+      `<div class="pomo-session-meta">Selesai ${s.endAt}</div>`+
+      `</div>`+
+      `<div class="pomo-session-dur">${s.dur}'</div>`+
+      `</div>`
+    ).join('')+
+    `</div>`;
 }
 
 // ════════ NOTES SHEET ════════════════════════
@@ -2298,14 +2960,11 @@ function renderCalUjian(){
 // Tambah ujian dari tab kalender — pilih subjek dulu
 let _calAddUjianSid=null;
 function openAddUjianFromCal(){
-  // Jika hanya 1 subjek, langsung ke sheet
-  if(D.subjects.length===1){
-    _calAddUjianSid=D.subjects[0].id;
-    _openAddUjianSheet(_calAddUjianSid);
-    return;
+  const activeSubj=D.subjects.filter(s=>!s.archived);
+  if(activeSubj.length===1){
+    _openAddUjianSheet(activeSubj[0].id); return;
   }
-  // Buat quick-pick modal subjek
-  let opts=D.subjects.map(s=>`<button onclick="_calPickSubj('${s.id}')" style="width:100%;padding:12px 16px;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:6px"><span style="color:${s.color}">${s.emoji}</span>${s.name}</button>`).join('');
+  let opts=activeSubj.map(s=>`<button onclick="_calPickSubj('${s.id}')" style="width:100%;padding:12px 16px;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px;margin-bottom:6px"><span style="color:${s.color}">${s.emoji}</span>${s.name}</button>`).join('');
   const overlay=document.createElement('div');
   overlay.id='subj-pick-overlay';
   overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:flex;align-items:flex-end;justify-content:center;';
@@ -2373,11 +3032,36 @@ function delTugas(){
   save(); closeSheet('sh-editt'); refresh(); toast('🗑 Tugas dihapus');
 }
 
+// ════════ SEMESTER HELPERS ═══════════════════
+function populateSemesterSelect(elId, current=''){
+  const sel=document.getElementById(elId);
+  if(!sel) return;
+  sel.innerHTML=`<option value="">— Tanpa semester —</option>`+
+    D.semesters.map(sm=>`<option value="${sm}"${sm===current?' selected':''}>${sm}</option>`).join('')+
+    `<option value="__new__">＋ Buat semester baru...</option>`;
+  const newInp=document.getElementById(elId.replace('-sm','-sm-new'));
+  sel.onchange=()=>{
+    if(newInp) newInp.style.display=sel.value==='__new__'?'block':'none';
+  };
+}
+
+function getSemesterValue(selId, newId){
+  const sel=document.getElementById(selId);
+  const newInp=document.getElementById(newId);
+  if(sel.value==='__new__'){
+    const nm=(newInp?.value||'').trim();
+    if(nm && !D.semesters.includes(nm)) D.semesters.unshift(nm);
+    return nm;
+  }
+  return sel.value;
+}
+
 // ════════ SUBJEK CRUD ════════════════════════
 function saveSubj(){
   const name=document.getElementById('as-n').value.trim(); if(!name)return;
   const type=document.getElementById('as-t').value;
-  D.subjects.push({id:'s'+Date.now(),name,type,color:selColor,emoji:type==='matkul'?'📚':'🧠'});
+  const semester=getSemesterValue('as-sm','as-sm-new');
+  D.subjects.push({id:'s'+Date.now(),name,type,color:selColor,emoji:type==='matkul'?'📚':'🧠',semester,archived:false});
   save(); closeSheet('sh-addsubj'); renderSubjLists(); renderSidebar(); toast(`"${name}" ditambahkan!`);
 }
 function saveMateri(){
@@ -2416,6 +3100,10 @@ function openEditSubj(id){
   const s=gS(id);
   document.getElementById('es-e').value=s.emoji||'';
   document.getElementById('es-n').value=s.name;
+  // reset new semester input
+  const newInp=document.getElementById('es-sm-new');
+  if(newInp){ newInp.value=''; newInp.style.display='none'; }
+  populateSemesterSelect('es-sm', s.semester||'');
   selColorEdit=s.color;
   buildCpickerEdit();
   openSheet('sh-editsubj');
@@ -2427,8 +3115,9 @@ function saveEditSubj(){
   if(newEmoji) s.emoji=newEmoji;
   if(newName)  s.name=newName;
   s.color=selColorEdit;
+  s.semester=getSemesterValue('es-sm','es-sm-new');
   save(); closeSheet('sh-editsubj');
-  openDetail(editSid);
+  openDetail(editSid); renderSidebar();
   toast('✏️ Subjek diperbarui!');
 }
 function hapusSubjDariEdit(){
@@ -2440,6 +3129,21 @@ function hapusSubjDariEdit(){
   save(); closeSheet('sh-editsubj');
   goView('subjects',document.getElementById('bn-s'));
   toast('🗑 Subjek dihapus');
+}
+function archiveSubj(){
+  const s=gS(editSid);
+  if(!confirm(`Archive "${s.name}"? Subjek akan disembunyikan tapi datanya tetap tersimpan.`))return;
+  s.archived=true;
+  save(); closeSheet('sh-editsubj');
+  goView('subjects',document.getElementById('bn-s'));
+  renderSidebar(); archiveExpanded=true;
+  toast(`🗂 "${s.name}" diarsipkan`);
+}
+function unarchiveSubj(id){
+  const s=gS(id);
+  s.archived=false;
+  save(); renderSubjLists(); renderSidebar();
+  toast(`✅ "${s.name}" diaktifkan kembali`);
 }
 function buildCpickerEdit(){
   const el=document.getElementById('cpicker-edit'); el.innerHTML='';
@@ -2466,6 +3170,10 @@ const bgc=(e,id)=>{ if(e.target===document.getElementById(id)) closeSheet(id); }
 
 function buildCpicker(){
   const el=document.getElementById('cpicker'); el.innerHTML='';
+  // also populate semester dropdown
+  const newInp=document.getElementById('as-sm-new');
+  if(newInp){ newInp.value=''; newInp.style.display='none'; }
+  populateSemesterSelect('as-sm','');
   COLORS.forEach(c=>{
     const d=document.createElement('div');
     d.className='co'+(c===selColor?' sel':'');
@@ -2484,7 +3192,7 @@ function toast(msg){
 }
 
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 </body></html>
