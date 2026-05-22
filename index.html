@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_43.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_47.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -42,7 +42,11 @@
   --pomo-red-lt: #fdf0ee;
   --pomo-break:  #0e7a5c;
   --pomo-break-lt:#e6f7f2;
-  --rsm: 9px;
+
+  --r:   20px;
+  --rsm: 12px;
+  --rxs: 8px;
+  --rxl: 26px;
   --sh: 0 1px 2px rgba(0,0,0,.04), 0 4px 16px rgba(0,0,0,.07);
   --sh2: 0 8px 40px rgba(0,0,0,.16);
   --nav-h: 66px;
@@ -155,12 +159,12 @@ input,select,textarea { font-family:inherit; }
   body { overflow:hidden; }
 
   .app {
-    max-width:100%; width:100%; height:100dvh;
-    flex-direction:row; margin:0;
+    max-width:100% !important; width:100%; height:100dvh;
+    flex-direction:row; margin:0; box-shadow:none;
   }
 
-  .topbar { display:none; }
-  .bnav   { display:none; }
+  .topbar { display:none !important; }
+  .bnav   { display:none !important; }
 
   /* ════ SIDEBAR ════ */
   .sidebar {
@@ -196,7 +200,7 @@ input,select,textarea { font-family:inherit; }
   }
   .sb-item {
     display:flex; align-items:center; gap:11px;
-    padding:10px 12px; border-radius:11px;
+    padding:10px 12px; border-radius:var(--rsm);
     font-size:13.5px; font-weight:700; color:var(--ink2);
     cursor:pointer; transition:background .12s, color .12s;
     width:100%; text-align:left;
@@ -235,7 +239,7 @@ input,select,textarea { font-family:inherit; }
   }
   .sb-subj-item {
     display:flex; align-items:center; gap:10px;
-    padding:9px 12px; border-radius:10px;
+    padding:9px 12px; border-radius:var(--rsm);
     font-size:13.5px; font-weight:600; color:var(--ink2);
     cursor:pointer; transition:background .12s, color .12s;
     width:100%; text-align:left;
@@ -271,7 +275,7 @@ input,select,textarea { font-family:inherit; }
   .sb-add-subj {
     margin-top:10px;
     width:100%; padding:9px 12px;
-    border-radius:10px;
+    border-radius:var(--rsm);
     border:1.5px dashed var(--blue-bd);
     background:var(--blue-lt);
     color:var(--blue); font-size:13px; font-weight:700;
@@ -282,9 +286,10 @@ input,select,textarea { font-family:inherit; }
 
   /* ════ DESKTOP MAIN ════ */
   .desktop-main {
-    flex:1; min-width:0;
+    flex:1; min-width:0; width:0;
     display:flex; flex-direction:column;
     height:100dvh; background:var(--bg);
+    overflow:hidden;
   }
 
   /* Desktop topbar */
@@ -314,17 +319,20 @@ input,select,textarea { font-family:inherit; }
   .dtb-btn {
     padding:7px 16px; border-radius:var(--rsm);
     font-size:13px; font-weight:700;
-    border:1.5px solid; transition:all .12s;
-    cursor:pointer;
+    border:1.5px solid; transition:all .12s; cursor:pointer;
   }
   .dtb-btn:hover { opacity:.85; }
   .dtb-btn.blue  { background:var(--blue); color:#fff; border-color:var(--blue); }
   .dtb-btn.ghost { background:none; border-color:var(--line2); color:var(--ink2); }
 
-  /* Scroll + content */
-  .desktop-main .scroll { padding-bottom:40px; }
+  /* Scroll + content — centered column */
+  .desktop-main .scroll { padding-bottom:40px; overflow-y:auto; }
   .desktop-main .pad {
-    max-width:660px; margin:0 auto; padding:24px 28px;
+    max-width:640px; margin:0 auto; padding:24px 28px;
+  }
+  /* subject detail header also centered */
+  .desktop-main .sdh-inner {
+    max-width:640px; margin:0 auto; padding:0 28px;
   }
 
   /* Hover states */
@@ -335,7 +343,7 @@ input,select,textarea { font-family:inherit; }
   .home-ujian-item:hover { background:var(--bg); cursor:default; }
 
   /* Sheets centered */
-  .sheet        { max-width:500px; margin:0 auto; border-radius:22px 22px 0 0; }
+  .sheet        { max-width:500px; margin:0 auto; border-radius:var(--rxl) var(--rxl) 0 0; }
   .notes-sheet  { max-width:500px; margin:0 auto; }
 
   /* Subject detail header padding */
@@ -344,9 +352,23 @@ input,select,textarea { font-family:inherit; }
 }
 
 @media (max-width:767px){
-  .sidebar        { display:none; }
-  .desktop-main   { display:contents; }
+  .sidebar        { display:none !important; }
   .desktop-topbar { display:none !important; }
+  .desktop-main {
+    display:flex; flex-direction:column;
+    flex:1; min-width:0; width:100%;
+    height:100dvh; overflow:hidden;
+  }
+  /* restore mobile app as single column */
+  .app {
+    flex-direction:column;
+    max-width:480px; margin:0 auto;
+  }
+  /* mobile scroll must fill remaining height */
+  .scroll {
+    flex:1; overflow-y:auto;
+    padding-bottom:calc(var(--nav-h) + var(--sb) + 20px);
+  }
 }
 
 /* ══════════════════════════════════
@@ -384,7 +406,7 @@ input,select,textarea { font-family:inherit; }
 .wday {
   display:flex; flex-direction:column;
   align-items:center; gap:3px;
-  padding:6px 2px; border-radius:10px;
+  padding:6px 2px; border-radius:var(--rsm);
   cursor:pointer; transition:background .12s;
 }
 .wday:active { background:var(--bg); }
@@ -531,7 +553,7 @@ input,select,textarea { font-family:inherit; }
 
 .mi-more {
   flex-shrink:0; padding:6px 8px;
-  border-radius:8px; color:var(--ink3);
+  border-radius:var(--rxs); color:var(--ink3);
   font-size:17px; line-height:1;
 }
 .mi-more:active { background:var(--bg); }
@@ -581,7 +603,7 @@ input,select,textarea { font-family:inherit; }
 .ti-btn.todo { background:var(--bg); border-color:var(--line2); color:var(--ink2); }
 .ti-btn.done { background:var(--green-lt); border-color:var(--green-bd); color:var(--green); }
 
-.ti-more { flex-shrink:0; padding:6px 8px; border-radius:8px; color:var(--ink3); font-size:17px; margin-top:1px; }
+.ti-more { flex-shrink:0; padding:6px 8px; border-radius:var(--rxs); color:var(--ink3); font-size:17px; margin-top:1px; }
 .ti-more:active { background:var(--bg); }
 
 /* ══════════════════════════════════
@@ -595,7 +617,7 @@ input,select,textarea { font-family:inherit; }
 .sitem:last-child { border-bottom:none; }
 .sitem:active { background:var(--bg); }
 .si-icon {
-  width:44px; height:44px; border-radius:11px;
+  width:44px; height:44px; border-radius:var(--rsm);
   display:flex; align-items:center; justify-content:center;
   font-size:21px; flex-shrink:0;
 }
@@ -620,7 +642,7 @@ input,select,textarea { font-family:inherit; }
   display:flex; align-items:center; gap:14px;
 }
 .sdh-ico {
-  width:52px; height:52px; border-radius:13px;
+  width:52px; height:52px; border-radius:var(--r);
   display:flex; align-items:center; justify-content:center;
   font-size:26px; flex-shrink:0;
 }
@@ -693,7 +715,7 @@ input,select,textarea { font-family:inherit; }
 .overlay.open { opacity:1; pointer-events:all; }
 .sheet {
   background:var(--white);
-  border-radius:22px 22px 0 0;
+  border-radius:var(--rxl) var(--rxl) 0 0;
   width:100%; max-width:480px;
   max-height:92dvh; overflow-y:auto;
   padding-bottom:calc(24px + var(--sb));
@@ -773,7 +795,7 @@ input,select,textarea { font-family:inherit; }
 @media(min-width:500px){
   .app { box-shadow:0 0 80px rgba(0,0,0,.12); }
   .overlay { align-items:center; }
-  .sheet { border-radius:22px; max-width:440px; width:440px; transform:translateY(18px) scale(.97); margin-bottom:0; }
+  .sheet { border-radius:var(--rxl); max-width:440px; width:440px; transform:translateY(18px) scale(.97); margin-bottom:0; }
   .overlay.open .sheet { transform:none; }
 }
 
@@ -795,7 +817,7 @@ input,select,textarea { font-family:inherit; }
 }
 .ujian-type-badge {
   font-size:10px; font-weight:800;
-  padding:3px 8px; border-radius:6px;
+  padding:3px 8px; border-radius:var(--rxs);
   text-transform:uppercase; letter-spacing:.04em;
   white-space:nowrap;
 }
@@ -882,7 +904,7 @@ input,select,textarea { font-family:inherit; }
   background:var(--blue-lt); border-color:var(--blue-bd);
 }
 .materi-check-box {
-  width:20px; height:20px; border-radius:5px;
+  width:20px; height:20px; border-radius:var(--rxs);
   border:2px solid var(--line2); background:var(--white);
   display:flex; align-items:center; justify-content:center;
   flex-shrink:0; font-size:12px; transition:all .15s;
@@ -910,7 +932,7 @@ input,select,textarea { font-family:inherit; }
 .mcal-dows { display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
 .mcal-dow { text-align:center; font-size:10px; font-weight:700; color:var(--ink3); text-transform:uppercase; letter-spacing:.05em; padding:2px 0; }
 .mcal-days { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
-.mday { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:10px; font-size:13px; font-weight:600; color:var(--ink2); cursor:pointer; gap:3px; transition:background .1s; -webkit-tap-highlight-color:transparent; }
+.mday { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:var(--rsm); font-size:13px; font-weight:600; color:var(--ink2); cursor:pointer; gap:3px; transition:background .1s; -webkit-tap-highlight-color:transparent; }
 .mday:active { background:var(--bg2); }
 .mday.faded { color:var(--ink3); font-weight:400; }
 .mday.is-today { background:var(--blue); color:#fff; }
@@ -957,7 +979,7 @@ input,select,textarea { font-family:inherit; }
 .notes-overlay.open { opacity:1; pointer-events:all; }
 .notes-sheet {
   background:var(--white);
-  border-radius:22px 22px 0 0;
+  border-radius:var(--rxl) var(--rxl) 0 0;
   width:100%; max-width:440px;
   max-height:70vh;
   display:flex; flex-direction:column;
@@ -978,7 +1000,7 @@ input,select,textarea { font-family:inherit; }
 }
 .notes-sheet-type {
   font-size:10px; font-weight:800; text-transform:uppercase;
-  letter-spacing:.06em; padding:3px 8px; border-radius:6px;
+  letter-spacing:.06em; padding:3px 8px; border-radius:var(--rxs);
   flex-shrink:0;
 }
 .notes-sheet-title {
@@ -1055,7 +1077,7 @@ input,select,textarea { font-family:inherit; }
 }
 .unarchive-btn {
   font-size:11px; font-weight:700; color:var(--blue);
-  padding:4px 10px; border-radius:6px;
+  padding:4px 10px; border-radius:var(--rxs);
   background:var(--blue-lt); border:1px solid var(--blue-bd);
   flex-shrink:0; margin-left:4px;
 }
@@ -1263,7 +1285,7 @@ input,select,textarea { font-family:inherit; }
 /* desktop sidebar pomo item */
 .sb-pomo-pill {
   display:none; margin:0 10px 8px;
-  padding:8px 12px; border-radius:10px;
+  padding:8px 12px; border-radius:var(--rsm);
   font-size:12px; font-weight:800;
   align-items:center; gap:8px;
   animation:pomo-pulse 2.4s ease-in-out infinite;
@@ -1498,7 +1520,7 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Min, 24 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Min, 24 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u3&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
