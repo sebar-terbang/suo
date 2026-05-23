@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_49.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_50.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1352,7 +1352,7 @@ input,select,textarea { font-family:inherit; }
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
-    <div class="sb-pomo-pill focus" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
+    <div class="sb-pomo-pill" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
     <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
@@ -1462,15 +1462,15 @@ input,select,textarea { font-family:inherit; }
       <div class="pomo-view">
 
         <!-- IDLE UI -->
-        <div class="pomo-idle" id="pomo-idle" style="display: none;">
+        <div class="pomo-idle" id="pomo-idle" style="display: flex;">
           <div class="pomo-idle-emoji">🍅</div>
           <div class="pomo-idle-title">Ready to focus?</div>
           <div class="pomo-idle-sub">Pick a duration and what you're working on.</div>
 
           <div class="pomo-dur-label">Durasi Fokus</div>
           <div class="pomo-dur-row" id="pomo-dur-row">
-            <button class="pomo-dur-btn active" onclick="selectDur(20)">20'</button>
-            <button class="pomo-dur-btn" onclick="selectDur(25)">25'</button>
+            <button class="pomo-dur-btn" onclick="selectDur(20)">20'</button>
+            <button class="pomo-dur-btn active" onclick="selectDur(25)">25'</button>
             <button class="pomo-dur-btn" onclick="selectDur(30)">30'</button>
             <button class="pomo-dur-btn" onclick="selectDur(45)">45'</button>
           </div>
@@ -1484,16 +1484,12 @@ input,select,textarea { font-family:inherit; }
         </div>
 
         <!-- ACTIVE UI (focus / break) -->
-        <div class="pomo-active is-focus" id="pomo-active" style="display: flex;">
-          <div class="pomo-active-state is-focus" id="pomo-active-state">focus session</div>
-          <div class="pomo-active-task is-focus" id="pomo-active-task">Dynamic Programming</div>
-          <div class="pomo-active-hint" id="pomo-active-hint">lock in.</div>
+        <div class="pomo-active is-focus" id="pomo-active" style="display:none">
+          <div class="pomo-active-state is-focus" id="pomo-active-state">sedang fokus</div>
+          <div class="pomo-active-task" id="pomo-active-task">Sesi Fokus</div>
+          <div class="pomo-active-hint" id="pomo-active-hint">kamu lagi melakukan hal yang baik 🌱</div>
 
-          <div class="pomo-flower-wrap" id="pomo-flower-wrap"><svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="42" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="56" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="70" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="84" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="98" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle>
-    
-    
-  </svg></div>
+          <div class="pomo-flower-wrap" id="pomo-flower-wrap"></div>
 
           <button class="pomo-stop-btn" onclick="stopPomo()">akhiri sesi</button>
 
@@ -1504,7 +1500,7 @@ input,select,textarea { font-family:inherit; }
         </div>
 
         <!-- HISTORY (shown in idle) -->
-        <div class="pomo-history" id="pomo-history" style="display: none;"><div class="pomo-history-title">Hari Ini</div><div style="text-align:center;padding:16px 0;color:var(--ink3);font-size:13px;font-weight:600;">Belum ada sesi hari ini 🍅<br>Yuk mulai!</div></div>
+        <div class="pomo-history" id="pomo-history"><div class="pomo-history-title">Hari Ini</div><div style="text-align:center;padding:16px 0;color:var(--ink3);font-size:13px;font-weight:600;">Belum ada sesi hari ini 🍅<br>Yuk mulai!</div></div>
 
       </div>
     </div>
@@ -1856,6 +1852,121 @@ const sbFetch=(path,opts={})=>{
   return fetch(SB_URL+'/rest/v1/'+path,{method:opts.method||'GET', headers, body:opts.body});
 };
 
+// ════════ POMO SUPABASE ══════════════════════
+// Save completed session to cloud
+async function sbSavePomoSession(session){
+  try{
+    await sbFetch('pomo_sessions',{
+      method:'POST',
+      prefer:'resolution=merge-duplicates',
+      body:JSON.stringify({
+        user_key: USER_KEY,
+        label: session.label,
+        dur: session.dur,
+        end_at: session.endAt,
+        date: tod()
+      })
+    });
+  }catch(e){ console.warn('pomo session save failed',e); }
+}
+
+// Load today's sessions from cloud on boot
+async function sbLoadPomoSessions(){
+  try{
+    const r=await sbFetch(`pomo_sessions?user_key=eq.${encodeURIComponent(USER_KEY)}&date=eq.${tod()}&order=created_at.asc`);
+    if(!r.ok) return;
+    const rows=await r.json();
+    // merge with local — avoid duplicates by end_at+label
+    const existing=new Set(pomoSessions.map(s=>s.endAt+'|'+s.label));
+    rows.forEach(row=>{
+      const key=row.end_at+'|'+row.label;
+      if(!existing.has(key)){
+        pomoSessions.push({label:row.label,dur:row.dur,endAt:row.end_at});
+        existing.add(key);
+      }
+    });
+    if(curView==='pomo') renderPomoHistory();
+  }catch(e){ console.warn('pomo sessions load failed',e); }
+}
+
+// Push current pomo state to cloud (for cross-device sync)
+async function sbPushPomoState(){
+  try{
+    const payload=pomoState?{
+      user_key: USER_KEY,
+      phase: pomoPhase,
+      end_ms: pomoEndMs,
+      start_ms: pomoStartMs,
+      dur_idx: pomoDurIdx,
+      task: pomoTask,
+      break_dur: pomoBreakDur,
+      dots_thresholds: JSON.stringify(pomoDotsThresholds),
+      updated_at: new Date().toISOString()
+    }:{
+      user_key: USER_KEY,
+      phase: null,
+      end_ms: null,
+      start_ms: null,
+      dur_idx: pomoDurIdx,
+      task: null,
+      break_dur: pomoBreakDur,
+      dots_thresholds: null,
+      updated_at: new Date().toISOString()
+    };
+    await sbFetch('pomo_state?on_conflict=user_key',{
+      method:'POST',
+      prefer:'resolution=merge-duplicates',
+      body:JSON.stringify(payload)
+    });
+  }catch(e){ console.warn('pomo state push failed',e); }
+}
+
+// Poll cloud pomo state every 4s for cross-device sync
+let _pomoSyncInterval=null;
+function startPomoCloudSync(){
+  stopPomoCloudSync();
+  _pomoSyncInterval=setInterval(pollPomoState, 4000);
+}
+function stopPomoCloudSync(){
+  if(_pomoSyncInterval){ clearInterval(_pomoSyncInterval); _pomoSyncInterval=null; }
+}
+
+async function pollPomoState(){
+  try{
+    const r=await sbFetch(`pomo_state?user_key=eq.${encodeURIComponent(USER_KEY)}&select=*`);
+    if(!r.ok) return;
+    const rows=await r.json();
+    if(!rows.length) return;
+    const remote=rows[0];
+
+    // If remote has an active session we don't know about — adopt it
+    if(remote.phase && remote.end_ms && Date.now()<remote.end_ms){
+      const remoteUpdated=new Date(remote.updated_at).getTime();
+      const localUpdated=pomoState?pomoEndMs-pomoDurMinutes()*60*1000:0;
+      // remote is newer and we're not running, OR remote endMs differs significantly
+      if(!pomoState || Math.abs(remote.end_ms-pomoEndMs)>5000){
+        // adopt remote state
+        pomoState=true;
+        pomoPhase=remote.phase;
+        pomoEndMs=remote.end_ms;
+        pomoStartMs=remote.start_ms;
+        pomoDurIdx=remote.dur_idx||1;
+        pomoTask=remote.task||'';
+        pomoBreakDur=remote.break_dur||5;
+        pomoDotsThresholds=JSON.parse(remote.dots_thresholds||'[]');
+        savePomoState();
+        updatePomoPill();
+        if(curView==='pomo'){ showPomoActive(); }
+        else toast('🍅 Sesi pomo aktif di device lain — tersinkron!');
+      }
+    } else if(!remote.phase && pomoState){
+      // remote says stopped — stop locally too (if we didn't start it)
+      // only adopt if our session is the same as remote (endMs close)
+      // skip — don't forcefully stop local session
+    }
+  }catch(e){}
+}
+
 // Load dari Supabase
 async function loadFromCloud(){
   try{
@@ -1923,6 +2034,9 @@ async function boot(){
 
   renderHome(); renderSubjLists(); renderMcal(); renderSidebar();
   restorePomoState();
+  sbLoadPomoSessions();       // load today's sessions from cloud
+  pollPomoState();             // check if another device has active session
+  if(pomoState) startPomoCloudSync(); // resume polling if we restored an active session
   updateDesktopTopbar('home', null);
 
   // Keyboard: Escape closes sheets/notes
@@ -2813,6 +2927,8 @@ function startPomo(){
   clearInterval(pomoTimer);
   pomoTimer=setInterval(pomoTick,1000);
   savePomoState();
+  sbPushPomoState();
+  startPomoCloudSync();
   showPomoActive();
   updatePomoPill();
 }
@@ -2826,8 +2942,9 @@ function pomoTick(){
 function phaseEnd(){
   clearInterval(pomoTimer);
   if(pomoPhase==='focus'){
-    // log session
-    pomoSessions.push({label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
+    const session={label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})};
+    pomoSessions.push(session);
+    sbSavePomoSession(session);
     pomoBeep('focus_done');
     pomoPhase='break';
     const breakMs=pomoBreakDur*60*1000;
@@ -2836,14 +2953,16 @@ function phaseEnd(){
     pomoDotsThresholds=genDotsThresholds(breakMs);
     pomoTimer=setInterval(pomoTick,1000);
     savePomoState();
+    sbPushPomoState();
     updatePomoActiveUI();
     updatePomoPill();
     if(curView!=='pomo') toast('🍅 Sesi selesai! Istirahat dulu ☕');
   } else {
-    // break done
     pomoBeep('break_done');
     pomoState=false; pomoPhase='focus';
     savePomoState();
+    sbPushPomoState();
+    stopPomoCloudSync();
     updatePomoPill();
     if(curView==='pomo'){ showPomoIdleUI(); renderPomoHistory(); }
     else toast('☕ Break selesai! Siap fokus lagi?');
@@ -2855,10 +2974,16 @@ function stopPomo(){
   clearInterval(pomoTimer);
   if(pomoPhase==='focus' && Date.now()<pomoEndMs){
     const elapsed=Math.round((pomoDurMinutes()*60*1000-(pomoEndMs-Date.now()))/60000);
-    if(elapsed>=5) pomoSessions.push({label:pomoTask||'Sesi Fokus',dur:elapsed,endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
+    if(elapsed>=5){
+      const session={label:pomoTask||'Sesi Fokus',dur:elapsed,endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})};
+      pomoSessions.push(session);
+      sbSavePomoSession(session);
+    }
   }
   pomoState=false; pomoPhase='focus';
   savePomoState();
+  sbPushPomoState();
+  stopPomoCloudSync();
   updatePomoPill();
   showPomoIdleUI(); renderPomoHistory();
 }
