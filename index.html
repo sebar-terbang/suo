@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_50.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_51.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1876,16 +1876,19 @@ async function sbLoadPomoSessions(){
     const r=await sbFetch(`pomo_sessions?user_key=eq.${encodeURIComponent(USER_KEY)}&date=eq.${tod()}&order=created_at.asc`);
     if(!r.ok) return;
     const rows=await r.json();
-    // merge with local — avoid duplicates by end_at+label
-    const existing=new Set(pomoSessions.map(s=>s.endAt+'|'+s.label));
-    rows.forEach(row=>{
-      const key=row.end_at+'|'+row.label;
-      if(!existing.has(key)){
-        pomoSessions.push({label:row.label,dur:row.dur,endAt:row.end_at});
-        existing.add(key);
-      }
-    });
-    if(curView==='pomo') renderPomoHistory();
+    // rebuild from cloud — source of truth
+    const cloudSessions=rows.map(row=>({label:row.label, dur:row.dur, endAt:row.end_at}));
+    // merge: keep any in-memory sessions not yet in cloud (just completed)
+    const cloudKeys=new Set(rows.map(r=>r.end_at+'|'+r.label));
+    const localOnly=pomoSessions.filter(s=>!cloudKeys.has(s.endAt+'|'+s.label));
+    pomoSessions=[...cloudSessions, ...localOnly];
+    // always re-render history if on pomo view, or update session count pill
+    renderPomoHistory();
+    // update session dots in active view too
+    const sesiNum=document.getElementById('pomo-sesi-num');
+    if(sesiNum) sesiNum.textContent=pomoSessions.length;
+    const seshDots=document.getElementById('pomo-session-dots');
+    if(seshDots) seshDots.innerHTML=pomoSessions.slice(-8).map(()=>`<div class="pomo-sesh-dot"></div>`).join('');
   }catch(e){ console.warn('pomo sessions load failed',e); }
 }
 
@@ -1925,7 +1928,11 @@ async function sbPushPomoState(){
 let _pomoSyncInterval=null;
 function startPomoCloudSync(){
   stopPomoCloudSync();
-  _pomoSyncInterval=setInterval(pollPomoState, 4000);
+  pollPomoState();                          // immediate first check
+  _pomoSyncInterval=setInterval(async()=>{
+    await pollPomoState();
+    await sbLoadPomoSessions();             // keep riwayat fresh on all devices
+  }, 5000);
 }
 function stopPomoCloudSync(){
   if(_pomoSyncInterval){ clearInterval(_pomoSyncInterval); _pomoSyncInterval=null; }
@@ -2034,9 +2041,8 @@ async function boot(){
 
   renderHome(); renderSubjLists(); renderMcal(); renderSidebar();
   restorePomoState();
-  sbLoadPomoSessions();       // load today's sessions from cloud
-  pollPomoState();             // check if another device has active session
-  if(pomoState) startPomoCloudSync(); // resume polling if we restored an active session
+  sbLoadPomoSessions();
+  startPomoCloudSync(); // always poll — picks up sessions from other devices too
   updateDesktopTopbar('home', null);
 
   // Keyboard: Escape closes sheets/notes
@@ -2741,17 +2747,19 @@ function buildPomoTaskOptions(){
 }
 
 function renderPomoIdle(){
-  // if state says active but endMs already passed (closed tab, reopened), clean up
+  // if state says active but endMs already passed, clean up
   if(pomoState && Date.now() >= pomoEndMs){
     clearInterval(pomoTimer);
     if(pomoPhase==='focus'){
-      pomoSessions.push({label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:'—'});
+      const session={label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:'—'};
+      pomoSessions.push(session);
+      sbSavePomoSession(session);
     }
     pomoState=false; pomoPhase='focus';
-    savePomoState(); updatePomoPill();
+    savePomoState(); sbPushPomoState(); updatePomoPill();
   }
   buildPomoTaskOptions();
-  renderPomoHistory();
+  sbLoadPomoSessions(); // always freshen from cloud when opening tab
   if(pomoState) showPomoActive();
   else showPomoIdleUI();
 }
@@ -2962,7 +2970,6 @@ function phaseEnd(){
     pomoState=false; pomoPhase='focus';
     savePomoState();
     sbPushPomoState();
-    stopPomoCloudSync();
     updatePomoPill();
     if(curView==='pomo'){ showPomoIdleUI(); renderPomoHistory(); }
     else toast('☕ Break selesai! Siap fokus lagi?');
@@ -2983,7 +2990,6 @@ function stopPomo(){
   pomoState=false; pomoPhase='focus';
   savePomoState();
   sbPushPomoState();
-  stopPomoCloudSync();
   updatePomoPill();
   showPomoIdleUI(); renderPomoHistory();
 }
