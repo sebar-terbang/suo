@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_47.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_49.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1096,10 +1096,6 @@ input,select,textarea { font-family:inherit; }
 .pomo-topbar-pill.focus { background:var(--pomo-red-lt); color:var(--pomo-red); }
 .pomo-topbar-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); }
 .pomo-topbar-pill.show  { display:flex; }
-@keyframes pomo-pulse {
-  0%,100%{opacity:1} 50%{opacity:.6}
-}
-
 /* Main pomo view */
 .pomo-view {
   min-height:100%;
@@ -1223,64 +1219,86 @@ input,select,textarea { font-family:inherit; }
 .pomo-active {
   flex:1; display:flex; flex-direction:column;
   align-items:center; justify-content:center;
-  padding:40px 28px;
-  transition:background .6s;
+  padding:48px 32px 40px;
+  transition:background 1.2s ease;
 }
-.pomo-active.is-focus { background:var(--bg); }
-.pomo-active.is-break { background:var(--pomo-break-lt); }
+.pomo-active.is-focus { background:#fafaf9; }
+.pomo-active.is-break { background:#f8fafc; }
 
-.pomo-active-emoji {
-  font-size:72px; line-height:1; margin-bottom:24px;
-}
-.pomo-active-emoji.is-focus { animation:pomo-breathe 4s ease-in-out infinite; }
-.pomo-active-emoji.is-break { animation:pomo-float 3s ease-in-out infinite; }
-@keyframes pomo-breathe {
-  0%,100%{transform:scale(1)} 50%{transform:scale(1.08)}
-}
-@keyframes pomo-float {
-  0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)}
-}
-
+/* State label — soft, not screaming */
 .pomo-active-state {
-  font-size:13px; font-weight:800; text-transform:uppercase;
-  letter-spacing:.1em; margin-bottom:10px;
+  font-size:11px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase;
+  margin-bottom:18px; opacity:.55;
 }
-.pomo-active-state.is-focus { color:var(--pomo-red); }
+.pomo-active-state.is-focus { color:#c2604a; }
 .pomo-active-state.is-break { color:var(--pomo-break); }
 
+/* Task name */
 .pomo-active-task {
-  font-size:18px; font-weight:800; color:var(--ink);
-  text-align:center; margin-bottom:6px;
-  letter-spacing:-.3px; line-height:1.3;
+  font-size:17px; font-weight:700; color:var(--ink);
+  text-align:center; line-height:1.4;
+  margin-bottom:4px; max-width:280px;
 }
 .pomo-active-task.is-break {
-  font-size:16px; font-weight:600; color:var(--pomo-break);
+  font-size:16px; font-weight:500;
+  color:var(--pomo-break); font-style:italic;
 }
+
+/* Hint — encouraging whisper */
 .pomo-active-hint {
-  font-size:13px; color:var(--ink3); font-weight:600;
-  text-align:center; margin-bottom:48px;
+  font-size:13px; color:var(--ink3); font-weight:500;
+  text-align:center; font-style:italic;
+  margin-bottom:44px; opacity:.8;
 }
 
+/* ── FLOWER ── */
+.pomo-flower-wrap {
+  position:relative;
+  width:160px; height:130px;
+  margin-bottom:40px;
+  display:flex; align-items:center; justify-content:center;
+}
+/* SVG rendered by JS into this container */
+.pomo-flower-wrap svg { width:100%; height:100%; overflow:visible; }
+
+/* ── STOP BUTTON ── */
 .pomo-stop-btn {
-  padding:12px 28px; border-radius:99px;
-  border:2px solid var(--line2); background:var(--white);
-  font-size:13px; font-weight:700; color:var(--ink3);
-  transition:all .15s;
+  padding:11px 26px; border-radius:99px;
+  border:1.5px solid var(--line2); background:transparent;
+  font-size:12px; font-weight:600; color:var(--ink3);
+  transition:all .2s; letter-spacing:.02em;
 }
-.pomo-stop-btn:hover { border-color:var(--red); color:var(--red); }
-.pomo-stop-btn:active { transform:scale(.96); }
+.pomo-stop-btn:hover { border-color:var(--line2); color:var(--ink2); background:var(--bg); }
+.pomo-stop-btn:active { transform:scale(.96); opacity:.7; }
 
+/* ── SESSION COUNT ── */
 .pomo-session-count {
-  margin-top:24px;
-  font-size:12px; font-weight:700; color:var(--ink3);
-  display:flex; align-items:center; gap:6px;
+  margin-top:28px;
+  display:flex; flex-direction:column;
+  align-items:center; gap:8px;
 }
-.pomo-session-dots { display:flex; gap:4px; }
-.pomo-session-dot {
-  width:8px; height:8px; border-radius:50%;
-  background:var(--line2);
+.pomo-session-count-label {
+  font-size:11px; font-weight:600; color:var(--ink3);
+  opacity:.6; letter-spacing:.04em;
 }
-.pomo-session-dot.done { background:var(--pomo-red); }
+/* completed session dots (tiny, below) */
+.pomo-session-dots { display:flex; gap:5px; align-items:center; }
+.pomo-sesh-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--pomo-red); opacity:.45;
+}
+
+/* topbar pill — subtler, no pulse */
+.pomo-topbar-pill {
+  display:none; align-items:center; gap:5px;
+  padding:4px 11px; border-radius:99px;
+  font-size:12px; font-weight:700;
+  letter-spacing:.01em;
+}
+.pomo-topbar-pill.focus { background:var(--pomo-red-lt); color:#c2604a; }
+.pomo-topbar-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); }
+.pomo-topbar-pill.show  { display:flex; }
 
 /* desktop sidebar pomo item */
 .sb-pomo-pill {
@@ -1288,9 +1306,8 @@ input,select,textarea { font-family:inherit; }
   padding:8px 12px; border-radius:var(--rsm);
   font-size:12px; font-weight:800;
   align-items:center; gap:8px;
-  animation:pomo-pulse 2.4s ease-in-out infinite;
 }
-.sb-pomo-pill.focus { background:var(--pomo-red-lt); color:var(--pomo-red); display:flex; }
+.sb-pomo-pill.focus { background:var(--pomo-red-lt); color:#c2604a; display:flex; }
 .sb-pomo-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); display:flex; }
 
 /* ══ REWARDING BANNER ══ */
@@ -1320,14 +1337,14 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
       <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
         <span class="sb-item-ic">📅</span> Kalender
       </button>
-      <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
+      <button class="sb-item active" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
         <span class="sb-item-ic">🍅</span> Pomodoro
       </button>
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
@@ -1335,7 +1352,7 @@ input,select,textarea { font-family:inherit; }
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
-    <div class="sb-pomo-pill" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
+    <div class="sb-pomo-pill focus" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
     <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
@@ -1347,21 +1364,16 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🍅 Pomodoro</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar">
-    <div class="tb-logo">Kul<span>yeah</span>! 🎓</div>
-    <div class="pomo-topbar-pill" id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
-      🍅 <span id="pomo-pill-label">Fokus</span>
-    </div>
-  </div>
+  <div class="topbar" id="topbar"><div class="tb-title">🍅 Pomodoro</div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -1376,12 +1388,12 @@ input,select,textarea { font-family:inherit; }
               <button class="wk-arr" onclick="shiftWeek(1)">›</button>
             </div>
           </div>
-          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday is-today"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
+          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday is-today"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
         </div>
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 3h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-late">🚨 Telat 1h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 2h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
         <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
@@ -1446,50 +1458,53 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ POMODORO ══ -->
-    <div class="view" id="v-pomo">
+    <div class="view active" id="v-pomo">
       <div class="pomo-view">
 
         <!-- IDLE UI -->
-        <div class="pomo-idle" id="pomo-idle">
+        <div class="pomo-idle" id="pomo-idle" style="display: none;">
           <div class="pomo-idle-emoji">🍅</div>
-          <div class="pomo-idle-title">Siap Fokus?</div>
-          <div class="pomo-idle-sub">Pilih durasi dan yang mau dikerjain</div>
+          <div class="pomo-idle-title">Ready to focus?</div>
+          <div class="pomo-idle-sub">Pick a duration and what you're working on.</div>
 
           <div class="pomo-dur-label">Durasi Fokus</div>
           <div class="pomo-dur-row" id="pomo-dur-row">
-            <button class="pomo-dur-btn" onclick="selectDur(20)">20'</button>
-            <button class="pomo-dur-btn active" onclick="selectDur(25)">25'</button>
+            <button class="pomo-dur-btn active" onclick="selectDur(20)">20'</button>
+            <button class="pomo-dur-btn" onclick="selectDur(25)">25'</button>
             <button class="pomo-dur-btn" onclick="selectDur(30)">30'</button>
             <button class="pomo-dur-btn" onclick="selectDur(45)">45'</button>
           </div>
 
           <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
           <div class="pomo-task-pick">
-            <select id="pomo-task-sel">
-              <option value="">— Pilih materi / tugas / ujian —</option>
-            </select>
+            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
           </div>
 
-          <button class="pomo-start-btn" onclick="startPomo()">Mulai Fokus 🍅</button>
+          <button class="pomo-start-btn" onclick="startPomo()">Start 🍅</button>
         </div>
 
         <!-- ACTIVE UI (focus / break) -->
-        <div class="pomo-active is-focus" id="pomo-active" style="display:none">
-          <div class="pomo-active-emoji is-focus" id="pomo-active-emoji">🍅</div>
-          <div class="pomo-active-state is-focus" id="pomo-active-state">FOKUS</div>
-          <div class="pomo-active-task" id="pomo-active-task">Sesi Fokus</div>
-          <div class="pomo-active-hint" id="pomo-active-hint">Singkirin HP, buka buku, mulai.</div>
+        <div class="pomo-active is-focus" id="pomo-active" style="display: flex;">
+          <div class="pomo-active-state is-focus" id="pomo-active-state">focus session</div>
+          <div class="pomo-active-task is-focus" id="pomo-active-task">Dynamic Programming</div>
+          <div class="pomo-active-hint" id="pomo-active-hint">lock in.</div>
 
-          <button class="pomo-stop-btn" onclick="stopPomo()">Akhiri Sesi</button>
+          <div class="pomo-flower-wrap" id="pomo-flower-wrap"><svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="42" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="56" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="70" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="84" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle><circle cx="98" cy="18" r="3" fill="#e2e8f0" opacity="0.35" style="transition:fill .8s ease,opacity .8s ease"></circle>
+    
+    
+  </svg></div>
+
+          <button class="pomo-stop-btn" onclick="stopPomo()">akhiri sesi</button>
 
           <div class="pomo-session-count">
-            <span>Sesi hari ini:</span>
             <div class="pomo-session-dots" id="pomo-session-dots"></div>
+            <div class="pomo-session-count-label" id="pomo-sesi-label">sesi hari ini: <span id="pomo-sesi-num">0</span></div>
           </div>
         </div>
 
         <!-- HISTORY (shown in idle) -->
-        <div class="pomo-history" id="pomo-history"></div>
+        <div class="pomo-history" id="pomo-history" style="display: none;"><div class="pomo-history-title">Hari Ini</div><div style="text-align:center;padding:16px 0;color:var(--ink3);font-size:13px;font-weight:600;">Belum ada sesi hari ini 🍅<br>Yuk mulai!</div></div>
 
       </div>
     </div>
@@ -1507,7 +1522,7 @@ input,select,textarea { font-family:inherit; }
           </div>
           <div class="mcal-inner">
             <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday is-today"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
+            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday is-today"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
           </div>
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
@@ -1520,7 +1535,7 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Min, 24 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u3&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-1</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Min, 24 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u3&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-3</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-13</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
@@ -1533,11 +1548,11 @@ input,select,textarea { font-family:inherit; }
       <div class="bn-ic">📅</div>
       <div>Kalender</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">4</span></div>
       <div>Home</div>
     </button>
-    <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
+    <button class="bn active" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
       <div class="bn-ic">🍅</div>
       <div>Pomodoro</div>
     </button>
@@ -1907,6 +1922,7 @@ async function boot(){
   }
 
   renderHome(); renderSubjLists(); renderMcal(); renderSidebar();
+  restorePomoState();
   updateDesktopTopbar('home', null);
 
   // Keyboard: Escape closes sheets/notes
@@ -2505,6 +2521,53 @@ const POMO_DURATIONS = { focus:[20,25,30,45], break:[5,5,5,10] };
 
 function pomoDurMinutes(){ return POMO_DURATIONS.focus[pomoDurIdx]; }
 
+// Randomized dot thresholds — 5 dots, each triggers at a random point
+// within its segment so timing is unpredictable
+let pomoDotsThresholds = []; // ms from start when each dot lights up
+let pomoStartMs = 0;         // when current phase started
+
+function genDotsThresholds(totalMs){
+  const N = 5;
+  const seg = totalMs / N;
+  return Array.from({length:N}, (_,i)=>{
+    // each dot lights up at a random point within its segment
+    const lo = seg * i + seg * 0.1;
+    const hi = seg * (i+1) - seg * 0.1;
+    return lo + Math.random() * (hi - lo);
+  });
+}
+
+function savePomoState(){
+  if(!pomoState){ sessionStorage.removeItem('pomo'); return; }
+  sessionStorage.setItem('pomo', JSON.stringify({
+    pomoState, pomoPhase, pomoEndMs, pomoStartMs, pomoDurIdx,
+    pomoTask, pomoSessions, pomoBreakDur, pomoDotsThresholds
+  }));
+}
+
+function restorePomoState(){
+  try {
+    const raw = sessionStorage.getItem('pomo');
+    if(!raw) return;
+    const s = JSON.parse(raw);
+    if(Date.now() >= s.pomoEndMs){
+      sessionStorage.removeItem('pomo'); return;
+    }
+    pomoState           = s.pomoState;
+    pomoPhase           = s.pomoPhase;
+    pomoEndMs           = s.pomoEndMs;
+    pomoStartMs         = s.pomoStartMs;
+    pomoDurIdx          = s.pomoDurIdx;
+    pomoTask            = s.pomoTask;
+    pomoSessions        = s.pomoSessions||[];
+    pomoBreakDur        = s.pomoBreakDur;
+    pomoDotsThresholds  = s.pomoDotsThresholds||[];
+    clearInterval(pomoTimer);
+    pomoTimer = setInterval(pomoTick, 1000);
+    updatePomoPill();
+  } catch(e){ sessionStorage.removeItem('pomo'); }
+}
+
 // ── Audio (Web Audio API, no external files needed) ──
 function pomoBeep(type){
   try{
@@ -2564,6 +2627,15 @@ function buildPomoTaskOptions(){
 }
 
 function renderPomoIdle(){
+  // if state says active but endMs already passed (closed tab, reopened), clean up
+  if(pomoState && Date.now() >= pomoEndMs){
+    clearInterval(pomoTimer);
+    if(pomoPhase==='focus'){
+      pomoSessions.push({label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:'—'});
+    }
+    pomoState=false; pomoPhase='focus';
+    savePomoState(); updatePomoPill();
+  }
   buildPomoTaskOptions();
   renderPomoHistory();
   if(pomoState) showPomoActive();
@@ -2587,26 +2659,127 @@ function updatePomoActiveUI(){
   const isFocus=pomoPhase==='focus';
   const activeDiv=document.getElementById('pomo-active');
   activeDiv.className='pomo-active '+(isFocus?'is-focus':'is-break');
-  const emoji=document.getElementById('pomo-active-emoji');
-  emoji.textContent=isFocus?'🍅':'☕';
-  emoji.className='pomo-active-emoji '+(isFocus?'is-focus':'is-break');
+
   const stateEl=document.getElementById('pomo-active-state');
-  stateEl.textContent=isFocus?'FOKUS':'ISTIRAHAT';
+  stateEl.textContent=isFocus?'focus session':'break time';
   stateEl.className='pomo-active-state '+(isFocus?'is-focus':'is-break');
+
   const taskEl=document.getElementById('pomo-active-task');
   const hintEl=document.getElementById('pomo-active-hint');
   if(isFocus){
     taskEl.className='pomo-active-task is-focus';
-    taskEl.textContent=pomoTask||'Sesi Fokus';
-    hintEl.textContent='Singkirin HP, buka buku, mulai.';
+    taskEl.textContent=pomoTask||'sesi fokus';
+    const hints=['phone down, let\'s go.','deep work mode.','eyes on the work.','you got this.','lock in.','no distractions.'];
+    hintEl.textContent=hints[Math.floor(Math.random()*hints.length)];
   } else {
     taskEl.className='pomo-active-task is-break';
-    taskEl.textContent='Tenang dulu ☕';
-    hintEl.textContent='Regangkan badan, minum air, napas.';
+    taskEl.textContent='good work.';
+    hintEl.textContent='stretch, breathe, water.';
   }
-  // session dots — max 8
-  const dots=document.getElementById('pomo-session-dots');
-  dots.innerHTML=pomoSessions.slice(-8).map((s,i)=>`<div class="pomo-session-dot done"></div>`).join('');
+  renderFlower();
+
+  // completed session dots
+  const sesiNum=document.getElementById('pomo-sesi-num');
+  if(sesiNum) sesiNum.textContent=pomoSessions.length;
+  const seshDots=document.getElementById('pomo-session-dots');
+  if(seshDots) seshDots.innerHTML=pomoSessions.slice(-8).map(()=>`<div class="pomo-sesh-dot"></div>`).join('');
+}
+
+function renderFlower(){
+  const wrap=document.getElementById('pomo-flower-wrap');
+  if(!wrap) return;
+  const isFocus=pomoPhase==='focus';
+  const elapsed=Date.now()-pomoStartMs;
+  const bloomed=pomoDotsThresholds.filter(t=>elapsed>=t).length;
+
+  // Stone colors — warm grey for focus, cool blue-grey for break
+  const stones=isFocus?[
+    {w:72, h:16, rx:8,  fill:'#78716c', shade:'#57534e'}, // base — widest, darkest
+    {w:58, h:14, rx:7,  fill:'#a8a29e', shade:'#78716c'},
+    {w:50, h:13, rx:7,  fill:'#d6d3d1', shade:'#a8a29e'},
+    {w:40, h:12, rx:6,  fill:'#e7e5e4', shade:'#d6d3d1'},
+    {w:28, h:11, rx:6,  fill:'#f5f5f4', shade:'#e7e5e4'}, // top — smallest, lightest
+  ]:[
+    {w:72, h:16, rx:8,  fill:'#64748b', shade:'#475569'},
+    {w:58, h:14, rx:7,  fill:'#94a3b8', shade:'#64748b'},
+    {w:50, h:13, rx:7,  fill:'#cbd5e1', shade:'#94a3b8'},
+    {w:40, h:12, rx:6,  fill:'#e2e8f0', shade:'#cbd5e1'},
+    {w:28, h:11, rx:6,  fill:'#f1f5f9', shade:'#e2e8f0'},
+  ];
+
+  const cx=70;
+  // Stack from bottom — each stone sits on top of previous
+  // total height when all visible
+  const gap=3; // gap between stones
+  const totalH=stones.reduce((s,st)=>s+st.h+gap,0)-gap;
+  const baseY=105; // y of bottom of lowest stone
+
+  let svgContent='';
+
+  // shadow under stack
+  if(bloomed>0){
+    svgContent+=`<ellipse cx="${cx}" cy="${baseY+4}" rx="${stones[0].w/2+4}" ry="5"
+      fill="#0000001a"/>`;
+  }
+
+  // draw stones from bottom (index 0) up — only up to bloomed count
+  for(let i=0;i<bloomed;i++){
+    const st=stones[i];
+    let yBottom=baseY;
+    for(let j=0;j<i;j++) yBottom-=stones[j].h+gap;
+    const yTop=yBottom-st.h;
+    const x=cx-st.w/2;
+
+    // slight random horizontal nudge per stone (seeded by index so stable)
+    const nudge=(i===0)?0:((i*37+13)%11)-5; // -5..+5 px, deterministic
+
+    svgContent+=`
+      <!-- stone ${i} -->
+      <rect x="${x+nudge}" y="${yTop}" width="${st.w}" height="${st.h}"
+        rx="${st.rx}"
+        fill="${st.fill}"
+        style="transition:opacity .6s ease"/>
+      <!-- top highlight -->
+      <rect x="${x+nudge+4}" y="${yTop+2}" width="${st.w-8}" height="3"
+        rx="2" fill="white" opacity="0.35"/>
+      <!-- bottom shade -->
+      <rect x="${x+nudge}" y="${yTop+st.h-4}" width="${st.w}" height="4"
+        rx="${st.rx}" fill="${st.shade}" opacity="0.5"/>
+    `;
+  }
+
+  // unplaced stones shown as faint outlines below the stack area
+  // Actually — show nothing for unplaced, cleaner
+
+  // if all 5 stacked — tiny zen circle ripple at base
+  const zenHtml=bloomed>=5?`
+    <ellipse cx="${cx}" cy="${baseY+6}" rx="44" ry="7"
+      fill="none" stroke="${isFocus?'#a8a29e':'#94a3b8'}" stroke-width="1" opacity="0.3"/>
+    <ellipse cx="${cx}" cy="${baseY+6}" rx="56" ry="9"
+      fill="none" stroke="${isFocus?'#a8a29e':'#94a3b8'}" stroke-width="0.5" opacity="0.15"/>
+  `:'';
+
+  // 5 dot indicators at top
+  const dotY=18;
+  const dotSpacing=14;
+  const dotsHtml=Array.from({length:5},(_,i)=>{
+    const dx=cx-28+(i*dotSpacing);
+    const lit=i<bloomed;
+    return `<circle cx="${dx}" cy="${dotY}" r="3"
+      fill="${lit?(isFocus?'#78716c':'#64748b'):'#e2e8f0'}"
+      opacity="${lit?0.7:0.35}"
+      style="transition:fill .8s ease,opacity .8s ease"/>`;
+  }).join('');
+
+  wrap.innerHTML=`<svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg">
+    ${dotsHtml}
+    ${svgContent}
+    ${zenHtml}
+  </svg>`;
+}
+
+function updateProgressDots(){
+  renderFlower();
 }
 
 function updatePomoPill(){
@@ -2633,15 +2806,21 @@ function startPomo(){
   pomoPhase='focus';
   pomoState=true;
   pomoBreakDur=POMO_DURATIONS.break[pomoDurIdx];
-  pomoEndMs=Date.now()+(pomoDurMinutes()*60*1000);
+  const totalMs=pomoDurMinutes()*60*1000;
+  pomoStartMs=Date.now();
+  pomoEndMs=pomoStartMs+totalMs;
+  pomoDotsThresholds=genDotsThresholds(totalMs);
   clearInterval(pomoTimer);
   pomoTimer=setInterval(pomoTick,1000);
+  savePomoState();
   showPomoActive();
   updatePomoPill();
 }
 
 function pomoTick(){
-  if(Date.now()>=pomoEndMs) phaseEnd();
+  if(Date.now()>=pomoEndMs){ phaseEnd(); return; }
+  // update dots live if on pomo view
+  if(curView==='pomo' && pomoState) updateProgressDots();
 }
 
 function phaseEnd(){
@@ -2651,16 +2830,20 @@ function phaseEnd(){
     pomoSessions.push({label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
     pomoBeep('focus_done');
     pomoPhase='break';
-    pomoEndMs=Date.now()+(pomoBreakDur*60*1000);
+    const breakMs=pomoBreakDur*60*1000;
+    pomoStartMs=Date.now();
+    pomoEndMs=pomoStartMs+breakMs;
+    pomoDotsThresholds=genDotsThresholds(breakMs);
     pomoTimer=setInterval(pomoTick,1000);
+    savePomoState();
     updatePomoActiveUI();
     updatePomoPill();
-    // if not on pomo view, toast
     if(curView!=='pomo') toast('🍅 Sesi selesai! Istirahat dulu ☕');
   } else {
     // break done
     pomoBeep('break_done');
     pomoState=false; pomoPhase='focus';
+    savePomoState();
     updatePomoPill();
     if(curView==='pomo'){ showPomoIdleUI(); renderPomoHistory(); }
     else toast('☕ Break selesai! Siap fokus lagi?');
@@ -2671,11 +2854,11 @@ function stopPomo(){
   if(!confirm('Akhiri sesi sekarang?')) return;
   clearInterval(pomoTimer);
   if(pomoPhase==='focus' && Date.now()<pomoEndMs){
-    // partial session still counts
     const elapsed=Math.round((pomoDurMinutes()*60*1000-(pomoEndMs-Date.now()))/60000);
     if(elapsed>=5) pomoSessions.push({label:pomoTask||'Sesi Fokus',dur:elapsed,endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})});
   }
   pomoState=false; pomoPhase='focus';
+  savePomoState();
   updatePomoPill();
   showPomoIdleUI(); renderPomoHistory();
 }
