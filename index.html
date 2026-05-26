@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_51.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_52.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -149,6 +149,7 @@ input,select,textarea { font-family:inherit; }
 /* ── VIEWS ── */
 .view { display:none; }
 .view.active { display:block; }
+#v-proj-detail.active, #v-area-detail.active { display:flex; flex-direction:column; }
 
 /* ══════════════════════════════════
    DESKTOP OVERRIDE (≥768px)
@@ -1325,6 +1326,315 @@ input,select,textarea { font-family:inherit; }
 .pending-header { font-size:13px; font-weight:700; color:var(--ink2); margin-bottom:10px; margin-top:4px; display:flex; align-items:center; justify-content:space-between; }
 .pending-count { font-size:11px; font-weight:700; background:var(--amber-lt); color:var(--amber); padding:2px 8px; border-radius:99px; }
 
+/* ══════════════════════════════════
+   PROJECT & AREA — CARD LIST
+══════════════════════════════════ */
+.pa-card {
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:var(--sh);
+  margin-bottom:12px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform .12s, box-shadow .12s;
+}
+.pa-card:active { transform:scale(.985); }
+
+.pa-card-header {
+  display:flex; align-items:center; gap:12px;
+  padding:16px 16px 14px;
+  border-bottom:1px solid var(--line);
+}
+.pa-card-icon {
+  width:44px; height:44px; border-radius:var(--rsm);
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px; flex-shrink:0;
+}
+.pa-card-info { flex:1; min-width:0; }
+.pa-card-name {
+  font-size:16px; font-weight:800;
+  letter-spacing:-.3px; line-height:1.2;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.pa-card-goal {
+  font-size:12px; color:var(--ink3); margin-top:3px;
+  font-weight:500; line-height:1.4;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.pa-card-chev { font-size:18px; color:var(--ink3); flex-shrink:0; }
+
+.pa-card-footer {
+  display:flex; align-items:center; gap:8px;
+  padding:10px 16px;
+  background:var(--bg);
+  flex-wrap:wrap;
+}
+.pa-status-chip {
+  font-size:10px; font-weight:800;
+  padding:3px 9px; border-radius:99px;
+  text-transform:uppercase; letter-spacing:.04em;
+  flex-shrink:0;
+}
+.pa-status-aktif    { background:var(--green-lt);  color:var(--green); }
+.pa-status-rencana  { background:var(--blue-lt);   color:var(--blue); }
+.pa-status-pause    { background:var(--amber-lt);  color:var(--amber); }
+.pa-status-selesai  { background:var(--bg2);       color:var(--ink3); }
+.pa-status-area     { background:var(--purple-lt); color:var(--purple); }
+
+.pa-deadline-chip {
+  font-size:10px; font-weight:600; color:var(--ink3);
+}
+.pa-count-chip {
+  font-size:11px; font-weight:600; color:var(--ink2);
+  margin-left:auto;
+}
+
+/* empty state for projects/areas */
+.pa-empty {
+  padding:40px 20px; text-align:center;
+}
+.pa-empty-ic { font-size:40px; display:block; margin-bottom:12px; }
+.pa-empty-t { font-size:16px; font-weight:700; color:var(--ink2); }
+.pa-empty-s { font-size:13px; color:var(--ink3); margin-top:5px; }
+
+/* add button */
+.pa-add-btn {
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  width:100%; padding:16px; border-radius:var(--r);
+  font-size:14px; font-weight:700;
+  border:1.5px dashed; transition:opacity .12s;
+  margin-top:4px;
+}
+.pa-add-btn:active { opacity:.7; }
+.pa-add-btn.project { background:var(--blue-lt); border-color:var(--blue-bd); color:var(--blue); }
+.pa-add-btn.area    { background:var(--purple-lt); border-color:var(--purple); color:var(--purple); }
+
+/* section header with count */
+.pa-section-hd {
+  font-size:12px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.07em;
+  color:var(--ink3); margin:20px 0 8px;
+}
+
+/* ══════════════════════════════════
+   PROJECT / AREA DETAIL
+══════════════════════════════════ */
+.pad-header {
+  background:var(--white);
+  border-bottom:1px solid var(--line);
+  padding:18px 16px 16px;
+}
+.pad-header-top {
+  display:flex; align-items:flex-start; gap:14px;
+}
+.pad-icon {
+  width:52px; height:52px; border-radius:var(--r);
+  display:flex; align-items:center; justify-content:center;
+  font-size:26px; flex-shrink:0;
+}
+.pad-info { flex:1; min-width:0; }
+.pad-type-label {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink3); margin-bottom:3px;
+}
+.pad-name {
+  font-size:21px; font-weight:800;
+  letter-spacing:-.5px; line-height:1.1;
+}
+.pad-status-row {
+  display:flex; gap:6px; margin-top:6px; align-items:center;
+  flex-wrap:wrap;
+}
+.pad-deadline-lbl {
+  font-size:11px; color:var(--ink3); font-weight:600;
+}
+.pad-goal-box {
+  background:var(--bg);
+  border-left:3px solid;
+  border-radius:0 var(--rxs) var(--rxs) 0;
+  padding:10px 14px;
+  margin-top:12px;
+}
+.pad-goal-label {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.07em;
+  color:var(--ink3); margin-bottom:4px;
+}
+.pad-goal-text {
+  font-size:14px; font-weight:500;
+  color:var(--ink); line-height:1.5;
+}
+/* progress bar in detail */
+.pad-prog-row {
+  display:flex; align-items:center; gap:8px; margin-top:10px;
+}
+.pad-prog-label { font-size:11px; color:var(--ink3); font-weight:600; flex-shrink:0; }
+.pad-prog-bar { flex:1; height:5px; background:var(--bg2); border-radius:99px; overflow:hidden; }
+.pad-prog-fill { height:100%; border-radius:99px; transition:width .4s; }
+
+/* ══ Sub-tabs (action plan / agenda) ══ */
+.pa-subtab-row {
+  display:flex; gap:0;
+  background:var(--bg);
+  border-bottom:2px solid var(--line);
+  position:sticky; top:0; z-index:10;
+}
+.pa-subtab {
+  flex:1; padding:12px 10px;
+  font-size:13px; font-weight:700;
+  color:var(--ink3); text-align:center;
+  border-bottom:2px solid transparent;
+  margin-bottom:-2px;
+  transition:color .15s, border-color .15s;
+  background:var(--bg);
+}
+.pa-subtab.active { color:var(--blue); border-bottom-color:var(--blue); }
+
+/* action plan item */
+.ap-item {
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:flex-start; gap:12px;
+}
+.ap-item:last-child { border-bottom:none; }
+.ap-item.is-done { opacity:.55; }
+.ap-check {
+  width:22px; height:22px; border-radius:6px;
+  border:2px solid var(--line2); background:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:1px; cursor:pointer;
+  transition:all .15s; font-size:13px;
+}
+.ap-check.done { background:var(--green); border-color:var(--green); color:#fff; }
+.ap-body { flex:1; min-width:0; }
+.ap-name {
+  font-size:15px; font-weight:600; color:var(--ink); line-height:1.3;
+}
+.ap-name.done { text-decoration:line-through; color:var(--ink3); }
+.ap-meta { display:flex; gap:6px; margin-top:5px; flex-wrap:wrap; align-items:center; }
+.ap-dl {
+  font-size:11px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+}
+.ap-notes-btn {
+  font-size:11px; font-weight:600; color:var(--ink3);
+  padding:2px 0;
+}
+.ap-more {
+  flex-shrink:0; padding:6px 8px; border-radius:var(--rxs);
+  color:var(--ink3); font-size:17px; margin-top:1px;
+}
+.ap-more:active { background:var(--bg); }
+
+/* agenda item */
+.ag-item {
+  padding:14px 16px;
+  border-bottom:1px solid var(--line);
+  display:flex; align-items:flex-start; gap:12px;
+}
+.ag-item:last-child { border-bottom:none; }
+.ag-item.is-done { opacity:.55; }
+.ag-date-col {
+  min-width:42px; text-align:center;
+  flex-shrink:0; margin-top:2px;
+}
+.ag-date-day {
+  font-size:18px; font-weight:900; letter-spacing:-1px; line-height:1;
+}
+.ag-date-mon {
+  font-size:9px; font-weight:700; text-transform:uppercase;
+  letter-spacing:.05em; color:var(--ink3);
+}
+.ag-body { flex:1; min-width:0; }
+.ag-name {
+  font-size:15px; font-weight:600; color:var(--ink); line-height:1.3;
+}
+.ag-name.done { text-decoration:line-through; color:var(--ink3); }
+.ag-meta { display:flex; gap:6px; margin-top:5px; flex-wrap:wrap; align-items:center; }
+.ag-time-chip {
+  font-size:11px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+  background:var(--blue-lt); color:var(--blue);
+}
+.ag-more {
+  flex-shrink:0; padding:6px 8px; border-radius:var(--rxs);
+  color:var(--ink3); font-size:17px; margin-top:1px;
+}
+.ag-more:active { background:var(--bg); }
+
+/* dot for agenda in calendar */
+.mday-dot-ag { background:var(--green); }
+.wd-dot-ag   { background:var(--green); }
+
+/* ══ BOTTOM NAV emoji-only ══ */
+/* override existing bn label display */
+.bn > div:last-child { display:none !important; }
+.bn-ic { font-size:26px !important; }
+
+/* ══════════════════════════════════
+   DAY DETAIL OVERLAY (klik hari di kalender)
+══════════════════════════════════ */
+.day-detail-overlay {
+  position:fixed; inset:0; z-index:600;
+  background:rgba(26,23,20,.45);
+  backdrop-filter:blur(5px);
+  opacity:0; pointer-events:none;
+  transition:opacity .2s;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.day-detail-overlay.open { opacity:1; pointer-events:all; }
+.day-detail-sheet {
+  background:var(--white);
+  border-radius:var(--rxl) var(--rxl) 0 0;
+  width:100%; max-width:480px;
+  max-height:80dvh;
+  display:flex; flex-direction:column;
+  transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.32,.72,0,1);
+  padding-bottom:calc(16px + var(--sb));
+}
+.day-detail-overlay.open .day-detail-sheet { transform:translateY(0); }
+.day-detail-handle { width:38px; height:4px; background:var(--line2); border-radius:99px; margin:13px auto 4px; flex-shrink:0; }
+.day-detail-title {
+  font-size:17px; font-weight:800;
+  padding:10px 20px 14px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+.day-detail-body {
+  flex:1; overflow-y:auto;
+  padding:12px 16px;
+}
+.day-ev-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:11px 12px; border-radius:var(--rsm);
+  margin-bottom:6px;
+  background:var(--bg);
+  border-left:3px solid;
+}
+.day-ev-emoji { font-size:16px; flex-shrink:0; margin-top:1px; }
+.day-ev-body { flex:1; min-width:0; }
+.day-ev-name { font-size:14px; font-weight:700; color:var(--ink); line-height:1.3; }
+.day-ev-sub  { font-size:11px; color:var(--ink3); margin-top:2px; font-weight:600; }
+.day-ev-type {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.04em;
+  padding:2px 7px; border-radius:99px;
+  flex-shrink:0; margin-top:2px;
+}
+.day-empty-msg {
+  text-align:center; padding:28px 0;
+  font-size:14px; color:var(--ink3); font-weight:600;
+}
+
+@media(min-width:500px){
+  .day-detail-sheet {
+    border-radius:var(--rxl); max-width:440px; width:440px;
+    margin-bottom:0; transform:translateY(18px) scale(.97);
+  }
+  .day-detail-overlay.open .day-detail-sheet { transform:none; }
+}
 </style>
 </head>
 <body>
@@ -1337,18 +1647,24 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
       <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
         <span class="sb-item-ic">📅</span> Kalender
       </button>
-      <button class="sb-item active" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
+      <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
         <span class="sb-item-ic">🍅</span> Pomodoro
       </button>
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
+      </button>
+      <button class="sb-item" id="sbn-projects" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">
+        <span class="sb-item-ic">🚀</span> Projects
+      </button>
+      <button class="sb-item" id="sbn-areas" onclick="goView(&#39;areas&#39;,document.getElementById(&#39;bn-area&#39;))">
+        <span class="sb-item-ic">🌿</span> Areas
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
@@ -1364,16 +1680,16 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🍅 Pomodoro</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-title">🍅 Pomodoro</div></div>
+  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view" id="v-home">
+    <div class="view active" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -1381,19 +1697,19 @@ input,select,textarea { font-family:inherit; }
           <div class="week-top">
             <div>
               <div class="week-top-title" id="wk-title">Minggu ini</div>
-              <div class="week-top-sub" id="wk-sub">18–24 Mei 2026</div>
+              <div class="week-top-sub" id="wk-sub">25–31 Mei 2026</div>
             </div>
             <div class="wk-arrows">
               <button class="wk-arr" onclick="shiftWeek(-1)">‹</button>
               <button class="wk-arr" onclick="shiftWeek(1)">›</button>
             </div>
           </div>
-          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">18</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">19</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">20</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">21</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">22</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday is-today"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">23</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">24</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
+          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">25</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday is-today"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">26</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">27</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">28</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">29</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">30</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">31</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
         </div>
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-late">🚨 Telat 1h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-soon">📅 Deadline 2h lagi</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-late">🚨 Telat 4h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-late">🚨 Telat 1h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
         <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
@@ -1458,7 +1774,7 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ POMODORO ══ -->
-    <div class="view active" id="v-pomo">
+    <div class="view" id="v-pomo">
       <div class="pomo-view">
 
         <!-- IDLE UI -->
@@ -1477,7 +1793,7 @@ input,select,textarea { font-family:inherit; }
 
           <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
           <div class="pomo-task-pick">
-            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
+            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
           </div>
 
           <button class="pomo-start-btn" onclick="startPomo()">Start 🍅</button>
@@ -1518,43 +1834,96 @@ input,select,textarea { font-family:inherit; }
           </div>
           <div class="mcal-inner">
             <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday is-today"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
+            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday is-today"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
           </div>
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Ada materi</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Deadline tugas</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-u"></div> Ujian/Quiz</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Materi</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Deadline</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-u"></div> Ujian</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-ag"></div> Agenda</div>
           </div>
         </div>
         <div class="sec" style="display:flex;align-items:center;justify-content:space-between;">
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-1</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Min, 24 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u3&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-3</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-13</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-0</div><div class="ujian-countdown-label">HARI INI</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-10</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
+      </div>
+    </div>
+
+
+    <!-- ══ PROJECTS ══ -->
+    <div class="view" id="v-projects">
+      <div class="pad">
+        <div id="proj-active-section"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-icon" style="background:#7c3aed22">🚀</div><div class="pa-card-info"><div class="pa-card-name" style="color:#7c3aed">Lomba Gemastik</div><div class="pa-card-goal">Juara Gemastik</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-aktif">aktif</span><span class="pa-count-chip">0/0 action · 0 agenda</span></div></div></div>
+        <button class="pa-add-btn project" onclick="openAddProject()">🚀 Tambah Project Baru</button>
+        <div id="proj-done-section"></div>
+      </div>
+    </div>
+
+    <!-- ══ PROJECT DETAIL ══ -->
+    <div class="view" id="v-proj-detail" style="display:none;flex-direction:column;height:100%">
+      <div class="pad-header" id="proj-detail-header"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed22">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name" style="color:#7c3aed">Lomba Gemastik</div><div class="pad-status-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div></div><div class="pad-goal-box" style="border-color:#7c3aed"><div class="pad-goal-label">🎯 Goal</div><div class="pad-goal-text">Juara Gemastik</div></div></div>
+      <div class="pa-subtab-row" id="proj-subtab-row">
+        <button class="pa-subtab active" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan</button>
+        <button class="pa-subtab" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
+      </div>
+      <div class="scroll" id="proj-detail-scroll">
+        <div class="pad" style="padding-top:12px">
+          <div id="proj-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
+          <div id="proj-detail-ag-list" style="display:none"></div>
+          <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ AREAS ══ -->
+    <div class="view" id="v-areas">
+      <div class="pad">
+        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-icon" style="background:#be185d22">🌿</div><div class="pa-card-info"><div class="pa-card-name" style="color:#be185d">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintenance</span><span class="pa-count-chip">0/0 action · 0 agenda</span></div></div></div>
+        <button class="pa-add-btn area" onclick="openAddArea()">🌿 Tambah Area Baru</button>
+      </div>
+    </div>
+
+    <!-- ══ AREA DETAIL ══ -->
+    <div class="view" id="v-area-detail" style="display:none;flex-direction:column;height:100%">
+      <div class="pad-header" id="area-detail-header"><div class="pad-header-top"><div class="pad-icon" style="background:#be185d22">🌿</div><div class="pad-info"><div class="pad-type-label">Area — Maintenance Selamanya</div><div class="pad-name" style="color:#be185d">Boxing</div><div class="pad-status-row"><span class="pa-status-chip pa-status-area">maintenance</span></div></div></div></div>
+      <div class="pa-subtab-row" id="area-subtab-row">
+        <button class="pa-subtab active" id="area-tab-ap" onclick="switchAreaTab(&#39;ap&#39;)">✅ Action Plan</button>
+        <button class="pa-subtab" id="area-tab-ag" onclick="switchAreaTab(&#39;ag&#39;)">📅 Agenda</button>
+      </div>
+      <div class="scroll" id="area-detail-scroll">
+        <div class="pad" style="padding-top:12px">
+          <div id="area-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div></div>
+          <div id="area-detail-ag-list" style="display:none"></div>
+          <button class="pa-add-btn area" id="area-detail-add-btn" style="margin-top:8px" onclick="openAddAreaItem()">＋ Tambah</button>
+        </div>
       </div>
     </div>
 
   </div><!-- /scroll -->
 
-  <!-- BOTTOM NAV — 3 tabs: Kalender | Home | Subjek -->
+  <!-- BOTTOM NAV — 6 tab emoji only -->
   <nav class="bnav">
     <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
-      <div class="bn-ic">📅</div>
-      <div>Kalender</div>
+      <div class="bn-ic">📅</div><div>K</div>
     </button>
-    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">4</span></div>
-      <div>Home</div>
+    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
     </button>
-    <button class="bn active" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
-      <div class="bn-ic">🍅</div>
-      <div>Pomodoro</div>
+    <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
+      <div class="bn-ic">🍅</div><div>P</div>
     </button>
     <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
-      <div class="bn-ic">📚</div>
-      <div>Subjek</div>
+      <div class="bn-ic">📚</div><div>S</div>
+    </button>
+    <button class="bn" id="bn-proj" onclick="goView(&#39;projects&#39;, this)">
+      <div class="bn-ic">🚀</div><div>Proj</div>
+    </button>
+    <button class="bn" id="bn-area" onclick="goView(&#39;areas&#39;, this)">
+      <div class="bn-ic">🌿</div><div>Area</div>
     </button>
   </nav>
 
@@ -1785,6 +2154,192 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="sh-row">
         <button class="sbtn sbtn-d" onclick="hapusSubjDariEdit()">🗑 Hapus Subjek Ini</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Day Detail Overlay (klik hari di kalender) -->
+<div class="day-detail-overlay" id="day-detail-overlay" onclick="dayDetailOverlayTap(event)">
+  <div class="day-detail-sheet">
+    <div class="day-detail-handle"></div>
+    <div class="day-detail-title" id="day-detail-title">📅 Senin, 26 Mei</div>
+    <div class="day-detail-body" id="day-detail-body"></div>
+  </div>
+</div>
+
+<!-- Add Project -->
+<div class="overlay" id="sh-addproject" onclick="bgc(event,&#39;sh-addproject&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">🚀 Tambah Project</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Project</label><input id="ap-n" type="text" placeholder="e.g. Skripsi, Lomba GEMASTIK"></div>
+      <div class="field"><label class="flbl">Emoji</label><input id="ap-e" type="text" placeholder="🚀" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
+      <div class="field"><label class="flbl">Goal / Arah Project</label><textarea id="ap-g" rows="2" placeholder="Apa yang ingin dicapai dari project ini?"></textarea></div>
+      <div class="field"><label class="flbl">Status</label>
+        <select id="ap-st">
+          <option value="aktif">🟢 Aktif — sedang dikerjakan</option>
+          <option value="rencana">🔵 Rencana — belum mulai</option>
+          <option value="pause">🟡 Pause — ditunda sementara</option>
+        </select>
+      </div>
+      <div class="field"><label class="flbl">Deadline (opsional)</label>
+        <select id="ap-dl-type">
+          <option value="none">Tidak ada / belum tau</option>
+          <option value="month">Sekitar bulan tertentu</option>
+          <option value="year">Sekitar tahun tertentu</option>
+          <option value="date">Tanggal spesifik</option>
+        </select>
+        <div id="ap-dl-month-wrap" style="display:none;margin-top:8px">
+          <input id="ap-dl-month" type="month" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+        </div>
+        <div id="ap-dl-year-wrap" style="display:none;margin-top:8px">
+          <input id="ap-dl-year" type="number" placeholder="e.g. 2027" min="2024" max="2035" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+        </div>
+        <div id="ap-dl-date-wrap" style="display:none;margin-top:8px">
+          <input id="ap-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+        </div>
+      </div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"></div></div>
+    </div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addproject&#39;)">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveNewProject()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Edit Project -->
+<div class="overlay" id="sh-editproject" onclick="bgc(event,&#39;sh-editproject&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">✏️ Edit Project</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Project</label><input id="ep-n" type="text"></div>
+      <div class="field"><label class="flbl">Emoji</label><input id="ep-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
+      <div class="field"><label class="flbl">Goal / Arah Project</label><textarea id="ep-g" rows="2"></textarea></div>
+      <div class="field"><label class="flbl">Status</label>
+        <select id="ep-st">
+          <option value="aktif">🟢 Aktif</option>
+          <option value="rencana">🔵 Rencana</option>
+          <option value="pause">🟡 Pause</option>
+          <option value="selesai">✅ Selesai</option>
+        </select>
+      </div>
+      <div class="field"><label class="flbl">Deadline</label>
+        <select id="ep-dl-type">
+          <option value="none">Tidak ada / belum tau</option>
+          <option value="month">Sekitar bulan tertentu</option>
+          <option value="year">Sekitar tahun tertentu</option>
+          <option value="date">Tanggal spesifik</option>
+        </select>
+        <div id="ep-dl-month-wrap" style="display:none;margin-top:8px">
+          <input id="ep-dl-month" type="month" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+        </div>
+        <div id="ep-dl-year-wrap" style="display:none;margin-top:8px">
+          <input id="ep-dl-year" type="number" min="2024" max="2035" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+        </div>
+        <div id="ep-dl-date-wrap" style="display:none;margin-top:8px">
+          <input id="ep-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
+        </div>
+      </div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj-edit"></div></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editproject&#39;)">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveEditProject()">Simpan ✓</button>
+      </div>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="delProject()">🗑 Hapus Project Ini</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Area -->
+<div class="overlay" id="sh-addarea" onclick="bgc(event,&#39;sh-addarea&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">🌿 Tambah Area</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Area</label><input id="aa-n" type="text" placeholder="e.g. Kesehatan, Iman, Keuangan"></div>
+      <div class="field"><label class="flbl">Emoji</label><input id="aa-e" type="text" placeholder="🌿" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
+      <div class="field"><label class="flbl">Goal / Arah Maintenance</label><textarea id="aa-g" rows="2" placeholder="Standar atau kondisi yang ingin selalu dijaga..."></textarea></div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-area"></div></div>
+    </div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addarea&#39;)">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveNewArea()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Edit Area -->
+<div class="overlay" id="sh-editarea" onclick="bgc(event,&#39;sh-editarea&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">✏️ Edit Area</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Area</label><input id="ea-n" type="text"></div>
+      <div class="field"><label class="flbl">Emoji</label><input id="ea-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
+      <div class="field"><label class="flbl">Goal / Arah Maintenance</label><textarea id="ea-g" rows="2"></textarea></div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-area-edit"></div></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editarea&#39;)">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveEditArea()">Simpan ✓</button>
+      </div>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="delArea()">🗑 Hapus Area Ini</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Action Plan -->
+<div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title" id="sh-addap-title">✅ Action Plan</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Action</label><input id="addap-n" type="text" placeholder="e.g. Bikin outline bab 3, Olahraga rutin 3x/minggu"></div>
+      <div class="field"><label class="flbl">Deadline (opsional — jika ada, muncul di kalender)</label><input id="addap-dl" type="date"></div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="addap-notes" rows="2" placeholder="Detail, catatan, atau context..."></textarea></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addap&#39;)">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveActionPlan()">Simpan ✓</button>
+      </div>
+      <div class="sh-row" id="sh-addap-del-row" style="display:none">
+        <button class="sbtn sbtn-d" onclick="delActionPlan()">🗑 Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Agenda -->
+<div class="overlay" id="sh-addag" onclick="bgc(event,&#39;sh-addag&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title" id="sh-addag-title">📅 Agenda</div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Agenda</label><input id="addag-n" type="text" placeholder="e.g. Meeting dosen, Latihan futsal"></div>
+      <div class="field"><label class="flbl">Tanggal</label><input id="addag-date" type="date"></div>
+      <div class="field"><label class="flbl">Jam (opsional)</label><input id="addag-time" type="time"></div>
+      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="addag-notes" rows="2" placeholder="Detail, lokasi, persiapan..."></textarea></div>
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addag&#39;)">Batal</button>
+        <button class="sbtn sbtn-p" onclick="saveAgenda()">Simpan ✓</button>
+      </div>
+      <div class="sh-row" id="sh-addag-del-row" style="display:none">
+        <button class="sbtn sbtn-d" onclick="delAgenda()">🗑 Hapus</button>
       </div>
     </div>
   </div>
@@ -2028,6 +2583,10 @@ async function boot(){
     D=cloud;
     if(!D.ujian) D.ujian=[];
     if(!D.semesters) D.semesters=[];
+    if(!D.projects) D.projects=[];
+    if(!D.areas) D.areas=[];
+    if(!D.p_tasks) D.p_tasks=[];
+    if(!D.p_agendas) D.p_agendas=[];
     D.subjects.forEach(s=>{ if(!s.semester) s.semester=''; if(s.archived===undefined) s.archived=false; });
     saveLocal();
     showSyncStatus('✅ Tersinkron');
@@ -2035,10 +2594,15 @@ async function boot(){
     D=loadLocal()||DEFAULT_DATA;
     if(!D.ujian) D.ujian=[];
     if(!D.semesters) D.semesters=[];
+    if(!D.projects) D.projects=[];
+    if(!D.areas) D.areas=[];
+    if(!D.p_tasks) D.p_tasks=[];
+    if(!D.p_agendas) D.p_agendas=[];
     D.subjects.forEach(s=>{ if(!s.semester) s.semester=''; if(s.archived===undefined) s.archived=false; });
     showSyncStatus('📱 Mode lokal');
   }
 
+  ensurePAData();
   renderHome(); renderSubjLists(); renderMcal(); renderSidebar();
   restorePomoState();
   sbLoadPomoSessions();
@@ -2096,6 +2660,8 @@ function goView(name, btn){
   if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
   if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
+  if(name==='projects') tb.innerHTML=`<div class="tb-title">🚀 Projects</div>`;
+  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div>`;
 
   // desktop topbar
   updateDesktopTopbar(name, null);
@@ -2106,6 +2672,8 @@ function goView(name, btn){
   if(name==='home')     renderHome();
   if(name==='subjects') renderSubjLists();
   if(name==='cal')      renderMcal();
+  if(name==='projects') renderProjects();
+  if(name==='areas')    renderAreas();
   document.getElementById('scroll').scrollTop=0;
 }
 
@@ -2151,6 +2719,20 @@ function updateDesktopTopbar(view, subj){
       (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
   } else if(view==='pomo'){
     dtb.innerHTML=`<div class="dtb-title">🍅 Pomodoro</div>`;
+  } else if(view==='projects'){
+    dtb.innerHTML=`<div class="dtb-title">🚀 Projects</div>`;
+  } else if(view==='areas'){
+    dtb.innerHTML=`<div class="dtb-title">🌿 Areas</div>`;
+  } else if(view==='proj-detail' && subj){
+    dtb.innerHTML=
+      `<button class="dtb-back" onclick="goView('projects',document.getElementById('bn-proj'))">‹ Projects</button>`+
+      `<div class="dtb-title">${subj.emoji||'🚀'} ${subj.name}</div>`+
+      `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject('${subj.id}')">✏️ Edit</button></div>`;
+  } else if(view==='area-detail' && subj){
+    dtb.innerHTML=
+      `<button class="dtb-back" onclick="goView('areas',document.getElementById('bn-area'))">‹ Areas</button>`+
+      `<div class="dtb-title">${subj.emoji||'🌿'} ${subj.name}</div>`+
+      `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='detail' && subj){
     dtb.innerHTML=
       `<button class="dtb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Subjek</button>`+
@@ -2168,6 +2750,8 @@ function updateSidebarActive(view, sid){
   if(view==='cal')      document.getElementById('sbn-cal')?.classList.add('active');
   if(view==='pomo')     document.getElementById('sbn-pomo')?.classList.add('active');
   if(view==='subjects') document.getElementById('sbn-subjects')?.classList.add('active');
+  if(view==='projects' || view==='proj-detail') document.getElementById('sbn-projects')?.classList.add('active');
+  if(view==='areas'    || view==='area-detail') document.getElementById('sbn-areas')?.classList.add('active');
   // subject items
   document.querySelectorAll('.sb-subj-item').forEach(el=>{
     el.classList.toggle('active', el.dataset.sid===sid);
@@ -3183,10 +3767,14 @@ function toggleUjianReady(id){
 // ════════ ACTIONS ════════════════════════════
 function refresh(){
   updateBadge();
-  if(curView==='home')     renderHome();
-  if(curView==='subjects') renderSubjLists();
+  if(curView==='home')        renderHome();
+  if(curView==='subjects')    renderSubjLists();
   if(curView==='detail'&&curSid) renderDetail(curSid);
-  if(curView==='cal')      renderMcal();
+  if(curView==='cal')         renderMcal();
+  if(curView==='projects')    renderProjects();
+  if(curView==='areas')       renderAreas();
+  if(curView==='proj-detail') renderProjItems();
+  if(curView==='area-detail') renderAreaItems();
   renderSidebar();
 }
 
@@ -3236,19 +3824,25 @@ function renderMcal(){
     const matHari=D.materi.filter(m=>m.date===ds);
     const tgsHari=D.tugas.filter(t=>t.deadline===ds);
     const ujHari=D.ujian.filter(u=>u.date===ds);
+    const agHari=(D.p_agendas||[]).filter(a=>a.date===ds);
+    const apHari=(D.p_tasks||[]).filter(t=>t.deadline===ds&&!t.done);
     const hasM=matHari.length>0, hasT=tgsHari.length>0, hasU=ujHari.length>0;
+    const hasAg=agHari.length>0, hasAp=apHari.length>0;
     const allDone=hasM&&matHari.every(m=>m.done);
+    const hasAny=hasM||hasT||hasU||hasAg||hasAp;
     const e=document.createElement('div');
     e.className='mday'+(isToday?' is-today':'');
+    e.onclick=()=>openDayDetail(ds);
     let indicator='';
-    if(hasM&&allDone&&!hasT&&!hasU){
+    if(hasM&&allDone&&!hasT&&!hasU&&!hasAg&&!hasAp){
       indicator=`<div class="mday-x">✕</div>`;
-    } else if(hasM||hasT||hasU){
+    } else if(hasAny){
       let dots='';
       if(hasM&&allDone) dots+=`<div class="mday-dot" style="background:var(--green);border-radius:2px;width:8px;height:4px;"></div>`;
       else if(hasM) dots+=`<div class="mday-dot mday-dot-m"></div>`;
-      if(hasT) dots+=`<div class="mday-dot mday-dot-t"></div>`;
+      if(hasT||hasAp) dots+=`<div class="mday-dot mday-dot-t"></div>`;
       if(hasU) dots+=`<div class="mday-dot mday-dot-u"></div>`;
+      if(hasAg) dots+=`<div class="mday-dot mday-dot-ag"></div>`;
       indicator=`<div class="mday-dots">${dots}</div>`;
     }
     e.innerHTML=`<div class="mday-num">${d}</div>${indicator}`;
@@ -3527,8 +4121,738 @@ function toast(msg){
   clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),2500);
 }
 
+
+// ════════════════════════════════════════════════
+// PROJECT & AREA — DATA DEFAULTS
+// ════════════════════════════════════════════════
+function ensurePAData(){
+  if(!D.projects)   D.projects   = [];
+  if(!D.areas)      D.areas      = [];
+  if(!D.p_tasks)    D.p_tasks    = [];
+  if(!D.p_agendas)  D.p_agendas  = [];
+}
+
+// ════════ HELPERS ════════════════════════════════
+let curProjId = null;
+let curAreaId = null;
+let editProjId = null;
+let editAreaId = null;
+let editApId   = null;
+let editAgId   = null;
+let curProjTab = 'ap'; // 'ap' | 'ag'
+let curAreaTab = 'ap';
+let selColorProj = COLORS[4]; // purple default
+let selColorArea = COLORS[2]; // green default
+let selColorProjEdit = COLORS[4];
+let selColorAreaEdit = COLORS[2];
+
+const gProj = id => D.projects.find(p => p.id === id);
+const gArea = id => D.areas.find(a => a.id === id);
+
+function fmtDeadline(p){
+  if(!p.deadline || p.deadline.type === 'none') return null;
+  if(p.deadline.type === 'date')  return '📅 ' + fmtDate(p.deadline.value);
+  if(p.deadline.type === 'month'){
+    const [y,m] = p.deadline.value.split('-');
+    const mo = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'][+m-1];
+    return '📅 Sekitar ' + mo + ' ' + y;
+  }
+  if(p.deadline.type === 'year') return '📅 Sekitar tahun ' + p.deadline.value;
+  return null;
+}
+
+function statusLabel(st){
+  return {aktif:'aktif', rencana:'rencana', pause:'pause', selesai:'selesai'}[st] || st;
+}
+
+// ════════ PROJECTS LIST ══════════════════════════
+function renderProjects(){
+  ensurePAData();
+  const sec = document.getElementById('proj-active-section');
+  const doneSec = document.getElementById('proj-done-section');
+  if(!sec || !doneSec) return;
+
+  const active  = D.projects.filter(p => p.status !== 'selesai');
+  const done    = D.projects.filter(p => p.status === 'selesai');
+
+  sec.innerHTML = '';
+  if(!active.length){
+    sec.innerHTML = `<div class="pa-empty"><span class="pa-empty-ic">🚀</span><div class="pa-empty-t">Belum ada project aktif</div><div class="pa-empty-s">Tambah project baru di bawah</div></div>`;
+  } else {
+    active.forEach(p => sec.appendChild(mkProjCard(p)));
+  }
+
+  doneSec.innerHTML = '';
+  if(done.length){
+    const lbl = document.createElement('div'); lbl.className = 'pa-section-hd';
+    lbl.textContent = '✅ Selesai (' + done.length + ')'; doneSec.appendChild(lbl);
+    done.forEach(p => doneSec.appendChild(mkProjCard(p)));
+  }
+}
+
+function mkProjCard(p){
+  const aps = D.p_tasks.filter(t => t.parentId === p.id);
+  const ags = D.p_agendas.filter(a => a.parentId === p.id);
+  const doneAp = aps.filter(t => t.done).length;
+  const dl = fmtDeadline(p);
+
+  const card = document.createElement('div');
+  card.className = 'pa-card';
+  card.onclick = () => openProjDetail(p.id);
+  card.innerHTML =
+    `<div class="pa-card-header">`+
+    `<div class="pa-card-icon" style="background:${p.color}22">${p.emoji||'🚀'}</div>`+
+    `<div class="pa-card-info">`+
+    `<div class="pa-card-name" style="color:${p.color}">${p.name}</div>`+
+    (p.goal ? `<div class="pa-card-goal">${escHtml(p.goal)}</div>` : '')+
+    `</div><div class="pa-card-chev">›</div></div>`+
+    `<div class="pa-card-footer">`+
+    `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
+    (dl ? `<span class="pa-deadline-chip">${dl}</span>` : '')+
+    `<span class="pa-count-chip">${doneAp}/${aps.length} action · ${ags.length} agenda</span>`+
+    `</div>`;
+  return card;
+}
+
+// ════════ PROJECT DETAIL ═════════════════════════
+function openProjDetail(id){
+  ensurePAData();
+  curProjId = id; curProjTab = 'ap'; curView = 'proj-detail';
+  const p = gProj(id);
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('v-proj-detail').classList.add('active');
+  document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
+  document.getElementById('bn-proj').classList.add('active');
+
+  // mobile topbar
+  document.getElementById('topbar').innerHTML =
+    `<button class="tb-back" onclick="goView('projects',document.getElementById('bn-proj'))">‹ Projects</button>`+
+    `<div class="tb-title">${p.emoji||'🚀'} ${p.name}</div>`+
+    `<button class="tb-action ghost" onclick="openEditProject('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
+
+  updateDesktopTopbar('proj-detail', p);
+
+  // header
+  const dl = fmtDeadline(p);
+  document.getElementById('proj-detail-header').innerHTML =
+    `<div class="pad-header-top">`+
+    `<div class="pad-icon" style="background:${p.color}22">${p.emoji||'🚀'}</div>`+
+    `<div class="pad-info">`+
+    `<div class="pad-type-label">Project</div>`+
+    `<div class="pad-name" style="color:${p.color}">${p.name}</div>`+
+    `<div class="pad-status-row">`+
+    `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
+    (dl ? `<span class="pad-deadline-lbl">${dl}</span>` : '')+
+    `</div></div></div>`+
+    (p.goal ? `<div class="pad-goal-box" style="border-color:${p.color}"><div class="pad-goal-label">🎯 Goal</div><div class="pad-goal-text">${escHtml(p.goal)}</div></div>` : '');
+
+  // progress bar
+  const aps = D.p_tasks.filter(t => t.parentId === id);
+  if(aps.length){
+    const pct = aps.filter(t => t.done).length / aps.length * 100;
+    document.getElementById('proj-detail-header').innerHTML +=
+      `<div class="pad-prog-row"><div class="pad-prog-label">${Math.round(pct)}% selesai</div>`+
+      `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${pct}%;background:${p.color}"></div></div></div>`;
+  }
+
+  switchProjTab('ap');
+  document.getElementById('scroll').scrollTop = 0;
+}
+
+function switchProjTab(tab){
+  curProjTab = tab;
+  document.getElementById('proj-tab-ap').classList.toggle('active', tab === 'ap');
+  document.getElementById('proj-tab-ag').classList.toggle('active', tab === 'ag');
+  document.getElementById('proj-detail-ap-list').style.display = tab === 'ap' ? '' : 'none';
+  document.getElementById('proj-detail-ag-list').style.display = tab === 'ag' ? '' : 'none';
+  document.getElementById('sh-addap-title').textContent = '✅ Action Plan';
+  renderProjItems();
+}
+
+function renderProjItems(){
+  ensurePAData();
+  const p = gProj(curProjId);
+  if(!p) return;
+
+  if(curProjTab === 'ap'){
+    const el = document.getElementById('proj-detail-ap-list');
+    el.innerHTML = '';
+    const items = D.p_tasks.filter(t => t.parentId === curProjId);
+    if(!items.length){
+      el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div>`;
+    } else {
+      const card = document.createElement('div'); card.className = 'card';
+      items.sort((a,b) => a.done - b.done || (a.deadline||'').localeCompare(b.deadline||'')).forEach(t => card.appendChild(mkApItem(t, p.color)));
+      el.appendChild(card);
+    }
+  } else {
+    const el = document.getElementById('proj-detail-ag-list');
+    el.innerHTML = '';
+    const items = D.p_agendas.filter(a => a.parentId === curProjId);
+    if(!items.length){
+      el.innerHTML = `<div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal atau rencana</div></div>`;
+    } else {
+      const card = document.createElement('div'); card.className = 'card';
+      items.sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(a => card.appendChild(mkAgItem(a, p.color)));
+      el.appendChild(card);
+    }
+  }
+}
+
+// ════════ AREAS LIST ═════════════════════════════
+function renderAreas(){
+  ensurePAData();
+  const el = document.getElementById('areas-list');
+  if(!el) return;
+  el.innerHTML = '';
+  if(!D.areas.length){
+    el.innerHTML = `<div class="pa-empty"><span class="pa-empty-ic">🌿</span><div class="pa-empty-t">Belum ada area</div><div class="pa-empty-s">Area adalah hal yang kamu jaga selamanya,\nseperti Kesehatan, Iman, atau Keuangan</div></div>`;
+    return;
+  }
+  D.areas.forEach(a => el.appendChild(mkAreaCard(a)));
+}
+
+function mkAreaCard(a){
+  const aps = D.p_tasks.filter(t => t.parentId === a.id);
+  const ags = D.p_agendas.filter(ag => ag.parentId === a.id);
+  const doneAp = aps.filter(t => t.done).length;
+
+  const card = document.createElement('div');
+  card.className = 'pa-card';
+  card.onclick = () => openAreaDetail(a.id);
+  card.innerHTML =
+    `<div class="pa-card-header">`+
+    `<div class="pa-card-icon" style="background:${a.color}22">${a.emoji||'🌿'}</div>`+
+    `<div class="pa-card-info">`+
+    `<div class="pa-card-name" style="color:${a.color}">${a.name}</div>`+
+    (a.goal ? `<div class="pa-card-goal">${escHtml(a.goal)}</div>` : '')+
+    `</div><div class="pa-card-chev">›</div></div>`+
+    `<div class="pa-card-footer">`+
+    `<span class="pa-status-chip pa-status-area">maintenance</span>`+
+    `<span class="pa-count-chip">${doneAp}/${aps.length} action · ${ags.length} agenda</span>`+
+    `</div>`;
+  return card;
+}
+
+// ════════ AREA DETAIL ════════════════════════════
+function openAreaDetail(id){
+  ensurePAData();
+  curAreaId = id; curAreaTab = 'ap'; curView = 'area-detail';
+  const a = gArea(id);
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('v-area-detail').classList.add('active');
+  document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
+  document.getElementById('bn-area').classList.add('active');
+
+  document.getElementById('topbar').innerHTML =
+    `<button class="tb-back" onclick="goView('areas',document.getElementById('bn-area'))">‹ Areas</button>`+
+    `<div class="tb-title">${a.emoji||'🌿'} ${a.name}</div>`+
+    `<button class="tb-action ghost" onclick="openEditArea('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
+
+  updateDesktopTopbar('area-detail', a);
+
+  document.getElementById('area-detail-header').innerHTML =
+    `<div class="pad-header-top">`+
+    `<div class="pad-icon" style="background:${a.color}22">${a.emoji||'🌿'}</div>`+
+    `<div class="pad-info">`+
+    `<div class="pad-type-label">Area — Maintenance Selamanya</div>`+
+    `<div class="pad-name" style="color:${a.color}">${a.name}</div>`+
+    `<div class="pad-status-row"><span class="pa-status-chip pa-status-area">maintenance</span></div>`+
+    `</div></div>`+
+    (a.goal ? `<div class="pad-goal-box" style="border-color:${a.color}"><div class="pad-goal-label">🎯 Goal / Standar</div><div class="pad-goal-text">${escHtml(a.goal)}</div></div>` : '');
+
+  switchAreaTab('ap');
+  document.getElementById('scroll').scrollTop = 0;
+}
+
+function switchAreaTab(tab){
+  curAreaTab = tab;
+  document.getElementById('area-tab-ap').classList.toggle('active', tab === 'ap');
+  document.getElementById('area-tab-ag').classList.toggle('active', tab === 'ag');
+  document.getElementById('area-detail-ap-list').style.display = tab === 'ap' ? '' : 'none';
+  document.getElementById('area-detail-ag-list').style.display = tab === 'ag' ? '' : 'none';
+  renderAreaItems();
+}
+
+function renderAreaItems(){
+  ensurePAData();
+  const a = gArea(curAreaId);
+  if(!a) return;
+
+  if(curAreaTab === 'ap'){
+    const el = document.getElementById('area-detail-ap-list');
+    el.innerHTML = '';
+    const items = D.p_tasks.filter(t => t.parentId === curAreaId);
+    if(!items.length){
+      el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div>`;
+    } else {
+      const card = document.createElement('div'); card.className = 'card';
+      items.sort((a,b) => a.done - b.done).forEach(t => card.appendChild(mkApItem(t, a.color)));
+      el.appendChild(card);
+    }
+  } else {
+    const el = document.getElementById('area-detail-ag-list');
+    el.innerHTML = '';
+    const items = D.p_agendas.filter(ag => ag.parentId === curAreaId);
+    if(!items.length){
+      el.innerHTML = `<div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal rutin atau rencana</div></div>`;
+    } else {
+      const card = document.createElement('div'); card.className = 'card';
+      items.sort((a,b) => (a.date||'').localeCompare(b.date||'')).forEach(ag => card.appendChild(mkAgItem(ag, a.color)));
+      el.appendChild(card);
+    }
+  }
+}
+
+// ════════ ITEM BUILDERS ══════════════════════════
+function mkApItem(t, color){
+  const row = document.createElement('div');
+  row.className = 'ap-item' + (t.done ? ' is-done' : '');
+
+  const dlStr = t.deadline ? fmtDate(t.deadline) : null;
+  const dlDiff = t.deadline ? diffD(t.deadline, tod()) : null;
+  let dlCls = 'dl-ok';
+  if(dlDiff !== null){ if(dlDiff < 0) dlCls = 'dl-late'; else if(dlDiff <= 2) dlCls = 'dl-soon'; }
+
+  row.innerHTML =
+    `<div class="ap-check ${t.done ? 'done' : ''}" onclick="toggleApDone('${t.id}')">` + (t.done ? '✓' : '') + `</div>`+
+    `<div class="ap-body">`+
+    `<div class="ap-name${t.done ? ' done' : ''}">${escHtml(t.name)}</div>`+
+    `<div class="ap-meta">`+
+    (dlStr ? `<span class="ap-dl ${dlCls}">📅 ${dlStr}</span>` : '')+
+    (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')">📝 Notes</span>` : '')+
+    `</div></div>`+
+    `<button class="ap-more" onclick="openEditAp('${t.id}')">···</button>`;
+  return row;
+}
+
+function mkAgItem(ag, color){
+  const row = document.createElement('div');
+  row.className = 'ag-item' + (ag.done ? ' is-done' : '');
+
+  let dayNum = '—', monStr = '';
+  if(ag.date){
+    const d = new Date(ag.date + 'T12:00:00');
+    dayNum = d.getDate();
+    monStr = d.toLocaleDateString('id-ID',{month:'short'}).toUpperCase();
+  }
+
+  row.innerHTML =
+    `<div class="ag-date-col" style="color:${color}">`+
+    `<div class="ag-date-day">${dayNum}</div>`+
+    `<div class="ag-date-mon">${monStr}</div>`+
+    `</div>`+
+    `<div class="ag-body">`+
+    `<div class="ag-name${ag.done ? ' done' : ''}">${escHtml(ag.name)}</div>`+
+    `<div class="ag-meta">`+
+    (ag.time ? `<span class="ag-time-chip">🕐 ${ag.time}</span>` : '')+
+    (ag.notes ? `<span class="ap-notes-btn" onclick="openAgNotes('${ag.id}')">📝 Notes</span>` : '')+
+    `</div></div>`+
+    `<button class="ag-more" onclick="openEditAg('${ag.id}')">···</button>`;
+  return row;
+}
+
+// ════════ ACTION PLAN CRUD ════════════════════════
+let _apMode = 'add'; // 'add' | 'edit'
+let _apParentType = 'project';
+let _apParentId   = null;
+
+function openAddProjItem(){
+  _apParentType = 'project'; _apParentId = curProjId;
+  if(curProjTab === 'ap') openAddApSheet();
+  else openAddAgSheet();
+}
+function openAddAreaItem(){
+  _apParentType = 'area'; _apParentId = curAreaId;
+  if(curAreaTab === 'ap') openAddApSheet();
+  else openAddAgSheet();
+}
+
+function openAddApSheet(){
+  _apMode = 'add'; editApId = null;
+  document.getElementById('sh-addap-title').textContent = '✅ Tambah Action Plan';
+  document.getElementById('addap-n').value = '';
+  document.getElementById('addap-dl').value = '';
+  document.getElementById('addap-notes').value = '';
+  document.getElementById('sh-addap-del-row').style.display = 'none';
+  openSheet('sh-addap');
+}
+
+function openEditAp(id){
+  ensurePAData();
+  _apMode = 'edit'; editApId = id;
+  const t = D.p_tasks.find(x => x.id === id);
+  // set parent context so save knows where to refresh
+  _apParentType = t.parentType;
+  _apParentId   = t.parentId;
+  document.getElementById('sh-addap-title').textContent = '✏️ Edit Action Plan';
+  document.getElementById('addap-n').value = t.name;
+  document.getElementById('addap-dl').value = t.deadline || '';
+  document.getElementById('addap-notes').value = t.notes || '';
+  document.getElementById('sh-addap-del-row').style.display = '';
+  openSheet('sh-addap');
+}
+
+function saveActionPlan(){
+  const name = document.getElementById('addap-n').value.trim();
+  if(!name) return;
+  const dl   = document.getElementById('addap-dl').value || null;
+  const notes= document.getElementById('addap-notes').value.trim();
+
+  if(_apMode === 'add'){
+    D.p_tasks.push({id:'ap'+Date.now(), parentType:_apParentType, parentId:_apParentId, name, deadline:dl, notes, done:false, createdAt:tod()});
+    toast('✅ Action plan ditambahkan!');
+  } else {
+    const t = D.p_tasks.find(x => x.id === editApId);
+    t.name = name; t.deadline = dl; t.notes = notes;
+    toast('✏️ Action plan diperbarui!');
+  }
+  save(); closeSheet('sh-addap');
+  refreshPAViews();
+}
+
+function delActionPlan(){
+  if(!confirm('Hapus action plan ini?')) return;
+  D.p_tasks = D.p_tasks.filter(x => x.id !== editApId);
+  save(); closeSheet('sh-addap');
+  refreshPAViews();
+  toast('🗑 Action plan dihapus');
+}
+
+function toggleApDone(id){
+  ensurePAData();
+  const t = D.p_tasks.find(x => x.id === id);
+  t.done = !t.done; save();
+  refreshPAViews();
+  toast(t.done ? '✅ Selesai! Good job 💪' : '↩️ Oke, belum selesai');
+}
+
+// ════════ AGENDA CRUD ════════════════════════════
+let _agMode = 'add';
+
+function openAddAgSheet(){
+  _agMode = 'add'; editAgId = null;
+  document.getElementById('sh-addag-title').textContent = '📅 Tambah Agenda';
+  document.getElementById('addag-n').value = '';
+  document.getElementById('addag-date').value = tod();
+  document.getElementById('addag-time').value = '';
+  document.getElementById('addag-notes').value = '';
+  document.getElementById('sh-addag-del-row').style.display = 'none';
+  openSheet('sh-addag');
+}
+
+function openEditAg(id){
+  ensurePAData();
+  _agMode = 'edit'; editAgId = id;
+  const ag = D.p_agendas.find(x => x.id === id);
+  _apParentType = ag.parentType;
+  _apParentId   = ag.parentId;
+  document.getElementById('sh-addag-title').textContent = '✏️ Edit Agenda';
+  document.getElementById('addag-n').value = ag.name;
+  document.getElementById('addag-date').value = ag.date || '';
+  document.getElementById('addag-time').value = ag.time || '';
+  document.getElementById('addag-notes').value = ag.notes || '';
+  document.getElementById('sh-addag-del-row').style.display = '';
+  openSheet('sh-addag');
+}
+
+function saveAgenda(){
+  const name = document.getElementById('addag-n').value.trim();
+  if(!name) return;
+  const date  = document.getElementById('addag-date').value || tod();
+  const time  = document.getElementById('addag-time').value || null;
+  const notes = document.getElementById('addag-notes').value.trim();
+
+  if(_agMode === 'add'){
+    D.p_agendas.push({id:'ag'+Date.now(), parentType:_apParentType, parentId:_apParentId, name, date, time, notes, done:false, createdAt:tod()});
+    toast('📅 Agenda ditambahkan!');
+  } else {
+    const ag = D.p_agendas.find(x => x.id === editAgId);
+    ag.name = name; ag.date = date; ag.time = time; ag.notes = notes;
+    toast('✏️ Agenda diperbarui!');
+  }
+  save(); closeSheet('sh-addag');
+  refreshPAViews();
+  renderMcal();
+}
+
+function delAgenda(){
+  if(!confirm('Hapus agenda ini?')) return;
+  D.p_agendas = D.p_agendas.filter(x => x.id !== editAgId);
+  save(); closeSheet('sh-addag');
+  refreshPAViews();
+  renderMcal();
+  toast('🗑 Agenda dihapus');
+}
+
+function refreshPAViews(){
+  if(curView === 'projects')    renderProjects();
+  if(curView === 'proj-detail') renderProjItems();
+  if(curView === 'areas')       renderAreas();
+  if(curView === 'area-detail') renderAreaItems();
+}
+
+// ════════ PROJECT CRUD ════════════════════════════
+let _projColorSel = COLORS[4];
+let _projColorSelEdit = COLORS[4];
+
+function buildCpickerProj(elId, current, onPick){
+  const el = document.getElementById(elId); if(!el) return;
+  el.innerHTML = '';
+  COLORS.forEach(c => {
+    const d = document.createElement('div');
+    d.className = 'co' + (c === current ? ' sel' : '');
+    d.style.background = c;
+    d.onclick = () => { onPick(c); buildCpickerProj(elId, c, onPick); };
+    el.appendChild(d);
+  });
+}
+
+function bindDeadlineSelects(typeId, monthId, yearId, dateId){
+  const sel = document.getElementById(typeId);
+  const mw  = document.getElementById(monthId);
+  const yw  = document.getElementById(yearId);
+  const dw  = document.getElementById(dateId);
+  if(!sel) return;
+  const upd = () => {
+    if(mw) mw.style.display = sel.value === 'month' ? '' : 'none';
+    if(yw) yw.style.display = sel.value === 'year'  ? '' : 'none';
+    if(dw) dw.style.display = sel.value === 'date'  ? '' : 'none';
+  };
+  sel.onchange = upd; upd();
+}
+
+function getDeadlineValue(typeId, monthId, yearId, dateId){
+  const type = document.getElementById(typeId).value;
+  if(type === 'none') return {type:'none', value:null};
+  if(type === 'month') return {type:'month', value: document.getElementById(monthId).value};
+  if(type === 'year')  return {type:'year',  value: document.getElementById(yearId).value};
+  if(type === 'date')  return {type:'date',  value: document.getElementById(dateId).value};
+  return {type:'none', value:null};
+}
+
+function openAddProject(){
+  selColorProj = COLORS[4];
+  document.getElementById('ap-n').value = '';
+  document.getElementById('ap-e').value = '🚀';
+  document.getElementById('ap-g').value = '';
+  document.getElementById('ap-st').value = 'aktif';
+  buildCpickerProj('cpicker-proj', selColorProj, c => selColorProj = c);
+  // bind deadline selects
+  bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap','ap-dl-date-wrap');
+  document.getElementById('ap-dl-type').value = 'none';
+  bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap','ap-dl-date-wrap');
+  openSheet('sh-addproject');
+}
+
+function saveNewProject(){
+  const name = document.getElementById('ap-n').value.trim(); if(!name) return;
+  const emoji = document.getElementById('ap-e').value.trim() || '🚀';
+  const goal  = document.getElementById('ap-g').value.trim();
+  const status= document.getElementById('ap-st').value;
+  const deadline = getDeadlineValue('ap-dl-type','ap-dl-month','ap-dl-year','ap-dl-date');
+  ensurePAData();
+  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, color:selColorProj, createdAt:tod()});
+  save(); closeSheet('sh-addproject'); renderProjects();
+  toast(`"${name}" ditambahkan ke Projects!`);
+}
+
+function openEditProject(id){
+  editProjId = id;
+  const p = gProj(id);
+  selColorProjEdit = p.color;
+  document.getElementById('ep-n').value = p.name;
+  document.getElementById('ep-e').value = p.emoji || '🚀';
+  document.getElementById('ep-g').value = p.goal || '';
+  document.getElementById('ep-st').value = p.status || 'aktif';
+  buildCpickerProj('cpicker-proj-edit', selColorProjEdit, c => selColorProjEdit = c);
+  // deadline
+  const dl = p.deadline || {type:'none'};
+  document.getElementById('ep-dl-type').value = dl.type || 'none';
+  bindDeadlineSelects('ep-dl-type','ep-dl-month-wrap','ep-dl-year-wrap','ep-dl-date-wrap');
+  if(dl.type === 'month' && dl.value) document.getElementById('ep-dl-month').value = dl.value;
+  if(dl.type === 'year'  && dl.value) document.getElementById('ep-dl-year').value  = dl.value;
+  if(dl.type === 'date'  && dl.value) document.getElementById('ep-dl-date').value  = dl.value;
+  bindDeadlineSelects('ep-dl-type','ep-dl-month-wrap','ep-dl-year-wrap','ep-dl-date-wrap');
+  openSheet('sh-editproject');
+}
+
+function saveEditProject(){
+  const p = gProj(editProjId);
+  p.name   = document.getElementById('ep-n').value.trim() || p.name;
+  p.emoji  = document.getElementById('ep-e').value.trim() || p.emoji;
+  p.goal   = document.getElementById('ep-g').value.trim();
+  p.status = document.getElementById('ep-st').value;
+  p.color  = selColorProjEdit;
+  p.deadline = getDeadlineValue('ep-dl-type','ep-dl-month','ep-dl-year','ep-dl-date');
+  save(); closeSheet('sh-editproject');
+  openProjDetail(editProjId);
+  renderProjects();
+  toast('✏️ Project diperbarui!');
+}
+
+function delProject(){
+  const p = gProj(editProjId);
+  if(!confirm(`Hapus project "${p.name}" dan semua isinya?`)) return;
+  D.projects  = D.projects.filter(x => x.id !== editProjId);
+  D.p_tasks   = D.p_tasks.filter(x => x.parentId !== editProjId);
+  D.p_agendas = D.p_agendas.filter(x => x.parentId !== editProjId);
+  save(); closeSheet('sh-editproject');
+  goView('projects', document.getElementById('bn-proj'));
+  toast('🗑 Project dihapus');
+}
+
+// ════════ AREA CRUD ═══════════════════════════════
+function openAddArea(){
+  selColorArea = COLORS[2];
+  document.getElementById('aa-n').value = '';
+  document.getElementById('aa-e').value = '🌿';
+  document.getElementById('aa-g').value = '';
+  buildCpickerProj('cpicker-area', selColorArea, c => selColorArea = c);
+  openSheet('sh-addarea');
+}
+
+function saveNewArea(){
+  const name = document.getElementById('aa-n').value.trim(); if(!name) return;
+  const emoji = document.getElementById('aa-e').value.trim() || '🌿';
+  const goal  = document.getElementById('aa-g').value.trim();
+  ensurePAData();
+  D.areas.push({id:'area'+Date.now(), name, emoji, goal, color:selColorArea, createdAt:tod()});
+  save(); closeSheet('sh-addarea'); renderAreas();
+  toast(`"${name}" ditambahkan ke Areas!`);
+}
+
+function openEditArea(id){
+  editAreaId = id;
+  const a = gArea(id);
+  selColorAreaEdit = a.color;
+  document.getElementById('ea-n').value = a.name;
+  document.getElementById('ea-e').value = a.emoji || '🌿';
+  document.getElementById('ea-g').value = a.goal || '';
+  buildCpickerProj('cpicker-area-edit', selColorAreaEdit, c => selColorAreaEdit = c);
+  openSheet('sh-editarea');
+}
+
+function saveEditArea(){
+  const a = gArea(editAreaId);
+  a.name  = document.getElementById('ea-n').value.trim() || a.name;
+  a.emoji = document.getElementById('ea-e').value.trim() || a.emoji;
+  a.goal  = document.getElementById('ea-g').value.trim();
+  a.color = selColorAreaEdit;
+  save(); closeSheet('sh-editarea');
+  openAreaDetail(editAreaId);
+  renderAreas();
+  toast('✏️ Area diperbarui!');
+}
+
+function delArea(){
+  const a = gArea(editAreaId);
+  if(!confirm(`Hapus area "${a.name}" dan semua isinya?`)) return;
+  D.areas     = D.areas.filter(x => x.id !== editAreaId);
+  D.p_tasks   = D.p_tasks.filter(x => x.parentId !== editAreaId);
+  D.p_agendas = D.p_agendas.filter(x => x.parentId !== editAreaId);
+  save(); closeSheet('sh-editarea');
+  goView('areas', document.getElementById('bn-area'));
+  toast('🗑 Area dihapus');
+}
+
+// ════════ CALENDAR — DAY DETAIL ══════════════════
+function openDayDetail(dateStr){
+  ensurePAData();
+  const d = new Date(dateStr + 'T12:00:00');
+  const title = d.toLocaleDateString('id-ID',{weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  document.getElementById('day-detail-title').textContent = '📅 ' + title;
+
+  const body = document.getElementById('day-detail-body');
+  body.innerHTML = '';
+
+  const events = [];
+
+  // Ujian
+  D.ujian.filter(u => u.date === dateStr).forEach(u => {
+    const s = gS(u.sid);
+    events.push({
+      emoji: '📝', name: u.name || u.type.toUpperCase(),
+      sub: s ? s.emoji + ' ' + s.name : '',
+      type: 'Ujian', color: s ? s.color : '#7c3aed',
+      typeClass: 'ujian-type-' + u.type
+    });
+  });
+
+  // Tugas (deadline)
+  D.tugas.filter(t => t.deadline === dateStr && !t.done).forEach(t => {
+    const s = gS(t.sid);
+    events.push({
+      emoji: '📋', name: t.name,
+      sub: s ? s.emoji + ' ' + s.name + ' — deadline' : '— deadline',
+      type: 'Tugas', color: '#d97706',
+      typeClass: 'ujian-type-quiz'
+    });
+  });
+
+  // Action Plans (deadline)
+  D.p_tasks.filter(t => t.deadline === dateStr && !t.done).forEach(t => {
+    const parent = t.parentType === 'project' ? gProj(t.parentId) : gArea(t.parentId);
+    events.push({
+      emoji: '✅', name: t.name,
+      sub: parent ? (parent.emoji||'') + ' ' + parent.name + ' — action deadline' : '— action deadline',
+      type: t.parentType === 'project' ? 'Project' : 'Area',
+      color: parent ? parent.color : '#16a34a',
+      typeClass: 'ujian-type-quiz'
+    });
+  });
+
+  // Agendas
+  D.p_agendas.filter(a => a.date === dateStr).forEach(ag => {
+    const parent = ag.parentType === 'project' ? gProj(ag.parentId) : gArea(ag.parentId);
+    events.push({
+      emoji: '📅', name: ag.name,
+      sub: parent ? (parent.emoji||'') + ' ' + parent.name + (ag.time ? ' · ' + ag.time : '') : '',
+      type: ag.parentType === 'project' ? 'Project' : 'Area',
+      color: parent ? parent.color : '#16a34a',
+      typeClass: 'ujian-type-quiz'
+    });
+  });
+
+  if(!events.length){
+    body.innerHTML = '<div class="day-empty-msg">Tidak ada event di hari ini ✨</div>';
+  } else {
+    events.forEach(ev => {
+      const item = document.createElement('div');
+      item.className = 'day-ev-item';
+      item.style.borderColor = ev.color;
+      item.innerHTML =
+        `<div class="day-ev-emoji">${ev.emoji}</div>`+
+        `<div class="day-ev-body">`+
+        `<div class="day-ev-name">${escHtml(ev.name)}</div>`+
+        (ev.sub ? `<div class="day-ev-sub">${escHtml(ev.sub)}</div>` : '')+
+        `</div>`+
+        `<span class="day-ev-type" style="background:${ev.color}22;color:${ev.color}">${ev.type}</span>`;
+      body.appendChild(item);
+    });
+  }
+
+  document.getElementById('day-detail-overlay').classList.add('open');
+}
+
+function dayDetailOverlayTap(e){
+  if(e.target === document.getElementById('day-detail-overlay'))
+    document.getElementById('day-detail-overlay').classList.remove('open');
+}
+
+
+function openApNotes(id){
+  const t = D.p_tasks.find(x => x.id === id);
+  if(!t || !t.notes) return;
+  openNotesSheet(t.notes, t.name, '✅ Action Plan', 'ujian-type-quiz', () => openEditAp(id));
+}
+function openAgNotes(id){
+  const ag = D.p_agendas.find(x => x.id === id);
+  if(!ag || !ag.notes) return;
+  openNotesSheet(ag.notes, ag.name, '📅 Agenda', 'ujian-type-quiz', () => openEditAg(id));
+}
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 </body></html>
