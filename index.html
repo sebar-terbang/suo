@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_53.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_55.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1634,6 +1634,50 @@ input,select,textarea { font-family:inherit; }
   }
   .day-detail-overlay.open .day-detail-sheet { transform:none; }
 }
+
+/* ══ TOGGLE SWITCH ══ */
+.toggle-row {
+  display:flex; align-items:center; gap:12px; padding:4px 0;
+}
+.toggle-switch { position:relative; flex-shrink:0; cursor:pointer; }
+.toggle-switch input { opacity:0; width:0; height:0; position:absolute; }
+.toggle-track {
+  display:block; width:44px; height:26px;
+  background:var(--line2); border-radius:99px;
+  transition:background .2s;
+  position:relative;
+}
+.toggle-switch input:checked + .toggle-track { background:var(--blue); }
+.toggle-thumb {
+  position:absolute; top:3px; left:3px;
+  width:20px; height:20px; border-radius:50%;
+  background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.2);
+  transition:transform .2s;
+}
+.toggle-switch input:checked + .toggle-track .toggle-thumb { transform:translateX(18px); }
+.toggle-label { font-size:13px; font-weight:600; color:var(--ink2); }
+
+/* ══ DAY PICKER ══ */
+.day-picker {
+  display:flex; gap:6px; flex-wrap:wrap; margin-top:4px;
+}
+.day-btn {
+  width:38px; height:38px; border-radius:50%;
+  font-size:12px; font-weight:700; color:var(--ink3);
+  background:var(--bg2); border:2px solid transparent;
+  transition:all .15s; flex-shrink:0;
+}
+.day-btn.sel {
+  background:var(--blue); color:#fff;
+  border-color:var(--blue);
+}
+
+/* ══ RECURRING BADGE on ap-item ══ */
+.recur-badge {
+  font-size:10px; font-weight:700;
+  padding:2px 7px; border-radius:99px;
+  background:var(--purple-lt); color:var(--purple);
+}
 </style>
 </head>
 <body>
@@ -1646,7 +1690,7 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
@@ -1659,7 +1703,7 @@ input,select,textarea { font-family:inherit; }
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
       </button>
-      <button class="sb-item active" id="sbn-projects" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">
+      <button class="sb-item" id="sbn-projects" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">
         <span class="sb-item-ic">🚀</span> Projects
       </button>
       <button class="sb-item" id="sbn-areas" onclick="goView(&#39;areas&#39;,document.getElementById(&#39;bn-area&#39;))">
@@ -1679,16 +1723,16 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><button class="dtb-back" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">‹ Projects</button><div class="dtb-title">🚀 Lomba Gemastik</div><div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject(&#39;proj1779776003859&#39;)">✏️ Edit</button></div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><button class="tb-back" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">‹ Projects</button><div class="tb-title">🚀 Lomba Gemastik</div><button class="tb-action ghost" onclick="openEditProject(&#39;proj1779776003859&#39;)" style="padding:6px 10px;font-size:16px">✏️</button></div>
+  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view" id="v-home">
+    <div class="view active" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -1792,7 +1836,7 @@ input,select,textarea { font-family:inherit; }
 
           <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
           <div class="pomo-task-pick">
-            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
+            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
           </div>
 
           <button class="pomo-start-btn" onclick="startPomo()">Start 🍅</button>
@@ -1863,16 +1907,24 @@ input,select,textarea { font-family:inherit; }
     </div>
 
 
+    <!-- ══ AREAS ══ -->
+    <div class="view" id="v-areas">
+      <div class="pad">
+        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-icon" style="background:#be185d22">🌿</div><div class="pa-card-info"><div class="pa-card-name" style="color:#be185d">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintenance</span><span class="pa-count-chip">0/0 action · 0 agenda</span></div></div></div>
+        <button class="pa-add-btn area" onclick="openAddArea()">🌿 Tambah Area Baru</button>
+      </div>
+    </div>
+
     <!-- ══ PROJECT DETAIL ══ -->
-    <div class="view active" id="v-proj-detail">
-      <div class="pad-header" id="proj-detail-header"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed22">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name" style="color:#7c3aed">Lomba Gemastik</div><div class="pad-status-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div></div><div class="pad-goal-box" style="border-color:#7c3aed"><div class="pad-goal-label">🎯 Goal</div><div class="pad-goal-text">Juara Gemastik</div></div></div>
+    <div class="view" id="v-proj-detail">
+      <div class="pad-header" id="proj-detail-header"></div>
       <div class="pa-subtab-row" id="proj-subtab-row">
         <button class="pa-subtab active" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan</button>
         <button class="pa-subtab" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
       <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="proj-detail-ap-list" style=""><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
-        <div id="proj-detail-ag-list" style="display: none;"><div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal atau rencana</div></div></div>
+        <div id="proj-detail-ap-list"></div>
+        <div id="proj-detail-ag-list" style="display:none"></div>
         <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
       </div>
     </div>
@@ -1898,7 +1950,7 @@ input,select,textarea { font-family:inherit; }
     <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
       <div class="bn-ic">📅</div><div>K</div>
     </button>
-    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
     </button>
     <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
@@ -1907,7 +1959,7 @@ input,select,textarea { font-family:inherit; }
     <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div><div>S</div>
     </button>
-    <button class="bn active" id="bn-proj" onclick="goView(&#39;projects&#39;, this)">
+    <button class="bn" id="bn-proj" onclick="goView(&#39;projects&#39;, this)">
       <div class="bn-ic">🚀</div><div>Proj</div>
     </button>
     <button class="bn" id="bn-area" onclick="goView(&#39;areas&#39;, this)">
@@ -2165,7 +2217,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Project</label><input id="ap-n" type="text" placeholder="e.g. Skripsi, Lomba GEMASTIK"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="ap-e" type="text" placeholder="🚀" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Goal / Arah Project</label><textarea id="ap-g" rows="2" placeholder="Apa yang ingin dicapai dari project ini?"></textarea></div>
+      <div class="field"><label class="flbl">Arah Project</label><textarea id="ap-g" rows="2" placeholder="Ke mana project ini mau dibawa? Apa yang ingin dicapai?"></textarea></div>
       <div class="field"><label class="flbl">Status</label>
         <select id="ap-st">
           <option value="aktif">🟢 Aktif — sedang dikerjakan</option>
@@ -2207,7 +2259,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Project</label><input id="ep-n" type="text"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="ep-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Goal / Arah Project</label><textarea id="ep-g" rows="2"></textarea></div>
+      <div class="field"><label class="flbl">Arah Project</label><textarea id="ep-g" rows="2"></textarea></div>
       <div class="field"><label class="flbl">Status</label>
         <select id="ep-st">
           <option value="aktif">🟢 Aktif</option>
@@ -2255,7 +2307,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Area</label><input id="aa-n" type="text" placeholder="e.g. Kesehatan, Iman, Keuangan"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="aa-e" type="text" placeholder="🌿" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Goal / Arah Maintenance</label><textarea id="aa-g" rows="2" placeholder="Standar atau kondisi yang ingin selalu dijaga..."></textarea></div>
+      <div class="field"><label class="flbl">Arah Area</label><textarea id="aa-g" rows="2" placeholder="Standar atau kondisi yang ingin selalu dijaga di area ini..."></textarea></div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-area"></div></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
@@ -2273,7 +2325,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Area</label><input id="ea-n" type="text"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="ea-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Goal / Arah Maintenance</label><textarea id="ea-g" rows="2"></textarea></div>
+      <div class="field"><label class="flbl">Arah Area</label><textarea id="ea-g" rows="2"></textarea></div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-area-edit"></div></div>
     </div>
     <div class="sh-footer">
@@ -2292,10 +2344,60 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addap-title">✅ Tambah Action Plan</div>
+    <div class="sh-title" id="sh-addap-title">✅ Action Plan</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Action</label><input id="addap-n" type="text" placeholder="e.g. Bikin outline bab 3, Olahraga rutin 3x/minggu"></div>
-      <div class="field"><label class="flbl">Deadline (opsional — jika ada, muncul di kalender)</label><input id="addap-dl" type="date"></div>
+
+      <div class="field"><label class="flbl">Berulang?</label>
+        <select id="addap-recur" onchange="updateApRecurUI()">
+          <option value="none">Tidak berulang</option>
+          <option value="daily">Setiap hari</option>
+          <option value="weekly">Setiap minggu (pilih hari)</option>
+          <option value="monthly">Setiap bulan (tanggal sama)</option>
+        </select>
+      </div>
+
+      <!-- Non-recurring: deadline biasa -->
+      <div class="field" id="addap-dl-field">
+        <label class="flbl">Deadline (opsional)</label>
+        <input id="addap-dl" type="date">
+      </div>
+
+      <!-- Recurring: tanggal mulai + hari + end date -->
+      <div id="addap-recur-fields" style="display:none">
+        <div class="field" id="addap-days-field" style="display:none">
+          <label class="flbl">Hari Pengulangan</label>
+          <div class="day-picker" id="addap-day-picker">
+            <button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button>
+            <button type="button" class="day-btn" data-day="2" onclick="toggleDayBtn(this)">Sel</button>
+            <button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button>
+            <button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button>
+            <button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button>
+            <button type="button" class="day-btn" data-day="6" onclick="toggleDayBtn(this)">Sab</button>
+            <button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button>
+          </div>
+        </div>
+        <div class="field">
+          <label class="flbl">Mulai dari</label>
+          <input id="addap-recur-start" type="date">
+        </div>
+        <div class="field">
+          <label class="flbl">Berakhir (opsional — kosong = selamanya)</label>
+          <input id="addap-recur-end" type="date">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="flbl">Tampil di Kalender?</label>
+        <div class="toggle-row">
+          <label class="toggle-switch">
+            <input type="checkbox" id="addap-show-cal" checked="" onchange="updateApRecurUI()">
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </label>
+          <span class="toggle-label" id="addap-cal-lbl">Ya, tampilkan deadline di kalender</span>
+        </div>
+      </div>
+
       <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="addap-notes" rows="2" placeholder="Detail, catatan, atau context..."></textarea></div>
     </div>
     <div class="sh-footer">
@@ -2314,7 +2416,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addag" onclick="bgc(event,&#39;sh-addag&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addag-title">📅 Tambah Agenda</div>
+    <div class="sh-title" id="sh-addag-title">📅 Agenda</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Agenda</label><input id="addag-n" type="text" placeholder="e.g. Meeting dosen, Latihan futsal"></div>
       <div class="field"><label class="flbl">Tanggal</label><input id="addag-date" type="date"></div>
@@ -3813,7 +3915,10 @@ function renderMcal(){
     const tgsHari=D.tugas.filter(t=>t.deadline===ds);
     const ujHari=D.ujian.filter(u=>u.date===ds);
     const agHari=(D.p_agendas||[]).filter(a=>a.date===ds);
-    const apHari=(D.p_tasks||[]).filter(t=>t.deadline===ds&&!t.done);
+    // action plans: deadline biasa + recurring yang match hari ini
+    const apHariDl=(D.p_tasks||[]).filter(t=>!t.recurring&&t.deadline===ds&&!t.done&&t.showCal!==false);
+    const apHariRec=(D.p_tasks||[]).filter(t=>t.recurring&&t.showCal!==false&&apRecurMatchesDate(t,ds));
+    const apHari=[...apHariDl,...apHariRec];
     const hasM=matHari.length>0, hasT=tgsHari.length>0, hasU=ujHari.length>0;
     const hasAg=agHari.length>0, hasAp=apHari.length>0;
     const allDone=hasM&&matHari.every(m=>m.done);
@@ -4232,7 +4337,7 @@ function openProjDetail(id){
     `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
     (dl ? `<span class="pad-deadline-lbl">${dl}</span>` : '')+
     `</div></div></div>`+
-    (p.goal ? `<div class="pad-goal-box" style="border-color:${p.color}"><div class="pad-goal-label">🎯 Goal</div><div class="pad-goal-text">${escHtml(p.goal)}</div></div>` : '');
+    (p.goal ? `<div class="pad-goal-box" style="border-color:${p.color}"><div class="pad-goal-label">🧭 Arah</div><div class="pad-goal-text">${escHtml(p.goal)}</div></div>` : '');
 
   // progress bar
   const aps = D.p_tasks.filter(t => t.parentId === id);
@@ -4270,7 +4375,13 @@ function renderProjItems(){
       el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div>`;
     } else {
       const card = document.createElement('div'); card.className = 'card';
-      items.sort((a,b) => a.done - b.done || (a.deadline||'').localeCompare(b.deadline||'')).forEach(t => card.appendChild(mkApItem(t, p.color)));
+      items.sort((a,b) => {
+        const aRec = a.recurring && a.recurring.freq !== 'none';
+        const bRec = b.recurring && b.recurring.freq !== 'none';
+        if(aRec !== bRec) return aRec ? -1 : 1; // recurring first
+        if(!aRec && !bRec) return (a.done - b.done) || (a.deadline||'').localeCompare(b.deadline||'');
+        return 0;
+      }).forEach(t => card.appendChild(mkApItem(t, p.color)));
       el.appendChild(card);
     }
   } else {
@@ -4347,7 +4458,7 @@ function openAreaDetail(id){
     `<div class="pad-name" style="color:${a.color}">${a.name}</div>`+
     `<div class="pad-status-row"><span class="pa-status-chip pa-status-area">maintenance</span></div>`+
     `</div></div>`+
-    (a.goal ? `<div class="pad-goal-box" style="border-color:${a.color}"><div class="pad-goal-label">🎯 Goal / Standar</div><div class="pad-goal-text">${escHtml(a.goal)}</div></div>` : '');
+    (a.goal ? `<div class="pad-goal-box" style="border-color:${a.color}"><div class="pad-goal-label">🧭 Arah</div><div class="pad-goal-text">${escHtml(a.goal)}</div></div>` : '');
 
   switchAreaTab('ap');
   document.getElementById('scroll').scrollTop = 0;
@@ -4375,7 +4486,13 @@ function renderAreaItems(){
       el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div>`;
     } else {
       const card = document.createElement('div'); card.className = 'card';
-      items.sort((a,b) => a.done - b.done).forEach(t => card.appendChild(mkApItem(t, a.color)));
+      items.sort((a,b) => {
+        const aRec = a.recurring && a.recurring.freq !== 'none';
+        const bRec = b.recurring && b.recurring.freq !== 'none';
+        if(aRec !== bRec) return aRec ? -1 : 1;
+        if(!aRec && !bRec) return a.done - b.done;
+        return 0;
+      }).forEach(t => card.appendChild(mkApItem(t, a.color)));
       el.appendChild(card);
     }
   } else {
@@ -4394,20 +4511,45 @@ function renderAreaItems(){
 
 // ════════ ITEM BUILDERS ══════════════════════════
 function mkApItem(t, color){
-  const row = document.createElement('div');
-  row.className = 'ap-item' + (t.done ? ' is-done' : '');
+  const rec = t.recurring;
+  const isRecur = rec && rec.freq && rec.freq !== 'none';
 
-  const dlStr = t.deadline ? fmtDate(t.deadline) : null;
-  const dlDiff = t.deadline ? diffD(t.deadline, tod()) : null;
+  // recurring items ga punya "done" state permanen — selalu aktif
+  const isDone = !isRecur && t.done;
+
+  const row = document.createElement('div');
+  row.className = 'ap-item' + (isDone ? ' is-done' : '');
+
+  // deadline / recur info
+  const dlStr = !isRecur && t.deadline ? fmtDate(t.deadline) : null;
+  const dlDiff = !isRecur && t.deadline ? diffD(t.deadline, tod()) : null;
   let dlCls = 'dl-ok';
   if(dlDiff !== null){ if(dlDiff < 0) dlCls = 'dl-late'; else if(dlDiff <= 2) dlCls = 'dl-soon'; }
 
+  // recurring label
+  let recurLabel = '';
+  if(isRecur){
+    const freqMap = { daily:'Setiap hari', monthly:'Setiap bulan' };
+    if(rec.freq === 'weekly' && rec.days && rec.days.length){
+      const dayNames = {0:'Min',1:'Sen',2:'Sel',3:'Rab',4:'Kam',5:'Jum',6:'Sab'};
+      recurLabel = 'Tiap ' + rec.days.map(d => dayNames[d]).join(', ');
+    } else {
+      recurLabel = freqMap[rec.freq] || 'Berulang';
+    }
+    if(rec.endDate) recurLabel += ' · s/d ' + fmtDate(rec.endDate);
+  }
+
+  // kalender visibility badge
+  const noCalBadge = (t.showCal === false) ? `<span class="recur-badge" style="background:var(--bg2);color:var(--ink3)">📵 Kalender off</span>` : '';
+
   row.innerHTML =
-    `<div class="ap-check ${t.done ? 'done' : ''}" onclick="toggleApDone('${t.id}')">` + (t.done ? '✓' : '') + `</div>`+
+    `<div class="ap-check ${isDone ? 'done' : ''}" onclick="${isRecur ? '' : `toggleApDone('${t.id}')`}" style="${isRecur ? 'cursor:default;opacity:.4' : ''}">` + (isDone ? '✓' : '') + `</div>`+
     `<div class="ap-body">`+
-    `<div class="ap-name${t.done ? ' done' : ''}">${escHtml(t.name)}</div>`+
+    `<div class="ap-name${isDone ? ' done' : ''}">${escHtml(t.name)}</div>`+
     `<div class="ap-meta">`+
+    (isRecur ? `<span class="recur-badge">🔁 ${recurLabel}</span>` : '')+
     (dlStr ? `<span class="ap-dl ${dlCls}">📅 ${dlStr}</span>` : '')+
+    noCalBadge+
     (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')">📝 Notes</span>` : '')+
     `</div></div>`+
     `<button class="ap-more" onclick="openEditAp('${t.id}')">···</button>`;
@@ -4462,7 +4604,14 @@ function openAddApSheet(){
   document.getElementById('addap-n').value = '';
   document.getElementById('addap-dl').value = '';
   document.getElementById('addap-notes').value = '';
+  document.getElementById('addap-recur').value = 'none';
+  document.getElementById('addap-recur-start').value = tod();
+  document.getElementById('addap-recur-end').value = '';
+  document.getElementById('addap-show-cal').checked = true;
+  document.getElementById('addap-cal-lbl').textContent = 'Ya, tampilkan di kalender';
+  document.querySelectorAll('#addap-day-picker .day-btn').forEach(b => b.classList.remove('sel'));
   document.getElementById('sh-addap-del-row').style.display = 'none';
+  updateApRecurUI();
   openSheet('sh-addap');
 }
 
@@ -4470,33 +4619,70 @@ function openEditAp(id){
   ensurePAData();
   _apMode = 'edit'; editApId = id;
   const t = D.p_tasks.find(x => x.id === id);
-  // set parent context so save knows where to refresh
   _apParentType = t.parentType;
   _apParentId   = t.parentId;
   document.getElementById('sh-addap-title').textContent = '✏️ Edit Action Plan';
   document.getElementById('addap-n').value = t.name;
-  document.getElementById('addap-dl').value = t.deadline || '';
   document.getElementById('addap-notes').value = t.notes || '';
+  document.getElementById('addap-show-cal').checked = t.showCal !== false;
   document.getElementById('sh-addap-del-row').style.display = '';
+
+  const rec = t.recurring;
+  if(rec && rec.freq !== 'none'){
+    document.getElementById('addap-recur').value = rec.freq;
+    document.getElementById('addap-recur-start').value = rec.startDate || tod();
+    document.getElementById('addap-recur-end').value = rec.endDate || '';
+    document.getElementById('addap-dl').value = '';
+    // restore day buttons
+    document.querySelectorAll('#addap-day-picker .day-btn').forEach(b => {
+      b.classList.toggle('sel', (rec.days||[]).includes(+b.dataset.day));
+    });
+  } else {
+    document.getElementById('addap-recur').value = 'none';
+    document.getElementById('addap-dl').value = t.deadline || '';
+    document.querySelectorAll('#addap-day-picker .day-btn').forEach(b => b.classList.remove('sel'));
+  }
+  updateApRecurUI();
   openSheet('sh-addap');
 }
 
 function saveActionPlan(){
   const name = document.getElementById('addap-n').value.trim();
   if(!name) return;
-  const dl   = document.getElementById('addap-dl').value || null;
-  const notes= document.getElementById('addap-notes').value.trim();
+  const notes   = document.getElementById('addap-notes').value.trim();
+  const showCal = document.getElementById('addap-show-cal').checked;
+  const recurFreq = document.getElementById('addap-recur').value;
+
+  let deadline = null;
+  let recurring = null;
+
+  if(recurFreq === 'none'){
+    deadline = document.getElementById('addap-dl').value || null;
+  } else {
+    const startDate = document.getElementById('addap-recur-start').value || tod();
+    const endDate   = document.getElementById('addap-recur-end').value || null;
+    const days = recurFreq === 'weekly'
+      ? [...document.querySelectorAll('#addap-day-picker .day-btn.sel')].map(b => +b.dataset.day)
+      : [];
+    recurring = { freq: recurFreq, startDate, endDate, days };
+  }
 
   if(_apMode === 'add'){
-    D.p_tasks.push({id:'ap'+Date.now(), parentType:_apParentType, parentId:_apParentId, name, deadline:dl, notes, done:false, createdAt:tod()});
+    D.p_tasks.push({
+      id:'ap'+Date.now(), parentType:_apParentType, parentId:_apParentId,
+      name, deadline, notes, recurring, showCal, done:false, createdAt:tod()
+    });
     toast('✅ Action plan ditambahkan!');
   } else {
     const t = D.p_tasks.find(x => x.id === editApId);
-    t.name = name; t.deadline = dl; t.notes = notes;
+    t.name = name; t.deadline = deadline; t.notes = notes;
+    t.recurring = recurring; t.showCal = showCal;
+    t.done = recurring ? false : t.done; // reset done if switching to recurring
     toast('✏️ Action plan diperbarui!');
   }
   save(); closeSheet('sh-addap');
   refreshPAViews();
+  renderMcal();
 }
 
 function delActionPlan(){
@@ -4510,8 +4696,10 @@ function delActionPlan(){
 function toggleApDone(id){
   ensurePAData();
   const t = D.p_tasks.find(x => x.id === id);
+  if(t.recurring && t.recurring.freq && t.recurring.freq !== 'none') return; // recurring ga bisa di-done
   t.done = !t.done; save();
   refreshPAViews();
+  renderMcal();
   toast(t.done ? '✅ Selesai! Good job 💪' : '↩️ Oke, belum selesai');
 }
 
@@ -4778,12 +4966,20 @@ function openDayDetail(dateStr){
     });
   });
 
-  // Action Plans (deadline)
-  D.p_tasks.filter(t => t.deadline === dateStr && !t.done).forEach(t => {
+  // Action Plans: deadline biasa + recurring yang match
+  const apToday = (D.p_tasks||[]).filter(t => {
+    if(t.showCal === false) return false;
+    if(t.recurring && t.recurring.freq && t.recurring.freq !== 'none'){
+      return apRecurMatchesDate(t, dateStr);
+    }
+    return t.deadline === dateStr && !t.done;
+  });
+  apToday.forEach(t => {
     const parent = t.parentType === 'project' ? gProj(t.parentId) : gArea(t.parentId);
+    const rec = t.recurring && t.recurring.freq !== 'none';
     events.push({
-      emoji: '✅', name: t.name,
-      sub: parent ? (parent.emoji||'') + ' ' + parent.name + ' — action deadline' : '— action deadline',
+      emoji: rec ? '🔁' : '✅', name: t.name,
+      sub: parent ? (parent.emoji||'') + ' ' + parent.name + (rec ? ' — berulang' : ' — action deadline') : '',
       type: t.parentType === 'project' ? 'Project' : 'Area',
       color: parent ? parent.color : '#16a34a',
       typeClass: 'ujian-type-quiz'
@@ -4829,6 +5025,55 @@ function dayDetailOverlayTap(e){
 }
 
 
+
+// ════════ RECURRING UI HELPERS ════════════════════
+function updateApRecurUI(){
+  const freq = document.getElementById('addap-recur').value;
+  const isRecur = freq !== 'none';
+  const isWeekly = freq === 'weekly';
+
+  document.getElementById('addap-dl-field').style.display = isRecur ? 'none' : '';
+  document.getElementById('addap-recur-fields').style.display = isRecur ? '' : 'none';
+  document.getElementById('addap-days-field').style.display = isWeekly ? '' : 'none';
+
+  // update kalender toggle label
+  const calLbl = document.getElementById('addap-cal-lbl');
+  const calChecked = document.getElementById('addap-show-cal').checked;
+  if(isRecur){
+    calLbl.textContent = calChecked ? 'Ya, muncul di kalender setiap siklus' : 'Tidak tampil di kalender';
+  } else {
+    calLbl.textContent = calChecked ? 'Ya, tampilkan deadline di kalender' : 'Tidak tampil di kalender';
+  }
+}
+
+function toggleDayBtn(btn){
+  btn.classList.toggle('sel');
+}
+
+// ════════ RECURRING MATCH HELPER ═════════════════
+// Cek apakah sebuah action plan recurring muncul di tanggal tertentu (dateStr = YYYY-MM-DD)
+function apRecurMatchesDate(t, dateStr){
+  const rec = t.recurring;
+  if(!rec || rec.freq === 'none') return false;
+  if(t.showCal === false) return false;
+
+  const d = new Date(dateStr + 'T12:00:00');
+  const start = rec.startDate ? new Date(rec.startDate + 'T12:00:00') : null;
+  const end   = rec.endDate   ? new Date(rec.endDate   + 'T12:00:00') : null;
+
+  if(start && d < start) return false;
+  if(end   && d > end)   return false;
+
+  if(rec.freq === 'daily')   return true;
+  if(rec.freq === 'monthly') return start && d.getDate() === start.getDate();
+  if(rec.freq === 'weekly'){
+    const days = rec.days || [];
+    if(!days.length) return false;
+    // getDay() returns 0=Sun,1=Mon,...6=Sat; our day-btn uses 0=Min,1=Sen,...6=Sab
+    return days.includes(d.getDay());
+  }
+  return false;
+}
 function openApNotes(id){
   const t = D.p_tasks.find(x => x.id === id);
   if(!t || !t.notes) return;
