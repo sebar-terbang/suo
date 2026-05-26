@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_52.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_53.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -149,7 +149,6 @@ input,select,textarea { font-family:inherit; }
 /* ── VIEWS ── */
 .view { display:none; }
 .view.active { display:block; }
-#v-proj-detail.active, #v-area-detail.active { display:flex; flex-direction:column; }
 
 /* ══════════════════════════════════
    DESKTOP OVERRIDE (≥768px)
@@ -1647,7 +1646,7 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
@@ -1660,7 +1659,7 @@ input,select,textarea { font-family:inherit; }
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
       </button>
-      <button class="sb-item" id="sbn-projects" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">
+      <button class="sb-item active" id="sbn-projects" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">
         <span class="sb-item-ic">🚀</span> Projects
       </button>
       <button class="sb-item" id="sbn-areas" onclick="goView(&#39;areas&#39;,document.getElementById(&#39;bn-area&#39;))">
@@ -1680,16 +1679,16 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><button class="dtb-back" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">‹ Projects</button><div class="dtb-title">🚀 Lomba Gemastik</div><div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject(&#39;proj1779776003859&#39;)">✏️ Edit</button></div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><button class="tb-back" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">‹ Projects</button><div class="tb-title">🚀 Lomba Gemastik</div><button class="tb-action ghost" onclick="openEditProject(&#39;proj1779776003859&#39;)" style="padding:6px 10px;font-size:16px">✏️</button></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -1793,7 +1792,7 @@ input,select,textarea { font-family:inherit; }
 
           <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
           <div class="pomo-task-pick">
-            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
+            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
           </div>
 
           <button class="pomo-start-btn" onclick="startPomo()">Start 🍅</button>
@@ -1863,43 +1862,32 @@ input,select,textarea { font-family:inherit; }
       </div>
     </div>
 
+
     <!-- ══ PROJECT DETAIL ══ -->
-    <div class="view" id="v-proj-detail" style="display:none;flex-direction:column;height:100%">
+    <div class="view active" id="v-proj-detail">
       <div class="pad-header" id="proj-detail-header"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed22">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name" style="color:#7c3aed">Lomba Gemastik</div><div class="pad-status-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div></div><div class="pad-goal-box" style="border-color:#7c3aed"><div class="pad-goal-label">🎯 Goal</div><div class="pad-goal-text">Juara Gemastik</div></div></div>
       <div class="pa-subtab-row" id="proj-subtab-row">
         <button class="pa-subtab active" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan</button>
         <button class="pa-subtab" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
-      <div class="scroll" id="proj-detail-scroll">
-        <div class="pad" style="padding-top:12px">
-          <div id="proj-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
-          <div id="proj-detail-ag-list" style="display:none"></div>
-          <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══ AREAS ══ -->
-    <div class="view" id="v-areas">
-      <div class="pad">
-        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-icon" style="background:#be185d22">🌿</div><div class="pa-card-info"><div class="pa-card-name" style="color:#be185d">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintenance</span><span class="pa-count-chip">0/0 action · 0 agenda</span></div></div></div>
-        <button class="pa-add-btn area" onclick="openAddArea()">🌿 Tambah Area Baru</button>
+      <div class="pad" style="padding-top:12px;padding-bottom:80px">
+        <div id="proj-detail-ap-list" style=""><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
+        <div id="proj-detail-ag-list" style="display: none;"><div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal atau rencana</div></div></div>
+        <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
       </div>
     </div>
 
     <!-- ══ AREA DETAIL ══ -->
-    <div class="view" id="v-area-detail" style="display:none;flex-direction:column;height:100%">
-      <div class="pad-header" id="area-detail-header"><div class="pad-header-top"><div class="pad-icon" style="background:#be185d22">🌿</div><div class="pad-info"><div class="pad-type-label">Area — Maintenance Selamanya</div><div class="pad-name" style="color:#be185d">Boxing</div><div class="pad-status-row"><span class="pa-status-chip pa-status-area">maintenance</span></div></div></div></div>
+    <div class="view" id="v-area-detail">
+      <div class="pad-header" id="area-detail-header"></div>
       <div class="pa-subtab-row" id="area-subtab-row">
         <button class="pa-subtab active" id="area-tab-ap" onclick="switchAreaTab(&#39;ap&#39;)">✅ Action Plan</button>
         <button class="pa-subtab" id="area-tab-ag" onclick="switchAreaTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
-      <div class="scroll" id="area-detail-scroll">
-        <div class="pad" style="padding-top:12px">
-          <div id="area-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div></div>
-          <div id="area-detail-ag-list" style="display:none"></div>
-          <button class="pa-add-btn area" id="area-detail-add-btn" style="margin-top:8px" onclick="openAddAreaItem()">＋ Tambah</button>
-        </div>
+      <div class="pad" style="padding-top:12px;padding-bottom:80px">
+        <div id="area-detail-ap-list"></div>
+        <div id="area-detail-ag-list" style="display:none"></div>
+        <button class="pa-add-btn area" id="area-detail-add-btn" style="margin-top:8px" onclick="openAddAreaItem()">＋ Tambah</button>
       </div>
     </div>
 
@@ -1910,7 +1898,7 @@ input,select,textarea { font-family:inherit; }
     <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
       <div class="bn-ic">📅</div><div>K</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
     </button>
     <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
@@ -1919,7 +1907,7 @@ input,select,textarea { font-family:inherit; }
     <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div><div>S</div>
     </button>
-    <button class="bn" id="bn-proj" onclick="goView(&#39;projects&#39;, this)">
+    <button class="bn active" id="bn-proj" onclick="goView(&#39;projects&#39;, this)">
       <div class="bn-ic">🚀</div><div>Proj</div>
     </button>
     <button class="bn" id="bn-area" onclick="goView(&#39;areas&#39;, this)">
@@ -2304,7 +2292,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addap-title">✅ Action Plan</div>
+    <div class="sh-title" id="sh-addap-title">✅ Tambah Action Plan</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Action</label><input id="addap-n" type="text" placeholder="e.g. Bikin outline bab 3, Olahraga rutin 3x/minggu"></div>
       <div class="field"><label class="flbl">Deadline (opsional — jika ada, muncul di kalender)</label><input id="addap-dl" type="date"></div>
@@ -2326,7 +2314,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addag" onclick="bgc(event,&#39;sh-addag&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addag-title">📅 Agenda</div>
+    <div class="sh-title" id="sh-addag-title">📅 Tambah Agenda</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Agenda</label><input id="addag-n" type="text" placeholder="e.g. Meeting dosen, Latihan futsal"></div>
       <div class="field"><label class="flbl">Tanggal</label><input id="addag-date" type="date"></div>
