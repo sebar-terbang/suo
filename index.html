@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_57.html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(30).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1335,60 +1335,77 @@ input,select,textarea { font-family:inherit; }
   margin-bottom:12px;
   overflow:hidden;
   cursor:pointer;
-  transition:transform .14s, box-shadow .14s;
+  transition:transform .18s cubic-bezier(.32,0,.15,1), box-shadow .18s;
   display:flex; flex-direction:column;
+  border:1.5px solid var(--line);
 }
-.pa-card:active { transform:scale(.982); box-shadow:0 1px 4px rgba(0,0,0,.06); }
+.pa-card:active { transform:scale(.978); box-shadow:0 1px 6px rgba(0,0,0,.05); }
+
+/* tinted top band — warna project/area */
+.pa-card-tint {
+  height:5px; width:100%; flex-shrink:0;
+}
 
 .pa-card-header {
-  display:flex; align-items:center; gap:12px;
-  padding:15px 16px 13px 0;
-  border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:14px;
+  padding:14px 14px 12px 16px;
   flex:1;
 }
-/* left accent border — warna project/area */
-.pa-card-accent {
-  width:4px; align-self:stretch; flex-shrink:0;
-  border-radius:0;
-  transition:opacity .15s;
-}
 .pa-card-icon {
-  width:40px; height:40px; border-radius:var(--rsm);
+  width:46px; height:46px; border-radius:14px;
   display:flex; align-items:center; justify-content:center;
-  font-size:20px; flex-shrink:0;
+  font-size:22px; flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
 }
 .pa-card-info { flex:1; min-width:0; }
 .pa-card-name {
   font-size:15px; font-weight:800;
-  letter-spacing:-.3px; line-height:1.2;
+  letter-spacing:-.3px; line-height:1.25;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .pa-card-goal {
-  font-size:12px; color:var(--ink3); margin-top:2px;
+  font-size:12px; color:var(--ink3); margin-top:3px;
   font-weight:500; line-height:1.4;
   display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;
 }
-.pa-card-chev { font-size:18px; color:var(--ink3); flex-shrink:0; padding-right:4px; }
+.pa-card-chev {
+  font-size:20px; color:var(--ink3); flex-shrink:0;
+  opacity:.5;
+}
 
-/* mini progress bar langsung di bawah header, sebelum footer */
+/* progress bar + footer */
+.pa-card-prog-wrap {
+  padding:0 16px 4px;
+}
+.pa-card-prog-top {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:6px;
+}
+.pa-card-prog-lbl {
+  font-size:10.5px; font-weight:700; color:var(--ink3);
+}
+.pa-card-prog-count {
+  font-size:10.5px; font-weight:800; color:var(--ink2);
+}
 .pa-card-prog {
-  height:3px; background:var(--bg2);
-  margin:0;
+  height:7px; background:var(--bg2);
+  border-radius:99px; overflow:hidden;
 }
 .pa-card-prog-fill {
-  height:100%; border-radius:0;
-  transition:width .4s ease;
+  height:100%; border-radius:99px;
+  transition:width .5s cubic-bezier(.4,0,.2,1);
 }
 
 .pa-card-footer {
   display:flex; align-items:center; gap:8px;
-  padding:9px 16px 9px 20px;
+  padding:9px 16px 11px;
   background:var(--bg);
+  border-top:1px solid var(--line);
   flex-wrap:wrap;
 }
 .pa-status-chip {
   font-size:10px; font-weight:800;
-  padding:3px 9px; border-radius:99px;
+  padding:4px 10px; border-radius:99px;
   text-transform:uppercase; letter-spacing:.04em;
   flex-shrink:0;
 }
@@ -1402,8 +1419,20 @@ input,select,textarea { font-family:inherit; }
   font-size:10px; font-weight:600; color:var(--ink3);
 }
 .pa-count-chip {
-  font-size:11px; font-weight:600; color:var(--ink2);
+  font-size:11px; font-weight:700; color:var(--ink2);
   margin-left:auto;
+  background:var(--bg2); padding:3px 9px; border-radius:99px;
+}
+
+/* section page title */
+.pa-page-title {
+  font-size:22px; font-weight:900;
+  letter-spacing:-.5px; color:var(--ink);
+  margin-bottom:4px;
+}
+.pa-page-sub {
+  font-size:13px; color:var(--ink3); font-weight:500;
+  margin-bottom:18px;
 }
 
 /* empty state for projects/areas */
@@ -1417,74 +1446,85 @@ input,select,textarea { font-family:inherit; }
 /* add button */
 .pa-add-btn {
   display:flex; align-items:center; justify-content:center; gap:10px;
-  width:100%; padding:16px; border-radius:var(--r);
+  width:100%; padding:15px 16px; border-radius:var(--r);
   font-size:14px; font-weight:700;
-  border:1.5px dashed; transition:opacity .12s;
+  border:1.5px dashed; transition:opacity .12s, transform .12s;
   margin-top:4px;
 }
-.pa-add-btn:active { opacity:.7; }
+.pa-add-btn:active { opacity:.7; transform:scale(.98); }
 .pa-add-btn.project { background:var(--blue-lt); border-color:var(--blue-bd); color:var(--blue); }
 .pa-add-btn.area    { background:var(--purple-lt); border-color:var(--purple); color:var(--purple); }
 
 /* section header with count */
 .pa-section-hd {
-  font-size:12px; font-weight:800;
-  text-transform:uppercase; letter-spacing:.07em;
-  color:var(--ink3); margin:20px 0 8px;
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink3); margin:20px 0 10px;
+  display:flex; align-items:center; gap:8px;
+}
+.pa-section-hd::after {
+  content:''; flex:1; height:1px; background:var(--line);
 }
 
 /* ══════════════════════════════════
-   PROJECT / AREA DETAIL
+   PROJECT / AREA DETAIL — HERO HEADER
 ══════════════════════════════════ */
 .pad-header {
-  background:var(--white);
-  border-bottom:1px solid var(--line);
-  padding:0;
   position:relative;
   overflow:hidden;
+  border-bottom:1px solid var(--line);
 }
-/* colored top accent bar */
-.pad-header-accent {
-  height:4px; width:100%;
+/* hero gradient background using accent color */
+.pad-header-bg {
+  position:absolute; inset:0;
+  opacity:.07;
+  pointer-events:none;
 }
 .pad-header-body {
-  padding:16px 16px 14px;
+  position:relative;
+  padding:20px 16px 16px;
 }
 .pad-header-top {
-  display:flex; align-items:center; gap:14px;
+  display:flex; align-items:flex-start; gap:16px;
+  margin-bottom:14px;
 }
 .pad-icon {
-  width:48px; height:48px; border-radius:12px;
+  width:60px; height:60px; border-radius:18px;
   display:flex; align-items:center; justify-content:center;
-  font-size:24px; flex-shrink:0;
+  font-size:30px; flex-shrink:0;
+  box-shadow:0 4px 14px rgba(0,0,0,.13);
 }
-.pad-info { flex:1; min-width:0; }
+.pad-info { flex:1; min-width:0; padding-top:2px; }
 .pad-type-label {
   font-size:10px; font-weight:700;
-  text-transform:uppercase; letter-spacing:.1em;
-  color:var(--ink3); margin-bottom:2px;
+  text-transform:uppercase; letter-spacing:.12em;
+  color:var(--ink3); margin-bottom:4px;
 }
 .pad-name {
-  font-size:22px; font-weight:900;
-  letter-spacing:-.6px; line-height:1.1;
+  font-size:24px; font-weight:900;
+  letter-spacing:-.7px; line-height:1.1;
 }
-/* arah/goal — di bawah nama, italic subtle */
+/* goal/arah — purpose card */
 .pad-arah {
-  font-size:13px; font-style:italic;
-  color:var(--ink3); font-weight:500;
-  line-height:1.5; margin-top:6px;
-  padding-top:8px;
-  border-top:1px solid var(--line);
+  background:var(--bg);
+  border-radius:var(--rsm);
+  border:1.5px solid var(--line);
+  padding:10px 14px;
+  margin-bottom:12px;
 }
 .pad-arah-lbl {
-  font-size:10px; font-weight:800; font-style:normal;
-  text-transform:uppercase; letter-spacing:.08em;
-  color:var(--ink3); margin-bottom:2px;
+  font-size:9px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.1em;
+  color:var(--ink3); margin-bottom:4px;
   display:block;
 }
-/* status + deadline — satu baris kecil paling bawah header */
+.pad-arah-text {
+  font-size:13.5px; color:var(--ink); font-weight:600;
+  line-height:1.5;
+}
+/* status + deadline row */
 .pad-meta-row {
-  display:flex; gap:8px; margin-top:10px;
+  display:flex; gap:8px; margin-bottom:12px;
   align-items:center; flex-wrap:wrap;
 }
 .pad-deadline-lbl {
@@ -1492,112 +1532,160 @@ input,select,textarea { font-family:inherit; }
 }
 /* progress bar in detail */
 .pad-prog-row {
-  display:flex; align-items:center; gap:10px; margin-top:10px;
+  display:flex; align-items:center; gap:10px;
 }
-.pad-prog-label {
-  font-size:11px; color:var(--ink3); font-weight:700;
-  flex-shrink:0; min-width:60px;
+.pad-prog-pct {
+  font-size:13px; color:var(--ink2); font-weight:800;
+  flex-shrink:0; min-width:44px;
 }
 .pad-prog-bar {
-  flex:1; height:6px; background:var(--bg2);
+  flex:1; height:9px; background:var(--bg2);
   border-radius:99px; overflow:hidden;
 }
 .pad-prog-fill {
-  height:100%; border-radius:99px; transition:width .5s ease;
+  height:100%; border-radius:99px; transition:width .6s cubic-bezier(.4,0,.2,1);
 }
 .pad-prog-count {
-  font-size:11px; font-weight:700; color:var(--ink3); flex-shrink:0;
+  font-size:12px; font-weight:700; color:var(--ink3); flex-shrink:0;
 }
 
-/* ══ Sub-tabs (action plan / agenda) ══ */
+/* ══ Sub-tabs (action plan / agenda) — pill style ══ */
 .pa-subtab-row {
-  display:flex; gap:0;
-  background:var(--bg);
-  border-bottom:2px solid var(--line);
+  padding:10px 14px;
+  background:var(--white);
+  border-bottom:1px solid var(--line);
   position:sticky; top:0; z-index:10;
+  display:flex; gap:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
 }
 .pa-subtab {
-  flex:1; padding:12px 10px;
-  font-size:13px; font-weight:700;
+  flex:1; padding:10px 12px;
+  font-size:13.5px; font-weight:700;
   color:var(--ink3); text-align:center;
-  border-bottom:2px solid transparent;
-  margin-bottom:-2px;
-  transition:color .15s, border-color .15s;
+  border-radius:var(--rsm);
+  transition:all .18s cubic-bezier(.32,0,.15,1);
   background:var(--bg);
+  border:1.5px solid transparent;
+  display:flex; align-items:center; justify-content:center; gap:6px;
 }
-.pa-subtab.active { color:var(--blue); border-bottom-color:var(--blue); }
+.pa-subtab.active {
+  color:var(--blue);
+  background:var(--blue-lt);
+  border-color:var(--blue-bd);
+}
+.pa-subtab-badge {
+  font-size:10px; font-weight:800;
+  background:var(--blue); color:#fff;
+  padding:1px 6px; border-radius:99px;
+  line-height:1.4;
+}
+.pa-subtab:not(.active) .pa-subtab-badge {
+  background:var(--line2); color:var(--ink3);
+}
 
-/* action plan item */
+/* ══ Action plan item — redesigned ══ */
 .ap-item {
-  padding:14px 16px;
+  padding:16px 16px;
   border-bottom:1px solid var(--line);
-  display:flex; align-items:flex-start; gap:12px;
+  display:flex; align-items:flex-start; gap:14px;
+  transition:background .12s;
 }
 .ap-item:last-child { border-bottom:none; }
-.ap-item.is-done { opacity:.55; }
+.ap-item.is-done {
+  background:var(--bg);
+}
+.ap-item:active { background:var(--bg); }
 .ap-check {
-  width:22px; height:22px; border-radius:6px;
+  width:26px; height:26px; border-radius:8px;
   border:2px solid var(--line2); background:var(--white);
   display:flex; align-items:center; justify-content:center;
-  flex-shrink:0; margin-top:1px; cursor:pointer;
-  transition:all .15s; font-size:13px;
+  flex-shrink:0; margin-top:0; cursor:pointer;
+  transition:all .2s cubic-bezier(.32,0,.15,1); font-size:14px;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
 }
-.ap-check.done { background:var(--green); border-color:var(--green); color:#fff; }
+.ap-check.done {
+  background:var(--green); border-color:var(--green); color:#fff;
+  box-shadow:0 2px 8px rgba(22,163,74,.3);
+}
 .ap-body { flex:1; min-width:0; }
 .ap-name {
-  font-size:15px; font-weight:600; color:var(--ink); line-height:1.3;
+  font-size:15px; font-weight:600; color:var(--ink); line-height:1.35;
 }
 .ap-name.done { text-decoration:line-through; color:var(--ink3); }
-.ap-meta { display:flex; gap:6px; margin-top:5px; flex-wrap:wrap; align-items:center; }
+.ap-meta { display:flex; gap:6px; margin-top:7px; flex-wrap:wrap; align-items:center; }
 .ap-dl {
   font-size:11px; font-weight:700;
-  padding:3px 9px; border-radius:99px;
+  padding:3px 10px; border-radius:99px;
 }
+.dl-ok   { background:var(--bg2);      color:var(--ink3); }
+.dl-soon { background:var(--amber-lt); color:var(--amber); }
+.dl-late { background:var(--red-lt);   color:var(--red); }
 .ap-notes-btn {
-  font-size:11px; font-weight:600; color:var(--ink3);
-  padding:2px 0;
+  font-size:11px; font-weight:700; color:var(--blue);
+  padding:3px 10px; border-radius:99px;
+  background:var(--blue-lt);
+  cursor:pointer; transition:opacity .12s;
 }
+.ap-notes-btn:active { opacity:.7; }
 .ap-more {
-  flex-shrink:0; padding:6px 8px; border-radius:var(--rxs);
-  color:var(--ink3); font-size:17px; margin-top:1px;
+  flex-shrink:0; padding:8px 10px; border-radius:var(--rsm);
+  color:var(--ink3); font-size:18px; margin-top:-2px;
+  letter-spacing:1px;
+  transition:background .12s;
 }
-.ap-more:active { background:var(--bg); }
+.ap-more:active { background:var(--bg2); }
 
-/* agenda item */
+/* ══ Agenda item — redesigned ══ */
 .ag-item {
   padding:14px 16px;
   border-bottom:1px solid var(--line);
-  display:flex; align-items:flex-start; gap:12px;
+  display:flex; align-items:flex-start; gap:14px;
+  transition:background .12s;
 }
 .ag-item:last-child { border-bottom:none; }
-.ag-item.is-done { opacity:.55; }
+.ag-item.is-done { background:var(--bg); }
+.ag-item.is-past { opacity:.6; }
 .ag-date-col {
-  min-width:42px; text-align:center;
-  flex-shrink:0; margin-top:2px;
+  flex-shrink:0; margin-top:1px;
+}
+.ag-date-badge {
+  min-width:48px; text-align:center;
+  padding:6px 8px; border-radius:10px;
+  background:var(--bg2);
 }
 .ag-date-day {
-  font-size:18px; font-weight:900; letter-spacing:-1px; line-height:1;
+  font-size:20px; font-weight:900; letter-spacing:-1px; line-height:1;
 }
 .ag-date-mon {
-  font-size:9px; font-weight:700; text-transform:uppercase;
-  letter-spacing:.05em; color:var(--ink3);
+  font-size:9px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--ink3);
+  margin-top:1px;
 }
 .ag-body { flex:1; min-width:0; }
 .ag-name {
-  font-size:15px; font-weight:600; color:var(--ink); line-height:1.3;
+  font-size:15px; font-weight:600; color:var(--ink); line-height:1.35;
 }
 .ag-name.done { text-decoration:line-through; color:var(--ink3); }
-.ag-meta { display:flex; gap:6px; margin-top:5px; flex-wrap:wrap; align-items:center; }
+.ag-meta { display:flex; gap:6px; margin-top:7px; flex-wrap:wrap; align-items:center; }
 .ag-time-chip {
   font-size:11px; font-weight:700;
-  padding:3px 9px; border-radius:99px;
+  padding:3px 10px; border-radius:99px;
   background:var(--blue-lt); color:var(--blue);
 }
-.ag-more {
-  flex-shrink:0; padding:6px 8px; border-radius:var(--rxs);
-  color:var(--ink3); font-size:17px; margin-top:1px;
+.ag-notes-btn {
+  font-size:11px; font-weight:700; color:var(--blue);
+  padding:3px 10px; border-radius:99px;
+  background:var(--blue-lt);
+  cursor:pointer; transition:opacity .12s;
 }
-.ag-more:active { background:var(--bg); }
+.ag-notes-btn:active { opacity:.7; }
+.ag-more {
+  flex-shrink:0; padding:8px 10px; border-radius:var(--rsm);
+  color:var(--ink3); font-size:18px; margin-top:-2px;
+  letter-spacing:1px;
+  transition:background .12s;
+}
+.ag-more:active { background:var(--bg2); }
 
 /* ══════════════════════════════════
    GOALS COMPASS (Keinginan / Ketidakinginan)
@@ -1976,11 +2064,11 @@ input,select,textarea { font-family:inherit; }
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
       </button>
-      <button class="sb-item active" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
-        <span class="sb-item-ic">🚀</span> Projects
+      <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
+        <span class="sb-item-ic">🚀</span> Project yang Aktif
       </button>
-      <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
-        <span class="sb-item-ic">🌿</span> Areas
+      <button class="sb-item active" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
+        <span class="sb-item-ic">🌿</span> Area yang Di-maintain
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
@@ -1996,10 +2084,10 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🚀 Projects</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><button class="dtb-back" onclick="navPopGoView(&#39;areas&#39;)">‹ Area</button><div class="dtb-title">🌿 Boxing</div><div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea(&#39;area1779776109407&#39;)">✏️ Edit</button></div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-title">🚀 Projects</div></div>
+  <div class="topbar" id="topbar"><button class="tb-back" onclick="navPopGoView(&#39;areas&#39;)">‹ Area</button><div class="tb-title">🌿 Boxing</div><button class="tb-action ghost" onclick="openEditArea(&#39;area1779776109407&#39;)" style="padding:6px 10px;font-size:16px">✏️</button></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
@@ -2171,10 +2259,12 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ PROJECTS ══ -->
-    <div class="view active" id="v-projects">
+    <div class="view" id="v-projects">
       <div class="pad">
-        <div id="proj-active-section"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-accent" style="background:#7c3aed"></div><div class="pa-card-icon" style="background:#7c3aed18;margin-left:12px">🚀</div><div class="pa-card-info"><div class="pa-card-name">Lomba Gemastik</div><div class="pa-card-goal">Juara Gemastik</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-aktif">aktif</span><span class="pa-count-chip" style="color:#7c3aed;font-weight:800">0/0</span></div></div></div>
-        <button class="pa-add-btn project" onclick="openAddProject()">🚀 Tambah Project Baru</button>
+        <div class="pa-page-title">🚀 Project yang Aktif</div>
+        <div class="pa-page-sub">Semua yang lagi kamu kerjain sekarang</div>
+        <div id="proj-active-section"><div class="pa-card"><div class="pa-card-tint" style="background:#7c3aed"></div><div class="pa-card-header"><div class="pa-card-icon" style="background:#7c3aed18">🚀</div><div class="pa-card-info"><div class="pa-card-name">Lomba Gemastik</div><div class="pa-card-goal">🧭 Juara Gemastik</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-prog-wrap"><div class="pa-card-prog-top"><span class="pa-card-prog-lbl">0% selesai</span><span class="pa-card-prog-count">0/1 action</span></div><div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:0%;background:#7c3aed"></div></div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div><div class="pa-card"><div class="pa-card-tint" style="background:#7c3aed"></div><div class="pa-card-header"><div class="pa-card-icon" style="background:#7c3aed18">🚀</div><div class="pa-card-info"><div class="pa-card-name">tesss</div><div class="pa-card-goal">🧭 kjsdfkdsfdfskf</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-rencana">rencana</span></div></div></div>
+        <button class="pa-add-btn project" onclick="openAddProject()">＋ Tambah Project Baru</button>
         <div id="proj-done-section"></div>
       </div>
     </div>
@@ -2183,28 +2273,30 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ AREAS ══ -->
     <div class="view" id="v-areas">
       <div class="pad">
-        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-accent" style="background:#be185d"></div><div class="pa-card-icon" style="background:#be185d18;margin-left:12px">🌿</div><div class="pa-card-info"><div class="pa-card-name">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>
-        <button class="pa-add-btn area" onclick="openAddArea()">🌿 Tambah Area Baru</button>
+        <div class="pa-page-title">🌿 Area yang Di-maintain</div>
+        <div class="pa-page-sub">Hal-hal yang terus kamu jaga selamanya</div>
+        <div id="areas-list"><div class="pa-card"><div class="pa-card-tint" style="background:#be185d"></div><div class="pa-card-header"><div class="pa-card-icon" style="background:#be185d18">🌿</div><div class="pa-card-info"><div class="pa-card-name">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-prog-wrap"><div class="pa-card-prog-top"><span class="pa-card-prog-lbl">0% selesai</span><span class="pa-card-prog-count">0/2 action</span></div><div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:0%;background:#be185d"></div></div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">di-maintain</span></div></div></div>
+        <button class="pa-add-btn area" onclick="openAddArea()">＋ Tambah Area Baru</button>
       </div>
     </div>
 
     <!-- ══ PROJECT DETAIL ══ -->
     <div class="view" id="v-proj-detail">
-      <div class="pad-header" id="proj-detail-header"><div class="pad-header-accent" style="background:#7c3aed"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed18">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name">Lomba Gemastik</div></div></div><div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah</span>Juara Gemastik</div><div class="pad-meta-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div></div>
+      <div class="pad-header" id="proj-detail-header"><div class="pad-header-bg" style="background:#7c3aed"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed22">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name">Lomba Gemastik</div></div></div><div class="pad-meta-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div><div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah &amp; Tujuan</span><div class="pad-arah-text">Juara Gemastik</div></div><div class="pad-prog-row"><div class="pad-prog-pct">0%</div><div class="pad-prog-bar"><div class="pad-prog-fill" style="width:0%;background:#7c3aed"></div></div><div class="pad-prog-count">0/1</div></div></div></div>
       <div class="pa-subtab-row" id="proj-subtab-row">
-        <button class="pa-subtab active" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan</button>
-        <button class="pa-subtab" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
+        <button class="pa-subtab" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan <span class="pa-subtab-badge">1</span></button>
+        <button class="pa-subtab active" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
       <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="proj-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
-        <div id="proj-detail-ag-list" style="display:none"></div>
+        <div id="proj-detail-ap-list" style="display: none;"><div class="card"><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842823806&#39;)"></div><div class="ap-body"><div class="ap-name">tess</div><div class="ap-meta"></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842823806&#39;)">···</button></div></div></div>
+        <div id="proj-detail-ag-list" style=""><div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal atau rencana</div></div></div>
         <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
       </div>
     </div>
 
     <!-- ══ AREA DETAIL ══ -->
-    <div class="view" id="v-area-detail">
-      <div class="pad-header" id="area-detail-header"><div class="pad-header-accent" style="background:#be185d"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#be185d18">🌿</div><div class="pad-info"><div class="pad-type-label">Area — Maintaining</div><div class="pad-name">Boxing</div></div></div><div class="pad-meta-row"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>
+    <div class="view active" id="v-area-detail">
+      <div class="pad-header" id="area-detail-header"><div class="pad-header-bg" style="background:#be185d"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#be185d22">🌿</div><div class="pad-info"><div class="pad-type-label">Area — Di-maintain</div><div class="pad-name">Boxing</div></div></div><div class="pad-meta-row"><span class="pa-status-chip pa-status-area">di-maintain</span></div><div class="pad-prog-row"><div class="pad-prog-pct">0%</div><div class="pad-prog-bar"><div class="pad-prog-fill" style="width:0%;background:#be185d"></div></div><div class="pad-prog-count">0/2</div></div></div></div>
 
       <!-- Goals Compass + Line Up Goals -->
       <div class="pad" style="padding-top:14px;padding-bottom:4px" id="area-goals-section">
@@ -2234,17 +2326,17 @@ input,select,textarea { font-family:inherit; }
           <div class="lug-header">
             <span class="lug-title">🎯 Line Up Goals</span>
           </div>
-          <div class="lug-body" id="area-lug-body"><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot has-items" style="--area-color: #be185d;">✓</div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📆</span>Minggu Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;week&#39;,&#39;Minggu Ini&#39;,&#39;📆&#39;)">+ Tambah</button></div><div class="lug-item"><div class="lug-check " style="" onclick="toggleLugGoal(&#39;week&#39;,0)"></div><div class="lug-item-text ">bisa 5 km tanpa kucing</div><button class="lug-item-del" onclick="delLugGoal(&#39;week&#39;,0)">✕</button></div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🗓️</span>Bulan Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;month&#39;,&#39;Bulan Ini&#39;,&#39;🗓️&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📌</span>3 Bulan ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;q3&#39;,&#39;3 Bulan ke Depan&#39;,&#39;📌&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🌟</span>Tahun Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;year&#39;,&#39;Tahun Ini&#39;,&#39;🌟&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🚀</span>5 Tahun ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;y5&#39;,&#39;5 Tahun ke Depan&#39;,&#39;🚀&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><button class="lug-someday-toggle" id="lug-someday-toggle"><span class="lug-someday-icon">🌌</span><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span><span class="lug-someday-chevron" id="lug-someday-chev">›</span></button><div class="lug-someday-body" id="lug-someday-body"><div class="lug-horizon-label" style="margin-bottom: 8px;"><span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;someday&#39;,&#39;Someday&#39;,&#39;🌌&#39;)">+ Tambah</button></div><div class="lug-empty-hint" style="margin-bottom: 8px;">Impian jangka panjang, belum ada timeline...</div></div></div>
+          <div class="lug-body" id="area-lug-body"><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot has-items" style="--area-color: #be185d;">✓</div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📆</span>Minggu Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;week&#39;,&#39;Minggu Ini&#39;,&#39;📆&#39;)">+ Tambah</button></div><div class="lug-item"><div class="lug-check done" style="--area-color:#be185d" onclick="toggleLugGoal(&#39;week&#39;,0)">✓</div><div class="lug-item-text done">bisa 5 km tanpa kucing</div><button class="lug-item-del" onclick="delLugGoal(&#39;week&#39;,0)">✕</button></div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🗓️</span>Bulan Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;month&#39;,&#39;Bulan Ini&#39;,&#39;🗓️&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📌</span>3 Bulan ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;q3&#39;,&#39;3 Bulan ke Depan&#39;,&#39;📌&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🌟</span>Tahun Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;year&#39;,&#39;Tahun Ini&#39;,&#39;🌟&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🚀</span>5 Tahun ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;y5&#39;,&#39;5 Tahun ke Depan&#39;,&#39;🚀&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><button class="lug-someday-toggle" id="lug-someday-toggle"><span class="lug-someday-icon">🌌</span><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span><span class="lug-someday-chevron" id="lug-someday-chev">›</span></button><div class="lug-someday-body" id="lug-someday-body"><div class="lug-horizon-label" style="margin-bottom: 8px;"><span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;someday&#39;,&#39;Someday&#39;,&#39;🌌&#39;)">+ Tambah</button></div><div class="lug-empty-hint" style="margin-bottom: 8px;">Impian jangka panjang, belum ada timeline...</div></div></div>
         </div>
 
       </div>
 
       <div class="pa-subtab-row" id="area-subtab-row">
-        <button class="pa-subtab active" id="area-tab-ap" onclick="switchAreaTab(&#39;ap&#39;)">✅ Action Plan</button>
+        <button class="pa-subtab active" id="area-tab-ap" onclick="switchAreaTab(&#39;ap&#39;)">✅ Action Plan <span class="pa-subtab-badge">2</span></button>
         <button class="pa-subtab" id="area-tab-ag" onclick="switchAreaTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
       <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="area-detail-ap-list" style=""><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div></div>
+        <div id="area-detail-ap-list" style=""><div class="card"><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842802857&#39;)"></div><div class="ap-body"><div class="ap-name">tes</div><div class="ap-meta"></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842802857&#39;)">···</button></div><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842879765&#39;)"></div><div class="ap-body"><div class="ap-name">outline bab 3</div><div class="ap-meta"><span class="ap-notes-btn" onclick="openApNotes(&#39;ap1779842879765&#39;)">📝 Catatan</span></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842879765&#39;)">···</button></div></div></div>
         <div id="area-detail-ag-list" style="display: none;"><div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal rutin atau rencana</div></div></div>
         <button class="pa-add-btn area" id="area-detail-add-btn" style="margin-top:8px" onclick="openAddAreaItem()">＋ Tambah</button>
       </div>
@@ -2277,7 +2369,7 @@ input,select,textarea { font-family:inherit; }
     <button class="nav-pop-item" id="nav-pop-proj" onclick="navPopGoView(&#39;projects&#39;)">
       <span class="nav-pop-ic">🚀</span>
       <span class="nav-pop-label">
-        <div>Projects</div>
+        <div>Project yang Aktif</div>
         <div class="nav-pop-sub">Hal sementara yang sedang dikerjain</div>
       </span>
       <span class="nav-pop-arrow">›</span>
@@ -2285,8 +2377,8 @@ input,select,textarea { font-family:inherit; }
     <button class="nav-pop-item" id="nav-pop-area" onclick="navPopGoView(&#39;areas&#39;)">
       <span class="nav-pop-ic">🌿</span>
       <span class="nav-pop-label">
-        <div>Areas</div>
-        <div class="nav-pop-sub">Hal yang dijaga selamanya</div>
+        <div>Area yang Di-maintain</div>
+        <div class="nav-pop-sub">Hal yang terus dijaga selamanya</div>
       </span>
       <span class="nav-pop-arrow">›</span>
     </button>
@@ -2299,12 +2391,12 @@ input,select,textarea { font-family:inherit; }
   <div class="notes-sheet">
     <div class="notes-sheet-handle"></div>
     <div class="notes-sheet-head">
-      <span class="notes-sheet-type" id="ns-type"></span>
-      <span class="notes-sheet-title" id="ns-title"></span>
+      <span class="notes-sheet-type ujian-type-quiz" id="ns-type">✅ Action Plan</span>
+      <span class="notes-sheet-title" id="ns-title">outline bab 3</span>
       <button class="notes-sheet-edit" id="ns-edit-btn">✏️ Edit</button>
     </div>
     <div class="notes-sheet-body">
-      <p id="ns-body"></p>
+      <p id="ns-body">kjdkjfskdjfsd</p>
     </div>
   </div>
 </div>
@@ -2567,7 +2659,7 @@ input,select,textarea { font-family:inherit; }
           <input id="ap-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
         </div>
       </div>
-      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"></div></div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"><div class="co" style="background: rgb(37, 99, 235);"></div><div class="co" style="background: rgb(220, 38, 38);"></div><div class="co" style="background: rgb(22, 163, 74);"></div><div class="co" style="background: rgb(217, 119, 6);"></div><div class="co sel" style="background: rgb(124, 58, 237);"></div><div class="co" style="background: rgb(8, 145, 178);"></div><div class="co" style="background: rgb(190, 24, 93);"></div><div class="co" style="background: rgb(101, 163, 13);"></div></div></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
       <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addproject&#39;)">Batal</button>
@@ -2716,7 +2808,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addap-title">✅ Action Plan</div>
+    <div class="sh-title" id="sh-addap-title">✅ Tambah Action Plan</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Action</label><input id="addap-n" type="text" placeholder="e.g. Bikin outline bab 3, Olahraga rutin 3x/minggu"></div>
 
@@ -2807,7 +2899,7 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<div class="toast" id="toast">↩️ Oke, belum selesai</div>
+<div class="toast" id="toast">✅ Goal tercapai! 🔥</div>
 
 <script>
 // ════════ SUPABASE CONFIG ═════════════════════
@@ -3128,8 +3220,8 @@ function goView(name, btn){
   if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
   if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
-  if(name==='projects') tb.innerHTML=`<div class="tb-title">🚀 Projects</div>`;
-  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div>`;
+  if(name==='projects') tb.innerHTML=`<div class="tb-title">🚀 Project yang Aktif</div>`;
+  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Area yang Di-maintain</div>`;
 
   // desktop topbar
   updateDesktopTopbar(name, null);
@@ -3188,17 +3280,17 @@ function updateDesktopTopbar(view, subj){
   } else if(view==='pomo'){
     dtb.innerHTML=`<div class="dtb-title">🍅 Pomodoro</div>`;
   } else if(view==='projects'){
-    dtb.innerHTML=`<div class="dtb-title">🚀 Projects</div>`;
+    dtb.innerHTML=`<div class="dtb-title">🚀 Project yang Aktif</div>`;
   } else if(view==='areas'){
-    dtb.innerHTML=`<div class="dtb-title">🌿 Areas</div>`;
+    dtb.innerHTML=`<div class="dtb-title">🌿 Area yang Di-maintain</div>`;
   } else if(view==='proj-detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="navPopGoView('projects')">‹ Projects</button>`+
+      `<button class="dtb-back" onclick="navPopGoView('projects')">‹ Project</button>`+
       `<div class="dtb-title">${subj.emoji||'🚀'} ${subj.name}</div>`+
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='area-detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="navPopGoView('areas')">‹ Areas</button>`+
+      `<button class="dtb-back" onclick="navPopGoView('areas')">‹ Area</button>`+
       `<div class="dtb-title">${subj.emoji||'🌿'} ${subj.name}</div>`+
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='detail' && subj){
@@ -4667,26 +4759,30 @@ function mkProjCard(p){
   const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
   const doneAp = nonRecurAps.filter(t => t.done).length;
   const totalAp = nonRecurAps.length;
-  const pct = totalAp ? doneAp / totalAp * 100 : 0;
+  const pct = totalAp ? Math.round(doneAp / totalAp * 100) : 0;
   const dl = fmtDeadline(p);
 
   const card = document.createElement('div');
   card.className = 'pa-card';
   card.onclick = () => openProjDetail(p.id);
   card.innerHTML =
+    `<div class="pa-card-tint" style="background:${p.color}"></div>`+
     `<div class="pa-card-header">`+
-    `<div class="pa-card-accent" style="background:${p.color}"></div>`+
-    `<div class="pa-card-icon" style="background:${p.color}18;margin-left:12px">${p.emoji||'🚀'}</div>`+
+    `<div class="pa-card-icon" style="background:${p.color}18">${p.emoji||'🚀'}</div>`+
     `<div class="pa-card-info">`+
     `<div class="pa-card-name">${p.name}</div>`+
-    (p.goal ? `<div class="pa-card-goal">${escHtml(p.goal)}</div>` : '')+
+    (p.goal ? `<div class="pa-card-goal">🧭 ${escHtml(p.goal)}</div>` : '')+
     `</div><div class="pa-card-chev">›</div></div>`+
-    (totalAp ? `<div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>` : '')+
+    (totalAp ? `<div class="pa-card-prog-wrap">`+
+      `<div class="pa-card-prog-top">`+
+      `<span class="pa-card-prog-lbl">${pct}% selesai</span>`+
+      `<span class="pa-card-prog-count">${doneAp}/${totalAp} action</span>`+
+      `</div><div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>`+
+      `</div>` : '')+
     `<div class="pa-card-footer">`+
     `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
     (dl ? `<span class="pa-deadline-chip">${dl}</span>` : '')+
-    `<span class="pa-count-chip" style="color:${p.color};font-weight:800">${doneAp}/${totalAp}</span>`+
-    (ags.length ? `<span class="pa-count-chip">· ${ags.length} agenda</span>` : '')+
+    (ags.length ? `<span class="pa-count-chip" style="margin-left:auto">📅 ${ags.length} agenda</span>` : '')+
     `</div>`;
   return card;
 }
@@ -4703,7 +4799,7 @@ function openProjDetail(id){
 
   // mobile topbar
   document.getElementById('topbar').innerHTML =
-    `<button class="tb-back" onclick="navPopGoView('projects')">‹ Projects</button>`+
+    `<button class="tb-back" onclick="navPopGoView('projects')">‹ Project</button>`+
     `<div class="tb-title">${p.emoji||'🚀'} ${p.name}</div>`+
     `<button class="tb-action ghost" onclick="openEditProject('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
@@ -4718,21 +4814,21 @@ function openProjDetail(id){
   const pct = totalAp ? Math.round(doneAp / totalAp * 100) : 0;
 
   document.getElementById('proj-detail-header').innerHTML =
-    `<div class="pad-header-accent" style="background:${p.color}"></div>`+
+    `<div class="pad-header-bg" style="background:${p.color}"></div>`+
     `<div class="pad-header-body">`+
     `<div class="pad-header-top">`+
-    `<div class="pad-icon" style="background:${p.color}18">${p.emoji||'🚀'}</div>`+
+    `<div class="pad-icon" style="background:${p.color}22">${p.emoji||'🚀'}</div>`+
     `<div class="pad-info">`+
     `<div class="pad-type-label">Project</div>`+
     `<div class="pad-name">${p.name}</div>`+
     `</div></div>`+
-    (p.goal ? `<div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah</span>${escHtml(p.goal)}</div>` : '')+
     `<div class="pad-meta-row">`+
     `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
     (dl ? `<span class="pad-deadline-lbl">${dl}</span>` : '')+
     `</div>`+
+    (p.goal ? `<div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah & Tujuan</span><div class="pad-arah-text">${escHtml(p.goal)}</div></div>` : '')+
     (totalAp ? `<div class="pad-prog-row">`+
-      `<div class="pad-prog-label">${pct}% selesai</div>`+
+      `<div class="pad-prog-pct">${pct}%</div>`+
       `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>`+
       `<div class="pad-prog-count">${doneAp}/${totalAp}</div>`+
     `</div>` : '')+
@@ -4744,11 +4840,14 @@ function openProjDetail(id){
 
 function switchProjTab(tab){
   curProjTab = tab;
-  document.getElementById('proj-tab-ap').classList.toggle('active', tab === 'ap');
-  document.getElementById('proj-tab-ag').classList.toggle('active', tab === 'ag');
+  const apCount = D.p_tasks.filter(t => t.parentId === curProjId).length;
+  const agCount = D.p_agendas.filter(a => a.parentId === curProjId).length;
+  document.getElementById('proj-tab-ap').className = 'pa-subtab' + (tab==='ap'?' active':'');
+  document.getElementById('proj-tab-ap').innerHTML = `✅ Action Plan${apCount ? ` <span class="pa-subtab-badge">${apCount}</span>` : ''}`;
+  document.getElementById('proj-tab-ag').className = 'pa-subtab' + (tab==='ag'?' active':'');
+  document.getElementById('proj-tab-ag').innerHTML = `📅 Agenda${agCount ? ` <span class="pa-subtab-badge">${agCount}</span>` : ''}`;
   document.getElementById('proj-detail-ap-list').style.display = tab === 'ap' ? '' : 'none';
   document.getElementById('proj-detail-ag-list').style.display = tab === 'ag' ? '' : 'none';
-  document.getElementById('sh-addap-title').textContent = '✅ Action Plan';
   renderProjItems();
 }
 
@@ -4813,25 +4912,29 @@ function mkAreaCard(a){
   const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
   const doneAp = nonRecurAps.filter(t => t.done).length;
   const totalAp = nonRecurAps.length;
-  const pct = totalAp ? doneAp / totalAp * 100 : 0;
+  const pct = totalAp ? Math.round(doneAp / totalAp * 100) : 0;
   const recurCount = aps.filter(t => t.recurring && t.recurring.freq !== 'none').length;
 
   const card = document.createElement('div');
   card.className = 'pa-card';
   card.onclick = () => openAreaDetail(a.id);
   card.innerHTML =
+    `<div class="pa-card-tint" style="background:${a.color}"></div>`+
     `<div class="pa-card-header">`+
-    `<div class="pa-card-accent" style="background:${a.color}"></div>`+
-    `<div class="pa-card-icon" style="background:${a.color}18;margin-left:12px">${a.emoji||'🌿'}</div>`+
+    `<div class="pa-card-icon" style="background:${a.color}18">${a.emoji||'🌿'}</div>`+
     `<div class="pa-card-info">`+
     `<div class="pa-card-name">${a.name}</div>`+
-    (a.want ? `<div class="pa-card-goal">${escHtml(a.want)}</div>` : '')+
+    (a.want ? `<div class="pa-card-goal">✅ ${escHtml(a.want)}</div>` : '')+
     `</div><div class="pa-card-chev">›</div></div>`+
-    (totalAp ? `<div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${a.color}"></div></div>` : '')+
+    (totalAp ? `<div class="pa-card-prog-wrap">`+
+      `<div class="pa-card-prog-top">`+
+      `<span class="pa-card-prog-lbl">${pct}% selesai</span>`+
+      `<span class="pa-card-prog-count">${doneAp}/${totalAp} action</span>`+
+      `</div><div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${a.color}"></div></div>`+
+      `</div>` : '')+
     `<div class="pa-card-footer">`+
-    `<span class="pa-status-chip pa-status-area">maintaining</span>`+
-    (recurCount ? `<span class="pa-count-chip">🔁 ${recurCount} rutin</span>` : '')+
-    (ags.length ? `<span class="pa-count-chip">📅 ${ags.length} agenda</span>` : '')+
+    `<span class="pa-status-chip pa-status-area">di-maintain</span>`+
+    (recurCount ? `<span class="pa-count-chip" style="margin-left:auto">🔁 ${recurCount} rutin</span>` : (ags.length ? `<span class="pa-count-chip" style="margin-left:auto">📅 ${ags.length} agenda</span>` : ''))+
     `</div>`;
   return card;
 }
@@ -4847,7 +4950,7 @@ function openAreaDetail(id){
   document.getElementById('bn-focus')?.classList.add('active');
 
   document.getElementById('topbar').innerHTML =
-    `<button class="tb-back" onclick="navPopGoView('areas')">‹ Areas</button>`+
+    `<button class="tb-back" onclick="navPopGoView('areas')">‹ Area</button>`+
     `<div class="tb-title">${a.emoji||'🌿'} ${a.name}</div>`+
     `<button class="tb-action ghost" onclick="openEditArea('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
@@ -4860,19 +4963,19 @@ function openAreaDetail(id){
   const aPct = aTotal ? Math.round(aDone / aTotal * 100) : 0;
 
   document.getElementById('area-detail-header').innerHTML =
-    `<div class="pad-header-accent" style="background:${a.color}"></div>`+
+    `<div class="pad-header-bg" style="background:${a.color}"></div>`+
     `<div class="pad-header-body">`+
     `<div class="pad-header-top">`+
-    `<div class="pad-icon" style="background:${a.color}18">${a.emoji||'🌿'}</div>`+
+    `<div class="pad-icon" style="background:${a.color}22">${a.emoji||'🌿'}</div>`+
     `<div class="pad-info">`+
-    `<div class="pad-type-label">Area — Maintaining</div>`+
+    `<div class="pad-type-label">Area — Di-maintain</div>`+
     `<div class="pad-name">${a.name}</div>`+
     `</div></div>`+
     `<div class="pad-meta-row">`+
-    `<span class="pa-status-chip pa-status-area">maintaining</span>`+
+    `<span class="pa-status-chip pa-status-area">di-maintain</span>`+
     `</div>`+
     (aTotal ? `<div class="pad-prog-row">`+
-      `<div class="pad-prog-label">${aPct}% selesai</div>`+
+      `<div class="pad-prog-pct">${aPct}%</div>`+
       `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${aPct}%;background:${a.color}"></div></div>`+
       `<div class="pad-prog-count">${aDone}/${aTotal}</div>`+
     `</div>` : '')+
@@ -4886,8 +4989,12 @@ function openAreaDetail(id){
 
 function switchAreaTab(tab){
   curAreaTab = tab;
-  document.getElementById('area-tab-ap').classList.toggle('active', tab === 'ap');
-  document.getElementById('area-tab-ag').classList.toggle('active', tab === 'ag');
+  const apCount = D.p_tasks.filter(t => t.parentId === curAreaId).length;
+  const agCount = D.p_agendas.filter(a => a.parentId === curAreaId).length;
+  document.getElementById('area-tab-ap').className = 'pa-subtab' + (tab==='ap'?' active':'');
+  document.getElementById('area-tab-ap').innerHTML = `✅ Action Plan${apCount ? ` <span class="pa-subtab-badge">${apCount}</span>` : ''}`;
+  document.getElementById('area-tab-ag').className = 'pa-subtab' + (tab==='ag'?' active':'');
+  document.getElementById('area-tab-ag').innerHTML = `📅 Agenda${agCount ? ` <span class="pa-subtab-badge">${agCount}</span>` : ''}`;
   document.getElementById('area-detail-ap-list').style.display = tab === 'ap' ? '' : 'none';
   document.getElementById('area-detail-ag-list').style.display = tab === 'ag' ? '' : 'none';
   renderAreaItems();
@@ -4980,7 +5087,7 @@ function mkApItem(t, color){
     doneLbl+
     (dlStr ? `<span class="ap-dl ${dlCls}">📅 ${dlStr}</span>` : '')+
     noCalBadge+
-    (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')">📝 Notes</span>` : '')+
+    (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')">📝 Catatan</span>` : '')+
     `</div></div>`+
     `<button class="ap-more" onclick="openEditAp('${t.id}')">···</button>`;
   return row;
@@ -4988,25 +5095,34 @@ function mkApItem(t, color){
 
 function mkAgItem(ag, color){
   const row = document.createElement('div');
-  row.className = 'ag-item' + (ag.done ? ' is-done' : '');
+  const today = tod();
+  const isPast = ag.date && ag.date < today && !ag.done;
+  row.className = 'ag-item' + (ag.done ? ' is-done' : '') + (isPast ? ' is-past' : '');
 
-  let dayNum = '—', monStr = '';
+  let dayNum = '—', monStr = '', dayOfWeek = '';
   if(ag.date){
     const d = new Date(ag.date + 'T12:00:00');
     dayNum = d.getDate();
     monStr = d.toLocaleDateString('id-ID',{month:'short'}).toUpperCase();
+    dayOfWeek = d.toLocaleDateString('id-ID',{weekday:'short'}).toUpperCase();
   }
 
+  // tinted badge background using parent color
+  const badgeBg = ag.done ? 'var(--bg2)' : (isPast ? 'var(--red-lt)' : `${color}15`);
+  const dayColor = ag.done ? 'var(--ink3)' : (isPast ? 'var(--red)' : color);
+
   row.innerHTML =
-    `<div class="ag-date-col" style="color:${color}">`+
-    `<div class="ag-date-day">${dayNum}</div>`+
+    `<div class="ag-date-col">`+
+    `<div class="ag-date-badge" style="background:${badgeBg}">`+
+    `<div class="ag-date-day" style="color:${dayColor}">${dayNum}</div>`+
     `<div class="ag-date-mon">${monStr}</div>`+
-    `</div>`+
+    `</div></div>`+
     `<div class="ag-body">`+
     `<div class="ag-name${ag.done ? ' done' : ''}">${escHtml(ag.name)}</div>`+
     `<div class="ag-meta">`+
     (ag.time ? `<span class="ag-time-chip">🕐 ${ag.time}</span>` : '')+
-    (ag.notes ? `<span class="ap-notes-btn" onclick="openAgNotes('${ag.id}')">📝 Notes</span>` : '')+
+    (isPast && !ag.done ? `<span class="ag-time-chip" style="background:var(--red-lt);color:var(--red)">Sudah lewat</span>` : '')+
+    (ag.notes ? `<span class="ag-notes-btn" onclick="openAgNotes('${ag.id}')">📝 Catatan</span>` : '')+
     `</div></div>`+
     `<button class="ag-more" onclick="openEditAg('${ag.id}')">···</button>`;
   return row;
@@ -5781,7 +5897,7 @@ function navPopGoView(view){
 }
 
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 </body></html>
