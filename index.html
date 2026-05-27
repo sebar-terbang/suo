@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_55.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_57.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1335,36 +1335,54 @@ input,select,textarea { font-family:inherit; }
   margin-bottom:12px;
   overflow:hidden;
   cursor:pointer;
-  transition:transform .12s, box-shadow .12s;
+  transition:transform .14s, box-shadow .14s;
+  display:flex; flex-direction:column;
 }
-.pa-card:active { transform:scale(.985); }
+.pa-card:active { transform:scale(.982); box-shadow:0 1px 4px rgba(0,0,0,.06); }
 
 .pa-card-header {
   display:flex; align-items:center; gap:12px;
-  padding:16px 16px 14px;
+  padding:15px 16px 13px 0;
   border-bottom:1px solid var(--line);
+  flex:1;
+}
+/* left accent border — warna project/area */
+.pa-card-accent {
+  width:4px; align-self:stretch; flex-shrink:0;
+  border-radius:0;
+  transition:opacity .15s;
 }
 .pa-card-icon {
-  width:44px; height:44px; border-radius:var(--rsm);
+  width:40px; height:40px; border-radius:var(--rsm);
   display:flex; align-items:center; justify-content:center;
-  font-size:22px; flex-shrink:0;
+  font-size:20px; flex-shrink:0;
 }
 .pa-card-info { flex:1; min-width:0; }
 .pa-card-name {
-  font-size:16px; font-weight:800;
+  font-size:15px; font-weight:800;
   letter-spacing:-.3px; line-height:1.2;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
 .pa-card-goal {
-  font-size:12px; color:var(--ink3); margin-top:3px;
+  font-size:12px; color:var(--ink3); margin-top:2px;
   font-weight:500; line-height:1.4;
-  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;
 }
-.pa-card-chev { font-size:18px; color:var(--ink3); flex-shrink:0; }
+.pa-card-chev { font-size:18px; color:var(--ink3); flex-shrink:0; padding-right:4px; }
+
+/* mini progress bar langsung di bawah header, sebelum footer */
+.pa-card-prog {
+  height:3px; background:var(--bg2);
+  margin:0;
+}
+.pa-card-prog-fill {
+  height:100%; border-radius:0;
+  transition:width .4s ease;
+}
 
 .pa-card-footer {
   display:flex; align-items:center; gap:8px;
-  padding:10px 16px;
+  padding:9px 16px 9px 20px;
   background:var(--bg);
   flex-wrap:wrap;
 }
@@ -1421,56 +1439,75 @@ input,select,textarea { font-family:inherit; }
 .pad-header {
   background:var(--white);
   border-bottom:1px solid var(--line);
-  padding:18px 16px 16px;
+  padding:0;
+  position:relative;
+  overflow:hidden;
+}
+/* colored top accent bar */
+.pad-header-accent {
+  height:4px; width:100%;
+}
+.pad-header-body {
+  padding:16px 16px 14px;
 }
 .pad-header-top {
-  display:flex; align-items:flex-start; gap:14px;
+  display:flex; align-items:center; gap:14px;
 }
 .pad-icon {
-  width:52px; height:52px; border-radius:var(--r);
+  width:48px; height:48px; border-radius:12px;
   display:flex; align-items:center; justify-content:center;
-  font-size:26px; flex-shrink:0;
+  font-size:24px; flex-shrink:0;
 }
 .pad-info { flex:1; min-width:0; }
 .pad-type-label {
-  font-size:10px; font-weight:800;
-  text-transform:uppercase; letter-spacing:.08em;
-  color:var(--ink3); margin-bottom:3px;
+  font-size:10px; font-weight:700;
+  text-transform:uppercase; letter-spacing:.1em;
+  color:var(--ink3); margin-bottom:2px;
 }
 .pad-name {
-  font-size:21px; font-weight:800;
-  letter-spacing:-.5px; line-height:1.1;
+  font-size:22px; font-weight:900;
+  letter-spacing:-.6px; line-height:1.1;
 }
-.pad-status-row {
-  display:flex; gap:6px; margin-top:6px; align-items:center;
-  flex-wrap:wrap;
+/* arah/goal — di bawah nama, italic subtle */
+.pad-arah {
+  font-size:13px; font-style:italic;
+  color:var(--ink3); font-weight:500;
+  line-height:1.5; margin-top:6px;
+  padding-top:8px;
+  border-top:1px solid var(--line);
+}
+.pad-arah-lbl {
+  font-size:10px; font-weight:800; font-style:normal;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--ink3); margin-bottom:2px;
+  display:block;
+}
+/* status + deadline — satu baris kecil paling bawah header */
+.pad-meta-row {
+  display:flex; gap:8px; margin-top:10px;
+  align-items:center; flex-wrap:wrap;
 }
 .pad-deadline-lbl {
   font-size:11px; color:var(--ink3); font-weight:600;
 }
-.pad-goal-box {
-  background:var(--bg);
-  border-left:3px solid;
-  border-radius:0 var(--rxs) var(--rxs) 0;
-  padding:10px 14px;
-  margin-top:12px;
-}
-.pad-goal-label {
-  font-size:10px; font-weight:800;
-  text-transform:uppercase; letter-spacing:.07em;
-  color:var(--ink3); margin-bottom:4px;
-}
-.pad-goal-text {
-  font-size:14px; font-weight:500;
-  color:var(--ink); line-height:1.5;
-}
 /* progress bar in detail */
 .pad-prog-row {
-  display:flex; align-items:center; gap:8px; margin-top:10px;
+  display:flex; align-items:center; gap:10px; margin-top:10px;
 }
-.pad-prog-label { font-size:11px; color:var(--ink3); font-weight:600; flex-shrink:0; }
-.pad-prog-bar { flex:1; height:5px; background:var(--bg2); border-radius:99px; overflow:hidden; }
-.pad-prog-fill { height:100%; border-radius:99px; transition:width .4s; }
+.pad-prog-label {
+  font-size:11px; color:var(--ink3); font-weight:700;
+  flex-shrink:0; min-width:60px;
+}
+.pad-prog-bar {
+  flex:1; height:6px; background:var(--bg2);
+  border-radius:99px; overflow:hidden;
+}
+.pad-prog-fill {
+  height:100%; border-radius:99px; transition:width .5s ease;
+}
+.pad-prog-count {
+  font-size:11px; font-weight:700; color:var(--ink3); flex-shrink:0;
+}
 
 /* ══ Sub-tabs (action plan / agenda) ══ */
 .pa-subtab-row {
@@ -1562,14 +1599,250 @@ input,select,textarea { font-family:inherit; }
 }
 .ag-more:active { background:var(--bg); }
 
+/* ══════════════════════════════════
+   GOALS COMPASS (Keinginan / Ketidakinginan)
+══════════════════════════════════ */
+.gc-wrap {
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:var(--sh);
+  margin:0 0 14px;
+  overflow:hidden;
+}
+.gc-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 16px 11px;
+  border-bottom:1px solid var(--line);
+}
+.gc-title {
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink3);
+}
+.gc-edit-btn {
+  font-size:12px; font-weight:700; color:var(--blue);
+  padding:4px 0;
+}
+.gc-body {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.gc-col {
+  padding:13px 14px 15px;
+}
+.gc-col:first-child {
+  border-right:1px solid var(--line);
+}
+.gc-col-icon {
+  font-size:18px; line-height:1; margin-bottom:6px; display:block;
+}
+.gc-col-label {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.07em;
+  margin-bottom:6px;
+}
+.gc-col.want .gc-col-label { color:var(--green); }
+.gc-col.dont .gc-col-label { color:var(--red); }
+.gc-col-text {
+  font-size:13px; color:var(--ink2);
+  line-height:1.55; font-weight:500;
+}
+.gc-col-empty {
+  font-size:12px; color:var(--ink3);
+  font-style:italic; font-weight:500;
+}
+.gc-col-add {
+  font-size:12px; color:var(--blue);
+  font-weight:700; margin-top:6px;
+  display:inline-block;
+}
+
+/* ══════════════════════════════════
+   LINE UP GOALS — Vertical Timeline
+══════════════════════════════════ */
+.lug-wrap {
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:var(--sh);
+  margin:0 0 14px;
+  overflow:hidden;
+}
+.lug-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:13px 16px 11px;
+  border-bottom:1px solid var(--line);
+}
+.lug-title {
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink3);
+  display:flex; align-items:center; gap:7px;
+}
+.lug-body {
+  padding:8px 0 4px;
+}
+/* each horizon row */
+.lug-horizon {
+  display:flex; align-items:flex-start; gap:0;
+  padding:0 16px;
+  position:relative;
+}
+/* vertical line segment */
+.lug-horizon:not(:last-child) .lug-spine::after {
+  content:'';
+  position:absolute;
+  left:50%; top:28px;
+  transform:translateX(-50%);
+  width:2px;
+  bottom:-8px;
+  background:var(--line);
+  border-radius:99px;
+}
+.lug-spine {
+  width:28px; flex-shrink:0;
+  display:flex; flex-direction:column;
+  align-items:center; padding-top:8px;
+  position:relative;
+}
+.lug-dot {
+  width:20px; height:20px; border-radius:50%;
+  border:2.5px solid var(--line2);
+  background:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  font-size:9px; font-weight:900; color:var(--ink3);
+  flex-shrink:0; position:relative; z-index:1;
+  transition:all .2s;
+}
+.lug-dot.has-items {
+  background:var(--area-color, var(--blue));
+  border-color:var(--area-color, var(--blue));
+  color:#fff;
+}
+.lug-content {
+  flex:1; padding:6px 0 14px 12px;
+  min-width:0;
+}
+.lug-horizon-label {
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.07em;
+  color:var(--ink3); margin-bottom:6px;
+  display:flex; align-items:center; justify-content:space-between;
+  padding-top:6px;
+}
+.lug-label-text { display:flex; align-items:center; gap:6px; }
+.lug-label-emoji { font-size:12px; }
+.lug-add-btn {
+  font-size:11px; font-weight:700; color:var(--blue);
+  padding:2px 0; flex-shrink:0;
+}
+/* goal checklist item */
+.lug-item {
+  display:flex; align-items:flex-start; gap:9px;
+  padding:7px 0;
+  border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+.lug-item:last-child { border-bottom:none; }
+.lug-check {
+  width:19px; height:19px; border-radius:5px;
+  border:2px solid var(--line2); background:var(--white);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; margin-top:1px; cursor:pointer;
+  transition:all .18s; font-size:11px;
+}
+.lug-check.done {
+  background:var(--area-color, var(--green));
+  border-color:var(--area-color, var(--green)); color:#fff;
+}
+.lug-item-text {
+  flex:1; font-size:13.5px; font-weight:500;
+  color:var(--ink); line-height:1.4;
+}
+.lug-item-text.done {
+  text-decoration:line-through; color:var(--ink3);
+}
+.lug-item-del {
+  flex-shrink:0; padding:3px 6px; border-radius:var(--rxs);
+  color:var(--ink3); font-size:13px;
+  opacity:0; transition:opacity .15s;
+}
+.lug-item:hover .lug-item-del { opacity:1; }
+.lug-item-del:active { background:var(--red-lt); color:var(--red); }
+/* empty in a horizon */
+.lug-empty-hint {
+  font-size:12px; color:var(--ink3); font-style:italic;
+  padding:4px 0 2px;
+}
+/* someday collapsed toggle */
+.lug-someday-toggle {
+  display:flex; align-items:center; gap:8px;
+  padding:12px 16px;
+  color:var(--ink3); font-size:12px; font-weight:700;
+  border-top:1px solid var(--line);
+  cursor:pointer; transition:background .12s;
+  width:100%; text-align:left;
+}
+.lug-someday-toggle:active { background:var(--bg); }
+.lug-someday-icon { font-size:14px; }
+.lug-someday-chevron {
+  margin-left:auto; font-size:14px;
+  transition:transform .2s;
+}
+.lug-someday-chevron.open { transform:rotate(90deg); }
+.lug-someday-body {
+  display:none; padding:0 16px 8px;
+  border-top:1px solid var(--line);
+}
+.lug-someday-body.open { display:block; }
+
 /* dot for agenda in calendar */
 .mday-dot-ag { background:var(--green); }
 .wd-dot-ag   { background:var(--green); }
 
-/* ══ BOTTOM NAV emoji-only ══ */
-/* override existing bn label display */
+/* ══ BOTTOM NAV emoji-only (5 tab) ══ */
 .bn > div:last-child { display:none !important; }
-.bn-ic { font-size:26px !important; }
+.bn-ic { font-size:24px !important; }
+
+/* ══ NAV POPOVER (Projects & Areas) ══ */
+.nav-popover {
+  position:fixed;
+  bottom:calc(var(--nav-h) + var(--sb) + 10px);
+  left:50%; transform:translateX(-50%);
+  width:calc(100% - 32px); max-width:280px;
+  background:var(--white);
+  border-radius:var(--r);
+  box-shadow:0 -2px 32px rgba(0,0,0,.15), 0 4px 16px rgba(0,0,0,.08);
+  z-index:200;
+  overflow:hidden;
+  opacity:0; pointer-events:none;
+  transform:translateX(-50%) translateY(12px) scale(.96);
+  transition:opacity .18s, transform .18s cubic-bezier(.32,.72,0,1);
+}
+.nav-popover.open {
+  opacity:1; pointer-events:all;
+  transform:translateX(-50%) translateY(0) scale(1);
+}
+.nav-pop-item {
+  display:flex; align-items:center; gap:14px;
+  padding:16px 20px;
+  font-size:15px; font-weight:700; color:var(--ink);
+  border-bottom:1px solid var(--line);
+  transition:background .1s;
+  cursor:pointer; width:100%; text-align:left;
+}
+.nav-pop-item:last-child { border-bottom:none; }
+.nav-pop-item:active { background:var(--bg); }
+.nav-pop-item.active { color:var(--blue); }
+.nav-pop-ic { font-size:22px; }
+.nav-pop-label { flex:1; }
+.nav-pop-sub { font-size:11px; font-weight:500; color:var(--ink3); margin-top:1px; }
+.nav-pop-arrow { font-size:14px; color:var(--ink3); }
+/* backdrop behind popover */
+.nav-popover-bd {
+  position:fixed; inset:0; z-index:199;
+  display:none;
+}
+.nav-popover-bd.open { display:block; }
 
 /* ══════════════════════════════════
    DAY DETAIL OVERLAY (klik hari di kalender)
@@ -1690,7 +1963,7 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
@@ -1703,10 +1976,10 @@ input,select,textarea { font-family:inherit; }
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
       </button>
-      <button class="sb-item" id="sbn-projects" onclick="goView(&#39;projects&#39;,document.getElementById(&#39;bn-proj&#39;))">
+      <button class="sb-item active" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
         <span class="sb-item-ic">🚀</span> Projects
       </button>
-      <button class="sb-item" id="sbn-areas" onclick="goView(&#39;areas&#39;,document.getElementById(&#39;bn-area&#39;))">
+      <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
         <span class="sb-item-ic">🌿</span> Areas
       </button>
     </div>
@@ -1723,16 +1996,16 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🚀 Projects</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><div class="tb-title">🚀 Projects</div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll">
 
     <!-- ══ HOME ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
       <div class="pad">
 
         <!-- Weekly Calendar -->
@@ -1747,12 +2020,12 @@ input,select,textarea { font-family:inherit; }
               <button class="wk-arr" onclick="shiftWeek(1)">›</button>
             </div>
           </div>
-          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">25</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday is-today"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">26</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">27</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">28</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">29</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">30</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">31</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
+          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">25</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">26</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday is-today"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">27</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">28</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">29</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">30</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">31</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
         </div>
 
         <!-- Upcoming Tugas -->
         <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-late">🚨 Telat 4h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-late">🚨 Telat 1h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-late">🚨 Telat 5h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-late">🚨 Telat 2h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
 
         <!-- Pending Materi / Sip Banner -->
         <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
@@ -1836,7 +2109,7 @@ input,select,textarea { font-family:inherit; }
 
           <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
           <div class="pomo-task-pick">
-            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
+            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
           </div>
 
           <button class="pomo-start-btn" onclick="startPomo()">Start 🍅</button>
@@ -1877,7 +2150,7 @@ input,select,textarea { font-family:inherit; }
           </div>
           <div class="mcal-inner">
             <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday is-today"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
+            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday is-today"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
           </div>
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
@@ -1891,16 +2164,16 @@ input,select,textarea { font-family:inherit; }
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-0</div><div class="ujian-countdown-label">HARI INI</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Sel, 26 Mei</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-10</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-9</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
     </div>
 
 
     <!-- ══ PROJECTS ══ -->
-    <div class="view" id="v-projects">
+    <div class="view active" id="v-projects">
       <div class="pad">
-        <div id="proj-active-section"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-icon" style="background:#7c3aed22">🚀</div><div class="pa-card-info"><div class="pa-card-name" style="color:#7c3aed">Lomba Gemastik</div><div class="pa-card-goal">Juara Gemastik</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-aktif">aktif</span><span class="pa-count-chip">0/0 action · 0 agenda</span></div></div></div>
+        <div id="proj-active-section"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-accent" style="background:#7c3aed"></div><div class="pa-card-icon" style="background:#7c3aed18;margin-left:12px">🚀</div><div class="pa-card-info"><div class="pa-card-name">Lomba Gemastik</div><div class="pa-card-goal">Juara Gemastik</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-aktif">aktif</span><span class="pa-count-chip" style="color:#7c3aed;font-weight:800">0/0</span></div></div></div>
         <button class="pa-add-btn project" onclick="openAddProject()">🚀 Tambah Project Baru</button>
         <div id="proj-done-section"></div>
       </div>
@@ -1910,20 +2183,20 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ AREAS ══ -->
     <div class="view" id="v-areas">
       <div class="pad">
-        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-icon" style="background:#be185d22">🌿</div><div class="pa-card-info"><div class="pa-card-name" style="color:#be185d">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintenance</span><span class="pa-count-chip">0/0 action · 0 agenda</span></div></div></div>
+        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-accent" style="background:#be185d"></div><div class="pa-card-icon" style="background:#be185d18;margin-left:12px">🌿</div><div class="pa-card-info"><div class="pa-card-name">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>
         <button class="pa-add-btn area" onclick="openAddArea()">🌿 Tambah Area Baru</button>
       </div>
     </div>
 
     <!-- ══ PROJECT DETAIL ══ -->
     <div class="view" id="v-proj-detail">
-      <div class="pad-header" id="proj-detail-header"></div>
+      <div class="pad-header" id="proj-detail-header"><div class="pad-header-accent" style="background:#7c3aed"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed18">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name">Lomba Gemastik</div></div></div><div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah</span>Juara Gemastik</div><div class="pad-meta-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div></div>
       <div class="pa-subtab-row" id="proj-subtab-row">
         <button class="pa-subtab active" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan</button>
         <button class="pa-subtab" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
       <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="proj-detail-ap-list"></div>
+        <div id="proj-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
         <div id="proj-detail-ag-list" style="display:none"></div>
         <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
       </div>
@@ -1931,26 +2204,60 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREA DETAIL ══ -->
     <div class="view" id="v-area-detail">
-      <div class="pad-header" id="area-detail-header"></div>
+      <div class="pad-header" id="area-detail-header"><div class="pad-header-accent" style="background:#be185d"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#be185d18">🌿</div><div class="pad-info"><div class="pad-type-label">Area — Maintaining</div><div class="pad-name">Boxing</div></div></div><div class="pad-meta-row"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>
+
+      <!-- Goals Compass + Line Up Goals -->
+      <div class="pad" style="padding-top:14px;padding-bottom:4px" id="area-goals-section">
+
+        <!-- Goals Compass -->
+        <div class="gc-wrap" id="area-gc-wrap">
+          <div class="gc-header">
+            <span class="gc-title">🧭 Kompas Tujuan</span>
+            <button class="gc-edit-btn" onclick="openEditAreaGoals()">✏️ Edit</button>
+          </div>
+          <div class="gc-body">
+            <div class="gc-col want">
+              <span class="gc-col-icon">✅</span>
+              <div class="gc-col-label">Keinginan</div>
+              <div class="gc-col-content" id="gc-want-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div>
+            </div>
+            <div class="gc-col dont">
+              <span class="gc-col-icon">🚫</span>
+              <div class="gc-col-label">Ketidakinginan</div>
+              <div class="gc-col-content" id="gc-dont-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Up Goals -->
+        <div class="lug-wrap" id="area-lug-wrap">
+          <div class="lug-header">
+            <span class="lug-title">🎯 Line Up Goals</span>
+          </div>
+          <div class="lug-body" id="area-lug-body"><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot has-items" style="--area-color: #be185d;">✓</div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📆</span>Minggu Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;week&#39;,&#39;Minggu Ini&#39;,&#39;📆&#39;)">+ Tambah</button></div><div class="lug-item"><div class="lug-check " style="" onclick="toggleLugGoal(&#39;week&#39;,0)"></div><div class="lug-item-text ">bisa 5 km tanpa kucing</div><button class="lug-item-del" onclick="delLugGoal(&#39;week&#39;,0)">✕</button></div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🗓️</span>Bulan Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;month&#39;,&#39;Bulan Ini&#39;,&#39;🗓️&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📌</span>3 Bulan ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;q3&#39;,&#39;3 Bulan ke Depan&#39;,&#39;📌&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🌟</span>Tahun Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;year&#39;,&#39;Tahun Ini&#39;,&#39;🌟&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🚀</span>5 Tahun ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;y5&#39;,&#39;5 Tahun ke Depan&#39;,&#39;🚀&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><button class="lug-someday-toggle" id="lug-someday-toggle"><span class="lug-someday-icon">🌌</span><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span><span class="lug-someday-chevron" id="lug-someday-chev">›</span></button><div class="lug-someday-body" id="lug-someday-body"><div class="lug-horizon-label" style="margin-bottom: 8px;"><span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;someday&#39;,&#39;Someday&#39;,&#39;🌌&#39;)">+ Tambah</button></div><div class="lug-empty-hint" style="margin-bottom: 8px;">Impian jangka panjang, belum ada timeline...</div></div></div>
+        </div>
+
+      </div>
+
       <div class="pa-subtab-row" id="area-subtab-row">
         <button class="pa-subtab active" id="area-tab-ap" onclick="switchAreaTab(&#39;ap&#39;)">✅ Action Plan</button>
         <button class="pa-subtab" id="area-tab-ag" onclick="switchAreaTab(&#39;ag&#39;)">📅 Agenda</button>
       </div>
       <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="area-detail-ap-list"></div>
-        <div id="area-detail-ag-list" style="display:none"></div>
+        <div id="area-detail-ap-list" style=""><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div></div>
+        <div id="area-detail-ag-list" style="display: none;"><div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal rutin atau rencana</div></div></div>
         <button class="pa-add-btn area" id="area-detail-add-btn" style="margin-top:8px" onclick="openAddAreaItem()">＋ Tambah</button>
       </div>
     </div>
 
   </div><!-- /scroll -->
 
-  <!-- BOTTOM NAV — 6 tab emoji only -->
+  <!-- BOTTOM NAV — 5 tab -->
   <nav class="bnav">
     <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
       <div class="bn-ic">📅</div><div>K</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
     </button>
     <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
@@ -1959,13 +2266,31 @@ input,select,textarea { font-family:inherit; }
     <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
       <div class="bn-ic">📚</div><div>S</div>
     </button>
-    <button class="bn" id="bn-proj" onclick="goView(&#39;projects&#39;, this)">
-      <div class="bn-ic">🚀</div><div>Proj</div>
-    </button>
-    <button class="bn" id="bn-area" onclick="goView(&#39;areas&#39;, this)">
-      <div class="bn-ic">🌿</div><div>Area</div>
+    <button class="bn active" id="bn-focus" onclick="toggleNavPopover(this)">
+      <div class="bn-ic">⚡</div><div>F</div>
     </button>
   </nav>
+
+  <!-- Nav Popover: Projects & Areas -->
+  <div class="nav-popover-bd" id="nav-pop-bd" onclick="closeNavPopover()"></div>
+  <div class="nav-popover" id="nav-popover">
+    <button class="nav-pop-item" id="nav-pop-proj" onclick="navPopGoView(&#39;projects&#39;)">
+      <span class="nav-pop-ic">🚀</span>
+      <span class="nav-pop-label">
+        <div>Projects</div>
+        <div class="nav-pop-sub">Hal sementara yang sedang dikerjain</div>
+      </span>
+      <span class="nav-pop-arrow">›</span>
+    </button>
+    <button class="nav-pop-item" id="nav-pop-area" onclick="navPopGoView(&#39;areas&#39;)">
+      <span class="nav-pop-ic">🌿</span>
+      <span class="nav-pop-label">
+        <div>Areas</div>
+        <div class="nav-pop-sub">Hal yang dijaga selamanya</div>
+      </span>
+      <span class="nav-pop-arrow">›</span>
+    </button>
+  </div>
 
   </div><!-- /desktop-main -->
 
@@ -2307,7 +2632,6 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Area</label><input id="aa-n" type="text" placeholder="e.g. Kesehatan, Iman, Keuangan"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="aa-e" type="text" placeholder="🌿" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Arah Area</label><textarea id="aa-g" rows="2" placeholder="Standar atau kondisi yang ingin selalu dijaga di area ini..."></textarea></div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-area"></div></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
@@ -2325,7 +2649,6 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Area</label><input id="ea-n" type="text"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="ea-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Arah Area</label><textarea id="ea-g" rows="2"></textarea></div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-area-edit"></div></div>
     </div>
     <div class="sh-footer">
@@ -2337,6 +2660,55 @@ input,select,textarea { font-family:inherit; }
         <button class="sbtn sbtn-d" onclick="delArea()">🗑 Hapus Area Ini</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Edit Area Goals (Compass) -->
+<div class="overlay" id="sh-editareagoals" onclick="bgc(event,&#39;sh-editareagoals&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">🧭 Kompas Tujuan</div>
+    <div class="sh-body">
+      <div style="font-size:12px;color:var(--ink3);font-weight:600;margin-bottom:16px;line-height:1.6;padding:10px 12px;background:var(--bg);border-radius:var(--rsm);">
+        Tulis kondisi <b style="color:var(--green)">ideal yang ingin dijaga</b> dan hal yang <b style="color:var(--red)">ingin dihindari</b> di area ini.
+      </div>
+      <div class="field">
+        <label class="flbl" style="color:var(--green)">✅ Keinginan</label>
+        <textarea id="egc-want" rows="3" placeholder="e.g. Tidur 7-8 jam setiap malam, olahraga 3x seminggu, makan dengan niat..."></textarea>
+      </div>
+      <div class="field">
+        <label class="flbl" style="color:var(--red)">🚫 Ketidakinginan</label>
+        <textarea id="egc-dont" rows="3" placeholder="e.g. Begadang tanpa alasan, skip makan, olahraga cuma karena terpaksa..."></textarea>
+      </div>
+    </div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editareagoals&#39;)">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveAreaGoals()">Simpan ✓</button>
+    </div></div>
+  </div>
+</div>
+
+<!-- Add Line Up Goal -->
+<div class="overlay" id="sh-addluggoal" onclick="bgc(event,&#39;sh-addluggoal&#39;)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title" id="sh-addluggoal-title">🎯 Minggu Ini</div>
+    <div class="sh-body">
+      <div style="margin-bottom:14px;">
+        <div style="display:inline-flex;align-items:center;gap:7px;background:var(--bg);border-radius:99px;padding:6px 14px;">
+          <span id="sh-addlug-horizon-icon" style="font-size:14px;">📆</span>
+          <span id="sh-addlug-horizon-label" style="font-size:12px;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em;">Minggu Ini</span>
+        </div>
+      </div>
+      <div class="field">
+        <label class="flbl">Goal / Target</label>
+        <textarea id="addlug-text" rows="3" placeholder="e.g. Bisa lari 5km tanpa berhenti..."></textarea>
+      </div>
+    </div>
+    <div class="sh-footer"><div class="sh-row">
+      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addluggoal&#39;)">Batal</button>
+      <button class="sbtn sbtn-p" onclick="saveLugGoal()">Tambah ✓</button>
+    </div></div>
   </div>
 </div>
 
@@ -2435,7 +2807,7 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toast">↩️ Oke, belum selesai</div>
 
 <script>
 // ════════ SUPABASE CONFIG ═════════════════════
@@ -2738,10 +3110,16 @@ function hideSyncStatus(){
 const isDesktop=()=>window.innerWidth>=768;
 
 function goView(name, btn){
+  closeNavPopover();
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('v-'+name).classList.add('active');
+  const vmap={home:'v-home',cal:'v-cal',pomo:'v-pomo',subjects:'v-subjects',detail:'v-detail',projects:'v-projects',areas:'v-areas'};
+  const vid=vmap[name]||('v-'+name);
+  document.getElementById(vid)?.classList.add('active');
   document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
+  if(name==='projects'||name==='areas'||name==='proj-detail'||name==='area-detail'){
+    document.getElementById('bn-focus')?.classList.add('active');
+  }
   curView=name; curSid=null;
 
   // mobile topbar
@@ -2815,12 +3193,12 @@ function updateDesktopTopbar(view, subj){
     dtb.innerHTML=`<div class="dtb-title">🌿 Areas</div>`;
   } else if(view==='proj-detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="goView('projects',document.getElementById('bn-proj'))">‹ Projects</button>`+
+      `<button class="dtb-back" onclick="navPopGoView('projects')">‹ Projects</button>`+
       `<div class="dtb-title">${subj.emoji||'🚀'} ${subj.name}</div>`+
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='area-detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="goView('areas',document.getElementById('bn-area'))">‹ Areas</button>`+
+      `<button class="dtb-back" onclick="navPopGoView('areas')">‹ Areas</button>`+
       `<div class="dtb-title">${subj.emoji||'🌿'} ${subj.name}</div>`+
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='detail' && subj){
@@ -4286,7 +4664,10 @@ function renderProjects(){
 function mkProjCard(p){
   const aps = D.p_tasks.filter(t => t.parentId === p.id);
   const ags = D.p_agendas.filter(a => a.parentId === p.id);
-  const doneAp = aps.filter(t => t.done).length;
+  const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
+  const doneAp = nonRecurAps.filter(t => t.done).length;
+  const totalAp = nonRecurAps.length;
+  const pct = totalAp ? doneAp / totalAp * 100 : 0;
   const dl = fmtDeadline(p);
 
   const card = document.createElement('div');
@@ -4294,15 +4675,18 @@ function mkProjCard(p){
   card.onclick = () => openProjDetail(p.id);
   card.innerHTML =
     `<div class="pa-card-header">`+
-    `<div class="pa-card-icon" style="background:${p.color}22">${p.emoji||'🚀'}</div>`+
+    `<div class="pa-card-accent" style="background:${p.color}"></div>`+
+    `<div class="pa-card-icon" style="background:${p.color}18;margin-left:12px">${p.emoji||'🚀'}</div>`+
     `<div class="pa-card-info">`+
-    `<div class="pa-card-name" style="color:${p.color}">${p.name}</div>`+
+    `<div class="pa-card-name">${p.name}</div>`+
     (p.goal ? `<div class="pa-card-goal">${escHtml(p.goal)}</div>` : '')+
     `</div><div class="pa-card-chev">›</div></div>`+
+    (totalAp ? `<div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>` : '')+
     `<div class="pa-card-footer">`+
     `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
     (dl ? `<span class="pa-deadline-chip">${dl}</span>` : '')+
-    `<span class="pa-count-chip">${doneAp}/${aps.length} action · ${ags.length} agenda</span>`+
+    `<span class="pa-count-chip" style="color:${p.color};font-weight:800">${doneAp}/${totalAp}</span>`+
+    (ags.length ? `<span class="pa-count-chip">· ${ags.length} agenda</span>` : '')+
     `</div>`;
   return card;
 }
@@ -4315,11 +4699,11 @@ function openProjDetail(id){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('v-proj-detail').classList.add('active');
   document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
-  document.getElementById('bn-proj').classList.add('active');
+  document.getElementById('bn-focus')?.classList.add('active');
 
   // mobile topbar
   document.getElementById('topbar').innerHTML =
-    `<button class="tb-back" onclick="goView('projects',document.getElementById('bn-proj'))">‹ Projects</button>`+
+    `<button class="tb-back" onclick="navPopGoView('projects')">‹ Projects</button>`+
     `<div class="tb-title">${p.emoji||'🚀'} ${p.name}</div>`+
     `<button class="tb-action ghost" onclick="openEditProject('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
@@ -4327,26 +4711,32 @@ function openProjDetail(id){
 
   // header
   const dl = fmtDeadline(p);
+  const aps = D.p_tasks.filter(t => t.parentId === id);
+  const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
+  const doneAp = nonRecurAps.filter(t => t.done).length;
+  const totalAp = nonRecurAps.length;
+  const pct = totalAp ? Math.round(doneAp / totalAp * 100) : 0;
+
   document.getElementById('proj-detail-header').innerHTML =
+    `<div class="pad-header-accent" style="background:${p.color}"></div>`+
+    `<div class="pad-header-body">`+
     `<div class="pad-header-top">`+
-    `<div class="pad-icon" style="background:${p.color}22">${p.emoji||'🚀'}</div>`+
+    `<div class="pad-icon" style="background:${p.color}18">${p.emoji||'🚀'}</div>`+
     `<div class="pad-info">`+
     `<div class="pad-type-label">Project</div>`+
-    `<div class="pad-name" style="color:${p.color}">${p.name}</div>`+
-    `<div class="pad-status-row">`+
+    `<div class="pad-name">${p.name}</div>`+
+    `</div></div>`+
+    (p.goal ? `<div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah</span>${escHtml(p.goal)}</div>` : '')+
+    `<div class="pad-meta-row">`+
     `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
     (dl ? `<span class="pad-deadline-lbl">${dl}</span>` : '')+
-    `</div></div></div>`+
-    (p.goal ? `<div class="pad-goal-box" style="border-color:${p.color}"><div class="pad-goal-label">🧭 Arah</div><div class="pad-goal-text">${escHtml(p.goal)}</div></div>` : '');
-
-  // progress bar
-  const aps = D.p_tasks.filter(t => t.parentId === id);
-  if(aps.length){
-    const pct = aps.filter(t => t.done).length / aps.length * 100;
-    document.getElementById('proj-detail-header').innerHTML +=
-      `<div class="pad-prog-row"><div class="pad-prog-label">${Math.round(pct)}% selesai</div>`+
-      `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${pct}%;background:${p.color}"></div></div></div>`;
-  }
+    `</div>`+
+    (totalAp ? `<div class="pad-prog-row">`+
+      `<div class="pad-prog-label">${pct}% selesai</div>`+
+      `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>`+
+      `<div class="pad-prog-count">${doneAp}/${totalAp}</div>`+
+    `</div>` : '')+
+    `</div>`;
 
   switchProjTab('ap');
   document.getElementById('scroll').scrollTop = 0;
@@ -4375,11 +4765,17 @@ function renderProjItems(){
       el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div>`;
     } else {
       const card = document.createElement('div'); card.className = 'card';
+      const td = tod();
       items.sort((a,b) => {
         const aRec = a.recurring && a.recurring.freq !== 'none';
         const bRec = b.recurring && b.recurring.freq !== 'none';
-        if(aRec !== bRec) return aRec ? -1 : 1; // recurring first
-        if(!aRec && !bRec) return (a.done - b.done) || (a.deadline||'').localeCompare(b.deadline||'');
+        const aDoneToday = aRec ? a.lastDone === td : a.done;
+        const bDoneToday = bRec ? b.lastDone === td : b.done;
+        // done items go last
+        if(aDoneToday !== bDoneToday) return aDoneToday ? 1 : -1;
+        // recurring first among undone
+        if(aRec !== bRec) return aRec ? -1 : 1;
+        if(!aRec && !bRec) return (a.deadline||'').localeCompare(b.deadline||'');
         return 0;
       }).forEach(t => card.appendChild(mkApItem(t, p.color)));
       el.appendChild(card);
@@ -4414,21 +4810,28 @@ function renderAreas(){
 function mkAreaCard(a){
   const aps = D.p_tasks.filter(t => t.parentId === a.id);
   const ags = D.p_agendas.filter(ag => ag.parentId === a.id);
-  const doneAp = aps.filter(t => t.done).length;
+  const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
+  const doneAp = nonRecurAps.filter(t => t.done).length;
+  const totalAp = nonRecurAps.length;
+  const pct = totalAp ? doneAp / totalAp * 100 : 0;
+  const recurCount = aps.filter(t => t.recurring && t.recurring.freq !== 'none').length;
 
   const card = document.createElement('div');
   card.className = 'pa-card';
   card.onclick = () => openAreaDetail(a.id);
   card.innerHTML =
     `<div class="pa-card-header">`+
-    `<div class="pa-card-icon" style="background:${a.color}22">${a.emoji||'🌿'}</div>`+
+    `<div class="pa-card-accent" style="background:${a.color}"></div>`+
+    `<div class="pa-card-icon" style="background:${a.color}18;margin-left:12px">${a.emoji||'🌿'}</div>`+
     `<div class="pa-card-info">`+
-    `<div class="pa-card-name" style="color:${a.color}">${a.name}</div>`+
-    (a.goal ? `<div class="pa-card-goal">${escHtml(a.goal)}</div>` : '')+
+    `<div class="pa-card-name">${a.name}</div>`+
+    (a.want ? `<div class="pa-card-goal">${escHtml(a.want)}</div>` : '')+
     `</div><div class="pa-card-chev">›</div></div>`+
+    (totalAp ? `<div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${a.color}"></div></div>` : '')+
     `<div class="pa-card-footer">`+
-    `<span class="pa-status-chip pa-status-area">maintenance</span>`+
-    `<span class="pa-count-chip">${doneAp}/${aps.length} action · ${ags.length} agenda</span>`+
+    `<span class="pa-status-chip pa-status-area">maintaining</span>`+
+    (recurCount ? `<span class="pa-count-chip">🔁 ${recurCount} rutin</span>` : '')+
+    (ags.length ? `<span class="pa-count-chip">📅 ${ags.length} agenda</span>` : '')+
     `</div>`;
   return card;
 }
@@ -4441,26 +4844,43 @@ function openAreaDetail(id){
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('v-area-detail').classList.add('active');
   document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
-  document.getElementById('bn-area').classList.add('active');
+  document.getElementById('bn-focus')?.classList.add('active');
 
   document.getElementById('topbar').innerHTML =
-    `<button class="tb-back" onclick="goView('areas',document.getElementById('bn-area'))">‹ Areas</button>`+
+    `<button class="tb-back" onclick="navPopGoView('areas')">‹ Areas</button>`+
     `<div class="tb-title">${a.emoji||'🌿'} ${a.name}</div>`+
     `<button class="tb-action ghost" onclick="openEditArea('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
   updateDesktopTopbar('area-detail', a);
 
+  const aAps = D.p_tasks.filter(t => t.parentId === id);
+  const aNonRecur = aAps.filter(t => !t.recurring || t.recurring.freq === 'none');
+  const aDone = aNonRecur.filter(t => t.done).length;
+  const aTotal = aNonRecur.length;
+  const aPct = aTotal ? Math.round(aDone / aTotal * 100) : 0;
+
   document.getElementById('area-detail-header').innerHTML =
+    `<div class="pad-header-accent" style="background:${a.color}"></div>`+
+    `<div class="pad-header-body">`+
     `<div class="pad-header-top">`+
-    `<div class="pad-icon" style="background:${a.color}22">${a.emoji||'🌿'}</div>`+
+    `<div class="pad-icon" style="background:${a.color}18">${a.emoji||'🌿'}</div>`+
     `<div class="pad-info">`+
-    `<div class="pad-type-label">Area — Maintenance Selamanya</div>`+
-    `<div class="pad-name" style="color:${a.color}">${a.name}</div>`+
-    `<div class="pad-status-row"><span class="pa-status-chip pa-status-area">maintenance</span></div>`+
+    `<div class="pad-type-label">Area — Maintaining</div>`+
+    `<div class="pad-name">${a.name}</div>`+
     `</div></div>`+
-    (a.goal ? `<div class="pad-goal-box" style="border-color:${a.color}"><div class="pad-goal-label">🧭 Arah</div><div class="pad-goal-text">${escHtml(a.goal)}</div></div>` : '');
+    `<div class="pad-meta-row">`+
+    `<span class="pa-status-chip pa-status-area">maintaining</span>`+
+    `</div>`+
+    (aTotal ? `<div class="pad-prog-row">`+
+      `<div class="pad-prog-label">${aPct}% selesai</div>`+
+      `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${aPct}%;background:${a.color}"></div></div>`+
+      `<div class="pad-prog-count">${aDone}/${aTotal}</div>`+
+    `</div>` : '')+
+    `</div>`;
 
   switchAreaTab('ap');
+  renderGoalsCompass(id);
+  renderLineUpGoals(id);
   document.getElementById('scroll').scrollTop = 0;
 }
 
@@ -4486,9 +4906,13 @@ function renderAreaItems(){
       el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div>`;
     } else {
       const card = document.createElement('div'); card.className = 'card';
+      const tda = tod();
       items.sort((a,b) => {
         const aRec = a.recurring && a.recurring.freq !== 'none';
         const bRec = b.recurring && b.recurring.freq !== 'none';
+        const aDoneToday = aRec ? a.lastDone === tda : a.done;
+        const bDoneToday = bRec ? b.lastDone === tda : b.done;
+        if(aDoneToday !== bDoneToday) return aDoneToday ? 1 : -1;
         if(aRec !== bRec) return aRec ? -1 : 1;
         if(!aRec && !bRec) return a.done - b.done;
         return 0;
@@ -4514,15 +4938,17 @@ function mkApItem(t, color){
   const rec = t.recurring;
   const isRecur = rec && rec.freq && rec.freq !== 'none';
 
-  // recurring items ga punya "done" state permanen — selalu aktif
-  const isDone = !isRecur && t.done;
+  // recurring: cek apakah udah di-check hari ini
+  const todayStr = tod();
+  const isDoneToday = isRecur ? (t.lastDone === todayStr) : t.done;
+  const isDone = isDoneToday;
 
   const row = document.createElement('div');
   row.className = 'ap-item' + (isDone ? ' is-done' : '');
 
   // deadline / recur info
   const dlStr = !isRecur && t.deadline ? fmtDate(t.deadline) : null;
-  const dlDiff = !isRecur && t.deadline ? diffD(t.deadline, tod()) : null;
+  const dlDiff = !isRecur && t.deadline ? diffD(t.deadline, todayStr) : null;
   let dlCls = 'dl-ok';
   if(dlDiff !== null){ if(dlDiff < 0) dlCls = 'dl-late'; else if(dlDiff <= 2) dlCls = 'dl-soon'; }
 
@@ -4542,12 +4968,16 @@ function mkApItem(t, color){
   // kalender visibility badge
   const noCalBadge = (t.showCal === false) ? `<span class="recur-badge" style="background:var(--bg2);color:var(--ink3)">📵 Kalender off</span>` : '';
 
+  // done label untuk recurring
+  const doneLbl = isRecur && isDone ? `<span class="recur-badge" style="background:var(--green-lt);color:var(--green)">✓ Hari ini</span>` : '';
+
   row.innerHTML =
-    `<div class="ap-check ${isDone ? 'done' : ''}" onclick="${isRecur ? '' : `toggleApDone('${t.id}')`}" style="${isRecur ? 'cursor:default;opacity:.4' : ''}">` + (isDone ? '✓' : '') + `</div>`+
+    `<div class="ap-check ${isDone ? 'done' : ''}" onclick="toggleApDone('${t.id}')">` + (isDone ? '✓' : '') + `</div>`+
     `<div class="ap-body">`+
     `<div class="ap-name${isDone ? ' done' : ''}">${escHtml(t.name)}</div>`+
     `<div class="ap-meta">`+
     (isRecur ? `<span class="recur-badge">🔁 ${recurLabel}</span>` : '')+
+    doneLbl+
     (dlStr ? `<span class="ap-dl ${dlCls}">📅 ${dlStr}</span>` : '')+
     noCalBadge+
     (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')">📝 Notes</span>` : '')+
@@ -4696,11 +5126,18 @@ function delActionPlan(){
 function toggleApDone(id){
   ensurePAData();
   const t = D.p_tasks.find(x => x.id === id);
-  if(t.recurring && t.recurring.freq && t.recurring.freq !== 'none') return; // recurring ga bisa di-done
-  t.done = !t.done; save();
-  refreshPAViews();
-  renderMcal();
-  toast(t.done ? '✅ Selesai! Good job 💪' : '↩️ Oke, belum selesai');
+  const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
+  if(isRecur){
+    // recurring: toggle lastDone = hari ini / null
+    const alreadyDone = t.lastDone === tod();
+    t.lastDone = alreadyDone ? null : tod();
+    save(); refreshPAViews(); renderMcal();
+    toast(alreadyDone ? '↩️ Di-reset, belum selesai hari ini' : '✅ Done hari ini! Konsisten terus 💪');
+  } else {
+    t.done = !t.done; save();
+    refreshPAViews(); renderMcal();
+    toast(t.done ? '✅ Selesai! Good job 💪' : '↩️ Oke, belum selesai');
+  }
 }
 
 // ════════ AGENDA CRUD ════════════════════════════
@@ -4874,16 +5311,248 @@ function delProject(){
   D.p_tasks   = D.p_tasks.filter(x => x.parentId !== editProjId);
   D.p_agendas = D.p_agendas.filter(x => x.parentId !== editProjId);
   save(); closeSheet('sh-editproject');
-  goView('projects', document.getElementById('bn-proj'));
+  navPopGoView('projects');
   toast('🗑 Project dihapus');
 }
 
 // ════════ AREA CRUD ═══════════════════════════════
+// ════════ GOALS COMPASS ══════════════════════════
+function renderGoalsCompass(areaId){
+  const a = gArea(areaId);
+  if(!a) return;
+
+  const wantEl = document.getElementById('gc-want-content');
+  const dontEl = document.getElementById('gc-dont-content');
+  if(!wantEl || !dontEl) return;
+
+  if(a.want){
+    wantEl.innerHTML = `<div class="gc-col-text">${escHtml(a.want)}</div>`;
+  } else {
+    wantEl.innerHTML = `<div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button>`;
+  }
+
+  if(a.dont){
+    dontEl.innerHTML = `<div class="gc-col-text">${escHtml(a.dont)}</div>`;
+  } else {
+    dontEl.innerHTML = `<div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button>`;
+  }
+}
+
+function openEditAreaGoals(){
+  const a = gArea(curAreaId);
+  document.getElementById('egc-want').value = a.want || '';
+  document.getElementById('egc-dont').value = a.dont || '';
+  openSheet('sh-editareagoals');
+}
+
+function saveAreaGoals(){
+  const a = gArea(curAreaId);
+  a.want = document.getElementById('egc-want').value.trim();
+  a.dont = document.getElementById('egc-dont').value.trim();
+  save();
+  closeSheet('sh-editareagoals');
+  renderGoalsCompass(curAreaId);
+  toast('🧭 Kompas tujuan disimpan!');
+}
+
+// ════════ LINE UP GOALS ══════════════════════════
+const LUG_HORIZONS = [
+  { key:'week',    label:'Minggu Ini',       emoji:'📆', color:'var(--blue)' },
+  { key:'month',   label:'Bulan Ini',        emoji:'🗓️', color:'var(--blue)' },
+  { key:'q3',      label:'3 Bulan ke Depan', emoji:'📌', color:'var(--amber)' },
+  { key:'year',    label:'Tahun Ini',        emoji:'🌟', color:'var(--amber)' },
+  { key:'y5',      label:'5 Tahun ke Depan', emoji:'🚀', color:'var(--purple)' },
+];
+
+let _lugHorizonKey = '';
+let _lugAreaId = '';
+
+function ensureLugGoals(a){
+  if(!a.lineupGoals) a.lineupGoals = {};
+  LUG_HORIZONS.forEach(h => {
+    if(!a.lineupGoals[h.key]) a.lineupGoals[h.key] = [];
+  });
+  if(!a.lineupGoals.someday) a.lineupGoals.someday = [];
+}
+
+function renderLineUpGoals(areaId){
+  const a = gArea(areaId);
+  if(!a) return;
+  ensureLugGoals(a);
+
+  const body = document.getElementById('area-lug-body');
+  if(!body) return;
+  body.innerHTML = '';
+
+  const aColor = a.color || 'var(--blue)';
+
+  LUG_HORIZONS.forEach((h, idx) => {
+    const items = a.lineupGoals[h.key] || [];
+    const hasItems = items.length > 0;
+    const isLast = idx === LUG_HORIZONS.length - 1;
+
+    const row = document.createElement('div');
+    row.className = 'lug-horizon';
+
+    // spine
+    const spine = document.createElement('div');
+    spine.className = 'lug-spine';
+    const dot = document.createElement('div');
+    dot.className = 'lug-dot' + (hasItems ? ' has-items' : '');
+    if(hasItems) dot.style.setProperty('--area-color', aColor);
+    dot.textContent = hasItems ? '✓' : '';
+    spine.appendChild(dot);
+    row.appendChild(spine);
+
+    // add vertical connector line via pseudo (CSS handles it)
+
+    // content
+    const content = document.createElement('div');
+    content.className = 'lug-content';
+
+    const labelRow = document.createElement('div');
+    labelRow.className = 'lug-horizon-label';
+    labelRow.innerHTML =
+      `<span class="lug-label-text"><span class="lug-label-emoji">${h.emoji}</span>${h.label}</span>`+
+      `<button class="lug-add-btn" onclick="openAddLugGoal('${h.key}','${escHtml(h.label)}','${h.emoji}')">+ Tambah</button>`;
+    content.appendChild(labelRow);
+
+    if(items.length === 0){
+      const hint = document.createElement('div');
+      hint.className = 'lug-empty-hint';
+      hint.textContent = 'Belum ada goal untuk horizon ini';
+      content.appendChild(hint);
+    } else {
+      items.forEach((g, gi) => {
+        const item = document.createElement('div');
+        item.className = 'lug-item';
+        item.innerHTML =
+          `<div class="lug-check ${g.done?'done':''}" style="${g.done?'--area-color:'+aColor:''}" onclick="toggleLugGoal('${h.key}',${gi})">` +
+          (g.done ? '✓' : '') +
+          `</div>`+
+          `<div class="lug-item-text ${g.done?'done':''}">${escHtml(g.text)}</div>`+
+          `<button class="lug-item-del" onclick="delLugGoal('${h.key}',${gi})">✕</button>`;
+        content.appendChild(item);
+      });
+    }
+
+    row.appendChild(content);
+
+    body.appendChild(row);
+
+    // add thin vertical connector between horizons
+    if(!isLast){
+      const lineWrap = document.createElement('div');
+      lineWrap.style.cssText = 'display:flex;align-items:flex-start;padding-left:16px;';
+      const vline = document.createElement('div');
+      vline.style.cssText = 'width:2px;height:10px;background:var(--line);border-radius:99px;margin-left:12px;';
+      lineWrap.appendChild(vline);
+      body.appendChild(lineWrap);
+    }
+  });
+
+  // Someday — collapsible
+  const somedayItems = a.lineupGoals.someday || [];
+  const somedayToggle = document.createElement('button');
+  somedayToggle.className = 'lug-someday-toggle';
+  somedayToggle.id = 'lug-someday-toggle';
+  somedayToggle.onclick = toggleSomedaySection;
+  somedayToggle.innerHTML =
+    `<span class="lug-someday-icon">🌌</span>`+
+    `<span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span>`+
+    (somedayItems.length ? `<span style="font-size:10px;background:var(--purple-lt);color:var(--purple);padding:2px 8px;border-radius:99px;font-weight:800;margin-left:6px;">${somedayItems.length}</span>` : '')+
+    `<span class="lug-someday-chevron" id="lug-someday-chev">›</span>`;
+  body.appendChild(somedayToggle);
+
+  const somedayBody = document.createElement('div');
+  somedayBody.className = 'lug-someday-body';
+  somedayBody.id = 'lug-someday-body';
+
+  const sdLabelRow = document.createElement('div');
+  sdLabelRow.className = 'lug-horizon-label';
+  sdLabelRow.style.marginBottom = '8px';
+  sdLabelRow.innerHTML =
+    `<span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span>`+
+    `<button class="lug-add-btn" onclick="openAddLugGoal('someday','Someday','🌌')">+ Tambah</button>`;
+  somedayBody.appendChild(sdLabelRow);
+
+  if(somedayItems.length === 0){
+    const hint = document.createElement('div');
+    hint.className = 'lug-empty-hint';
+    hint.style.marginBottom = '8px';
+    hint.textContent = 'Impian jangka panjang, belum ada timeline...';
+    somedayBody.appendChild(hint);
+  } else {
+    somedayItems.forEach((g, gi) => {
+      const item = document.createElement('div');
+      item.className = 'lug-item';
+      item.innerHTML =
+        `<div class="lug-check ${g.done?'done':''}" onclick="toggleLugGoal('someday',${gi})">` +
+        (g.done ? '✓' : '') + `</div>`+
+        `<div class="lug-item-text ${g.done?'done':''}">${escHtml(g.text)}</div>`+
+        `<button class="lug-item-del" onclick="delLugGoal('someday',${gi})">✕</button>`;
+      somedayBody.appendChild(item);
+    });
+  }
+  body.appendChild(somedayBody);
+}
+
+function toggleSomedaySection(){
+  const body = document.getElementById('lug-someday-body');
+  const chev = document.getElementById('lug-someday-chev');
+  if(!body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  if(chev) chev.classList.toggle('open', !isOpen);
+}
+
+function openAddLugGoal(horizonKey, label, emoji){
+  _lugHorizonKey = horizonKey;
+  _lugAreaId = curAreaId;
+  document.getElementById('sh-addluggoal-title').textContent = '🎯 ' + label;
+  document.getElementById('sh-addlug-horizon-icon').textContent = emoji;
+  document.getElementById('sh-addlug-horizon-label').textContent = label;
+  document.getElementById('addlug-text').value = '';
+  openSheet('sh-addluggoal');
+}
+
+function saveLugGoal(){
+  const text = document.getElementById('addlug-text').value.trim();
+  if(!text) return;
+  const a = gArea(_lugAreaId);
+  ensureLugGoals(a);
+  if(!a.lineupGoals[_lugHorizonKey]) a.lineupGoals[_lugHorizonKey] = [];
+  a.lineupGoals[_lugHorizonKey].push({ text, done: false, createdAt: tod() });
+  save();
+  closeSheet('sh-addluggoal');
+  renderLineUpGoals(_lugAreaId);
+  toast('🎯 Goal ditambahkan!');
+}
+
+function toggleLugGoal(horizonKey, idx){
+  const a = gArea(curAreaId);
+  ensureLugGoals(a);
+  const g = a.lineupGoals[horizonKey][idx];
+  if(!g) return;
+  g.done = !g.done;
+  save();
+  renderLineUpGoals(curAreaId);
+  toast(g.done ? '✅ Goal tercapai! 🔥' : '↩️ Oke, belum selesai');
+}
+
+function delLugGoal(horizonKey, idx){
+  const a = gArea(curAreaId);
+  ensureLugGoals(a);
+  a.lineupGoals[horizonKey].splice(idx, 1);
+  save();
+  renderLineUpGoals(curAreaId);
+  toast('🗑 Goal dihapus');
+}
+
 function openAddArea(){
   selColorArea = COLORS[2];
   document.getElementById('aa-n').value = '';
   document.getElementById('aa-e').value = '🌿';
-  document.getElementById('aa-g').value = '';
   buildCpickerProj('cpicker-area', selColorArea, c => selColorArea = c);
   openSheet('sh-addarea');
 }
@@ -4891,9 +5560,8 @@ function openAddArea(){
 function saveNewArea(){
   const name = document.getElementById('aa-n').value.trim(); if(!name) return;
   const emoji = document.getElementById('aa-e').value.trim() || '🌿';
-  const goal  = document.getElementById('aa-g').value.trim();
   ensurePAData();
-  D.areas.push({id:'area'+Date.now(), name, emoji, goal, color:selColorArea, createdAt:tod()});
+  D.areas.push({id:'area'+Date.now(), name, emoji, color:selColorArea, want:'', dont:'', lineupGoals:{}, createdAt:tod()});
   save(); closeSheet('sh-addarea'); renderAreas();
   toast(`"${name}" ditambahkan ke Areas!`);
 }
@@ -4904,7 +5572,6 @@ function openEditArea(id){
   selColorAreaEdit = a.color;
   document.getElementById('ea-n').value = a.name;
   document.getElementById('ea-e').value = a.emoji || '🌿';
-  document.getElementById('ea-g').value = a.goal || '';
   buildCpickerProj('cpicker-area-edit', selColorAreaEdit, c => selColorAreaEdit = c);
   openSheet('sh-editarea');
 }
@@ -4913,7 +5580,6 @@ function saveEditArea(){
   const a = gArea(editAreaId);
   a.name  = document.getElementById('ea-n').value.trim() || a.name;
   a.emoji = document.getElementById('ea-e').value.trim() || a.emoji;
-  a.goal  = document.getElementById('ea-g').value.trim();
   a.color = selColorAreaEdit;
   save(); closeSheet('sh-editarea');
   openAreaDetail(editAreaId);
@@ -4928,7 +5594,7 @@ function delArea(){
   D.p_tasks   = D.p_tasks.filter(x => x.parentId !== editAreaId);
   D.p_agendas = D.p_agendas.filter(x => x.parentId !== editAreaId);
   save(); closeSheet('sh-editarea');
-  goView('areas', document.getElementById('bn-area'));
+  navPopGoView('areas');
   toast('🗑 Area dihapus');
 }
 
@@ -5084,8 +5750,38 @@ function openAgNotes(id){
   if(!ag || !ag.notes) return;
   openNotesSheet(ag.notes, ag.name, '📅 Agenda', 'ujian-type-quiz', () => openEditAg(id));
 }
+
+// ════════ NAV POPOVER ═════════════════════════
+function toggleNavPopover(btn){
+  const pop = document.getElementById('nav-popover');
+  const bd  = document.getElementById('nav-pop-bd');
+  const isOpen = pop.classList.contains('open');
+  if(isOpen){ closeNavPopover(); return; }
+  pop.classList.add('open');
+  bd.classList.add('open');
+  btn.classList.add('active');
+  // highlight active item
+  const cv = curView;
+  document.getElementById('nav-pop-proj').classList.toggle('active', cv === 'projects' || cv === 'proj-detail');
+  document.getElementById('nav-pop-area').classList.toggle('active', cv === 'areas'    || cv === 'area-detail');
+}
+
+function closeNavPopover(){
+  document.getElementById('nav-popover').classList.remove('open');
+  document.getElementById('nav-pop-bd').classList.remove('open');
+}
+
+function navPopGoView(view){
+  closeNavPopover();
+  const bnFocus = document.getElementById('bn-focus');
+  document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
+  bnFocus.classList.add('active');
+  if(view === 'projects') goView('projects', null);
+  else                    goView('areas',    null);
+}
+
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 </body></html>
