@@ -1327,68 +1327,124 @@ input,select,textarea { font-family:inherit; }
 
 /* ══════════════════════════════════
    PROJECT & AREA — CARD LIST
+   Grid 2-col layout for projects
 ══════════════════════════════════ */
+
+/* Projects grid wrapper */
+.proj-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:4px;
+}
+
+/* Today's focus hint bar */
+.proj-focus-hint {
+  background:var(--white);
+  border-radius:10px;
+  padding:10px 14px;
+  margin-bottom:12px;
+  box-shadow:var(--sh);
+  display:flex; align-items:center; gap:8px;
+  border-left:3px solid var(--amber);
+}
+.proj-focus-hint-text {
+  font-size:12px; font-weight:700; color:var(--ink2);
+  line-height:1.4; flex:1;
+}
+
+/* Base card — used for areas (full width) */
 .pa-card {
   background:var(--white);
-  border-radius:var(--r);
+  border-radius:11px;
   box-shadow:var(--sh);
-  margin-bottom:12px;
+  margin-bottom:10px;
   overflow:hidden;
   cursor:pointer;
   transition:transform .14s, box-shadow .14s;
   display:flex; flex-direction:column;
+  position:relative;
 }
 .pa-card:active { transform:scale(.982); box-shadow:0 1px 4px rgba(0,0,0,.06); }
 
-.pa-card-header {
-  display:flex; align-items:center; gap:12px;
-  padding:15px 16px 13px 0;
-  border-bottom:1px solid var(--line);
-  flex:1;
+/* Grid card — project in 2-col grid */
+.pa-card.is-grid {
+  margin-bottom:0; /* gap handled by grid */
+  border-radius:11px;
 }
-/* left accent border — warna project/area */
+
+/* Status tint overlay for paused/done projects */
+.pa-card.is-pause  { opacity:.72; }
+.pa-card.is-selesai { opacity:.55; }
+
+/* Top accent strip (for grid cards) */
+.pa-card-accent-top {
+  height:4px; width:100%; flex-shrink:0;
+}
+/* Left accent strip (for area full-width cards) */
 .pa-card-accent {
   width:4px; align-self:stretch; flex-shrink:0;
   border-radius:0;
-  transition:opacity .15s;
+}
+
+.pa-card-header {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 12px 10px 0;
+  flex:1;
+}
+/* grid card header — no left padding needed, accent is on top */
+.pa-card.is-grid .pa-card-header {
+  padding:10px 10px 8px 10px;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:6px;
 }
 .pa-card-icon {
-  width:40px; height:40px; border-radius:var(--rsm);
+  width:36px; height:36px; border-radius:8px;
   display:flex; align-items:center; justify-content:center;
-  font-size:20px; flex-shrink:0;
+  font-size:18px; flex-shrink:0;
+}
+/* Grid card: icon smaller, more compact */
+.pa-card.is-grid .pa-card-icon {
+  width:32px; height:32px; font-size:16px; border-radius:7px;
 }
 .pa-card-info { flex:1; min-width:0; }
 .pa-card-name {
-  font-size:15px; font-weight:800;
-  letter-spacing:-.3px; line-height:1.2;
+  font-size:14px; font-weight:800;
+  letter-spacing:-.25px; line-height:1.25;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
+/* Grid card name: slightly smaller */
+.pa-card.is-grid .pa-card-name {
+  font-size:13px; font-weight:800;
+  white-space:normal;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
 .pa-card-goal {
-  font-size:12px; color:var(--ink3); margin-top:2px;
-  font-weight:500; line-height:1.4;
+  font-size:11px; color:var(--ink3); margin-top:2px;
+  font-style:italic; font-weight:500; line-height:1.4;
   display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;
 }
-.pa-card-chev { font-size:18px; color:var(--ink3); flex-shrink:0; padding-right:4px; }
-
-/* mini progress bar langsung di bawah header, sebelum footer */
-.pa-card-prog {
-  height:3px; background:var(--bg2);
-  margin:0;
+.pa-card.is-grid .pa-card-goal {
+  font-size:11px;
+  -webkit-line-clamp:2;
 }
-.pa-card-prog-fill {
-  height:100%; border-radius:0;
-  transition:width .4s ease;
-}
+.pa-card-chev { font-size:16px; color:var(--ink3); flex-shrink:0; padding-right:2px; }
+.pa-card.is-grid .pa-card-chev { display:none; }
 
 .pa-card-footer {
-  display:flex; align-items:center; gap:8px;
-  padding:9px 16px 9px 20px;
+  display:flex; align-items:center; gap:6px;
+  padding:7px 12px 8px 12px;
   background:var(--bg);
   flex-wrap:wrap;
 }
+/* Area full-width card footer: extra left padding for accent */
+.pa-card:not(.is-grid) .pa-card-footer {
+  padding-left:16px;
+}
 .pa-status-chip {
   font-size:10px; font-weight:800;
-  padding:3px 9px; border-radius:99px;
+  padding:2px 8px; border-radius:99px;
   text-transform:uppercase; letter-spacing:.04em;
   flex-shrink:0;
 }
@@ -1397,6 +1453,16 @@ input,select,textarea { font-family:inherit; }
 .pa-status-pause    { background:var(--amber-lt);  color:var(--amber); }
 .pa-status-selesai  { background:var(--bg2);       color:var(--ink3); }
 .pa-status-area     { background:var(--purple-lt); color:var(--purple); }
+
+/* Pills for task/agenda count */
+.pa-pill {
+  font-size:10px; font-weight:700;
+  padding:2px 8px; border-radius:99px;
+  flex-shrink:0;
+}
+.pa-pill-task   { background:var(--blue-lt);   color:var(--blue); }
+.pa-pill-agenda { background:var(--green-lt);  color:var(--green); }
+.pa-pill-recur  { background:var(--purple-lt); color:var(--purple); }
 
 .pa-deadline-chip {
   font-size:10px; font-weight:600; color:var(--ink3);
@@ -1408,11 +1474,13 @@ input,select,textarea { font-family:inherit; }
 
 /* empty state for projects/areas */
 .pa-empty {
-  padding:40px 20px; text-align:center;
+  padding:36px 20px; text-align:center;
+  background:var(--white); border-radius:11px;
+  box-shadow:var(--sh); margin-bottom:10px;
 }
-.pa-empty-ic { font-size:40px; display:block; margin-bottom:12px; }
-.pa-empty-t { font-size:16px; font-weight:700; color:var(--ink2); }
-.pa-empty-s { font-size:13px; color:var(--ink3); margin-top:5px; }
+.pa-empty-ic { font-size:36px; display:block; margin-bottom:10px; }
+.pa-empty-t { font-size:15px; font-weight:700; color:var(--ink2); }
+.pa-empty-s { font-size:12px; color:var(--ink3); margin-top:4px; line-height:1.5; }
 
 /* add button */
 .pa-add-btn {
@@ -1798,6 +1866,76 @@ input,select,textarea { font-family:inherit; }
 /* dot for agenda in calendar */
 .mday-dot-ag { background:var(--green); }
 .wd-dot-ag   { background:var(--green); }
+/* dot for project action plan/agenda */
+.mday-dot-proj { background:var(--purple); }
+.mday-dot-area { background:var(--amber); }
+
+/* ══ CALENDAR WEEK FEED ══ */
+.cal-week-feed {
+  margin-top:4px;
+}
+.cal-feed-day {
+  margin-bottom:14px;
+}
+.cal-feed-day-label {
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.07em;
+  color:var(--ink3); margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+.cal-feed-day-label.is-today { color:var(--blue); }
+.cal-feed-day-num {
+  width:22px; height:22px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:900;
+  background:var(--bg2); color:var(--ink3);
+  flex-shrink:0;
+}
+.cal-feed-day-label.is-today .cal-feed-day-num {
+  background:var(--blue); color:#fff;
+}
+.cal-feed-item {
+  display:flex; align-items:flex-start; gap:10px;
+  padding:10px 12px; border-radius:9px;
+  margin-bottom:5px;
+  background:var(--white);
+  border-left:3px solid;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
+  cursor:default;
+}
+.cal-feed-emoji { font-size:14px; flex-shrink:0; margin-top:1px; }
+.cal-feed-body  { flex:1; min-width:0; }
+.cal-feed-name  { font-size:13px; font-weight:700; color:var(--ink); line-height:1.3; }
+.cal-feed-sub   { font-size:11px; color:var(--ink3); margin-top:2px; font-weight:600; }
+.cal-feed-type  {
+  font-size:10px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.04em;
+  padding:2px 7px; border-radius:99px;
+  flex-shrink:0; margin-top:2px;
+}
+.cal-feed-empty {
+  text-align:center; padding:20px 0;
+  font-size:13px; color:var(--ink3); font-weight:600;
+}
+/* Week nav for feed */
+.cal-feed-week-nav {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:12px;
+}
+.cal-feed-week-label {
+  font-size:13px; font-weight:800; color:var(--ink2);
+}
+.cal-feed-week-arrows {
+  display:flex; gap:4px;
+}
+.cal-feed-arr {
+  width:28px; height:28px; border-radius:7px;
+  background:var(--bg2); color:var(--ink2);
+  font-size:16px; font-weight:700;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .12s;
+}
+.cal-feed-arr:active { background:var(--line2); }
 
 /* ══ BOTTOM NAV emoji-only (5 tab) ══ */
 .bn > div:last-child { display:none !important; }
@@ -2150,21 +2288,37 @@ input,select,textarea { font-family:inherit; }
           </div>
           <div class="mcal-inner">
             <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"><div class="mday faded"><div class="mday-num">27</div></div><div class="mday faded"><div class="mday-num">28</div></div><div class="mday faded"><div class="mday-num">29</div></div><div class="mday faded"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">1</div></div><div class="mday"><div class="mday-num">2</div></div><div class="mday"><div class="mday-num">3</div></div><div class="mday"><div class="mday-num">4</div></div><div class="mday"><div class="mday-num">5</div></div><div class="mday"><div class="mday-num">6</div></div><div class="mday"><div class="mday-num">7</div></div><div class="mday"><div class="mday-num">8</div></div><div class="mday"><div class="mday-num">9</div></div><div class="mday"><div class="mday-num">10</div></div><div class="mday"><div class="mday-num">11</div></div><div class="mday"><div class="mday-num">12</div></div><div class="mday"><div class="mday-num">13</div></div><div class="mday"><div class="mday-num">14</div></div><div class="mday"><div class="mday-num">15</div></div><div class="mday"><div class="mday-num">16</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">17</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">18</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">19</div><div class="mday-x">✕</div></div><div class="mday"><div class="mday-num">20</div></div><div class="mday"><div class="mday-num">21</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div></div></div><div class="mday"><div class="mday-num">22</div><div class="mday-dots"><div class="mday-dot mday-dot-m"></div><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">23</div></div><div class="mday"><div class="mday-num">24</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday"><div class="mday-num">25</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">26</div><div class="mday-dots"><div class="mday-dot mday-dot-u"></div></div></div><div class="mday is-today"><div class="mday-num">27</div></div><div class="mday"><div class="mday-num">28</div></div><div class="mday"><div class="mday-num">29</div><div class="mday-dots"><div class="mday-dot mday-dot-t"></div></div></div><div class="mday"><div class="mday-num">30</div></div><div class="mday"><div class="mday-num">31</div></div></div>
+            <div class="mcal-days" id="mc-days"></div>
           </div>
           <div class="cal-legend">
             <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
             <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Materi</div>
             <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Deadline</div>
             <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-u"></div> Ujian</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-ag"></div> Agenda</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--purple);border-radius:50%;width:8px;height:8px;"></div> Project</div>
+            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--amber);border-radius:50%;width:8px;height:8px;"></div> Area</div>
           </div>
         </div>
+
+        <div class="sec" style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
+          📋 Agenda Minggu Ini
+        </div>
+        <div class="cal-week-feed" id="cal-week-feed">
+          <div class="cal-feed-week-nav">
+            <div class="cal-feed-week-label" id="cal-feed-week-label">Minggu ini</div>
+            <div class="cal-feed-week-arrows">
+              <button class="cal-feed-arr" onclick="shiftCalFeed(-1)">‹</button>
+              <button class="cal-feed-arr" onclick="shiftCalFeed(1)">›</button>
+            </div>
+          </div>
+          <div id="cal-feed-body"></div>
+        </div>
+
         <div class="sec" style="display:flex;align-items:center;justify-content:space-between;">
           📝 Ujian Mendatang
           <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-9</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Jum, 5 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div></div>
+        <div id="cal-ujian-section"></div>
 
       </div>
     </div>
@@ -2173,7 +2327,8 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ PROJECTS ══ -->
     <div class="view active" id="v-projects">
       <div class="pad">
-        <div id="proj-active-section"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-accent" style="background:#7c3aed"></div><div class="pa-card-icon" style="background:#7c3aed18;margin-left:12px">🚀</div><div class="pa-card-info"><div class="pa-card-name">Lomba Gemastik</div><div class="pa-card-goal">Juara Gemastik</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-aktif">aktif</span><span class="pa-count-chip" style="color:#7c3aed;font-weight:800">0/0</span></div></div></div>
+        <div id="proj-focus-hint" style="display:none"></div>
+        <div id="proj-active-section"></div>
         <button class="pa-add-btn project" onclick="openAddProject()">🚀 Tambah Project Baru</button>
         <div id="proj-done-section"></div>
       </div>
@@ -2231,10 +2386,11 @@ input,select,textarea { font-family:inherit; }
 
         <!-- Line Up Goals -->
         <div class="lug-wrap" id="area-lug-wrap">
-          <div class="lug-header">
+          <button class="lug-header" id="lug-collapse-btn" onclick="toggleLugCollapse()" style="width:100%;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
             <span class="lug-title">🎯 Line Up Goals</span>
-          </div>
-          <div class="lug-body" id="area-lug-body"><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot has-items" style="--area-color: #be185d;">✓</div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📆</span>Minggu Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;week&#39;,&#39;Minggu Ini&#39;,&#39;📆&#39;)">+ Tambah</button></div><div class="lug-item"><div class="lug-check " style="" onclick="toggleLugGoal(&#39;week&#39;,0)"></div><div class="lug-item-text ">bisa 5 km tanpa kucing</div><button class="lug-item-del" onclick="delLugGoal(&#39;week&#39;,0)">✕</button></div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🗓️</span>Bulan Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;month&#39;,&#39;Bulan Ini&#39;,&#39;🗓️&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📌</span>3 Bulan ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;q3&#39;,&#39;3 Bulan ke Depan&#39;,&#39;📌&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🌟</span>Tahun Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;year&#39;,&#39;Tahun Ini&#39;,&#39;🌟&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🚀</span>5 Tahun ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;y5&#39;,&#39;5 Tahun ke Depan&#39;,&#39;🚀&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><button class="lug-someday-toggle" id="lug-someday-toggle"><span class="lug-someday-icon">🌌</span><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span><span class="lug-someday-chevron" id="lug-someday-chev">›</span></button><div class="lug-someday-body" id="lug-someday-body"><div class="lug-horizon-label" style="margin-bottom: 8px;"><span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;someday&#39;,&#39;Someday&#39;,&#39;🌌&#39;)">+ Tambah</button></div><div class="lug-empty-hint" style="margin-bottom: 8px;">Impian jangka panjang, belum ada timeline...</div></div></div>
+            <span id="lug-collapse-chev" style="font-size:14px;color:var(--ink3);transition:transform .2s;">▾</span>
+          </button>
+          <div class="lug-body" id="area-lug-body"></div>
         </div>
 
       </div>
@@ -4311,9 +4467,14 @@ function renderMcal(){
       let dots='';
       if(hasM&&allDone) dots+=`<div class="mday-dot" style="background:var(--green);border-radius:2px;width:8px;height:4px;"></div>`;
       else if(hasM) dots+=`<div class="mday-dot mday-dot-m"></div>`;
-      if(hasT||hasAp) dots+=`<div class="mday-dot mday-dot-t"></div>`;
+      if(hasT) dots+=`<div class="mday-dot mday-dot-t"></div>`;
       if(hasU) dots+=`<div class="mday-dot mday-dot-u"></div>`;
       if(hasAg) dots+=`<div class="mday-dot mday-dot-ag"></div>`;
+      // project action plans get purple dot
+      const projAps = apHari.filter(t => t.parentType === 'project');
+      const areaAps = apHari.filter(t => t.parentType === 'area');
+      if(projAps.length) dots+=`<div class="mday-dot mday-dot-proj"></div>`;
+      else if(areaAps.length) dots+=`<div class="mday-dot mday-dot-area"></div>`;
       indicator=`<div class="mday-dots">${dots}</div>`;
     }
     e.innerHTML=`<div class="mday-num">${d}</div>${indicator}`;
@@ -4322,6 +4483,7 @@ function renderMcal(){
   const rem=7-((pad+last.getDate())%7);
   if(rem<7) for(let d=1;d<=rem;d++){const e=document.createElement('div');e.className='mday faded';e.innerHTML=`<div class="mday-num">${d}</div>`;daysEl.appendChild(e);}
   renderCalUjian();
+  renderCalFeed();
 }
 
 // ════════ CALENDAR UJIAN SECTION ══════════════
@@ -4639,55 +4801,110 @@ function statusLabel(st){
 // ════════ PROJECTS LIST ══════════════════════════
 function renderProjects(){
   ensurePAData();
-  const sec = document.getElementById('proj-active-section');
+  const sec     = document.getElementById('proj-active-section');
   const doneSec = document.getElementById('proj-done-section');
+  const hint    = document.getElementById('proj-focus-hint');
   if(!sec || !doneSec) return;
 
-  const active  = D.projects.filter(p => p.status !== 'selesai');
-  const done    = D.projects.filter(p => p.status === 'selesai');
+  const active = D.projects.filter(p => p.status !== 'selesai');
+  const done   = D.projects.filter(p => p.status === 'selesai');
+
+  // Today's focus hint
+  const todayStr = tod();
+  let urgentCount = 0;
+  active.forEach(p => {
+    const aps = (D.p_tasks||[]).filter(t => t.parentId === p.id && !t.done);
+    const urgentAps = aps.filter(t => t.deadline && diffD(t.deadline, todayStr) <= 3 && diffD(t.deadline, todayStr) >= 0);
+    const todayAgs  = (D.p_agendas||[]).filter(a => a.parentId === p.id && a.date === todayStr && !a.done);
+    urgentCount += urgentAps.length + todayAgs.length;
+  });
+  if(hint){
+    if(urgentCount > 0){
+      hint.style.display = 'flex';
+      hint.innerHTML = `<span style="font-size:16px">⚡</span><div class="proj-focus-hint-text">${urgentCount} task/agenda project jatuh tempo dalam 3 hari</div>`;
+    } else if(active.length > 0) {
+      hint.style.display = 'flex';
+      hint.innerHTML = `<span style="font-size:16px">✅</span><div class="proj-focus-hint-text">Semua project on track — ga ada yang urgent minggu ini</div>`;
+    } else {
+      hint.style.display = 'none';
+    }
+  }
 
   sec.innerHTML = '';
   if(!active.length){
-    sec.innerHTML = `<div class="pa-empty"><span class="pa-empty-ic">🚀</span><div class="pa-empty-t">Belum ada project aktif</div><div class="pa-empty-s">Tambah project baru di bawah</div></div>`;
+    sec.innerHTML = `<div class="pa-empty"><span class="pa-empty-ic">🚀</span><div class="pa-empty-t">Belum ada project aktif</div><div class="pa-empty-s">Mulai tracking project pertama lo — bisa lomba, skripsi, side project, apapun!</div></div>`;
   } else {
-    active.forEach(p => sec.appendChild(mkProjCard(p)));
+    const grid = document.createElement('div');
+    grid.className = 'proj-grid';
+    active.forEach(p => grid.appendChild(mkProjCard(p, true)));
+    sec.appendChild(grid);
   }
 
   doneSec.innerHTML = '';
   if(done.length){
     const lbl = document.createElement('div'); lbl.className = 'pa-section-hd';
     lbl.textContent = '✅ Selesai (' + done.length + ')'; doneSec.appendChild(lbl);
-    done.forEach(p => doneSec.appendChild(mkProjCard(p)));
+    // done projects: full-width, muted
+    done.forEach(p => doneSec.appendChild(mkProjCard(p, false)));
   }
 }
 
-function mkProjCard(p){
-  const aps = D.p_tasks.filter(t => t.parentId === p.id);
-  const ags = D.p_agendas.filter(a => a.parentId === p.id);
-  const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
-  const doneAp = nonRecurAps.filter(t => t.done).length;
-  const totalAp = nonRecurAps.length;
-  const pct = totalAp ? doneAp / totalAp * 100 : 0;
+function mkProjCard(p, isGrid){
+  ensurePAData();
+  const aps  = D.p_tasks.filter(t => t.parentId === p.id);
+  const ags  = D.p_agendas.filter(a => a.parentId === p.id);
+
+  // action plans: non-recurring only for count
+  const nonRecurAps  = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
+  const pendingAp    = nonRecurAps.filter(t => !t.done).length;
+
+  // recurring action plans active today
+  const todayStr = tod();
+  const recurAps = aps.filter(t => t.recurring && t.recurring.freq && t.recurring.freq !== 'none' && t.lastDone !== todayStr);
+  const pendingRecur = recurAps.length;
+
+  // upcoming agendas (not done)
+  const pendingAg = ags.filter(a => !a.done).length;
+
   const dl = fmtDeadline(p);
 
   const card = document.createElement('div');
-  card.className = 'pa-card';
+  card.className = 'pa-card' + (isGrid ? ' is-grid' : '') + (p.status === 'pause' ? ' is-pause' : '') + (p.status === 'selesai' ? ' is-selesai' : '');
   card.onclick = () => openProjDetail(p.id);
-  card.innerHTML =
-    `<div class="pa-card-header">`+
-    `<div class="pa-card-accent" style="background:${p.color}"></div>`+
-    `<div class="pa-card-icon" style="background:${p.color}18;margin-left:12px">${p.emoji||'🚀'}</div>`+
-    `<div class="pa-card-info">`+
-    `<div class="pa-card-name">${p.name}</div>`+
-    (p.goal ? `<div class="pa-card-goal">${escHtml(p.goal)}</div>` : '')+
-    `</div><div class="pa-card-chev">›</div></div>`+
-    (totalAp ? `<div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>` : '')+
-    `<div class="pa-card-footer">`+
-    `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
-    (dl ? `<span class="pa-deadline-chip">${dl}</span>` : '')+
-    `<span class="pa-count-chip" style="color:${p.color};font-weight:800">${doneAp}/${totalAp}</span>`+
-    (ags.length ? `<span class="pa-count-chip">· ${ags.length} agenda</span>` : '')+
-    `</div>`;
+
+  if(isGrid){
+    // Grid card: accent on TOP
+    card.innerHTML =
+      `<div class="pa-card-accent-top" style="background:${p.color}"></div>`+
+      `<div class="pa-card-header">`+
+      `<div class="pa-card-icon" style="background:${p.color}18">${p.emoji||'🚀'}</div>`+
+      `<div class="pa-card-info">`+
+      `<div class="pa-card-name">${escHtml(p.name)}</div>`+
+      (p.goal ? `<div class="pa-card-goal">${escHtml(p.goal)}</div>` : '')+
+      `</div></div>`+
+      `<div class="pa-card-footer">`+
+      `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
+      (pendingAp    ? `<span class="pa-pill pa-pill-task">✅ ${pendingAp}</span>` : '')+
+      (pendingRecur ? `<span class="pa-pill pa-pill-recur">🔁 ${pendingRecur}</span>` : '')+
+      (pendingAg    ? `<span class="pa-pill pa-pill-agenda">📅 ${pendingAg}</span>` : '')+
+      `</div>`;
+  } else {
+    // Full-width card (done projects): accent on LEFT
+    card.innerHTML =
+      `<div class="pa-card-header">`+
+      `<div class="pa-card-accent" style="background:${p.color}"></div>`+
+      `<div class="pa-card-icon" style="background:${p.color}18;margin-left:12px">${p.emoji||'🚀'}</div>`+
+      `<div class="pa-card-info">`+
+      `<div class="pa-card-name">${escHtml(p.name)}</div>`+
+      (p.goal ? `<div class="pa-card-goal">${escHtml(p.goal)}</div>` : '')+
+      `</div><div class="pa-card-chev">›</div></div>`+
+      `<div class="pa-card-footer">`+
+      `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
+      (dl ? `<span class="pa-deadline-chip">${dl}</span>` : '')+
+      (pendingAp ? `<span class="pa-pill pa-pill-task">✅ ${pendingAp}</span>` : '')+
+      (pendingAg ? `<span class="pa-pill pa-pill-agenda">📅 ${pendingAg}</span>` : '')+
+      `</div>`;
+  }
   return card;
 }
 
@@ -4808,13 +5025,13 @@ function renderAreas(){
 }
 
 function mkAreaCard(a){
+  ensurePAData();
   const aps = D.p_tasks.filter(t => t.parentId === a.id);
   const ags = D.p_agendas.filter(ag => ag.parentId === a.id);
-  const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
-  const doneAp = nonRecurAps.filter(t => t.done).length;
-  const totalAp = nonRecurAps.length;
-  const pct = totalAp ? doneAp / totalAp * 100 : 0;
-  const recurCount = aps.filter(t => t.recurring && t.recurring.freq !== 'none').length;
+  const nonRecurAps  = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
+  const pendingAp    = nonRecurAps.filter(t => !t.done).length;
+  const recurCount   = aps.filter(t => t.recurring && t.recurring.freq && t.recurring.freq !== 'none').length;
+  const pendingAg    = ags.filter(ag => !ag.done).length;
 
   const card = document.createElement('div');
   card.className = 'pa-card';
@@ -4824,14 +5041,14 @@ function mkAreaCard(a){
     `<div class="pa-card-accent" style="background:${a.color}"></div>`+
     `<div class="pa-card-icon" style="background:${a.color}18;margin-left:12px">${a.emoji||'🌿'}</div>`+
     `<div class="pa-card-info">`+
-    `<div class="pa-card-name">${a.name}</div>`+
+    `<div class="pa-card-name">${escHtml(a.name)}</div>`+
     (a.want ? `<div class="pa-card-goal">${escHtml(a.want)}</div>` : '')+
     `</div><div class="pa-card-chev">›</div></div>`+
-    (totalAp ? `<div class="pa-card-prog"><div class="pa-card-prog-fill" style="width:${pct}%;background:${a.color}"></div></div>` : '')+
     `<div class="pa-card-footer">`+
     `<span class="pa-status-chip pa-status-area">maintaining</span>`+
-    (recurCount ? `<span class="pa-count-chip">🔁 ${recurCount} rutin</span>` : '')+
-    (ags.length ? `<span class="pa-count-chip">📅 ${ags.length} agenda</span>` : '')+
+    (recurCount ? `<span class="pa-pill pa-pill-recur">🔁 ${recurCount}</span>` : '')+
+    (pendingAp  ? `<span class="pa-pill pa-pill-task">✅ ${pendingAp}</span>` : '')+
+    (pendingAg  ? `<span class="pa-pill pa-pill-agenda">📅 ${pendingAg}</span>` : '')+
     `</div>`;
   return card;
 }
@@ -4840,6 +5057,7 @@ function mkAreaCard(a){
 function openAreaDetail(id){
   ensurePAData();
   curAreaId = id; curAreaTab = 'ap'; curView = 'area-detail';
+  _lugCollapsed = false; // always show goals open when entering area
   const a = gArea(id);
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('v-area-detail').classList.add('active');
@@ -5497,6 +5715,15 @@ function renderLineUpGoals(areaId){
   body.appendChild(somedayBody);
 }
 
+let _lugCollapsed = false;
+function toggleLugCollapse(){
+  _lugCollapsed = !_lugCollapsed;
+  const body = document.getElementById('area-lug-body');
+  const chev = document.getElementById('lug-collapse-chev');
+  if(body) body.style.display = _lugCollapsed ? 'none' : '';
+  if(chev) chev.style.transform = _lugCollapsed ? 'rotate(-90deg)' : '';
+}
+
 function toggleSomedaySection(){
   const body = document.getElementById('lug-someday-body');
   const chev = document.getElementById('lug-someday-chev');
@@ -5688,6 +5915,132 @@ function openDayDetail(dateStr){
 function dayDetailOverlayTap(e){
   if(e.target === document.getElementById('day-detail-overlay'))
     document.getElementById('day-detail-overlay').classList.remove('open');
+}
+
+// ════════ CALENDAR WEEK FEED ══════════════════════
+let calFeedOff = 0; // week offset for feed (same as weekOff pattern)
+
+function shiftCalFeed(dir){
+  calFeedOff += dir;
+  renderCalFeed();
+}
+
+function renderCalFeed(){
+  ensurePAData();
+  const body = document.getElementById('cal-feed-body');
+  const label = document.getElementById('cal-feed-week-label');
+  if(!body) return;
+
+  const now = new Date();
+  const dow = now.getDay();
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - (dow===0?6:dow-1) + calFeedOff*7);
+
+  const days = [];
+  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);days.push(d);}
+
+  // week label
+  const s=days[0],e=days[6];
+  const sameMonth=s.getMonth()===e.getMonth();
+  const rangeStr=sameMonth
+    ?`${s.getDate()}–${e.getDate()} ${e.toLocaleDateString('id-ID',{month:'long'})}`
+    :`${s.getDate()} ${s.toLocaleDateString('id-ID',{month:'short'})} – ${e.getDate()} ${e.toLocaleDateString('id-ID',{month:'short'})}`;
+  if(label) label.textContent = (calFeedOff===0?'Minggu ini':calFeedOff===-1?'Minggu lalu':'Minggu depan') + ' · ' + rangeStr;
+
+  const todayStr = tod();
+  const DNAMES_FULL = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const DNAMES_SHORT = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+
+  body.innerHTML = '';
+  let hasAny = false;
+
+  days.forEach(d => {
+    const ds = d.toISOString().slice(0,10);
+    const isToday = ds === todayStr;
+    const events = [];
+
+    // Ujian
+    D.ujian.filter(u => u.date === ds).forEach(u => {
+      const subj = gS(u.sid);
+      events.push({ emoji:'📝', name: u.name||u.type.toUpperCase(), sub: subj?subj.emoji+' '+subj.name:'', color: subj?subj.color:'#7c3aed', type:'Ujian' });
+    });
+
+    // Tugas deadline
+    D.tugas.filter(t => t.deadline===ds && !t.done).forEach(t => {
+      const subj = gS(t.sid);
+      events.push({ emoji:'📋', name:t.name, sub:(subj?subj.emoji+' '+subj.name:'')+'  — deadline', color:'#d97706', type:'Tugas' });
+    });
+
+    // Materi (new that day)
+    D.materi.filter(m => m.date===ds && !m.done).forEach(m => {
+      const subj = gS(m.sid);
+      events.push({ emoji:'📖', name:m.name, sub:subj?subj.emoji+' '+subj.name:'', color: subj?subj.color:'#0891b2', type:'Materi' });
+    });
+
+    // Action Plans (project & area)
+    (D.p_tasks||[]).filter(t => {
+      if(t.showCal===false) return false;
+      if(t.recurring && t.recurring.freq && t.recurring.freq !== 'none') return apRecurMatchesDate(t,ds);
+      return t.deadline===ds && !t.done;
+    }).forEach(t => {
+      const parent = t.parentType==='project' ? gProj(t.parentId) : gArea(t.parentId);
+      const isRecur = t.recurring && t.recurring.freq !== 'none';
+      events.push({
+        emoji: isRecur?'🔁':'✅',
+        name: t.name,
+        sub: parent?(parent.emoji||'')+'  '+parent.name+(isRecur?' — rutin':' — action plan'):'',
+        color: parent?parent.color:'#16a34a',
+        type: t.parentType==='project'?'Project':'Area'
+      });
+    });
+
+    // Agendas (project & area)
+    (D.p_agendas||[]).filter(ag => ag.date===ds && !ag.done).forEach(ag => {
+      const parent = ag.parentType==='project' ? gProj(ag.parentId) : gArea(ag.parentId);
+      events.push({
+        emoji:'📅',
+        name: ag.name,
+        sub: parent?(parent.emoji||'')+'  '+parent.name+(ag.time?' · '+ag.time:''):'',
+        color: parent?parent.color:'#16a34a',
+        type: ag.parentType==='project'?'Project':'Area'
+      });
+    });
+
+    if(!events.length) return;
+    hasAny = true;
+
+    // Day header
+    const dayDiv = document.createElement('div');
+    dayDiv.className = 'cal-feed-day';
+
+    const labelDiv = document.createElement('div');
+    labelDiv.className = 'cal-feed-day-label' + (isToday?' is-today':'');
+    const jsDay = d.getDay(); // 0=Sun
+    labelDiv.innerHTML =
+      `<div class="cal-feed-day-num">${d.getDate()}</div>`+
+      `<span>${DNAMES_FULL[jsDay]}, ${d.getDate()} ${d.toLocaleDateString('id-ID',{month:'short'})}${isToday?' · Hari ini':''}</span>`;
+    dayDiv.appendChild(labelDiv);
+
+    events.forEach(ev => {
+      const item = document.createElement('div');
+      item.className = 'cal-feed-item';
+      item.style.borderColor = ev.color;
+      item.innerHTML =
+        `<div class="cal-feed-emoji">${ev.emoji}</div>`+
+        `<div class="cal-feed-body">`+
+        `<div class="cal-feed-name">${escHtml(ev.name)}</div>`+
+        (ev.sub ? `<div class="cal-feed-sub">${escHtml(ev.sub)}</div>` : '')+
+        `</div>`+
+        `<span class="cal-feed-type" style="background:${ev.color}22;color:${ev.color}">${ev.type}</span>`;
+      dayDiv.appendChild(item);
+    });
+
+    body.appendChild(dayDiv);
+  });
+
+  if(!hasAny){
+    body.innerHTML = `<div class="cal-feed-empty">Ga ada event minggu ini ✨<br><span style="font-size:12px">Santai dulu atau tambah agenda!</span></div>`;
+  }
 }
 
 
