@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -2089,6 +2089,214 @@ input,select,textarea { font-family:inherit; }
   padding:2px 7px; border-radius:99px;
   background:var(--purple-lt); color:var(--purple);
 }
+
+/* ── OVERVIEW BANNER ── */
+.ov-banner{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);padding:13px 16px;margin-bottom:12px;display:flex;gap:0;}
+.ov-stat{flex:1;display:flex;flex-direction:column;gap:2px;padding:0 10px;}
+.ov-stat:first-child{padding-left:0;}
+.ov-stat:not(:last-child){border-right:1px solid var(--line);}
+.ov-num{font-size:22px;font-weight:900;letter-spacing:-.5px;color:var(--ink);line-height:1;}
+.ov-lbl{font-size:11px;font-weight:600;color:var(--ink3);margin-top:3px;}
+.ov-bar-wrap{height:4px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:6px;}
+.ov-bar-fill{height:100%;border-radius:99px;background:var(--blue);}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:12px;}
+.filter-bar::-webkit-scrollbar{display:none;}
+.fpill{flex-shrink:0;font-size:12px;font-weight:700;padding:6px 13px;border-radius:99px;border:1.5px solid var(--line2);cursor:pointer;color:var(--ink2);background:var(--white);transition:all .15s;white-space:nowrap;}
+.fpill.on{background:var(--blue-lt);color:var(--blue);border-color:var(--blue-bd);}
+
+/* ── KANBAN CARD ── */
+.kcard{background:var(--white);border-radius:11px;border:1px solid var(--line);margin-bottom:8px;overflow:hidden;cursor:pointer;transition:transform .14s,box-shadow .14s;display:flex;flex-direction:column;position:relative;box-shadow:var(--sh);}
+.kcard:last-child{margin-bottom:0;}
+.kcard:active{transform:scale(.975);box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.kcard.is-pause{opacity:.72;}
+.kcard-accent{height:3px;width:100%;flex-shrink:0;}
+.kcard-body{padding:9px 10px 7px;}
+.kcard-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:6px;}
+.kcard-name{font-size:12px;font-weight:800;color:var(--ink);line-height:1.3;letter-spacing:-.15px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.kcard-bar{height:3px;background:var(--bg2);border-radius:99px;overflow:hidden;margin:7px 0 5px;}
+.kcard-barfill{height:100%;border-radius:99px;}
+.kcard-foot{display:flex;align-items:center;gap:5px;flex-wrap:wrap;padding:6px 10px 8px;background:var(--bg);border-top:1px solid var(--line);}
+
+/* ── PROJECTS ADAPTIVE VIEW ── */
+.proj-sec-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:0 0 10px;}
+
+/* Hero card */
+.hero-card{border-radius:20px;overflow:hidden;position:relative;cursor:pointer;margin-bottom:20px;min-height:148px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 4px 20px rgba(0,0,0,.13);transition:transform .18s cubic-bezier(.32,.72,0,1);}
+.hero-card:active{transform:scale(.974);}
+.hero-bg{position:absolute;inset:0;}
+.hero-noise{position:absolute;inset:0;opacity:.05;}
+.hero-grad{position:absolute;inset:0;background:linear-gradient(175deg,rgba(255,255,255,.10) 0%,rgba(0,0,0,.0) 35%,rgba(0,0,0,.45) 100%);}
+.hero-body{position:relative;z-index:2;padding:16px 16px 14px;}
+.hero-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.7);margin-bottom:6px;}
+.hero-name{font-size:19px;font-weight:900;color:#fff;letter-spacing:-.4px;line-height:1.15;text-shadow:0 1px 8px rgba(0,0,0,.25);}
+.hero-goal{font-size:12px;font-weight:500;color:rgba(255,255,255,.80);margin-top:5px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.hero-foot{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.hero-status{font-size:10px;font-weight:800;padding:3px 10px;border-radius:99px;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px);}
+.hero-pct-ring{flex-shrink:0;width:48px;height:48px;margin-left:auto;}
+.hero-ring-svg{width:48px;height:48px;}
+.hero-ring-bg{fill:none;stroke:rgba(255,255,255,.2);stroke-width:3.5;}
+.hero-ring-fill{fill:none;stroke:#fff;stroke-width:3.5;stroke-linecap:round;transform-origin:center;transform:rotate(-90deg);transition:stroke-dashoffset .5s ease;}
+.hero-pct-txt{font-size:11px;font-weight:900;fill:#fff;text-anchor:middle;dominant-baseline:central;}
+
+/* Recently Active scroll */
+.ra-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;}
+.ra-scroll::-webkit-scrollbar{display:none;}
+.ra-card{flex-shrink:0;width:130px;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;cursor:pointer;transition:transform .15s;display:flex;flex-direction:column;}
+.ra-card:active{transform:scale(.965);}
+.ra-accent{height:3px;width:100%;flex-shrink:0;}
+.ra-body{padding:11px 11px 8px;flex:1;}
+.ra-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;margin-bottom:7px;}
+.ra-name{font-size:12px;font-weight:800;color:var(--ink);line-height:1.3;letter-spacing:-.1px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.ra-pct{font-size:18px;font-weight:900;color:var(--ink);letter-spacing:-.5px;margin-top:6px;line-height:1;}
+.ra-pct-lbl{font-size:10px;font-weight:600;color:var(--ink3);}
+.ra-bar{height:3px;background:var(--bg2);border-radius:99px;overflow:hidden;margin:6px 11px 9px;}
+.ra-barfill{height:100%;border-radius:99px;}
+
+/* All Projects compact list */
+.all-proj-list{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;}
+.apl-item{background:var(--white);border-radius:12px;border:1px solid var(--line);box-shadow:var(--sh);display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:transform .14s;position:relative;overflow:hidden;}
+.apl-item:active{transform:scale(.982);}
+.apl-accent{position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:0;}
+.apl-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-left:6px;}
+.apl-body{flex:1;min-width:0;}
+.apl-name{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.2px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.apl-sub{font-size:11px;color:var(--ink3);margin-top:2px;font-weight:500;}
+.apl-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
+.apl-pct{font-size:13px;font-weight:900;color:var(--ink2);}
+.apl-bar{width:48px;height:4px;background:var(--bg2);border-radius:99px;overflow:hidden;}
+.apl-barfill{height:100%;border-radius:99px;}
+
+/* ── AREA GALLERY GRID ── */
+.area-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.agc{border-radius:18px;overflow:hidden;cursor:pointer;position:relative;aspect-ratio:1/1.05;display:flex;flex-direction:column;justify-content:flex-end;transition:transform .18s cubic-bezier(.32,.72,0,1),box-shadow .18s;box-shadow:0 2px 12px rgba(0,0,0,.10);}
+.agc:active{transform:scale(.954);box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.agc-bg{position:absolute;inset:0;opacity:.92;}
+.agc-noise{position:absolute;inset:0;opacity:.06;}
+.agc-gradient{position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(0,0,0,.0) 40%,rgba(0,0,0,.38) 100%);}
+.agc-body{position:relative;z-index:2;padding:12px 13px 13px;}
+.agc-icon{font-size:26px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.18));}
+.agc-name{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.25px;line-height:1.2;text-shadow:0 1px 6px rgba(0,0,0,.28);}
+.agc-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.78);margin-top:3px;letter-spacing:.01em;}
+.agc-pip-row{display:flex;gap:4px;margin-top:7px;align-items:center;}
+.agc-pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);}
+.agc-pip.on{background:#fff;box-shadow:0 0 4px rgba(255,255,255,.6);}
+.agc-top-badge{position:absolute;top:11px;right:11px;z-index:3;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);letter-spacing:.03em;}
+
+/* ── PROJECT DETAIL NEW STYLE ── */
+.pd-header{background:var(--white);border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.pd-accent{height:4px;width:100%;}
+.pd-body{padding:16px 16px 14px;}
+.pd-top{display:flex;align-items:center;gap:14px;}
+.pd-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.pd-info{flex:1;min-width:0;}
+.pd-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:2px;}
+.pd-name{font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1.1;color:var(--ink);}
+.pd-meta{display:flex;gap:7px;margin-top:10px;align-items:center;flex-wrap:wrap;}
+.pd-dl{font-size:11px;font-weight:600;color:var(--ink3);}
+.pd-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 16px 0;}
+.pd-grid2-card{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);border:1px solid var(--line);padding:13px 14px;}
+.pd-grid2-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:6px;}
+.pd-arah-text{font-size:13px;font-weight:500;color:var(--ink2);line-height:1.55;font-style:italic;}
+.pd-arah-empty{font-size:12px;color:var(--ink3);font-style:italic;}
+.pd-prog-big{font-size:28px;font-weight:900;letter-spacing:-.5px;color:var(--ink);line-height:1;}
+.pd-prog-sub{font-size:11px;font-weight:600;color:var(--ink3);margin-top:3px;}
+.pd-prog-bar{height:4px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:8px;}
+.pd-prog-barfill{height:100%;border-radius:99px;}
+.linked-area-card{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);border:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:transform .14s;position:relative;overflow:hidden;}
+.linked-area-card:active{transform:scale(.982);}
+.lac-accent{position:absolute;left:0;top:0;bottom:0;width:3px;}
+.lac-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-left:6px;}
+.lac-info{flex:1;min-width:0;}
+.lac-name{font-size:14px;font-weight:700;color:var(--ink);}
+.lac-sub{font-size:11px;color:var(--ink3);margin-top:1px;}
+.lac-chev{font-size:16px;color:var(--ink3);}
+
+/* ── AREA DETAIL NEW STYLE ── */
+.ad-header{background:var(--white);border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.ad-accent{height:4px;width:100%;}
+.ad-body{padding:16px 16px 14px;}
+.ad-top{display:flex;align-items:center;gap:14px;}
+.ad-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.ad-info{flex:1;min-width:0;}
+.ad-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:2px;}
+.ad-name{font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1.1;}
+.ad-meta{display:flex;gap:7px;margin-top:10px;align-items:center;flex-wrap:wrap;}
+.cs-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden;}
+.cs-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 11px;border-bottom:1px solid var(--line);}
+.cs-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
+.cs-period{font-size:11px;font-weight:700;color:var(--blue);}
+.cs-body{display:flex;overflow-x:auto;padding:14px 16px;gap:10px;}
+.cs-body::-webkit-scrollbar{display:none;}
+.cs-card{flex-shrink:0;min-width:88px;background:var(--bg);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;border:1.5px solid var(--line);}
+.cs-card.state-on{background:var(--green-lt);border-color:var(--green-bd);}
+.cs-card.state-warn{background:var(--amber-lt);border-color:var(--amber-bd);}
+.cs-card.state-off{background:var(--bg2);border-color:var(--line2);}
+.cs-ic{font-size:18px;line-height:1;margin-bottom:2px;}
+.cs-label{font-size:10px;font-weight:800;color:var(--ink2);letter-spacing:.02em;line-height:1.2;}
+.cs-state{font-size:10px;font-weight:700;margin-top:2px;}
+.cs-card.state-on .cs-state{color:var(--green);}
+.cs-card.state-warn .cs-state{color:var(--amber);}
+.cs-card.state-off .cs-state{color:var(--ink3);}
+.cs-empty{padding:16px;font-size:13px;color:var(--ink3);font-style:italic;}
+.ss-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden;}
+.ss-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 11px;border-bottom:1px solid var(--line);}
+.ss-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
+.ss-edit{font-size:12px;font-weight:700;color:var(--blue);}
+.pd-why-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);margin-bottom:14px;overflow:hidden;}
+.pd-why-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px;border-bottom:1px solid var(--line);}
+.pd-why-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
+.pd-why-edit{font-size:12px;font-weight:700;color:var(--blue);}
+.pd-why-body{padding:13px 16px 14px;}
+.pd-why-text{font-size:14px;font-weight:500;color:var(--ink2);line-height:1.65;font-style:italic;}
+.pd-why-empty{font-size:13px;color:var(--ink3);font-style:italic;}
+.pd-focus-card{border-radius:var(--r);margin-bottom:14px;overflow:hidden;}
+.pd-focus-inner{padding:16px 16px 14px;border-radius:var(--r);border:1.5px solid transparent;}
+.pd-focus-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;}
+.pd-focus-name{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:-.35px;line-height:1.25;margin-bottom:4px;}
+.pd-focus-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:10px;font-size:13px;font-weight:800;border:none;cursor:pointer;letter-spacing:-.1px;color:#fff;}
+.pd-focus-done{text-align:center;padding:20px 0 12px;}
+.pd-focus-done-ic{font-size:32px;margin-bottom:6px;}
+.pd-focus-done-txt{font-size:14px;font-weight:800;color:var(--green);}
+.pd-focus-done-sub{font-size:12px;color:var(--ink3);margin-top:2px;}
+.ap-drag-list{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;}
+.ap-item-wrap{position:relative;background:var(--white);border-bottom:1px solid var(--line);display:flex;align-items:stretch;transition:background .12s;}
+.ap-item-wrap:last-child{border-bottom:none;}
+.ap-item-wrap.dragging{opacity:.45;background:var(--bg);}
+.ap-item-wrap.drag-over{box-shadow:inset 0 2px 0 var(--blue);}
+.ap-drag-handle{display:flex;align-items:center;justify-content:center;width:28px;flex-shrink:0;cursor:grab;color:var(--ink3);font-size:13px;opacity:.4;padding-left:4px;touch-action:none;}
+.ap-drag-handle:active{cursor:grabbing;opacity:.7;}
+.ap-item-wrap.is-done-wrap .ap-drag-handle{opacity:.2;}
+.res-feed{display:flex;flex-direction:column;gap:9px;}
+.res-card{background:var(--white);border-radius:12px;box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:transform .14s;}
+.res-card:active{transform:scale(.982);}
+.res-card-hd{display:flex;align-items:center;gap:10px;padding:12px 14px 9px;}
+.res-type-ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.res-info{flex:1;min-width:0;}
+.res-card-label{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.15px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;}
+.res-card-sub{font-size:11px;color:var(--ink3);margin-top:1px;font-weight:500;}
+.res-card-edit{font-size:16px;color:var(--ink3);padding:4px 6px;}
+.res-body-preview{padding:0 14px 11px;font-size:13px;color:var(--ink2);line-height:1.55;font-weight:500;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.res-tags-row{display:flex;gap:5px;flex-wrap:wrap;padding:0 14px 11px;}
+.res-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg2);color:var(--ink3);}
+.res-empty{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);padding:22px 16px;text-align:center;font-size:13px;color:var(--ink3);font-style:italic;}
+.res-type-btn{flex:1;padding:8px 6px;border-radius:8px;border:1.5px solid var(--line2);font-size:12px;font-weight:700;color:var(--ink2);background:var(--bg);transition:all .15s;cursor:pointer;}
+.res-type-btn.sel{background:var(--blue-lt);color:var(--blue);border-color:var(--blue-bd);}
+.proj-linked{background:var(--white);border-radius:11px;box-shadow:var(--sh);border:1px solid var(--line);margin-bottom:9px;overflow:hidden;cursor:pointer;transition:transform .14s;display:flex;flex-direction:column;}
+.proj-linked:active{transform:scale(.982);}
+.proj-linked-hd{display:flex;align-items:center;gap:10px;padding:12px 12px 10px 0;flex:1;position:relative;}
+.pl-accent{position:absolute;left:0;top:0;bottom:0;width:3px;}
+.pl-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;margin-left:14px;}
+.pl-info{flex:1;min-width:0;}
+.pl-name{font-size:14px;font-weight:800;letter-spacing:-.2px;color:var(--ink);}
+.pl-sub{font-size:11px;color:var(--ink3);margin-top:2px;}
+.pl-chev{font-size:16px;color:var(--ink3);padding-right:4px;}
+.proj-linked-foot{display:flex;align-items:center;gap:6px;padding:7px 12px 8px 52px;background:var(--bg);border-top:1px solid var(--line);flex-wrap:wrap;}
+.pd-section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.pd-sec-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
+.pd-sec-btn{font-size:12px;font-weight:700;color:var(--blue);padding:3px 0;}
+
 </style>
 </head>
 <body>
@@ -2325,66 +2533,71 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ PROJECTS ══ -->
-    <div class="view active" id="v-projects">
-      <div class="pad">
-        <div id="proj-focus-hint" style="display:none"></div>
-        <div id="proj-active-section"></div>
-        <button class="pa-add-btn project" onclick="openAddProject()">🚀 Tambah Project Baru</button>
-        <div id="proj-done-section"></div>
-      </div>
-    </div>
+    <div class="view active" id="v-projects"><div class="pad">
+      <div class="ov-banner" id="ov-banner"></div>
+      <div class="filter-bar" id="filter-bar"></div>
+
+      <!-- Focus Right Now -->
+      <div id="focus-now-wrap"></div>
+
+      <!-- Recently Active -->
+      <div id="recently-active-wrap"></div>
+
+      <!-- All Projects -->
+      <div id="all-projects-wrap"></div>
+
+      <button class="pa-add-btn project" onclick="openAddProject()" style="margin-top:8px">🚀 Tambah Project Baru</button>
+    </div></div>
 
 
     <!-- ══ AREAS ══ -->
-    <div class="view" id="v-areas">
-      <div class="pad">
-        <div id="areas-list"><div class="pa-card"><div class="pa-card-header"><div class="pa-card-accent" style="background:#be185d"></div><div class="pa-card-icon" style="background:#be185d18;margin-left:12px">🌿</div><div class="pa-card-info"><div class="pa-card-name">Boxing</div></div><div class="pa-card-chev">›</div></div><div class="pa-card-footer"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>
-        <button class="pa-add-btn area" onclick="openAddArea()">🌿 Tambah Area Baru</button>
-      </div>
-    </div>
+    <div class="view" id="v-areas"><div class="pad">
+      <div class="area-gallery" id="areas-list" style="display:grid"></div>
+      <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
+    </div></div>
 
     <!-- ══ PROJECT DETAIL ══ -->
     <div class="view" id="v-proj-detail">
-      <div class="pad-header" id="proj-detail-header"><div class="pad-header-accent" style="background:#7c3aed"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#7c3aed18">🚀</div><div class="pad-info"><div class="pad-type-label">Project</div><div class="pad-name">Lomba Gemastik</div></div></div><div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah</span>Juara Gemastik</div><div class="pad-meta-row"><span class="pa-status-chip pa-status-aktif">aktif</span></div></div></div>
-      <div class="pa-subtab-row" id="proj-subtab-row">
-        <button class="pa-subtab active" id="proj-tab-ap" onclick="switchProjTab(&#39;ap&#39;)">✅ Action Plan</button>
-        <button class="pa-subtab" id="proj-tab-ag" onclick="switchProjTab(&#39;ag&#39;)">📅 Agenda</button>
-      </div>
-      <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="proj-detail-ap-list"><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div></div>
-        <div id="proj-detail-ag-list" style="display:none"></div>
-        <button class="pa-add-btn project" id="proj-detail-add-btn" style="margin-top:8px" onclick="openAddProjItem()">＋ Tambah</button>
+      <div id="pd-header-wrap"></div>
+      <div class="pd-grid2" id="pd-grid2"></div>
+      <div class="pad" style="padding-top:14px;padding-bottom:32px">
+        <div class="pd-why-wrap" id="pd-why-wrap"></div>
+        <div id="pd-focus-wrap"></div>
+        <div class="pd-section-hd">
+          <span class="pd-sec-lbl">✅ Next Actions</span>
+          <button class="pd-sec-btn" onclick="openAddProjItem()">＋ Tambah</button>
+        </div>
+        <div class="card" id="proj-ap-list"></div>
+        <div class="pd-section-hd" style="margin-top:16px">
+          <span class="pd-sec-lbl">📎 Resources &amp; Notes</span>
+          <button class="pd-sec-btn" onclick="openAddResource()">＋ Tambah</button>
+        </div>
+        <div id="proj-resources-list"></div>
+        <div class="pd-section-hd" style="margin-top:16px">
+          <span class="pd-sec-lbl">🔗 Linked Area</span>
+        </div>
+        <div id="proj-linked-area"></div>
       </div>
     </div>
 
     <!-- ══ AREA DETAIL ══ -->
     <div class="view" id="v-area-detail">
-      <div class="pad-header" id="area-detail-header"><div class="pad-header-accent" style="background:#be185d"></div><div class="pad-header-body"><div class="pad-header-top"><div class="pad-icon" style="background:#be185d18">🌿</div><div class="pad-info"><div class="pad-type-label">Area — Maintaining</div><div class="pad-name">Boxing</div></div></div><div class="pad-meta-row"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>
-
-      <!-- Goals Compass + Line Up Goals -->
-      <div class="pad" style="padding-top:14px;padding-bottom:4px" id="area-goals-section">
-
-        <!-- Goals Compass -->
-        <div class="gc-wrap" id="area-gc-wrap">
-          <div class="gc-header">
-            <span class="gc-title">🧭 Kompas Tujuan</span>
-            <button class="gc-edit-btn" onclick="openEditAreaGoals()">✏️ Edit</button>
+      <div id="ad-header-wrap"></div>
+      <div class="pad" style="padding-top:14px;padding-bottom:16px">
+        <div class="cs-wrap" id="cs-wrap">
+          <div class="cs-header">
+            <span class="cs-title">⚡ Current State</span>
+            <span class="cs-period" id="cs-period">Hari ini</span>
           </div>
+          <div id="cs-body"></div>
+        </div>
+        <div class="gc-wrap">
+          <div class="gc-header"><span class="gc-title">🧭 Kompas Tujuan</span><button class="gc-edit-btn" onclick="openEditAreaGoals()">✏️ Edit</button></div>
           <div class="gc-body">
-            <div class="gc-col want">
-              <span class="gc-col-icon">✅</span>
-              <div class="gc-col-label">Keinginan</div>
-              <div class="gc-col-content" id="gc-want-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div>
-            </div>
-            <div class="gc-col dont">
-              <span class="gc-col-icon">🚫</span>
-              <div class="gc-col-label">Ketidakinginan</div>
-              <div class="gc-col-content" id="gc-dont-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div>
-            </div>
+            <div class="gc-col want"><span class="gc-col-icon">✅</span><div class="gc-col-label">Keinginan</div><div class="gc-col-content" id="gc-want-content"><div class="gc-col-empty">Belum diisi</div></div></div>
+            <div class="gc-col dont"><span class="gc-col-icon">🚫</span><div class="gc-col-label">Ketidakinginan</div><div class="gc-col-content" id="gc-dont-content"><div class="gc-col-empty">Belum diisi</div></div></div>
           </div>
         </div>
-
-        <!-- Line Up Goals -->
         <div class="lug-wrap" id="area-lug-wrap">
           <button class="lug-header" id="lug-collapse-btn" onclick="toggleLugCollapse()" style="width:100%;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
             <span class="lug-title">🎯 Line Up Goals</span>
@@ -2392,17 +2605,15 @@ input,select,textarea { font-family:inherit; }
           </button>
           <div class="lug-body" id="area-lug-body"></div>
         </div>
-
-      </div>
-
-      <div class="pa-subtab-row" id="area-subtab-row">
-        <button class="pa-subtab active" id="area-tab-ap" onclick="switchAreaTab(&#39;ap&#39;)">✅ Action Plan</button>
-        <button class="pa-subtab" id="area-tab-ag" onclick="switchAreaTab(&#39;ag&#39;)">📅 Agenda</button>
-      </div>
-      <div class="pad" style="padding-top:12px;padding-bottom:80px">
-        <div id="area-detail-ap-list" style=""><div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div></div>
-        <div id="area-detail-ag-list" style="display: none;"><div class="empty"><span class="empty-ic">📅</span><div class="empty-t">Belum ada agenda</div><div class="empty-s">Tambah jadwal rutin atau rencana</div></div></div>
-        <button class="pa-add-btn area" id="area-detail-add-btn" style="margin-top:8px" onclick="openAddAreaItem()">＋ Tambah</button>
+        <div class="ss-wrap" id="ss-wrap">
+          <div class="ss-header">
+            <span class="ss-title">🔁 Rituals</span>
+            <button class="ss-edit" onclick="openAddAreaItem()">＋ Tambah</button>
+          </div>
+          <div id="area-ap-list"></div>
+        </div>
+        <div class="sec">🚀 Projects di Area Ini</div>
+        <div id="area-projects-list"></div>
       </div>
     </div>
 
@@ -2723,6 +2934,7 @@ input,select,textarea { font-family:inherit; }
           <input id="ap-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
         </div>
       </div>
+      <div class="field"><label class="flbl">Link ke Area (opsional)</label><select id="ap-area"><option value="">— Tanpa Area —</option></select></div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"></div></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
@@ -2766,6 +2978,7 @@ input,select,textarea { font-family:inherit; }
           <input id="ep-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
         </div>
       </div>
+      <div class="field"><label class="flbl">Link ke Area</label><select id="ep-area"><option value="">— Tanpa Area —</option></select></div>
       <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj-edit"></div></div>
     </div>
     <div class="sh-footer">
@@ -3221,7 +3434,7 @@ async function boot(){
   }
 
   ensurePAData();
-  renderHome(); renderSubjLists(); renderMcal(); renderSidebar();
+  renderHome(); renderSubjLists(); renderMcal(); renderSidebar(); renderProjects(); renderAreas();
   restorePomoState();
   sbLoadPomoSessions();
   startPomoCloudSync(); // always poll — picks up sessions from other devices too
@@ -3296,8 +3509,8 @@ function goView(name, btn){
   if(name==='home')     renderHome();
   if(name==='subjects') renderSubjLists();
   if(name==='cal')      renderMcal();
-  if(name==='projects') renderProjects();
-  if(name==='areas')    renderAreas();
+  if(name==='projects'){ renderProjects(); }
+  if(name==='areas'){    renderAreas(); }
   document.getElementById('scroll').scrollTop=0;
 }
 
@@ -4799,56 +5012,6 @@ function statusLabel(st){
 }
 
 // ════════ PROJECTS LIST ══════════════════════════
-function renderProjects(){
-  ensurePAData();
-  const sec     = document.getElementById('proj-active-section');
-  const doneSec = document.getElementById('proj-done-section');
-  const hint    = document.getElementById('proj-focus-hint');
-  if(!sec || !doneSec) return;
-
-  const active = D.projects.filter(p => p.status !== 'selesai');
-  const done   = D.projects.filter(p => p.status === 'selesai');
-
-  // Today's focus hint
-  const todayStr = tod();
-  let urgentCount = 0;
-  active.forEach(p => {
-    const aps = (D.p_tasks||[]).filter(t => t.parentId === p.id && !t.done);
-    const urgentAps = aps.filter(t => t.deadline && diffD(t.deadline, todayStr) <= 3 && diffD(t.deadline, todayStr) >= 0);
-    const todayAgs  = (D.p_agendas||[]).filter(a => a.parentId === p.id && a.date === todayStr && !a.done);
-    urgentCount += urgentAps.length + todayAgs.length;
-  });
-  if(hint){
-    if(urgentCount > 0){
-      hint.style.display = 'flex';
-      hint.innerHTML = `<span style="font-size:16px">⚡</span><div class="proj-focus-hint-text">${urgentCount} task/agenda project jatuh tempo dalam 3 hari</div>`;
-    } else if(active.length > 0) {
-      hint.style.display = 'flex';
-      hint.innerHTML = `<span style="font-size:16px">✅</span><div class="proj-focus-hint-text">Semua project on track — ga ada yang urgent minggu ini</div>`;
-    } else {
-      hint.style.display = 'none';
-    }
-  }
-
-  sec.innerHTML = '';
-  if(!active.length){
-    sec.innerHTML = `<div class="pa-empty"><span class="pa-empty-ic">🚀</span><div class="pa-empty-t">Belum ada project aktif</div><div class="pa-empty-s">Mulai tracking project pertama lo — bisa lomba, skripsi, side project, apapun!</div></div>`;
-  } else {
-    const grid = document.createElement('div');
-    grid.className = 'proj-grid';
-    active.forEach(p => grid.appendChild(mkProjCard(p, true)));
-    sec.appendChild(grid);
-  }
-
-  doneSec.innerHTML = '';
-  if(done.length){
-    const lbl = document.createElement('div'); lbl.className = 'pa-section-hd';
-    lbl.textContent = '✅ Selesai (' + done.length + ')'; doneSec.appendChild(lbl);
-    // done projects: full-width, muted
-    done.forEach(p => doneSec.appendChild(mkProjCard(p, false)));
-  }
-}
-
 function mkProjCard(p, isGrid){
   ensurePAData();
   const aps  = D.p_tasks.filter(t => t.parentId === p.id);
@@ -4909,57 +5072,7 @@ function mkProjCard(p, isGrid){
 }
 
 // ════════ PROJECT DETAIL ═════════════════════════
-function openProjDetail(id){
-  ensurePAData();
-  curProjId = id; curProjTab = 'ap'; curView = 'proj-detail';
-  const p = gProj(id);
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('v-proj-detail').classList.add('active');
-  document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
-  document.getElementById('bn-focus')?.classList.add('active');
-
-  // mobile topbar
-  document.getElementById('topbar').innerHTML =
-    `<button class="tb-back" onclick="navPopGoView('projects')">‹ Projects</button>`+
-    `<div class="tb-title">${p.emoji||'🚀'} ${p.name}</div>`+
-    `<button class="tb-action ghost" onclick="openEditProject('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
-
-  updateDesktopTopbar('proj-detail', p);
-
-  // header
-  const dl = fmtDeadline(p);
-  const aps = D.p_tasks.filter(t => t.parentId === id);
-  const nonRecurAps = aps.filter(t => !t.recurring || t.recurring.freq === 'none');
-  const doneAp = nonRecurAps.filter(t => t.done).length;
-  const totalAp = nonRecurAps.length;
-  const pct = totalAp ? Math.round(doneAp / totalAp * 100) : 0;
-
-  document.getElementById('proj-detail-header').innerHTML =
-    `<div class="pad-header-accent" style="background:${p.color}"></div>`+
-    `<div class="pad-header-body">`+
-    `<div class="pad-header-top">`+
-    `<div class="pad-icon" style="background:${p.color}18">${p.emoji||'🚀'}</div>`+
-    `<div class="pad-info">`+
-    `<div class="pad-type-label">Project</div>`+
-    `<div class="pad-name">${p.name}</div>`+
-    `</div></div>`+
-    (p.goal ? `<div class="pad-arah"><span class="pad-arah-lbl">🧭 Arah</span>${escHtml(p.goal)}</div>` : '')+
-    `<div class="pad-meta-row">`+
-    `<span class="pa-status-chip pa-status-${p.status}">${statusLabel(p.status)}</span>`+
-    (dl ? `<span class="pad-deadline-lbl">${dl}</span>` : '')+
-    `</div>`+
-    (totalAp ? `<div class="pad-prog-row">`+
-      `<div class="pad-prog-label">${pct}% selesai</div>`+
-      `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${pct}%;background:${p.color}"></div></div>`+
-      `<div class="pad-prog-count">${doneAp}/${totalAp}</div>`+
-    `</div>` : '')+
-    `</div>`;
-
-  switchProjTab('ap');
-  document.getElementById('scroll').scrollTop = 0;
-}
-
-function switchProjTab(tab){
+function switchProjTab_disabled(tab){
   curProjTab = tab;
   document.getElementById('proj-tab-ap').classList.toggle('active', tab === 'ap');
   document.getElementById('proj-tab-ag').classList.toggle('active', tab === 'ag');
@@ -4969,7 +5082,7 @@ function switchProjTab(tab){
   renderProjItems();
 }
 
-function renderProjItems(){
+function renderProjItems_old_disabled(){
   ensurePAData();
   const p = gProj(curProjId);
   if(!p) return;
@@ -5012,18 +5125,6 @@ function renderProjItems(){
 }
 
 // ════════ AREAS LIST ═════════════════════════════
-function renderAreas(){
-  ensurePAData();
-  const el = document.getElementById('areas-list');
-  if(!el) return;
-  el.innerHTML = '';
-  if(!D.areas.length){
-    el.innerHTML = `<div class="pa-empty"><span class="pa-empty-ic">🌿</span><div class="pa-empty-t">Belum ada area</div><div class="pa-empty-s">Area adalah hal yang kamu jaga selamanya,\nseperti Kesehatan, Iman, atau Keuangan</div></div>`;
-    return;
-  }
-  D.areas.forEach(a => el.appendChild(mkAreaCard(a)));
-}
-
 function mkAreaCard(a){
   ensurePAData();
   const aps = D.p_tasks.filter(t => t.parentId === a.id);
@@ -5054,55 +5155,7 @@ function mkAreaCard(a){
 }
 
 // ════════ AREA DETAIL ════════════════════════════
-function openAreaDetail(id){
-  ensurePAData();
-  curAreaId = id; curAreaTab = 'ap'; curView = 'area-detail';
-  _lugCollapsed = false; // always show goals open when entering area
-  const a = gArea(id);
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  document.getElementById('v-area-detail').classList.add('active');
-  document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
-  document.getElementById('bn-focus')?.classList.add('active');
-
-  document.getElementById('topbar').innerHTML =
-    `<button class="tb-back" onclick="navPopGoView('areas')">‹ Areas</button>`+
-    `<div class="tb-title">${a.emoji||'🌿'} ${a.name}</div>`+
-    `<button class="tb-action ghost" onclick="openEditArea('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
-
-  updateDesktopTopbar('area-detail', a);
-
-  const aAps = D.p_tasks.filter(t => t.parentId === id);
-  const aNonRecur = aAps.filter(t => !t.recurring || t.recurring.freq === 'none');
-  const aDone = aNonRecur.filter(t => t.done).length;
-  const aTotal = aNonRecur.length;
-  const aPct = aTotal ? Math.round(aDone / aTotal * 100) : 0;
-
-  document.getElementById('area-detail-header').innerHTML =
-    `<div class="pad-header-accent" style="background:${a.color}"></div>`+
-    `<div class="pad-header-body">`+
-    `<div class="pad-header-top">`+
-    `<div class="pad-icon" style="background:${a.color}18">${a.emoji||'🌿'}</div>`+
-    `<div class="pad-info">`+
-    `<div class="pad-type-label">Area — Maintaining</div>`+
-    `<div class="pad-name">${a.name}</div>`+
-    `</div></div>`+
-    `<div class="pad-meta-row">`+
-    `<span class="pa-status-chip pa-status-area">maintaining</span>`+
-    `</div>`+
-    (aTotal ? `<div class="pad-prog-row">`+
-      `<div class="pad-prog-label">${aPct}% selesai</div>`+
-      `<div class="pad-prog-bar"><div class="pad-prog-fill" style="width:${aPct}%;background:${a.color}"></div></div>`+
-      `<div class="pad-prog-count">${aDone}/${aTotal}</div>`+
-    `</div>` : '')+
-    `</div>`;
-
-  switchAreaTab('ap');
-  renderGoalsCompass(id);
-  renderLineUpGoals(id);
-  document.getElementById('scroll').scrollTop = 0;
-}
-
-function switchAreaTab(tab){
+function switchAreaTab_disabled(tab){
   curAreaTab = tab;
   document.getElementById('area-tab-ap').classList.toggle('active', tab === 'ap');
   document.getElementById('area-tab-ag').classList.toggle('active', tab === 'ag');
@@ -5111,7 +5164,7 @@ function switchAreaTab(tab){
   renderAreaItems();
 }
 
-function renderAreaItems(){
+function renderAreaItems_old_disabled(){
   ensurePAData();
   const a = gArea(curAreaId);
   if(!a) return;
@@ -5418,9 +5471,9 @@ function delAgenda(){
 
 function refreshPAViews(){
   if(curView === 'projects')    renderProjects();
-  if(curView === 'proj-detail') renderProjItems();
+  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderProjAp_c(curProjId,p.color); renderCurrentFocus_c(curProjId,p.color); } }
   if(curView === 'areas')       renderAreas();
-  if(curView === 'area-detail') renderAreaItems();
+  if(curView === 'area-detail'){ const a=gArea(curAreaId); if(a){ renderAreaRituals_c(curAreaId,a.color); renderCurrentState_c(curAreaId,a.color); } }
 }
 
 // ════════ PROJECT CRUD ════════════════════════════
@@ -5469,6 +5522,8 @@ function openAddProject(){
   document.getElementById('ap-g').value = '';
   document.getElementById('ap-st').value = 'aktif';
   buildCpickerProj('cpicker-proj', selColorProj, c => selColorProj = c);
+  const apAreaSel=document.getElementById('ap-area');
+  if(apAreaSel){apAreaSel.innerHTML='<option value="">— Tanpa Area —</option>';(D.areas||[]).forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=(a.emoji||'')+' '+a.name;apAreaSel.appendChild(o);});}
   // bind deadline selects
   bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap','ap-dl-date-wrap');
   document.getElementById('ap-dl-type').value = 'none';
@@ -5483,7 +5538,8 @@ function saveNewProject(){
   const status= document.getElementById('ap-st').value;
   const deadline = getDeadlineValue('ap-dl-type','ap-dl-month','ap-dl-year','ap-dl-date');
   ensurePAData();
-  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, color:selColorProj, createdAt:tod()});
+  const areaId_ap = document.getElementById('ap-area')?.value||null;
+  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, color:selColorProj, areaId:areaId_ap, createdAt:tod()});
   save(); closeSheet('sh-addproject'); renderProjects();
   toast(`"${name}" ditambahkan ke Projects!`);
 }
@@ -5492,6 +5548,8 @@ function openEditProject(id){
   editProjId = id;
   const p = gProj(id);
   selColorProjEdit = p.color;
+  const epAreaSel=document.getElementById('ep-area');
+  if(epAreaSel){epAreaSel.innerHTML='<option value="">— Tanpa Area —</option>';(D.areas||[]).forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=(a.emoji||'')+' '+a.name;if(a.id===p.areaId)o.selected=true;epAreaSel.appendChild(o);});}
   document.getElementById('ep-n').value = p.name;
   document.getElementById('ep-e').value = p.emoji || '🚀';
   document.getElementById('ep-g').value = p.goal || '';
@@ -5516,6 +5574,7 @@ function saveEditProject(){
   p.status = document.getElementById('ep-st').value;
   p.color  = selColorProjEdit;
   p.deadline = getDeadlineValue('ep-dl-type','ep-dl-month','ep-dl-year','ep-dl-date');
+  p.areaId = document.getElementById('ep-area')?.value||null;
   save(); closeSheet('sh-editproject');
   openProjDetail(editProjId);
   renderProjects();
@@ -6133,8 +6192,549 @@ function navPopGoView(view){
   else                    goView('areas',    null);
 }
 
+
+// ════════ NEW PARA FUNCTIONS (from cukungunya) ════════════════════════
+
+function fmtDs(ds){if(!ds)return'';return new Date(ds+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'});}
+function pTasks_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));}
+function pRec_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&t.recurring&&t.recurring.freq&&t.recurring.freq!=='none');}
+function calcPct_c(pid){const ts=pTasks_c(pid);return ts.length?Math.round(ts.filter(t=>t.done).length/ts.length*100):0;}
+function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',pause:'Pause',selesai:'Selesai'}[s]||s;}
+function mf_c(p){return curFilter_c==='all'||p.areaId===curFilter_c;}
+function fmtDl_c(p){
+  if(!p.deadline)return null;
+  const d=p.deadline;
+  if(d.type==='date')return'📅 '+new Date(d.value+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'});
+  if(d.type==='month'){const[y,m]=d.value.split('-');return'📅 '+['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][parseInt(m)-1]+' '+y;}
+  if(d.type==='year')return'📅 '+d.value;
+  return null;
+}
+
+let curFilter_c='all';
+
+function buildFilterPills_c(){
+  const bar=document.getElementById('filter-bar');
+  if(!bar)return;
+  bar.innerHTML='<button class="fpill on" onclick="setFilter_c(\'all\',this)">Semua</button>';
+  (D.areas||[]).forEach(a=>{const b=document.createElement('button');b.className='fpill';b.onclick=function(){setFilter_c(a.id,b);};b.textContent=(a.emoji||'')+' '+a.name;bar.appendChild(b);});
+}
+function setFilter_c(f,btn){curFilter_c=f;document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('on'));if(btn)btn.classList.add('on');renderProjectsContent();}
+
+function renderProjects(){
+  ensurePAData();
+  // Build overview banner
+  const _ovEl=document.getElementById('ov-banner');
+  if(_ovEl){
+    const _aktif=(D.projects||[]).filter(p=>p.status==='aktif');
+    const _avg=_aktif.length?Math.round(_aktif.reduce((s,p)=>s+calcPct_c(p.id),0)/_aktif.length):0;
+    const _pend=(D.p_tasks||[]).filter(t=>!t.done&&(!t.recurring||t.recurring.freq==='none')&&_aktif.find(p=>p.id===t.parentId)).length;
+    _ovEl.innerHTML='<div class="ov-stat" style="padding-left:0"><div class="ov-num">'+_aktif.length+'</div><div class="ov-lbl">Aktif</div></div>'+
+      '<div class="ov-stat"><div class="ov-num">'+_avg+'<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div><div class="ov-lbl">Avg done</div><div class="ov-bar-wrap"><div class="ov-bar-fill" style="width:'+_avg+'%"></div></div></div>'+
+      '<div class="ov-stat"><div class="ov-num">'+_pend+'</div><div class="ov-lbl">Actions pending</div></div>';
+  }
+  // Build filter pills
+  buildFilterPills_c();
+  renderProjectsContent();
+}
+
+
+
+function renderProjectsContent(){
+  const all=(D.projects||[]).filter(p=>mf_c(p));
+  const aktif=all.filter(p=>p.status==='aktif');
+  const others=all.filter(p=>p.status!=='aktif');
+
+  // Focus Right Now
+  const focusWrap=document.getElementById('focus-now-wrap');
+  if(focusWrap){
+    if(aktif.length){
+      const focus=aktif.slice().sort((a,b)=>calcPct_c(b.id)-calcPct_c(a.id))[0];
+      const pct=calcPct_c(focus.id);
+      const circ=2*Math.PI*18;
+      focusWrap.innerHTML=
+        '<div class="proj-sec-lbl">Focus Right Now</div>'+
+        '<div class="hero-card" onclick="openProjDetail(\''+focus.id+'\')">'+
+        '<div class="hero-bg" style="background:linear-gradient(135deg,'+focus.color+'f0 0%,'+focus.color+'bb 100%)"></div>'+
+        '<div class="hero-noise"></div><div class="hero-grad"></div>'+
+        '<div class="hero-body">'+
+        '<div class="hero-label">🎯 Active Project</div>'+
+        '<div class="hero-name">'+(focus.emoji||'🚀')+' '+escHtml(focus.name)+'</div>'+
+        (focus.goal?'<div class="hero-goal">'+escHtml(focus.goal)+'</div>':'')+
+        '<div class="hero-foot"><span class="hero-status">'+sLbl_c(focus.status)+'</span>'+
+        '<div class="hero-pct-ring"><svg class="hero-ring-svg" viewBox="0 0 48 48">'+
+        '<circle class="hero-ring-bg" cx="24" cy="24" r="18"/>'+
+        '<circle class="hero-ring-fill" cx="24" cy="24" r="18" stroke-dasharray="'+(circ*pct/100).toFixed(1)+' '+circ.toFixed(1)+'" stroke-dashoffset="0"/>'+
+        '<text class="hero-pct-txt" x="24" y="24">'+pct+'%</text></svg></div>'+
+        '</div></div></div>';
+    } else {
+      focusWrap.innerHTML='';
+    }
+  }
+
+  // Recently Active
+  const raWrap=document.getElementById('recently-active-wrap');
+  if(raWrap){
+    const focusId=aktif.length?aktif.slice().sort((a,b)=>calcPct_c(b.id)-calcPct_c(a.id))[0].id:null;
+    const recentProjs=aktif.filter(p=>p.id!==focusId).slice(0,4);
+    if(recentProjs.length){
+      let html='<div class="proj-sec-lbl">Recently Active</div><div class="ra-scroll">';
+      recentProjs.forEach(p=>{
+        const pct=calcPct_c(p.id);
+        html+='<div class="ra-card" onclick="openProjDetail(\''+p.id+'\')">'+
+          '<div class="ra-accent" style="background:'+p.color+'"></div>'+
+          '<div class="ra-body"><div class="ra-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
+          '<div class="ra-name">'+escHtml(p.name)+'</div>'+
+          '<div class="ra-pct">'+pct+'<span style="font-size:10px;font-weight:700;color:var(--ink3)">%</span></div>'+
+          '<div class="ra-pct-lbl">selesai</div></div>'+
+          '<div class="ra-bar"><div class="ra-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>';
+      });
+      html+='</div>';
+      raWrap.innerHTML=html;
+    } else { raWrap.innerHTML=''; }
+  }
+
+  // All Projects
+  const allWrap=document.getElementById('all-projects-wrap');
+  if(allWrap){
+    if(others.length){
+      const paused=others.filter(p=>p.status==='pause');
+      const rencana=others.filter(p=>p.status==='rencana');
+      let html='<div class="pd-sec-lbl" style="margin-bottom:10px">All Projects</div><div class="all-proj-list">';
+      paused.forEach(p=>{
+        const pct=calcPct_c(p.id);const dl=fmtDl_c(p);
+        html+='<div class="apl-item" onclick="openProjDetail(\''+p.id+'\')">'+
+          '<div class="apl-accent" style="background:'+p.color+'"></div>'+
+          '<div class="apl-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
+          '<div class="apl-body"><div class="apl-name">'+escHtml(p.name)+'</div>'+
+          '<div class="apl-sub"><span class="pa-status-chip pa-status-'+p.status+'" style="font-size:9px">'+sLbl_c(p.status)+'</span>'+(dl?' · '+dl:'')+'</div></div>'+
+          '<div class="apl-right"><div class="apl-pct">'+pct+'%</div>'+
+          '<div class="apl-bar"><div class="apl-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>'+
+          '</div>';
+      });
+      html+='</div>';
+      if(rencana.length){
+        html+='<div id="rencana-reveal-row" style="margin-top:6px;padding:4px 2px">'+
+          '<span onclick="showRencana()" style="font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer">+ Lihat yang direncanakan</span>'+
+          '</div><div id="rencana-list" style="display:none;margin-top:6px"><div class="all-proj-list">';
+        rencana.forEach(p=>{
+          const pct=calcPct_c(p.id);const dl=fmtDl_c(p);
+          html+='<div class="apl-item" onclick="openProjDetail(\''+p.id+'\')">'+
+            '<div class="apl-accent" style="background:'+p.color+'"></div>'+
+            '<div class="apl-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
+            '<div class="apl-body"><div class="apl-name">'+escHtml(p.name)+'</div>'+
+            '<div class="apl-sub"><span class="pa-status-chip pa-status-'+p.status+'" style="font-size:9px">'+sLbl_c(p.status)+'</span>'+(dl?' · '+dl:'')+'</div></div>'+
+            '<div class="apl-right"><div class="apl-pct">'+pct+'%</div>'+
+            '<div class="apl-bar"><div class="apl-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>'+
+            '</div>';
+        });
+        html+='</div></div>';
+      }
+      allWrap.innerHTML=html;
+    } else { allWrap.innerHTML=''; }
+  }
+}
+
+function showRencana(){
+  const list=document.getElementById('rencana-list');const row=document.getElementById('rencana-reveal-row');
+  if(list)list.style.display='';if(row)row.style.display='none';
+}
+
+function renderAreas(){
+  ensurePAData();
+  const el=document.getElementById('areas-list');if(!el)return;
+  el.innerHTML='';
+  if(!D.areas.length){
+    el.style.display='block';
+    el.innerHTML='<div style="grid-column:span 2;padding:32px 20px;text-align:center;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:32px;display:block;margin-bottom:8px">🌿</span><div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada area</div><div style="font-size:12px;color:var(--ink3);margin-top:3px">Area adalah hal yang kamu jaga selamanya</div></div>';
+    return;
+  }
+  el.style.display='grid';
+  D.areas.forEach(a=>{
+    const projs=D.projects.filter(p=>p.areaId===a.id&&p.status==='aktif');
+    const rituals=(D.p_tasks||[]).filter(t=>t.parentId===a.id&&t.recurring&&t.recurring.freq&&t.recurring.freq!=='none');
+    const ritualsDoneToday=rituals.filter(t=>t.lastDone===tod()).length;
+    const totalRituals=rituals.length;
+    let stateLabel='',stateCls='';
+    if(totalRituals===0){stateLabel='No rituals';stateCls='state-off';}
+    else if(ritualsDoneToday===totalRituals){stateLabel='On track';stateCls='state-on';}
+    else if(ritualsDoneToday>0){stateLabel='In progress';stateCls='state-warn';}
+    else{stateLabel='Needs care';stateCls='state-warn';}
+    const c=a.color;
+    const card=document.createElement('div');card.className='agc';
+    card.innerHTML=
+      '<div class="agc-bg" style="background:linear-gradient(145deg,'+c+'ee 0%,'+c+'bb 60%,'+c+'99 100%)"></div>'+
+      '<div class="agc-noise"></div><div class="agc-gradient"></div>'+
+      '<div class="agc-top-badge '+stateCls+'" style="background:rgba(0,0,0,.22);color:#fff">'+stateLabel+'</div>'+
+      '<div class="agc-body"><div class="agc-icon">'+(a.emoji||'🌿')+'</div>'+
+      '<div class="agc-name">'+escHtml(a.name)+'</div>'+
+      '<div class="agc-sub">'+projs.length+' project aktif'+(totalRituals?' · '+totalRituals+' ritual':'')+'</div>'+
+      (totalRituals?'<div class="agc-pip-row">'+Array.from({length:Math.min(5,totalRituals)},(_,i)=>'<div class="agc-pip'+(i<ritualsDoneToday?' on':'')+'"></div>').join('')+'</div>':'')+
+      '</div>';
+    card.onclick=()=>openAreaDetail(a.id);
+    el.appendChild(card);
+  });
+}
+
+// New openProjDetail using pd-header pattern
+function openProjDetail(id){
+  ensurePAData();
+  curProjId=id;curProjTab='ap';curView='proj-detail';
+  const p=gProj(id);if(!p)return;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-proj-detail').classList.add('active');
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('bn-focus')?.classList.add('active');
+
+  document.getElementById('topbar').innerHTML=
+    '<button class="tb-back" onclick="navPopGoView(\'projects\')">‹ Projects</button>'+
+    '<div class="tb-title">'+(p.emoji||'🚀')+' '+p.name+'</div>'+
+    '<button style="padding:6px 10px;font-size:15px;font-weight:700;border:1.5px solid var(--line2);border-radius:var(--rxs);color:var(--ink2);" onclick="openEditProject(\''+id+'\')">✏️</button>';
+
+  updateDesktopTopbar('proj-detail', p);
+
+  const dl=fmtDl_c(p);
+  const ts=pTasks_c(id),done=ts.filter(t=>t.done).length,total=ts.length,pct=total?Math.round(done/total*100):0;
+
+  // Header
+  const hw=document.getElementById('pd-header-wrap');
+  if(hw) hw.innerHTML=
+    '<div class="pd-header">'+
+    '<div class="pd-accent" style="background:'+p.color+'"></div>'+
+    '<div class="pd-body">'+
+    '<div class="pd-top">'+
+    '<div class="pd-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
+    '<div class="pd-info"><div class="pd-type">Project</div><div class="pd-name">'+escHtml(p.name)+'</div></div>'+
+    '</div>'+
+    '<div class="pd-meta">'+
+    '<span class="pa-status-chip pa-status-'+p.status+'">'+sLbl_c(p.status)+'</span>'+
+    (dl?'<span class="pd-dl">'+dl+'</span>':'')+
+    '</div></div></div>';
+
+  // Grid
+  const g2=document.getElementById('pd-grid2');
+  if(g2) g2.innerHTML=
+    '<div class="pd-grid2-card"><div class="pd-grid2-lbl">📈 Capaian</div>'+
+    '<div class="pd-prog-big">'+pct+'<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div>'+
+    '<div class="pd-prog-sub">'+done+'/'+total+' tasks done</div>'+
+    '<div class="pd-prog-bar"><div class="pd-prog-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>'+
+    '<div class="pd-grid2-card"><div class="pd-grid2-lbl">🧭 Arah</div>'+
+    (p.goal?'<div class="pd-arah-text">'+escHtml(p.goal)+'</div>':'<div class="pd-arah-empty">Belum ada — tap ✏️ untuk isi</div>')+
+    '</div>';
+
+  // Why
+  const ww=document.getElementById('pd-why-wrap');
+  if(ww) ww.innerHTML=
+    '<div class="pd-why-hd"><span class="pd-why-lbl">💡 Why</span>'+
+    '<button class="pd-why-edit" onclick="openEditWhy_c(\''+id+'\')">✏️ Edit</button></div>'+
+    '<div class="pd-why-body">'+
+    (p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Kenapa project ini dimulai? Tap Edit untuk isi.</div>')+
+    '</div>';
+
+  // Current Focus
+  renderCurrentFocus_c(id, p.color);
+  // Next Actions
+  renderProjAp_c(id, p.color);
+  // Resources
+  renderResources_c(id, p.color);
+  // Linked Area
+  const laEl=document.getElementById('proj-linked-area');
+  if(laEl){
+    const aArea=p.areaId&&gArea(p.areaId);
+    if(aArea){
+      laEl.innerHTML='<div class="linked-area-card" onclick="openAreaDetail(\''+aArea.id+'\')">'+
+        '<div class="lac-accent" style="background:'+aArea.color+'"></div>'+
+        '<div class="lac-icon" style="background:'+aArea.color+'18">'+(aArea.emoji||'🌿')+'</div>'+
+        '<div class="lac-info"><div class="lac-name">'+escHtml(aArea.name)+'</div><div class="lac-sub">Tap untuk buka area ini</div></div>'+
+        '<div class="lac-chev">›</div></div>';
+    } else {
+      laEl.innerHTML='<div style="font-size:13px;color:var(--ink3);font-style:italic;padding:4px 0">Tidak terhubung ke area manapun</div>';
+    }
+  }
+  document.getElementById('scroll').scrollTop=0;
+}
+
+function openEditWhy_c(pid){
+  const p=gProj(pid);if(!p)return;
+  // reuse existing sh-editwhy if available, else just prompt
+  const el=document.getElementById('sh-editwhy');
+  if(el){
+    document.getElementById('why-text').value=p.why||'';
+    openSheet('sh-editwhy');
+  }
+}
+
+function saveWhy_c(){
+  const p=gProj(curProjId);if(!p)return;
+  const el=document.getElementById('why-text');
+  p.why=el?el.value.trim():'';
+  save();closeSheet('sh-editwhy');
+  // refresh why section
+  const ww=document.getElementById('pd-why-wrap');
+  if(ww) ww.querySelector('.pd-why-body').innerHTML=p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Kenapa project ini dimulai? Tap Edit untuk isi.</div>';
+  toast('💡 Why disimpan!');
+}
+
+function renderCurrentFocus_c(pid,color){
+  const wrap=document.getElementById('pd-focus-wrap');if(!wrap)return;
+  const tasks=(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));
+  if(!tasks.length){wrap.innerHTML='';return;}
+  const sorted=[...tasks].sort((a,b)=>(a.createdAt||'').localeCompare(b.createdAt||''));
+  const pending=sorted.filter(t=>!t.done);
+  const focus=pending[0]||null;
+  const allDone=!pending.length&&tasks.length>0;
+  let inner='';
+  if(allDone){
+    inner='<div class="pd-focus-done"><div class="pd-focus-done-ic">🎉</div>'+
+      '<div class="pd-focus-done-txt">Semua selesai!</div>'+
+      '<div class="pd-focus-done-sub">Project ini siap untuk milestone berikutnya.</div></div>';
+  } else if(focus){
+    inner='<div class="pd-focus-label" style="color:'+color+'">⚡ CURRENT FOCUS</div>'+
+      '<div style="display:flex;align-items:center;gap:12px">'+
+      '<div style="flex:1;min-width:0"><div class="pd-focus-name">'+escHtml(focus.name)+'</div></div>'+
+      '<button class="pd-focus-btn" style="background:'+color+';flex-shrink:0" onclick="toggleApDone(\''+focus.id+'\')">▶ Tandai Selesai</button>'+
+      '</div>';
+  }
+  wrap.innerHTML='<div class="pd-focus-card"><div class="pd-focus-inner" style="background:'+color+'14;border-color:'+color+'30">'+inner+'</div></div>';
+}
+
+function renderProjAp_c(pid,color){
+  const el=document.getElementById('proj-ap-list');if(!el)return;
+  el.innerHTML='';
+  const allTasks=(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));
+  if(!allTasks.length){
+    el.innerHTML='<div class="ap-drag-list"><div style="padding:24px 16px;text-align:center"><span style="font-size:24px;display:block;margin-bottom:6px">✅</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada next action</div></div></div>';
+    return;
+  }
+  const undone=[...allTasks.filter(t=>!t.done)];
+  const doneItems=[...allTasks.filter(t=>t.done)];
+  const sorted=[...undone,...doneItems];
+  const list=document.createElement('div');list.className='ap-drag-list';
+  const card=document.createElement('div');card.className='card';
+  sorted.forEach(t=>{
+    const wrap=document.createElement('div');
+    wrap.className='ap-item-wrap'+(t.done?' is-done-wrap':'');
+    wrap.dataset.id=t.id;
+    const handle=document.createElement('div');handle.className='ap-drag-handle';handle.innerHTML='⠿';
+    if(t.done)handle.style.pointerEvents='none';
+    const item=mkApItem(t,color);
+    item.style.flex='1';item.style.borderBottom='none';item.style.paddingLeft='0';
+    wrap.appendChild(handle);wrap.appendChild(item);
+    list.appendChild(wrap);
+  });
+  const btn=document.createElement('button');btn.className='card-add';btn.textContent='＋ Tambah Action';btn.onclick=()=>openAddProjItem();
+  list.appendChild(btn);
+  el.appendChild(list);
+}
+
+function renderResources_c(pid,color){
+  const p=gProj(pid);if(!p)return;
+  const el=document.getElementById('proj-resources-list');if(!el)return;
+  const items=p.resources||[];
+  if(!items.length){el.innerHTML='<div class="res-empty">Belum ada resources atau notes — tap ＋ Tambah</div>';return;}
+  const typeIc={note:{ic:'📝',bg:'#f3f4f6'},link:{ic:'🔗',bg:'#eff6ff'},file:{ic:'📁',bg:'#fef3c7'}};
+  el.innerHTML='<div class="res-feed">'+items.map(r=>{
+    const t=typeIc[r.type]||typeIc.note;
+    return '<div class="res-card">'+
+      '<div class="res-card-hd"><div class="res-type-ic" style="background:'+t.bg+'">'+t.ic+'</div>'+
+      '<div class="res-info"><div class="res-card-label">'+escHtml(r.label||'Untitled')+'</div>'+
+      '<div class="res-card-sub">'+(r.type==='link'?'🔗 '+escHtml(r.url||''):fmtDs(r.created)||'Note')+'</div></div>'+
+      '<button class="res-card-edit" onclick="openEditResource_c(\''+pid+'\',\''+r.id+'\')">···</button></div>'+
+      (r.body?'<div class="res-body-preview">'+escHtml(r.body)+'</div>':'')+
+      (r.tags&&r.tags.length?'<div class="res-tags-row">'+r.tags.map(tg=>'<span class="res-tag">'+escHtml(tg)+'</span>').join('')+'</div>':'')+
+      '</div>';
+  }).join('')+'</div>';
+}
+
+let editResId_c=null;
+function openAddResource(){
+  editResId_c=null;
+  document.getElementById('sh-res-title').textContent='📎 Tambah Resource / Note';
+  document.getElementById('res-label').value='';document.getElementById('res-url').value='';document.getElementById('res-body').value='';document.getElementById('res-tags').value='';
+  document.querySelectorAll('.res-type-btn').forEach(b=>b.classList.toggle('sel',b.dataset.type==='note'));
+  document.getElementById('res-url-field').style.display='none';document.getElementById('res-body-field').style.display='';
+  document.getElementById('sh-res-del').style.display='none';
+  openSheet('sh-addresource');
+}
+function openEditResource_c(pid,rid){
+  const p=gProj(pid);if(!p)return;
+  const r=(p.resources||[]).find(x=>x.id===rid);if(!r)return;
+  editResId_c=rid;curProjId=pid;
+  document.getElementById('sh-res-title').textContent='✏️ Edit Resource';
+  document.getElementById('res-label').value=r.label||'';document.getElementById('res-url').value=r.url||'';document.getElementById('res-body').value=r.body||'';document.getElementById('res-tags').value=(r.tags||[]).join(', ');
+  document.querySelectorAll('.res-type-btn').forEach(b=>b.classList.toggle('sel',b.dataset.type===r.type));
+  setResType_c(r.type);
+  document.getElementById('sh-res-del').style.display='';
+  openSheet('sh-addresource');
+}
+function setResType_c(type){
+  document.querySelectorAll('.res-type-btn').forEach(b=>b.classList.toggle('sel',b.dataset.type===type));
+  document.getElementById('res-url-field').style.display=type==='link'?'':'none';
+  document.getElementById('res-body-field').style.display=type==='note'?'':'none';
+}
+function saveResource_c(){
+  const p=gProj(curProjId);if(!p)return;
+  if(!p.resources)p.resources=[];
+  const type=document.querySelector('.res-type-btn.sel')?.dataset.type||'note';
+  const label=document.getElementById('res-label').value.trim();if(!label)return;
+  const url=document.getElementById('res-url').value.trim();
+  const body=document.getElementById('res-body').value.trim();
+  const tags=document.getElementById('res-tags').value.split(',').map(t=>t.trim()).filter(Boolean);
+  if(editResId_c){
+    const r=p.resources.find(x=>x.id===editResId_c);if(!r)return;
+    Object.assign(r,{type,label,url,body,tags});toast('✏️ Diperbarui!');
+  } else {
+    p.resources.unshift({id:'res'+Date.now(),type,label,url,body,tags,created:tod()});toast('📎 Ditambahkan!');
+  }
+  save();closeSheet('sh-addresource');renderResources_c(curProjId,gProj(curProjId)?.color);
+}
+function delResource_c(){
+  const p=gProj(curProjId);if(!p||!editResId_c)return;
+  p.resources=(p.resources||[]).filter(r=>r.id!==editResId_c);
+  save();closeSheet('sh-addresource');renderResources_c(curProjId,p.color);toast('🗑 Dihapus');
+}
+
+// Area Detail — new style
+function openAreaDetail(id){
+  ensurePAData();
+  curAreaId=id;curAreaTab='ap';curView='area-detail';
+  _lugCollapsed=false;
+  const a=gArea(id);if(!a)return;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-area-detail').classList.add('active');
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('bn-focus')?.classList.add('active');
+
+  document.getElementById('topbar').innerHTML=
+    '<button class="tb-back" onclick="navPopGoView(\'areas\')">‹ Areas</button>'+
+    '<div class="tb-title">'+(a.emoji||'🌿')+' '+a.name+'</div>'+
+    '<button style="padding:6px 10px;font-size:15px;font-weight:700;border:1.5px solid var(--line2);border-radius:var(--rxs);color:var(--ink2);" onclick="openEditArea(\''+id+'\')">✏️</button>';
+
+  updateDesktopTopbar('area-detail', a);
+
+  const aHw=document.getElementById('ad-header-wrap');
+  if(aHw) aHw.innerHTML=
+    '<div class="ad-header"><div class="ad-accent" style="background:'+a.color+'"></div>'+
+    '<div class="ad-body"><div class="ad-top">'+
+    '<div class="ad-icon" style="background:'+a.color+'18">'+(a.emoji||'🌿')+'</div>'+
+    '<div class="ad-info"><div class="ad-type">Area — Maintaining</div><div class="ad-name">'+escHtml(a.name)+'</div></div>'+
+    '</div><div class="ad-meta"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>';
+
+  renderCurrentState_c(id, a.color);
+  renderGoalsCompass(id);
+  renderLineUpGoals(id);
+  renderAreaRituals_c(id, a.color);
+  renderAreaProjects_c(id);
+  document.getElementById('scroll').scrollTop=0;
+}
+
+function renderCurrentState_c(areaId,color){
+  const csBody=document.getElementById('cs-body');if(!csBody)return;
+  const rituals=(D.p_tasks||[]).filter(t=>t.parentId===areaId&&t.recurring&&t.recurring.freq&&t.recurring.freq!=='none');
+  if(!rituals.length){csBody.innerHTML='<div class="cs-empty">Tambah ritual untuk mulai tracking current state area ini.</div>';return;}
+  const today=tod();
+  const freqIc={daily:'🌅',weekly:'📅',monthly:'🌕'};
+  let html='<div class="cs-body">';
+  rituals.forEach(t=>{
+    const doneToday=t.lastDone===today;
+    let scheduled=true;
+    if(t.recurring.freq==='weekly'&&t.recurring.days&&t.recurring.days.length){
+      scheduled=t.recurring.days.includes(new Date().getDay());
+    }
+    let stateCls,stateText;
+    if(doneToday){stateCls='state-on';stateText='Done ✓';}
+    else if(!scheduled){stateCls='state-off';stateText='Off today';}
+    else{stateCls='state-warn';stateText='Pending';}
+    const ic=freqIc[t.recurring.freq]||'🔁';
+    const shortName=t.name.length>18?t.name.slice(0,16)+'…':t.name;
+    html+='<div class="cs-card '+stateCls+'"><div class="cs-ic">'+ic+'</div><div class="cs-label">'+escHtml(shortName)+'</div><div class="cs-state">'+stateText+'</div></div>';
+  });
+  html+='</div>';
+  csBody.innerHTML=html;
+}
+
+function renderAreaRituals_c(areaId,color){
+  const el=document.getElementById('area-ap-list');if(!el)return;
+  el.innerHTML='';
+  const items=(D.p_tasks||[]).filter(t=>t.parentId===areaId).sort((a,b)=>{
+    const rA=a.recurring&&a.recurring.freq!=='none';
+    const rB=b.recurring&&b.recurring.freq!=='none';
+    if(rA!==rB)return rA?-1:1;
+    if(a.done!==b.done)return a.done?1:-1;
+    return 0;
+  });
+  if(!items.length){
+    el.innerHTML='<div style="padding:20px 16px;text-align:center;font-size:13px;color:var(--ink3);font-style:italic">Belum ada ritual — tap ＋ Tambah di atas</div>';
+    return;
+  }
+  items.forEach(t=>el.appendChild(mkApItem(t,color)));
+  const btn=document.createElement('button');btn.className='card-add';btn.textContent='＋ Tambah Ritual';btn.onclick=()=>openAddAreaItem();el.appendChild(btn);
+}
+
+function renderAreaProjects_c(areaId){
+  const el=document.getElementById('area-projects-list');if(!el)return;
+  el.innerHTML='';
+  const projs=(D.projects||[]).filter(p=>p.areaId===areaId);
+  if(!projs.length){el.innerHTML='<div class="empty-card" style="padding:20px;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada project terhubung</div></div>';return;}
+  projs.forEach(p=>{
+    const ts=pTasks_c(p.id),done=ts.filter(t=>t.done).length,total=ts.length,pct=total?Math.round(done/total*100):0;
+    const card=document.createElement('div');card.className='proj-linked';
+    card.innerHTML=
+      '<div class="proj-linked-hd"><div class="pl-accent" style="background:'+p.color+'"></div>'+
+      '<div class="pl-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
+      '<div class="pl-info"><div class="pl-name">'+escHtml(p.name)+'</div>'+
+      '<div class="pl-sub">'+(total?pct+'% · '+done+'/'+total+' done':'Belum ada action')+'</div></div>'+
+      '<div class="pl-chev">›</div></div>'+
+      '<div class="proj-linked-foot"><span class="pa-status-chip pa-status-'+p.status+'">'+sLbl_c(p.status)+'</span>'+(fmtDl_c(p)?'<span class="pa-deadline-chip">'+fmtDl_c(p)+'</span>':'')+'</div>';
+    card.onclick=()=>openProjDetail(p.id);
+    el.appendChild(card);
+  });
+}
+
+// Override areaId link in projects (for add/edit project sheet)
+function _updateProjectAreaOptions(){
+  const sels=['ap-area','ep-area'];
+  sels.forEach(selId=>{
+    const sel=document.getElementById(selId);if(!sel)return;
+    sel.innerHTML='<option value="">— Tanpa Area —</option>';
+    (D.areas||[]).forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=(a.emoji||'')+' '+a.name;sel.appendChild(o);});
+  });
+}
+
 boot();
 </script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
+
+
+<!-- Add Resource Sheet -->
+<div class="overlay" id="sh-addresource" onclick="bgc(event,'sh-addresource')"><div class="sheet">
+  <div class="sh-handle"></div><div class="sh-title" id="sh-res-title">📎 Tambah Resource / Note</div>
+  <div class="sh-body">
+    <div class="field">
+      <label class="flbl">Tipe</label>
+      <div style="display:flex;gap:8px;margin-top:4px">
+        <button type="button" class="res-type-btn sel" data-type="note" onclick="setResType_c('note')">📝 Note</button>
+        <button type="button" class="res-type-btn" data-type="link" onclick="setResType_c('link')">🔗 Link</button>
+        <button type="button" class="res-type-btn" data-type="file" onclick="setResType_c('file')">📁 File</button>
+      </div>
+    </div>
+    <div class="field"><label class="flbl">Judul / Label</label><input id="res-label" type="text" placeholder="e.g. Brand guidelines, Catatan meeting..."></div>
+    <div class="field" id="res-url-field" style="display:none"><label class="flbl">URL</label><input id="res-url" type="url" placeholder="https://..."></div>
+    <div class="field" id="res-body-field"><label class="flbl">Isi / Catatan</label><textarea id="res-body" rows="4" placeholder="Tulis bebas..."></textarea></div>
+    <div class="field"><label class="flbl">Tags (pisah koma)</label><input id="res-tags" type="text" placeholder="e.g. design, referensi"></div>
+  </div>
+  <div class="sh-footer">
+    <div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet('sh-addresource')">Batal</button><button class="sbtn sbtn-p" onclick="saveResource_c()">Simpan ✓</button></div>
+    <div class="sh-row" id="sh-res-del" style="display:none"><button class="sbtn sbtn-d" onclick="delResource_c()">🗑 Hapus</button></div>
+  </div>
+</div></div>
+
+<!-- Edit Why Sheet -->
+<div class="overlay" id="sh-editwhy" onclick="bgc(event,'sh-editwhy')"><div class="sheet">
+  <div class="sh-handle"></div><div class="sh-title">💡 Kenapa Project Ini?</div>
+  <div class="sh-body">
+    <div class="field"><textarea id="why-text" rows="5" placeholder="e.g. Karena gue mau buktiin ke diri sendiri..."></textarea></div>
+  </div>
+  <div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet('sh-editwhy')">Batal</button><button class="sbtn sbtn-p" onclick="saveWhy_c()">Simpan ✓</button></div></div>
+</div></div>
 
 </body></html>
