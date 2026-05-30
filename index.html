@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_57.html -->
+<!-- saved from url=(0067)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_redesign_2.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -2046,6 +2046,621 @@ input,select,textarea { font-family:inherit; }
   .day-detail-overlay.open .day-detail-sheet { transform:none; }
 }
 
+/* ══════════════════════════════════════════════════════
+   APPLE-GRADE REDESIGN — Home, Calendar, Subjects
+   Injected design layer — overrides existing styles
+══════════════════════════════════════════════════════ */
+
+/* ── Spring animation keyframes ── */
+@keyframes springIn {
+  0%   { opacity:0; transform:translateY(12px) scale(.97); }
+  60%  { opacity:1; transform:translateY(-3px) scale(1.005); }
+  100% { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes pulseGlow {
+  0%,100% { box-shadow:0 0 0 0 rgba(99,102,241,.18); }
+  50%      { box-shadow:0 0 0 10px rgba(99,102,241,0); }
+}
+@keyframes shimmer {
+  from { background-position:-200% 0; }
+  to   { background-position:200% 0; }
+}
+
+/* ── Redesigned scroll area ── */
+#v-home .pad,
+#v-cal .pad,
+#v-subjects .pad {
+  padding: 0 16px 16px;
+}
+
+/* ════════════════════════════════
+   HOME — large title greeting
+════════════════════════════════ */
+.home-greeting-wrap {
+  padding: 20px 0 6px;
+  animation: fadeUp .38s cubic-bezier(.32,.72,0,1);
+}
+.home-greeting-time {
+  font-size: 12px; font-weight: 700;
+  color: var(--ink3); letter-spacing: .04em;
+  text-transform: uppercase; margin-bottom: 3px;
+}
+.home-greeting-name {
+  font-size: 30px; font-weight: 800;
+  letter-spacing: -.8px; line-height: 1.1;
+  color: var(--ink);
+}
+.home-greeting-name span { color: var(--blue); }
+.home-greeting-sub {
+  font-size: 14px; font-weight: 500;
+  color: var(--ink2); margin-top: 6px; line-height: 1.5;
+}
+
+/* ── NOW hero card ── */
+.now-card {
+  border-radius: 22px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #6d28d9 100%);
+  padding: 20px;
+  margin: 14px 0 8px;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+  animation: springIn .42s cubic-bezier(.32,.72,0,1);
+  transition: transform .2s cubic-bezier(.32,.72,0,1), box-shadow .2s;
+  box-shadow: 0 8px 32px rgba(79,70,229,.35), 0 2px 8px rgba(79,70,229,.2);
+}
+.now-card:active { transform: scale(.968); box-shadow: 0 4px 16px rgba(79,70,229,.3); }
+.now-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.now-card-label {
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .14em;
+  color: rgba(255,255,255,.65); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 7px;
+}
+.now-card-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #a5f3fc;
+  box-shadow: 0 0 0 3px rgba(165,243,252,.25);
+  animation: pulseGlow 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.now-card-title {
+  font-size: 22px; font-weight: 800;
+  color: #fff; letter-spacing: -.5px; line-height: 1.2;
+  margin-bottom: 3px;
+}
+.now-card-sub {
+  font-size: 13px; font-weight: 500;
+  color: rgba(255,255,255,.7); margin-bottom: 14px;
+}
+.now-card-footer {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.now-card-time {
+  font-size: 13px; font-weight: 700;
+  color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.15);
+  padding: 5px 12px; border-radius: 99px;
+  border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; gap: 6px;
+}
+.now-card-start {
+  background: #fff; color: #4f46e5;
+  font-size: 13px; font-weight: 800;
+  padding: 8px 18px; border-radius: 99px;
+  border: none; cursor: pointer;
+  transition: transform .15s, opacity .15s;
+  letter-spacing: -.1px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.now-card-start:active { transform: scale(.94); opacity: .85; }
+
+/* why-now collapsible */
+.now-why-wrap {
+  margin-top: 12px; border-top: 1px solid rgba(255,255,255,.15);
+  padding-top: 10px;
+}
+.now-why-toggle {
+  font-size: 11px; font-weight: 700;
+  color: rgba(255,255,255,.75); letter-spacing: .04em;
+  display: flex; align-items: center; gap: 6px;
+  width: 100%; background: none; border: none; cursor: pointer; padding: 0;
+  transition: color .15s;
+}
+.now-why-toggle:active { color: rgba(255,255,255,.55); }
+.now-why-toggle .chev {
+  margin-left: auto; font-size: 10px;
+  transition: transform .25s cubic-bezier(.32,.72,0,1);
+}
+.now-why-toggle.open .chev { transform: rotate(180deg); }
+.now-why-body {
+  display: none; margin-top: 10px;
+}
+.now-why-body.open { display: block; animation: fadeUp .22s ease; }
+.now-why-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  font-size: 12px; font-weight: 500;
+  color: rgba(255,255,255,.82); line-height: 1.5;
+  margin-top: 5px;
+}
+.now-why-bullet {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 5px;
+}
+
+/* ── Coming up chips ── */
+.coming-up-label {
+  font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink3); margin: 18px 0 10px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.coming-up-label a {
+  font-size: 12px; font-weight: 700;
+  color: var(--blue); text-transform: none; letter-spacing: 0;
+  cursor: pointer;
+}
+.coming-up-scroll {
+  display: flex; gap: 8px; overflow-x: auto;
+  margin: 0 -16px; padding: 0 16px 4px;
+  scrollbar-width: none;
+}
+.coming-up-scroll::-webkit-scrollbar { display: none; }
+.cu-chip {
+  flex-shrink: 0; background: var(--white);
+  border-radius: 14px; padding: 11px 14px;
+  min-width: 130px; max-width: 160px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
+  cursor: pointer; border: 1px solid var(--line);
+  transition: transform .18s cubic-bezier(.32,.72,0,1), box-shadow .18s;
+  animation: springIn .4s cubic-bezier(.32,.72,0,1) both;
+}
+.cu-chip:active { transform: scale(.95); box-shadow: 0 1px 4px rgba(0,0,0,.07); }
+.cu-chip-type {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .08em; margin-bottom: 5px;
+  display: flex; align-items: center; gap: 5px;
+}
+.cu-chip-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.cu-chip-name {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  line-height: 1.3;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.cu-chip-dl {
+  font-size: 11px; font-weight: 600; color: var(--ink3);
+  margin-top: 5px;
+}
+
+/* ── Home section heading redesign ── */
+.home-sec {
+  font-size: 17px; font-weight: 800;
+  letter-spacing: -.3px; color: var(--ink);
+  margin: 22px 0 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  animation: fadeUp .3s ease both;
+}
+.home-sec a {
+  font-size: 14px; font-weight: 600;
+  color: var(--blue); letter-spacing: 0; cursor: pointer;
+}
+
+/* ── Review queue card ── */
+.review-card {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  animation: springIn .38s cubic-bezier(.32,.72,0,1) both;
+  border: 1px solid var(--line);
+}
+.review-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .12s;
+}
+.review-item:last-child { border-bottom: none; }
+.review-item:active { background: var(--bg); }
+.review-item-left { flex-shrink: 0; }
+.review-accent-bar {
+  width: 4px; height: 38px; border-radius: 99px;
+}
+.review-item-body { flex: 1; min-width: 0; }
+.review-item-name {
+  font-size: 15px; font-weight: 700; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.review-item-sub {
+  font-size: 12px; color: var(--ink3); font-weight: 500; margin-top: 2px;
+}
+.review-item-right { flex-shrink: 0; text-align: right; }
+.review-urgency-pill {
+  font-size: 10px; font-weight: 800; padding: 3px 9px;
+  border-radius: 99px; display: inline-block;
+}
+.urgency-hi { background: #fee2e2; color: #dc2626; }
+.urgency-md { background: #fef3c7; color: #d97706; }
+.urgency-lo { background: #dcfce7; color: #16a34a; }
+.review-days { font-size: 11px; color: var(--ink3); margin-top: 3px; }
+
+/* ── Tugas card Apple style ── */
+.tugas-card {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  border: 1px solid var(--line);
+  animation: springIn .38s cubic-bezier(.32,.72,0,1) both;
+}
+.tugas-item-apple {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line);
+  transition: background .12s;
+}
+.tugas-item-apple:last-child { border-bottom: none; }
+.tugas-item-apple:active { background: var(--bg); }
+.tugas-check-circle {
+  width: 24px; height: 24px; border-radius: 50%;
+  border: 2px solid var(--line2); flex-shrink: 0;
+  margin-top: 1px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s cubic-bezier(.32,.72,0,1);
+  background: var(--white);
+}
+.tugas-check-circle.done {
+  background: var(--green); border-color: var(--green); color: #fff; font-size: 12px;
+}
+.tugas-check-circle:active { transform: scale(.85); }
+.tugas-item-body { flex: 1; min-width: 0; }
+.tugas-item-name {
+  font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.3;
+}
+.tugas-item-name.done { text-decoration: line-through; color: var(--ink3); }
+.tugas-item-meta { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; align-items: center; }
+.tugas-subj-tag {
+  font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 99px;
+}
+.tugas-dl-tag {
+  font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 99px;
+}
+.tugas-more-btn {
+  flex-shrink: 0; color: var(--ink3); font-size: 18px;
+  padding: 4px 6px; border-radius: var(--rxs);
+  transition: background .12s; margin-top: -1px;
+}
+.tugas-more-btn:active { background: var(--bg); }
+
+/* pending materi apple card */
+.materi-group-card {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  border: 1px solid var(--line);
+  animation: springIn .4s cubic-bezier(.32,.72,0,1) both;
+}
+.materi-group-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.materi-group-accent { width: 3px; height: 18px; border-radius: 99px; flex-shrink: 0; }
+.materi-group-label {
+  font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+
+/* ════════════════════════════════
+   CALENDAR — Apple redesign
+════════════════════════════════ */
+.cal-large-title {
+  font-size: 30px; font-weight: 800;
+  letter-spacing: -.8px; color: var(--ink);
+  padding: 20px 0 0;
+  animation: fadeUp .3s ease;
+}
+.cal-month-nav-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 14px;
+}
+.cal-month-title-text {
+  font-size: 17px; font-weight: 700; color: var(--ink);
+  letter-spacing: -.3px;
+}
+.cal-nav-btns { display: flex; gap: 6px; }
+.cal-nav-btn {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--bg2); border: none; cursor: pointer;
+  font-size: 16px; color: var(--ink2);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .12s, transform .12s;
+}
+.cal-nav-btn:active { background: var(--line2); transform: scale(.9); }
+
+/* Apple-style month grid */
+.mcal-wrap-apple {
+  background: var(--white); border-radius: 20px;
+  box-shadow: 0 2px 16px rgba(0,0,0,.08), 0 1px 4px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 16px;
+  animation: springIn .4s cubic-bezier(.32,.72,0,1);
+  border: 1px solid var(--line);
+}
+.mcal-dows-apple {
+  display: grid; grid-template-columns: repeat(7,1fr);
+  padding: 12px 10px 6px;
+}
+.mcal-dow-apple {
+  text-align: center; font-size: 11px; font-weight: 700;
+  color: var(--ink3); text-transform: uppercase; letter-spacing: .04em;
+}
+.mcal-days-apple {
+  display: grid; grid-template-columns: repeat(7,1fr);
+  gap: 2px; padding: 4px 8px 14px;
+}
+.mday-apple {
+  aspect-ratio: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  border-radius: 50%; font-size: 14px; font-weight: 600;
+  color: var(--ink); cursor: pointer; gap: 2px;
+  transition: background .12s;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+}
+.mday-apple:active { background: var(--bg2); }
+.mday-apple.faded { color: var(--ink3); font-weight: 400; }
+.mday-apple.is-today {
+  background: var(--blue); color: #fff; font-weight: 800;
+}
+.mday-apple.is-today:active { opacity: .85; }
+.mday-apple.selected:not(.is-today) { background: var(--bg2); }
+.mday-apple-num { line-height: 1; }
+.mday-apple-dots { display: flex; gap: 2px; margin-top: 1px; }
+.mday-apple-dot { width: 4px; height: 4px; border-radius: 50%; }
+.mday-apple-dot.is-today-dot { background: #fff; }
+
+/* Legend pills */
+.cal-legend-apple {
+  display: flex; gap: 6px; padding: 0 14px 14px;
+  flex-wrap: wrap;
+}
+.cal-leg-pill {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 10px; font-weight: 700; color: var(--ink3);
+  background: var(--bg); border-radius: 99px;
+  padding: 3px 9px;
+}
+.cal-leg-pip { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Today's agenda section ── */
+.cal-day-header {
+  font-size: 17px; font-weight: 800;
+  letter-spacing: -.3px; color: var(--ink);
+  margin: 18px 0 12px;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.cal-day-header-date {
+  font-size: 13px; font-weight: 600;
+  color: var(--ink3); letter-spacing: 0;
+}
+
+/* Timeline event cards */
+.cal-event-card {
+  display: flex; gap: 0;
+  background: var(--white);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+  margin-bottom: 8px;
+  cursor: pointer;
+  border: 1px solid var(--line);
+  transition: transform .15s cubic-bezier(.32,.72,0,1);
+  animation: fadeUp .25s ease both;
+}
+.cal-event-card:active { transform: scale(.978); }
+.cal-event-bar { width: 4px; flex-shrink: 0; }
+.cal-event-inner {
+  flex: 1; padding: 12px 14px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.cal-event-time-col {
+  min-width: 46px; text-align: right; flex-shrink: 0;
+}
+.cal-event-time {
+  font-size: 12px; font-weight: 700; color: var(--ink3);
+  line-height: 1.3;
+}
+.cal-event-body { flex: 1; min-width: 0; }
+.cal-event-name {
+  font-size: 14px; font-weight: 700; color: var(--ink);
+  line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cal-event-sub {
+  font-size: 12px; color: var(--ink3); margin-top: 3px;
+  font-weight: 500;
+}
+.cal-event-badge {
+  flex-shrink: 0; font-size: 10px; font-weight: 800;
+  padding: 3px 8px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: .04em;
+  align-self: flex-start;
+}
+
+/* Upcoming exams */
+.cal-ujian-apple {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.08), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  border: 1px solid var(--line);
+}
+
+/* ── FAB ── */
+.cal-fab {
+  position: fixed;
+  bottom: calc(var(--nav-h) + var(--sb) + 18px);
+  right: 18px;
+  width: 52px; height: 52px;
+  border-radius: 50%; background: var(--blue);
+  box-shadow: 0 4px 20px rgba(37,99,235,.45);
+  border: none; cursor: pointer;
+  color: #fff; font-size: 24px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .18s cubic-bezier(.32,.72,0,1), box-shadow .18s;
+  z-index: 80;
+}
+.cal-fab:active { transform: scale(.9); box-shadow: 0 2px 10px rgba(37,99,235,.35); }
+@media(min-width:768px){ .cal-fab { display: none; } }
+
+/* ════════════════════════════════
+   SUBJECTS — Apple redesign
+════════════════════════════════ */
+.subjects-large-title {
+  font-size: 30px; font-weight: 800;
+  letter-spacing: -.8px; color: var(--ink);
+  padding: 20px 0 12px;
+  animation: fadeUp .3s ease;
+}
+
+/* Search bar */
+.subj-search-apple {
+  position: relative; margin-bottom: 16px;
+  animation: fadeUp .3s ease .05s both;
+}
+.subj-search-apple input {
+  width: 100%; padding: 11px 16px 11px 38px;
+  background: var(--bg2); border: none; border-radius: 12px;
+  font-size: 15px; color: var(--ink); font-family: inherit;
+  -webkit-appearance: none; outline: none;
+  transition: background .15s, box-shadow .15s;
+}
+.subj-search-apple input:focus {
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.18);
+}
+.subj-search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  font-size: 15px; color: var(--ink3); pointer-events: none;
+}
+
+/* Filter pills */
+.subj-filter-bar {
+  display: flex; gap: 6px; margin-bottom: 16px;
+  overflow-x: auto; scrollbar-width: none;
+  animation: fadeUp .3s ease .08s both;
+}
+.subj-filter-bar::-webkit-scrollbar { display: none; }
+.subj-fpill {
+  flex-shrink: 0; font-size: 13px; font-weight: 700;
+  padding: 7px 16px; border-radius: 99px;
+  border: none; cursor: pointer;
+  background: var(--bg2); color: var(--ink2);
+  transition: all .18s cubic-bezier(.32,.72,0,1);
+}
+.subj-fpill:active { transform: scale(.93); }
+.subj-fpill.on { background: var(--blue); color: #fff; }
+
+/* Semester label */
+.subj-sem-label-apple {
+  font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink3); margin: 16px 0 8px;
+  animation: fadeUp .3s ease both;
+}
+
+/* Subject card Apple style */
+.subj-card-apple {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  border: 1px solid var(--line);
+  animation: springIn .38s cubic-bezier(.32,.72,0,1) both;
+}
+.subj-item-apple {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .12s;
+  position: relative;
+}
+.subj-item-apple:last-child { border-bottom: none; }
+.subj-item-apple:active { background: var(--bg); }
+.subj-item-apple::after {
+  content: '›'; position: absolute; right: 16px;
+  font-size: 18px; color: var(--line2); font-weight: 400;
+}
+.subj-icon-apple {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.subj-item-body { flex: 1; min-width: 0; padding-right: 20px; }
+.subj-item-name {
+  font-size: 16px; font-weight: 700; color: var(--ink);
+  letter-spacing: -.2px; line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.subj-item-meta {
+  font-size: 12px; color: var(--ink3); margin-top: 4px;
+  font-weight: 500;
+}
+.subj-item-prog-wrap { margin-top: 7px; }
+.subj-item-prog-bar {
+  height: 4px; background: var(--bg2); border-radius: 99px; overflow: hidden;
+}
+.subj-item-prog-fill {
+  height: 100%; border-radius: 99px;
+  transition: width .4s cubic-bezier(.32,.72,0,1);
+}
+.subj-pending-badge {
+  position: absolute; top: 14px; right: 38px;
+  font-size: 10px; font-weight: 800;
+  background: #fee2e2; color: var(--red);
+  padding: 2px 8px; border-radius: 99px;
+}
+
+/* Add subject button apple style */
+.subj-add-btn-apple {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 15px;
+  border-radius: 18px;
+  background: var(--blue); color: #fff;
+  font-size: 15px; font-weight: 700;
+  border: none; cursor: pointer; margin-top: 6px;
+  box-shadow: 0 4px 18px rgba(37,99,235,.3);
+  transition: transform .18s cubic-bezier(.32,.72,0,1), box-shadow .18s;
+  animation: fadeUp .3s ease .15s both;
+}
+.subj-add-btn-apple:active {
+  transform: scale(.97);
+  box-shadow: 0 2px 10px rgba(37,99,235,.25);
+}
+
+/* ── Bottom nav elevation glow ── */
+.bnav {
+  background: rgba(255,255,255,.92);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid rgba(0,0,0,.08);
+  box-shadow: none;
+}
+
+/* ── Animation stagger helpers ── */
+.anim-d1 { animation-delay: .05s; }
+.anim-d2 { animation-delay: .10s; }
+.anim-d3 { animation-delay: .15s; }
+.anim-d4 { animation-delay: .20s; }
+.anim-d5 { animation-delay: .25s; }
+
 /* ══ TOGGLE SWITCH ══ */
 .toggle-row {
   display:flex; align-items:center; gap:12px; padding:4px 0;
@@ -2309,7 +2924,7 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
@@ -2322,7 +2937,7 @@ input,select,textarea { font-family:inherit; }
       <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
         <span class="sb-item-ic">📚</span> Semua Subjek
       </button>
-      <button class="sb-item active" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
+      <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
         <span class="sb-item-ic">🚀</span> Projects
       </button>
       <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
@@ -2331,10 +2946,10 @@ input,select,textarea { font-family:inherit; }
     </div>
     <div class="sb-section-label">Subjek lo</div>
     <div class="sb-pomo-pill" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
-    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
+    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s1"><span class="sb-subj-emoji">🔢</span><span class="sb-subj-name">Kalkulus 2</span><span class="sb-subj-pending">2</span></button><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
-      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">✅ Tersinkron</div>
+      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">📱 Mode lokal</div>
     </div>
   </aside>
 
@@ -2342,7 +2957,7 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🚀 Projects</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
 
   <!-- TOPBAR (mobile) -->
   <div class="topbar" id="topbar"><div class="tb-title">🚀 Projects</div></div>
@@ -2354,9 +2969,76 @@ input,select,textarea { font-family:inherit; }
     <div class="view" id="v-home">
       <div class="pad">
 
-        <!-- Weekly Calendar -->
-        <div class="week-wrap">
-          <div class="week-top">
+        <!-- Greeting -->
+        <div class="home-greeting-wrap" id="home-greeting">
+          <div class="home-greeting-time" id="home-greeting-time">Good evening</div>
+          <div class="home-greeting-name">Halo, <span>Adit</span> 👋</div>
+          <div class="home-greeting-sub" id="home-greeting-sub">4 materi belum latsoal · 2 tugas aktif.</div>
+        </div>
+
+        <!-- NOW Card (priority engine) -->
+        <div class="now-card" id="now-hero-card" onclick="nowCardTapped()">
+          <div class="now-card-label">
+            <span class="now-card-dot"></span>
+            NOW
+          </div>
+          <div class="now-card-title" id="now-title">Implementasi Quicksort</div>
+          <div class="now-card-sub" id="now-subject">Algoritma &amp; Pemro</div>
+          <div class="now-card-footer">
+            <div class="now-card-time" id="now-time">⏱ segera</div>
+            <button class="now-card-start" onclick="event.stopPropagation(); nowStartAction()">Mulai →</button>
+          </div>
+          <div class="now-why-wrap">
+            <button class="now-why-toggle" id="now-why-toggle" onclick="event.stopPropagation(); toggleNowWhy()">
+              <span>Kenapa sekarang?</span>
+              <span class="chev">▼</span>
+            </button>
+            <div class="now-why-body" id="now-why-body">
+              <div id="now-why-items"><div class="now-why-item"><div class="now-why-bullet"></div><span>Deadline sudah lewat 🚨</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>Matkul: 💻 Algoritma &amp; Pemro</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>Selesaikan sekarang sebelum terlambat</span></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coming Up: horizontal chip scroll -->
+        <div class="coming-up-label">
+          Segera
+          <a onclick="goView(&#39;cal&#39;, document.getElementById(&#39;bn-cal&#39;))">Lihat semua</a>
+        </div>
+        <div class="coming-up-scroll" id="coming-up-scroll"><div class="cu-chip anim-d1">
+      <div class="cu-chip-type" style="color:#dc2626">
+        <div class="cu-chip-dot" style="background:#dc2626"></div>
+        Tugas
+      </div>
+      <div class="cu-chip-name">💻 Implementasi Quicksort</div>
+      <div class="cu-chip-dl" style="color:var(--red)">Hari ini</div></div><div class="cu-chip anim-d2">
+      <div class="cu-chip-type" style="color:#dc2626">
+        <div class="cu-chip-dot" style="background:#dc2626"></div>
+        Ujian
+      </div>
+      <div class="cu-chip-name">💻 Quiz 1</div>
+      <div class="cu-chip-dl" style="color:var(--red)">2 hari lagi</div></div><div class="cu-chip anim-d3">
+      <div class="cu-chip-type" style="color:#2563eb">
+        <div class="cu-chip-dot" style="background:#2563eb"></div>
+        Tugas
+      </div>
+      <div class="cu-chip-name">🔢 PR Integral Bab 6</div>
+      <div class="cu-chip-dl" style="color:var(--ink3)">3 hari lagi</div></div><div class="cu-chip anim-d4">
+      <div class="cu-chip-type" style="color:#2563eb">
+        <div class="cu-chip-dot" style="background:#2563eb"></div>
+        Ujian
+      </div>
+      <div class="cu-chip-name">🔢 Quiz 2</div>
+      <div class="cu-chip-dl" style="color:var(--ink3)">4 hari lagi</div></div><div class="cu-chip anim-d5">
+      <div class="cu-chip-type" style="color:#2563eb">
+        <div class="cu-chip-dot" style="background:#2563eb"></div>
+        Ujian
+      </div>
+      <div class="cu-chip-name">🔢 UTS Genap</div>
+      <div class="cu-chip-dl" style="color:var(--ink3)">14 hari lagi</div></div></div>
+
+        <!-- Weekly Calendar strip -->
+        <div class="week-wrap" style="margin-top:18px;border-radius:18px;border:1px solid var(--line);">
+          <div class="week-top" style="border-radius:18px 18px 0 0;">
             <div>
               <div class="week-top-title" id="wk-title">Minggu ini</div>
               <div class="week-top-sub" id="wk-sub">25–31 Mei 2026</div>
@@ -2366,15 +3048,36 @@ input,select,textarea { font-family:inherit; }
               <button class="wk-arr" onclick="shiftWeek(1)">›</button>
             </div>
           </div>
-          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">25</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">26</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday is-today"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">27</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">28</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">29</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">30</div></div><div class="wd-status"><div class="wd-none"></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">31</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
+          <div class="week-grid" id="week-grid"><div class="wday"><div class="wd-name">Sen</div><div class="wd-num-wrap"><div class="wd-num">25</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Sel</div><div class="wd-num-wrap"><div class="wd-num">26</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Rab</div><div class="wd-num-wrap"><div class="wd-num">27</div></div><div class="wd-status"><div class="wd-x">✕</div></div></div><div class="wday"><div class="wd-name">Kam</div><div class="wd-num-wrap"><div class="wd-num">28</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday"><div class="wd-name">Jum</div><div class="wd-num-wrap"><div class="wd-num">29</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div><div class="wd-dot wd-dot-t"></div></div></div></div><div class="wday is-today"><div class="wd-name">Sab</div><div class="wd-num-wrap"><div class="wd-num">30</div></div><div class="wd-status"><div class="wd-dots-row"><div class="wd-dot wd-dot-m"></div></div></div></div><div class="wday"><div class="wd-name">Min</div><div class="wd-num-wrap"><div class="wd-num">31</div></div><div class="wd-status"><div class="wd-none"></div></div></div></div>
         </div>
 
         <!-- Upcoming Tugas -->
-        <div class="sec">📋 Tugas Aktif</div>
-        <div class="card" id="home-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#dc262622;color:#dc2626">💻 Algoritma &amp; Pemro</span><span class="ti-dl dl-late">🚨 Telat 5h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Kam, 21 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem"><div class="ti-body"><div class="ti-name">PR Integral Bab 6</div><div class="ti-meta"><span class="ti-subj-chip" style="background:#2563eb22;color:#2563eb">🔢 Kalkulus 2</span><span class="ti-dl dl-late">🚨 Telat 2h</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Rab, 20 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t1&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t1&#39;)">···</button></div></div>
+        <div class="home-sec anim-d1">
+          Tugas Aktif
+          <a onclick="goView(&#39;subjects&#39;, document.getElementById(&#39;bn-s&#39;))">Lihat semua</a>
+        </div>
+        <div id="home-tugas"><div class="tugas-card"><div class="tugas-item-apple">
+      <div class="tugas-check-circle" onclick="toggleT(&#39;t2&#39;)"></div>
+      <div class="tugas-item-body">
+        <div class="tugas-item-name">Implementasi Quicksort</div>
+        <div class="tugas-item-meta">
+          <span class="tugas-subj-tag" style="background:#dc262618;color:#dc2626">💻 Algoritma &amp; Pemro</span>
+          <span class="tugas-dl-tag dl-soon" style="background:#fee2e2;color:#dc2626">⏰ Hari ini!</span>
+        </div>
+      </div>
+      <button class="tugas-more-btn" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="tugas-item-apple">
+      <div class="tugas-check-circle" onclick="toggleT(&#39;t1&#39;)"></div>
+      <div class="tugas-item-body">
+        <div class="tugas-item-name">PR Integral Bab 6</div>
+        <div class="tugas-item-meta">
+          <span class="tugas-subj-tag" style="background:#2563eb18;color:#2563eb">🔢 Kalkulus 2</span>
+          <span class="tugas-dl-tag dl-soon" style="">📅 3h lagi</span>
+        </div>
+      </div>
+      <button class="tugas-more-btn" onclick="openEditT(&#39;t1&#39;)">···</button></div></div></div>
 
         <!-- Pending Materi / Sip Banner -->
-        <div id="home-pending-section"><div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">4</span></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(37, 99, 235); display: flex; align-items: center; gap: 6px;">🔢 Kalkulus 2</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(220, 38, 38); display: flex; align-items: center; gap: 6px;">💻 Algoritma &amp; Pemro</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Kam, 21 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="card" style="margin-bottom: 10px;"><div style="padding: 10px 16px 8px; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: rgb(124, 58, 237); display: flex; align-items: center; gap: 6px;">🤖 Deep Learning</div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Jum, 22 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
+        <div id="home-pending-section"><div class="home-sec"><span>Belum Latihan Soal <span style="font-size:13px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">4</span></span></div><div class="materi-group-card" style="animation-delay: 0s;"><div class="materi-group-header"><div class="materi-group-accent" style="background:#2563eb"></div><div class="materi-group-label" style="color:#2563eb">🔢 Kalkulus 2</div></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Parsial</div><div class="mi-date">📅 Jum, 29 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m3&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m3&#39;)">···</button></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Integral Trigonometri</div><div class="mi-date">📅 Sab, 30 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m4&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m4&#39;)">···</button></div></div><div class="materi-group-card" style="animation-delay: 0.05s;"><div class="materi-group-header"><div class="materi-group-accent" style="background:#dc2626"></div><div class="materi-group-label" style="color:#dc2626">💻 Algoritma &amp; Pemro</div></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Jum, 29 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div></div><div class="materi-group-card" style="animation-delay: 0.1s;"><div class="materi-group-header"><div class="materi-group-accent" style="background:#7c3aed"></div><div class="materi-group-label" style="color:#7c3aed">🤖 Deep Learning</div></div><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">CNN Architecture</div><div class="mi-date">📅 Sab, 30 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m8&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m8&#39;)">···</button></div></div></div>
 
       </div>
     </div>
@@ -2383,16 +3086,22 @@ input,select,textarea { font-family:inherit; }
     <div class="view" id="v-subjects">
       <div class="pad">
 
-        <div class="subj-search-wrap">
-          <input id="subj-search" type="search" placeholder="🔍 Cari subjek (aktif &amp; arsip)..." oninput="renderSubjLists()" autocomplete="off">
+        <div class="subjects-large-title">Subjek</div>
+
+        <div class="subj-search-apple">
+          <span class="subj-search-icon">🔍</span>
+          <input id="subj-search" type="search" placeholder="Cari subjek..." oninput="renderSubjLists()" autocomplete="off">
         </div>
 
-        <div id="subj-active-list"><div class="subj-sem-label">Semester 4</div><div class="card" style="margin-bottom: 12px;"><div class="sitem"><div class="si-icon" style="background:#dc262622">💻</div><div class="si-body"><div class="si-name">Algoritma &amp; Pemro</div><div class="si-sub">2 materi · 1 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div><div class="sitem"><div class="si-icon" style="background:#7c3aed22">🤖</div><div class="si-body"><div class="si-name">Deep Learning</div><div class="si-sub">2 materi · 0 tugas aktif · <b style="color:var(--amber);font-weight:700">1 belum latsoal</b></div></div><span class="si-badge">1</span><span class="si-chev">›</span></div></div><div class="subj-sem-label">Semester 3</div><div class="card" style="margin-bottom: 12px;"><div class="sitem"><div class="si-icon" style="background:#0891b222">📐</div><div class="si-body"><div class="si-name">Kalkulus 1</div><div class="si-sub">0 materi · 0 tugas aktif</div></div><span class="si-chev">›</span></div></div></div>
+        <div class="subj-filter-bar" id="subj-filter-bar">
+          <button class="subj-fpill on" onclick="setSubjFilter(&#39;all&#39;, this)">Semua</button>
+          <button class="subj-fpill" onclick="setSubjFilter(&#39;active&#39;, this)">Aktif</button>
+          <button class="subj-fpill" onclick="setSubjFilter(&#39;pending&#39;, this)">Ada PR</button>
+        </div>
 
-        <button onclick="openSheet(&#39;sh-addsubj&#39;)" style="display:flex;align-items:center;justify-content:center;gap:10px;
-                 width:100%;padding:16px;border-radius:var(--r);
-                 background:var(--blue-lt);border:1.5px dashed var(--blue-bd);
-                 color:var(--blue);font-size:14px;font-weight:700;margin-top:4px;">
+        <div id="subj-active-list"><div class="subj-sem-label-apple">Semester 4</div><div class="subj-card-apple"><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#2563eb18">🔢</div><div class="subj-item-body"><div class="subj-item-name">Kalkulus 2</div><div class="subj-item-meta">4 materi · 1 tugas aktif</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#2563eb"></div></div></div></div><span class="subj-pending-badge">2</span></div><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#dc262618">💻</div><div class="subj-item-body"><div class="subj-item-name">Algoritma &amp; Pemro</div><div class="subj-item-meta">2 materi · 1 tugas aktif</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#dc2626"></div></div></div></div><span class="subj-pending-badge">1</span></div><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#7c3aed18">🤖</div><div class="subj-item-body"><div class="subj-item-name">Deep Learning</div><div class="subj-item-meta">2 materi</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#7c3aed"></div></div></div></div><span class="subj-pending-badge">1</span></div></div></div>
+
+        <button onclick="openSheet(&#39;sh-addsubj&#39;)" class="subj-add-btn-apple">
           ＋ Tambah Subjek Baru
         </button>
 
@@ -2486,56 +3195,68 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ CALENDAR ══ -->
     <div class="view" id="v-cal">
       <div class="pad">
-        <div class="mcal-wrap">
-          <div class="mcal-head">
-            <div class="mcal-title" id="mc-title">Mei 2026</div>
-            <div class="mcal-nav">
-              <button class="mcal-btn" onclick="shiftMcal(-1)">‹</button>
-              <button class="mcal-btn" onclick="shiftMcal(1)">›</button>
-            </div>
-          </div>
-          <div class="mcal-inner">
-            <div class="mcal-dows" id="mc-dows"><div class="mcal-dow">Sen</div><div class="mcal-dow">Sel</div><div class="mcal-dow">Rab</div><div class="mcal-dow">Kam</div><div class="mcal-dow">Jum</div><div class="mcal-dow">Sab</div><div class="mcal-dow">Min</div></div>
-            <div class="mcal-days" id="mc-days"></div>
-          </div>
-          <div class="cal-legend">
-            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green);border-radius:2px;width:14px;height:6px;"></div> Semua latsoal ✕</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-m"></div> Materi</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-t"></div> Deadline</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot mday-dot-u"></div> Ujian</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--purple);border-radius:50%;width:8px;height:8px;"></div> Project</div>
-            <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--amber);border-radius:50%;width:8px;height:8px;"></div> Area</div>
+        <div class="cal-large-title">Kalender</div>
+
+        <!-- Month nav -->
+        <div class="cal-month-nav-row">
+          <div class="cal-month-title-text" id="mc-title">Mei 2026</div>
+          <div class="cal-nav-btns">
+            <button class="cal-nav-btn" onclick="shiftMcal(-1)">‹</button>
+            <button class="cal-nav-btn" onclick="shiftMcal(1)">›</button>
           </div>
         </div>
 
-        <div class="sec" style="display:flex;align-items:center;justify-content:space-between;margin-top:4px;">
-          📋 Agenda Minggu Ini
+        <!-- Apple month grid -->
+        <div class="mcal-wrap-apple">
+          <div class="mcal-dows-apple" id="mc-dows">
+            <div class="mcal-dow-apple">Sen</div>
+            <div class="mcal-dow-apple">Sel</div>
+            <div class="mcal-dow-apple">Rab</div>
+            <div class="mcal-dow-apple">Kam</div>
+            <div class="mcal-dow-apple">Jum</div>
+            <div class="mcal-dow-apple">Sab</div>
+            <div class="mcal-dow-apple">Min</div>
+          </div>
+          <div class="mcal-days-apple" id="mc-days"><div class="mday-apple faded"><div class="mday-apple-num">27</div></div><div class="mday-apple faded"><div class="mday-apple-num">28</div></div><div class="mday-apple faded"><div class="mday-apple-num">29</div></div><div class="mday-apple faded"><div class="mday-apple-num">30</div></div><div class="mday-apple"><div class="mday-apple-num">1</div></div><div class="mday-apple"><div class="mday-apple-num">2</div></div><div class="mday-apple"><div class="mday-apple-num">3</div></div><div class="mday-apple"><div class="mday-apple-num">4</div></div><div class="mday-apple"><div class="mday-apple-num">5</div></div><div class="mday-apple"><div class="mday-apple-num">6</div></div><div class="mday-apple"><div class="mday-apple-num">7</div></div><div class="mday-apple"><div class="mday-apple-num">8</div></div><div class="mday-apple"><div class="mday-apple-num">9</div></div><div class="mday-apple"><div class="mday-apple-num">10</div></div><div class="mday-apple"><div class="mday-apple-num">11</div></div><div class="mday-apple"><div class="mday-apple-num">12</div></div><div class="mday-apple"><div class="mday-apple-num">13</div></div><div class="mday-apple"><div class="mday-apple-num">14</div></div><div class="mday-apple"><div class="mday-apple-num">15</div></div><div class="mday-apple"><div class="mday-apple-num">16</div></div><div class="mday-apple"><div class="mday-apple-num">17</div></div><div class="mday-apple"><div class="mday-apple-num">18</div></div><div class="mday-apple"><div class="mday-apple-num">19</div></div><div class="mday-apple"><div class="mday-apple-num">20</div></div><div class="mday-apple"><div class="mday-apple-num">21</div></div><div class="mday-apple"><div class="mday-apple-num">22</div></div><div class="mday-apple"><div class="mday-apple-num">23</div></div><div class="mday-apple"><div class="mday-apple-num">24</div><div class="mday-apple-dots"><div class="mday-apple-dot" style="background:var(--green)"></div></div></div><div class="mday-apple"><div class="mday-apple-num">25</div><div class="mday-apple-dots"><div class="mday-apple-dot" style="background:var(--green)"></div></div></div><div class="mday-apple"><div class="mday-apple-num">26</div><div class="mday-apple-dots"><div class="mday-apple-dot" style="background:var(--green)"></div></div></div><div class="mday-apple"><div class="mday-apple-num">27</div><div class="mday-apple-dots"><div class="mday-apple-dot" style="background:var(--green)"></div></div></div><div class="mday-apple"><div class="mday-apple-num">28</div></div><div class="mday-apple"><div class="mday-apple-num">29</div><div class="mday-apple-dots"><div class="mday-apple-dot" style="background:var(--blue-bd)"></div></div></div><div class="mday-apple is-today"><div class="mday-apple-num">30</div><div class="mday-apple-dots"><div class="mday-apple-dot is-today-dot" style="background:rgba(255,255,255,.7)"></div><div class="mday-apple-dot is-today-dot" style="background:rgba(255,255,255,.7)"></div></div></div><div class="mday-apple"><div class="mday-apple-num">31</div></div></div>
+          <div class="cal-legend-apple">
+            <div class="cal-leg-pill"><div class="cal-leg-pip" style="background:var(--blue-bd)"></div>Materi</div>
+            <div class="cal-leg-pill"><div class="cal-leg-pip" style="background:var(--amber)"></div>Deadline</div>
+            <div class="cal-leg-pill"><div class="cal-leg-pip" style="background:var(--purple)"></div>Ujian</div>
+            <div class="cal-leg-pill"><div class="cal-leg-pip" style="background:var(--green)"></div>Selesai</div>
+          </div>
+        </div>
+
+        <!-- Agenda feed -->
+        <div class="cal-day-header">
+          Agenda
+          <span class="cal-day-header-date" id="cal-feed-week-label">Minggu ini · 25–31 Mei</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin:-8px 0 12px;gap:8px;">
+          <button class="cal-feed-arr" onclick="shiftCalFeed(-1)" style="padding:6px 14px;border-radius:99px;background:var(--bg2);border:none;font-size:14px;font-weight:700;color:var(--ink2);cursor:pointer;">‹ Lalu</button>
+          <button class="cal-feed-arr" onclick="shiftCalFeed(1)" style="padding:6px 14px;border-radius:99px;background:var(--bg2);border:none;font-size:14px;font-weight:700;color:var(--ink2);cursor:pointer;">Depan ›</button>
         </div>
         <div class="cal-week-feed" id="cal-week-feed">
-          <div class="cal-feed-week-nav">
-            <div class="cal-feed-week-label" id="cal-feed-week-label">Minggu ini</div>
-            <div class="cal-feed-week-arrows">
-              <button class="cal-feed-arr" onclick="shiftCalFeed(-1)">‹</button>
-              <button class="cal-feed-arr" onclick="shiftCalFeed(1)">›</button>
-            </div>
-          </div>
-          <div id="cal-feed-body"></div>
+          <div id="cal-feed-body"><div class="cal-feed-day"><div class="cal-feed-day-label"><div class="cal-feed-day-num">29</div><span>Jumat, 29 Mei</span></div><div class="cal-feed-item" style="border-color: rgb(37, 99, 235);"><div class="cal-feed-emoji">📖</div><div class="cal-feed-body"><div class="cal-feed-name">Integral Parsial</div><div class="cal-feed-sub">🔢 Kalkulus 2</div></div><span class="cal-feed-type" style="background:#2563eb22;color:#2563eb">Materi</span></div><div class="cal-feed-item" style="border-color: rgb(220, 38, 38);"><div class="cal-feed-emoji">📖</div><div class="cal-feed-body"><div class="cal-feed-name">Dynamic Programming</div><div class="cal-feed-sub">💻 Algoritma &amp; Pemro</div></div><span class="cal-feed-type" style="background:#dc262622;color:#dc2626">Materi</span></div></div><div class="cal-feed-day"><div class="cal-feed-day-label is-today"><div class="cal-feed-day-num">30</div><span>Sabtu, 30 Mei · Hari ini</span></div><div class="cal-feed-item" style="border-color: rgb(217, 119, 6);"><div class="cal-feed-emoji">📋</div><div class="cal-feed-body"><div class="cal-feed-name">Implementasi Quicksort</div><div class="cal-feed-sub">💻 Algoritma &amp; Pemro  — deadline</div></div><span class="cal-feed-type" style="background:#d9770622;color:#d97706">Tugas</span></div><div class="cal-feed-item" style="border-color: rgb(37, 99, 235);"><div class="cal-feed-emoji">📖</div><div class="cal-feed-body"><div class="cal-feed-name">Integral Trigonometri</div><div class="cal-feed-sub">🔢 Kalkulus 2</div></div><span class="cal-feed-type" style="background:#2563eb22;color:#2563eb">Materi</span></div><div class="cal-feed-item" style="border-color: rgb(124, 58, 237);"><div class="cal-feed-emoji">📖</div><div class="cal-feed-body"><div class="cal-feed-name">CNN Architecture</div><div class="cal-feed-sub">🤖 Deep Learning</div></div><span class="cal-feed-type" style="background:#7c3aed22;color:#7c3aed">Materi</span></div></div></div>
         </div>
 
-        <div class="sec" style="display:flex;align-items:center;justify-content:space-between;">
-          📝 Ujian Mendatang
-          <span class="sec-link" onclick="openAddUjianFromCal()">+ Tambah</span>
+        <!-- Upcoming Exams -->
+        <div class="cal-day-header" style="margin-top:8px;">
+          Ujian Mendatang
+          <span class="sec-link" onclick="openAddUjianFromCal()" style="font-size:14px">+ Tambah</span>
         </div>
-        <div id="cal-ujian-section"></div>
+        <div id="cal-ujian-section"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-warn">H-4</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">Quiz 2</div><div class="ujian-date">📅 Rab, 3 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u1&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u1&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-uts">UTS</span><div class="ujian-countdown uc-ok">H-14</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(37, 99, 235); margin-bottom: 2px;">🔢 Kalkulus 2</div><div class="ujian-name">UTS Genap</div><div class="ujian-date">📅 Sab, 13 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Integral Tak Tentu</span><span class="ujian-materi-chip">Integral Substitusi</span><span class="ujian-materi-chip">Integral Parsial</span><span class="ujian-materi-chip">Integral Trigonometri</span></div><div class="ujian-actions"><button class="ujian-ready-btn not-ready" onclick="toggleUjianReady(&#39;u2&#39;)">📖 Belum Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u2&#39;)">✏️</button></div></div></div></div><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div style="font-size: 11px; font-weight: 700; color: rgb(220, 38, 38); margin-bottom: 2px;">💻 Algoritma &amp; Pemro</div><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sen, 1 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div></div>
 
       </div>
+
+      <!-- FAB -->
+      <button class="cal-fab" onclick="openSheet(&#39;sh-addujian&#39;)" title="Tambah ujian">＋</button>
     </div>
 
 
     <!-- ══ PROJECTS ══ -->
     <div class="view active" id="v-projects"><div class="pad">
-      <div class="ov-banner" id="ov-banner"></div>
-      <div class="filter-bar" id="filter-bar"></div>
+      <div class="ov-banner" id="ov-banner"><div class="ov-stat" style="padding-left:0"><div class="ov-num">0</div><div class="ov-lbl">Aktif</div></div><div class="ov-stat"><div class="ov-num">0<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div><div class="ov-lbl">Avg done</div><div class="ov-bar-wrap"><div class="ov-bar-fill" style="width:0%"></div></div></div><div class="ov-stat"><div class="ov-num">0</div><div class="ov-lbl">Actions pending</div></div></div>
+      <div class="filter-bar" id="filter-bar"><button class="fpill on" onclick="setFilter_c(&#39;all&#39;,this)">Semua</button></div>
 
       <!-- Focus Right Now -->
       <div id="focus-now-wrap"></div>
@@ -2552,7 +3273,7 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREAS ══ -->
     <div class="view" id="v-areas"><div class="pad">
-      <div class="area-gallery" id="areas-list" style="display:grid"></div>
+      <div class="area-gallery" id="areas-list" style="display: block;"><div style="grid-column:span 2;padding:32px 20px;text-align:center;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:32px;display:block;margin-bottom:8px">🌿</span><div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada area</div><div style="font-size:12px;color:var(--ink3);margin-top:3px">Area adalah hal yang kamu jaga selamanya</div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
 
@@ -3645,67 +4366,252 @@ function renderSidebar(){
 // ════════ HOME ════════════════════════════════
 function renderHome(){
   renderWeek();
+  _renderHomeGreeting();
+  _renderNowCard();
+  _renderComingUp();
+  _renderHomeTugas();
+  _renderHomePending();
+  updateBadge();
+}
 
+function _renderHomeGreeting(){
+  const hr=new Date().getHours();
+  let greet=hr<12?'Good morning':'Good afternoon';
+  if(hr>=18) greet='Good evening';
+  const el=document.getElementById('home-greeting-time');
+  if(el) el.textContent=greet;
+
+  // dynamic sub
+  const pending=D.materi.filter(m=>!m.done).length;
+  const activeTugas=D.tugas.filter(t=>!t.done).length;
+  const sub=document.getElementById('home-greeting-sub');
+  if(sub){
+    if(!pending&&!activeTugas) sub.textContent='Semua selesai! Lo legend hari ini. 🔥';
+    else if(pending&&activeTugas) sub.textContent=`${pending} materi belum latsoal · ${activeTugas} tugas aktif.`;
+    else if(pending) sub.textContent=`${pending} materi menunggu latihan soal.`;
+    else sub.textContent=`${activeTugas} tugas aktif sedang berjalan.`;
+  }
+}
+
+function _renderNowCard(){
+  // Priority engine: 1.Crisis 2.ExamReadiness 3.Assignment 4.Forgetting 5.Progress
+  const todayStr=tod();
+
+  // 1. Crisis: materi / tugas yang deadline hari ini / overdue
+  const overdueT=D.tugas.filter(t=>!t.done&&diffD(t.deadline,todayStr)<=0);
+  const dueTodayM=D.materi.filter(m=>!m.done&&m.date===todayStr);
+
+  // 2. Exam readiness: ujian dalam 14 hari
+  const urgentUjian=D.ujian
+    .filter(u=>{ const d=diffD(u.date,todayStr); return d>=0&&d<=14; })
+    .sort((a,b)=>diffD(a.date,todayStr)-diffD(b.date,todayStr));
+  const nextUjian=urgentUjian[0]||null;
+  const examMateri=nextUjian?D.materi.filter(m=>nextUjian.materiIds.includes(m.id)&&!m.done):[];
+
+  // 4. Forgetting: materi belum latsoal paling lama tidak diakses
   const pending=D.materi.filter(m=>!m.done);
+  pending.sort((a,b)=>a.date.localeCompare(b.date));
+  const oldestPending=pending[0]||null;
+
+  // Determine winner
+  let nowTitle='', nowSubj='', nowTime='15 menit', nowWhy=[];
+
+  if(overdueT.length){
+    const t=overdueT[0]; const s=gS(t.sid);
+    nowTitle=t.name; nowSubj=s?s.name:'';
+    nowTime='segera'; nowWhy=[
+      'Deadline sudah lewat 🚨',
+      s?`Matkul: ${s.emoji} ${s.name}`:'',
+      'Selesaikan sekarang sebelum terlambat'
+    ].filter(Boolean);
+  } else if(nextUjian&&examMateri.length){
+    const s=gS(nextUjian.sid);
+    const daysLeft=diffD(nextUjian.date,todayStr);
+    const m=examMateri[0];
+    nowTitle='Review '+m.name; nowSubj=s?s.name:'';
+    nowTime='~15 menit'; nowWhy=[
+      `Ujian dalam ${daysLeft} hari`,
+      `${examMateri.length} materi belum latsoal`,
+      'Sering missed dalam sesi sebelumnya'
+    ];
+  } else if(dueTodayM.length){
+    const m=dueTodayM[0]; const s=gS(m.sid);
+    nowTitle='Latsoal '+m.name; nowSubj=s?s.name:'';
+    nowTime='~20 menit'; nowWhy=[
+      'Dijadwalkan hari ini 📅',
+      s?`${s.emoji} ${s.name}`:'',
+      'Jangan tunda, hasilnya lebih maksimal!'
+    ].filter(Boolean);
+  } else if(oldestPending){
+    const s=gS(oldestPending.sid);
+    const daysSince=diffD(todayStr,oldestPending.date);
+    nowTitle='Latsoal '+oldestPending.name; nowSubj=s?s.name:'';
+    nowTime='~20 menit'; nowWhy=[
+      daysSince>=7?`Sudah ${daysSince} hari tidak diulang`:'Belum pernah latihan soal',
+      s?`${s.emoji} ${s.name}`:'',
+      'Spaced repetition = ingat lebih lama 🧠'
+    ].filter(Boolean);
+  } else {
+    const card=document.getElementById('now-hero-card');
+    if(card){
+      card.innerHTML=`
+        <div class="now-card-label"><span class="now-card-dot"></span>NOW</div>
+        <div class="now-card-title">🎉 Semua beres!</div>
+        <div class="now-card-sub">Ga ada yang perlu dikerjakan sekarang. Legend.</div>
+        <div class="now-card-footer">
+          <div class="now-card-time">⚡ On track</div>
+          <button class="now-card-start" onclick="goView('subjects',document.getElementById('bn-s'))">Lihat →</button>
+        </div>`;
+    }
+    return;
+  }
+
+  const t=document.getElementById('now-title');
+  const s=document.getElementById('now-subject');
+  const ti=document.getElementById('now-time');
+  if(t) t.textContent=nowTitle;
+  if(s) s.textContent=nowSubj;
+  if(ti) ti.textContent='⏱ '+nowTime;
+  // why now items
+  const wi=document.getElementById('now-why-items');
+  if(wi) wi.innerHTML=nowWhy.map(w=>`<div class="now-why-item"><div class="now-why-bullet"></div><span>${w}</span></div>`).join('');
+}
+
+function toggleNowWhy(){
+  const btn=document.getElementById('now-why-toggle');
+  const body=document.getElementById('now-why-body');
+  if(!btn||!body) return;
+  const isOpen=body.classList.toggle('open');
+  btn.classList.toggle('open',isOpen);
+}
+
+function nowCardTapped(){
+  // navigate to subjects
+  goView('subjects',document.getElementById('bn-s'));
+}
+function nowStartAction(){
+  // go to pomodoro with context
+  goView('pomo',document.getElementById('bn-pomo'));
+}
+
+function _renderComingUp(){
+  const el=document.getElementById('coming-up-scroll');
+  if(!el) return;
+  el.innerHTML='';
+  const todayStr=tod();
+
+  // Collect upcoming: tugas & ujian in next 14 days
+  const items=[];
+  D.tugas.filter(t=>!t.done).forEach(t=>{
+    const d=diffD(t.deadline,todayStr);
+    if(d>=0&&d<=14){ const s=gS(t.sid); items.push({type:'tugas',name:t.name,dl:d,color:s?s.color:'var(--blue)',emoji:s?s.emoji:'📋',id:t.id}); }
+  });
+  D.ujian.forEach(u=>{
+    const d=diffD(u.date,todayStr);
+    if(d>=0&&d<=14){ const s=gS(u.sid); items.push({type:'ujian',name:u.name||({quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type]),dl:d,color:s?s.color:'var(--purple)',emoji:s?s.emoji:'📝',id:u.id}); }
+  });
+  items.sort((a,b)=>a.dl-b.dl);
+
+  if(!items.length){
+    el.innerHTML=`<div style="font-size:13px;color:var(--ink3);font-weight:500;padding:12px 0;">Tidak ada deadline dalam 14 hari ke depan 🎉</div>`;
+    return;
+  }
+
+  items.slice(0,8).forEach((item,i)=>{
+    const isUrgent=item.dl<=2;
+    const dlText=item.dl===0?'Hari ini':item.dl===1?'Besok':`${item.dl} hari lagi`;
+    const typeLabel=item.type==='ujian'?'Ujian':'Tugas';
+    const chip=document.createElement('div');
+    chip.className=`cu-chip anim-d${Math.min(i+1,5)}`;
+    chip.innerHTML=`
+      <div class="cu-chip-type" style="color:${item.color}">
+        <div class="cu-chip-dot" style="background:${item.color}"></div>
+        ${typeLabel}
+      </div>
+      <div class="cu-chip-name">${item.emoji} ${item.name}</div>
+      <div class="cu-chip-dl" style="color:${isUrgent?'var(--red)':'var(--ink3)'}">${dlText}</div>`;
+    el.appendChild(chip);
+  });
+}
+
+function _renderHomeTugas(){
+  const ht=document.getElementById('home-tugas');
+  if(!ht) return;
   const activeTugas=D.tugas.filter(t=>!t.done);
+  if(!activeTugas.length){
+    ht.innerHTML=`<div style="background:var(--white);border-radius:18px;padding:24px;text-align:center;box-shadow:0 2px 14px rgba(0,0,0,.07);border:1px solid var(--line)">
+      <div style="font-size:28px;margin-bottom:8px">✌️</div>
+      <div style="font-size:15px;font-weight:700;color:var(--ink2)">Ga ada tugas aktif</div>
+    </div>`;
+    return;
+  }
+  const sorted=activeTugas.sort((a,b)=>a.deadline.localeCompare(b.deadline));
+  const card=document.createElement('div');
+  card.className='tugas-card';
+  sorted.forEach(t=>{
+    const s=gS(t.sid);
+    const diff2=diffD(t.deadline,tod());
+    const dlClass=diff2<0?'dl-late':diff2===0?'dl-soon':diff2<=3?'dl-soon':'dl-ok';
+    const dlText=diff2<0?`🚨 Telat ${Math.abs(diff2)}h`:diff2===0?'⏰ Hari ini!':diff2===1?'⚡ Besok':`📅 ${diff2}h lagi`;
+    const isUrgent=diff2<=1;
+    const row=document.createElement('div');
+    row.className='tugas-item-apple';
+    row.innerHTML=`
+      <div class="tugas-check-circle" onclick="toggleT('${t.id}')"></div>
+      <div class="tugas-item-body">
+        <div class="tugas-item-name">${t.name}</div>
+        <div class="tugas-item-meta">
+          ${s?`<span class="tugas-subj-tag" style="background:${s.color}18;color:${s.color}">${s.emoji} ${s.name}</span>`:''}
+          <span class="tugas-dl-tag ${dlClass}" style="${isUrgent?'background:#fee2e2;color:#dc2626':''}">${dlText}</span>
+        </div>
+      </div>
+      <button class="tugas-more-btn" onclick="openEditT('${t.id}')">···</button>`;
+    card.appendChild(row);
+  });
+  ht.innerHTML='';
+  ht.appendChild(card);
+}
+
+function _renderHomePending(){
+  const pending=D.materi.filter(m=>!m.done);
   const sec=document.getElementById('home-pending-section');
+  if(!sec) return;
 
   if(!pending.length){
-    // REWARDING STATE — all done!
     const msgs=[
       {e:'🔥',t:'Gasss! Semua latsoal selesai!',s:'Lo literally the goat hari ini. Keep it up!'},
-      {e:'🎉',t:'Sip! Semua udah kelar!',s:'Ga ada yang pending. Lanjut santai dulu atau tambahin materi baru!'},
+      {e:'🎉',t:'Sip! Semua udah kelar!',s:'Ga ada yang pending. Lanjut santai dulu!'},
       {e:'🏆',t:'Clean slate!',s:'Semua materi udah dilatsoalin. Legend.'},
       {e:'⚡',t:'Semua beres, bro!',s:'Ga ada yang ketinggalan. Lo on track banget!'},
     ];
-    const msg=msgs[Math.floor(new Date().getDate()%msgs.length)];
-    sec.innerHTML=`
-      <div class="sip-banner">
-        <div class="sip-emoji">${msg.e}</div>
-        <div><div class="sip-title">${msg.t}</div><div class="sip-sub">${msg.s}</div></div>
-      </div>`;
-  } else {
-    // Group by subject
-    const bySubj={};
-    pending.forEach(m=>{
-      if(!bySubj[m.sid]) bySubj[m.sid]=[];
-      bySubj[m.sid].push(m);
-    });
-
-    let html=`<div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">${pending.length}</span></div>`;
-    // render grouped by subject
-    Object.keys(bySubj).forEach(sid=>{
-      const s=gS(sid);
-      const items=bySubj[sid];
-      html+=`<div style="margin-bottom:10px;">`;
-      html+=`<div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:${s.color};margin-bottom:6px;padding-left:2px;">${s.emoji} ${s.name}</div>`;
-      sec.innerHTML=html+'</div>'; // temp set to get container
-    });
-
-    // Rebuild properly
-    sec.innerHTML=`<div class="pending-header">⚡ Belum Latihan Soal <span class="pending-count">${pending.length}</span></div>`;
-    Object.keys(bySubj).forEach(sid=>{
-      const s=gS(sid);
-      const grpCard=document.createElement('div');
-      grpCard.className='card'; grpCard.style.marginBottom='10px';
-      const grpHead=document.createElement('div');
-      grpHead.style.cssText=`padding:10px 16px 8px;border-bottom:1px solid var(--line);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:${s.color};display:flex;align-items:center;gap:6px;`;
-      grpHead.innerHTML=`${s.emoji} ${s.name}`;
-      grpCard.appendChild(grpHead);
-      bySubj[sid].forEach(m=>grpCard.appendChild(mkM(m,false)));
-      sec.appendChild(grpCard);
-    });
+    const msg=msgs[new Date().getDate()%msgs.length];
+    sec.innerHTML=`<div class="sip-banner"><div class="sip-emoji">${msg.e}</div><div><div class="sip-title">${msg.t}</div><div class="sip-sub">${msg.s}</div></div></div>`;
+    return;
   }
 
-  // upcoming tugas
-  const ht=document.getElementById('home-tugas');
-  if(!activeTugas.length){
-    ht.innerHTML=`<div class="empty"><span class="empty-ic">✌️</span><div class="empty-t">Ga ada tugas aktif</div></div>`;
-  } else {
-    ht.innerHTML='';
-    activeTugas.sort((a,b)=>a.deadline.localeCompare(b.deadline)).forEach(t=>ht.appendChild(mkT(t,true)));
-  }
-  updateBadge();
+  const bySubj={};
+  pending.forEach(m=>{ if(!bySubj[m.sid])bySubj[m.sid]=[]; bySubj[m.sid].push(m); });
+
+  sec.innerHTML=``;
+  // Section heading
+  const hd=document.createElement('div');
+  hd.className='home-sec';
+  hd.innerHTML=`<span>Belum Latihan Soal <span style="font-size:13px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">${pending.length}</span></span>`;
+  sec.appendChild(hd);
+
+  let delay=0;
+  Object.keys(bySubj).forEach(sid=>{
+    const s=gS(sid);
+    const grp=document.createElement('div');
+    grp.className='materi-group-card';
+    grp.style.animationDelay=`${delay}s`; delay+=0.05;
+    const header=document.createElement('div');
+    header.className='materi-group-header';
+    header.innerHTML=`<div class="materi-group-accent" style="background:${s?s.color:'var(--blue)'}"></div><div class="materi-group-label" style="color:${s?s.color:'var(--ink)'}">${s?s.emoji:''} ${s?s.name:'Subjek'}</div>`;
+    grp.appendChild(header);
+    bySubj[sid].forEach(m=>grp.appendChild(mkM(m,false)));
+    sec.appendChild(grp);
+  });
 }
 
 // ════════ WEEKLY CALENDAR ═════════════════════
@@ -3771,6 +4677,14 @@ function shiftWeek(dir){ weekOff+=dir; renderWeek(); }
 
 // ════════ SUBJECT LISTS ═══════════════════════
 let archiveExpanded = false;
+let subjFilter = 'all';
+
+function setSubjFilter(f, btn){
+  subjFilter=f;
+  document.querySelectorAll('.subj-fpill').forEach(b=>b.classList.remove('on'));
+  if(btn) btn.classList.add('on');
+  renderSubjLists();
+}
 
 function renderSubjLists(){
   const query = (document.getElementById('subj-search')?.value||'').trim().toLowerCase();
@@ -3781,43 +4695,37 @@ function renderSubjLists(){
   activeEl.innerHTML = '';
   archiveWrap.innerHTML = '';
 
-  // ── SEARCH MODE: show all matching (active + archived) flat ──
+  // ── SEARCH MODE ──
   if(isSearch){
     const all = D.subjects.filter(s => s.name.toLowerCase().includes(query));
     if(!all.length){
-      activeEl.innerHTML=`<div class="card"><div class="empty"><span class="empty-ic">🔍</span><div class="empty-t">Ga ketemu</div><div class="empty-s">Coba kata lain</div></div></div>`;
+      activeEl.innerHTML=`<div class="subj-card-apple"><div class="empty" style="padding:28px"><span class="empty-ic">🔍</span><div class="empty-t">Ga ketemu</div><div class="empty-s">Coba kata lain</div></div></div>`;
       return;
     }
-    const card = document.createElement('div'); card.className='card';
-    card.style.marginBottom='12px';
+    const card = document.createElement('div'); card.className='subj-card-apple';
     all.forEach(s => card.appendChild(mkSubjItem(s, s.archived)));
     activeEl.appendChild(card);
     return;
   }
 
-  // ── NORMAL MODE: active subjects grouped by semester ──
-  const active = D.subjects.filter(s => !s.archived);
+  // ── NORMAL MODE ──
+  let active = D.subjects.filter(s => !s.archived);
+  if(subjFilter==='pending') active=active.filter(s=>D.materi.some(m=>m.sid===s.id&&!m.done));
 
   if(!active.length){
-    activeEl.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">📭</span><div class="empty-t">Belum ada subjek aktif</div><div class="empty-s">Tambah subjek baru di bawah</div></div></div>`;
+    activeEl.innerHTML=`<div class="subj-card-apple"><div class="empty" style="padding:28px"><span class="empty-ic">📭</span><div class="empty-t">Belum ada subjek${subjFilter!=='all'?' di filter ini':' aktif'}</div><div class="empty-s">Tambah subjek baru di bawah</div></div></div>`;
   } else {
-    // group by semester — ordered by D.semesters array (newest first)
     const sems = [...new Set(active.map(s=>s.semester||'').filter(Boolean))];
-    // sort by D.semesters order (index 0 = newest)
-    sems.sort((a,b)=>{
-      const ia=D.semesters.indexOf(a), ib=D.semesters.indexOf(b);
-      return ia-ib;
-    });
+    sems.sort((a,b)=>D.semesters.indexOf(a)-D.semesters.indexOf(b));
     const noSem = active.filter(s=>!s.semester);
 
     const renderGroup=(list, label)=>{
       if(!list.length) return;
       if(label){
-        const lbl=document.createElement('div'); lbl.className='subj-sem-label';
+        const lbl=document.createElement('div'); lbl.className='subj-sem-label-apple';
         lbl.textContent=label; activeEl.appendChild(lbl);
       }
-      const card=document.createElement('div'); card.className='card';
-      card.style.marginBottom='12px';
+      const card=document.createElement('div'); card.className='subj-card-apple';
       list.forEach(s=>card.appendChild(mkSubjItem(s, false)));
       activeEl.appendChild(card);
     };
@@ -3841,23 +4749,20 @@ function renderSubjLists(){
   archiveWrap.appendChild(toggleBtn);
 
   if(archiveExpanded){
-    // group archived by semester too
     const archSems=[...new Set(archived.map(s=>s.semester||'').filter(Boolean))];
     archSems.sort((a,b)=>D.semesters.indexOf(a)-D.semesters.indexOf(b));
     const archNoSem=archived.filter(s=>!s.semester);
-
     const archCard=(list,label)=>{
       if(!list.length) return;
       if(label){
-        const lbl=document.createElement('div'); lbl.className='subj-sem-label';
+        const lbl=document.createElement('div'); lbl.className='subj-sem-label-apple';
         lbl.style.marginTop='10px'; lbl.textContent=label; archiveWrap.appendChild(lbl);
       }
-      const card=document.createElement('div'); card.className='card';
-      card.style.marginTop='6px'; card.style.marginBottom='6px';
+      const card=document.createElement('div'); card.className='subj-card-apple';
+      card.style.marginTop='6px';
       list.forEach(s=>card.appendChild(mkSubjItem(s,true)));
       archiveWrap.appendChild(card);
     };
-
     archSems.forEach(sm=>archCard(archived.filter(s=>s.semester===sm),sm));
     archCard(archNoSem, archNoSem.length&&archSems.length?'Tanpa Semester':null);
   }
@@ -3867,22 +4772,33 @@ function mkSubjItem(s, isArchived){
   const mat=D.materi.filter(m=>m.sid===s.id);
   const pending=mat.filter(m=>!m.done).length;
   const activeTugas=D.tugas.filter(t=>t.sid===s.id&&!t.done).length;
+  const pct=mat.length?Math.round(mat.filter(m=>m.done).length/mat.length*100):0;
 
   const row=document.createElement('div');
-  row.className='sitem'+(isArchived?' sitem-archived':'');
+  row.className='subj-item-apple'+(isArchived?' sitem-archived':'');
 
-  let rightHtml = isArchived
-    ? `<button class="unarchive-btn" onclick="event.stopPropagation();unarchiveSubj('${s.id}')">Aktifkan</button>`+
-      `<span class="si-chev">›</span>`
-    : (pending?`<span class="si-badge">${pending}</span>`:'')+`<span class="si-chev">›</span>`;
+  // build meta text
+  const metaParts=[];
+  if(mat.length) metaParts.push(`${mat.length} materi`);
+  if(activeTugas) metaParts.push(`${activeTugas} tugas aktif`);
+  if(!mat.length&&!activeTugas) metaParts.push('Belum ada materi');
 
   row.innerHTML=
-    `<div class="si-icon" style="background:${s.color}22">${s.emoji}</div>`+
-    `<div class="si-body">`+
-    `<div class="si-name">${s.name}`+(isArchived?` <span class="sitem-arch-chip">Arsip</span>`:'')+`</div>`+
-    `<div class="si-sub">${mat.length} materi · ${activeTugas} tugas aktif`+
-    (pending&&!isArchived?` · <b style="color:var(--amber);font-weight:700">${pending} belum latsoal</b>`:'')+
-    `</div></div>`+rightHtml;
+    `<div class="subj-icon-apple" style="background:${s.color}18">${s.emoji}</div>`+
+    `<div class="subj-item-body">`+
+    `<div class="subj-item-name">${s.name}${isArchived?` <span style="font-size:10px;font-weight:700;background:var(--bg2);color:var(--ink3);padding:2px 7px;border-radius:99px;margin-left:4px;">Arsip</span>`:''}</div>`+
+    `<div class="subj-item-meta">${metaParts.join(' · ')}</div>`+
+    (mat.length?`<div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:${pct}%;background:${s.color}"></div></div></div>`:'')+
+    `</div>`+
+    (pending&&!isArchived?`<span class="subj-pending-badge">${pending}</span>`:'');
+
+  if(isArchived){
+    const unBtn=document.createElement('button');
+    unBtn.className='unarchive-btn';unBtn.style.cssText='font-size:11px;font-weight:700;padding:5px 10px;border-radius:99px;background:var(--bg2);border:none;color:var(--ink2);margin-right:28px;cursor:pointer;';
+    unBtn.textContent='Aktifkan';
+    unBtn.onclick=(e)=>{e.stopPropagation();unarchiveSubj(s.id);};
+    row.appendChild(unBtn);
+  }
 
   row.onclick=()=>openDetail(s.id);
   return row;
@@ -4637,22 +5553,23 @@ function shiftMcal(dir){
 
 function renderMcal(){
   document.getElementById('mc-title').textContent=MOS[mcalM]+' '+mcalY;
-  // dows
+  // dows — keep existing but hidden (grid uses fixed HTML now)
   const dowsEl=document.getElementById('mc-dows');
-  dowsEl.innerHTML='';
-  DWS.forEach(d=>{const e=document.createElement('div');e.className='mcal-dow';e.textContent=d;dowsEl.appendChild(e);});
-  // days
+  if(dowsEl && dowsEl.className==='mcal-dows'){
+    dowsEl.innerHTML='';
+    DWS.forEach(d=>{const e=document.createElement('div');e.className='mcal-dow';e.textContent=d;dowsEl.appendChild(e);});
+  }
+  // Apple-style days
   const daysEl=document.getElementById('mc-days');
   daysEl.innerHTML='';
   const first=new Date(mcalY,mcalM,1);
   const last=new Date(mcalY,mcalM+1,0);
   const todayStr=tod();
-  // Monday-first padding
   let pad=first.getDay()-1; if(pad<0)pad=6;
   const prevLast=new Date(mcalY,mcalM,0).getDate();
   for(let i=pad-1;i>=0;i--){
-    const e=document.createElement('div');e.className='mday faded';
-    e.innerHTML=`<div class="mday-num">${prevLast-i}</div>`;
+    const e=document.createElement('div');e.className='mday-apple faded';
+    e.innerHTML=`<div class="mday-apple-num">${prevLast-i}</div>`;
     daysEl.appendChild(e);
   }
   for(let d=1;d<=last.getDate();d++){
@@ -4662,7 +5579,6 @@ function renderMcal(){
     const tgsHari=D.tugas.filter(t=>t.deadline===ds);
     const ujHari=D.ujian.filter(u=>u.date===ds);
     const agHari=(D.p_agendas||[]).filter(a=>a.date===ds);
-    // action plans: deadline biasa + recurring yang match hari ini
     const apHariDl=(D.p_tasks||[]).filter(t=>!t.recurring&&t.deadline===ds&&!t.done&&t.showCal!==false);
     const apHariRec=(D.p_tasks||[]).filter(t=>t.recurring&&t.showCal!==false&&apRecurMatchesDate(t,ds));
     const apHari=[...apHariDl,...apHariRec];
@@ -4671,30 +5587,23 @@ function renderMcal(){
     const allDone=hasM&&matHari.every(m=>m.done);
     const hasAny=hasM||hasT||hasU||hasAg||hasAp;
     const e=document.createElement('div');
-    e.className='mday'+(isToday?' is-today':'');
+    e.className='mday-apple'+(isToday?' is-today':'');
     e.onclick=()=>openDayDetail(ds);
-    let indicator='';
-    if(hasM&&allDone&&!hasT&&!hasU&&!hasAg&&!hasAp){
-      indicator=`<div class="mday-x">✕</div>`;
-    } else if(hasAny){
-      let dots='';
-      if(hasM&&allDone) dots+=`<div class="mday-dot" style="background:var(--green);border-radius:2px;width:8px;height:4px;"></div>`;
-      else if(hasM) dots+=`<div class="mday-dot mday-dot-m"></div>`;
-      if(hasT) dots+=`<div class="mday-dot mday-dot-t"></div>`;
-      if(hasU) dots+=`<div class="mday-dot mday-dot-u"></div>`;
-      if(hasAg) dots+=`<div class="mday-dot mday-dot-ag"></div>`;
-      // project action plans get purple dot
-      const projAps = apHari.filter(t => t.parentType === 'project');
-      const areaAps = apHari.filter(t => t.parentType === 'area');
-      if(projAps.length) dots+=`<div class="mday-dot mday-dot-proj"></div>`;
-      else if(areaAps.length) dots+=`<div class="mday-dot mday-dot-area"></div>`;
-      indicator=`<div class="mday-dots">${dots}</div>`;
+    // dots
+    let dots='';
+    if(hasM&&allDone){
+      dots+=`<div class="mday-apple-dot${isToday?' is-today-dot':''}" style="background:${isToday?'#fff':'var(--green)'}"></div>`;
+    } else if(hasM){
+      dots+=`<div class="mday-apple-dot${isToday?' is-today-dot':''}" style="background:${isToday?'rgba(255,255,255,.7)':'var(--blue-bd)'}"></div>`;
     }
-    e.innerHTML=`<div class="mday-num">${d}</div>${indicator}`;
+    if(hasT) dots+=`<div class="mday-apple-dot${isToday?' is-today-dot':''}" style="background:${isToday?'rgba(255,255,255,.7)':'var(--amber)'}"></div>`;
+    if(hasU) dots+=`<div class="mday-apple-dot${isToday?' is-today-dot':''}" style="background:${isToday?'rgba(255,255,255,.7)':'var(--purple)'}"></div>`;
+    if(hasAg||hasAp) dots+=`<div class="mday-apple-dot${isToday?' is-today-dot':''}" style="background:${isToday?'rgba(255,255,255,.7)':'var(--blue)'}"></div>`;
+    e.innerHTML=`<div class="mday-apple-num">${d}</div>`+(dots?`<div class="mday-apple-dots">${dots}</div>`:'');
     daysEl.appendChild(e);
   }
   const rem=7-((pad+last.getDate())%7);
-  if(rem<7) for(let d=1;d<=rem;d++){const e=document.createElement('div');e.className='mday faded';e.innerHTML=`<div class="mday-num">${d}</div>`;daysEl.appendChild(e);}
+  if(rem<7) for(let d=1;d<=rem;d++){const e=document.createElement('div');e.className='mday-apple faded';e.innerHTML=`<div class="mday-apple-num">${d}</div>`;daysEl.appendChild(e);}
   renderCalUjian();
   renderCalFeed();
 }
@@ -6701,20 +7610,20 @@ function _updateProjectAreaOptions(){
 }
 
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 
 <!-- Add Resource Sheet -->
-<div class="overlay" id="sh-addresource" onclick="bgc(event,'sh-addresource')"><div class="sheet">
+<div class="overlay" id="sh-addresource" onclick="bgc(event,&#39;sh-addresource&#39;)"><div class="sheet">
   <div class="sh-handle"></div><div class="sh-title" id="sh-res-title">📎 Tambah Resource / Note</div>
   <div class="sh-body">
     <div class="field">
       <label class="flbl">Tipe</label>
       <div style="display:flex;gap:8px;margin-top:4px">
-        <button type="button" class="res-type-btn sel" data-type="note" onclick="setResType_c('note')">📝 Note</button>
-        <button type="button" class="res-type-btn" data-type="link" onclick="setResType_c('link')">🔗 Link</button>
-        <button type="button" class="res-type-btn" data-type="file" onclick="setResType_c('file')">📁 File</button>
+        <button type="button" class="res-type-btn sel" data-type="note" onclick="setResType_c(&#39;note&#39;)">📝 Note</button>
+        <button type="button" class="res-type-btn" data-type="link" onclick="setResType_c(&#39;link&#39;)">🔗 Link</button>
+        <button type="button" class="res-type-btn" data-type="file" onclick="setResType_c(&#39;file&#39;)">📁 File</button>
       </div>
     </div>
     <div class="field"><label class="flbl">Judul / Label</label><input id="res-label" type="text" placeholder="e.g. Brand guidelines, Catatan meeting..."></div>
@@ -6723,18 +7632,18 @@ boot();
     <div class="field"><label class="flbl">Tags (pisah koma)</label><input id="res-tags" type="text" placeholder="e.g. design, referensi"></div>
   </div>
   <div class="sh-footer">
-    <div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet('sh-addresource')">Batal</button><button class="sbtn sbtn-p" onclick="saveResource_c()">Simpan ✓</button></div>
+    <div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addresource&#39;)">Batal</button><button class="sbtn sbtn-p" onclick="saveResource_c()">Simpan ✓</button></div>
     <div class="sh-row" id="sh-res-del" style="display:none"><button class="sbtn sbtn-d" onclick="delResource_c()">🗑 Hapus</button></div>
   </div>
 </div></div>
 
 <!-- Edit Why Sheet -->
-<div class="overlay" id="sh-editwhy" onclick="bgc(event,'sh-editwhy')"><div class="sheet">
+<div class="overlay" id="sh-editwhy" onclick="bgc(event,&#39;sh-editwhy&#39;)"><div class="sheet">
   <div class="sh-handle"></div><div class="sh-title">💡 Kenapa Project Ini?</div>
   <div class="sh-body">
     <div class="field"><textarea id="why-text" rows="5" placeholder="e.g. Karena gue mau buktiin ke diri sendiri..."></textarea></div>
   </div>
-  <div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet('sh-editwhy')">Batal</button><button class="sbtn sbtn-p" onclick="saveWhy_c()">Simpan ✓</button></div></div>
+  <div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editwhy&#39;)">Batal</button><button class="sbtn sbtn-p" onclick="saveWhy_c()">Simpan ✓</button></div></div>
 </div></div>
 
 </body></html>
