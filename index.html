@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0067)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_redesign_4.html -->
+<!-- saved from url=(0067)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_redesign_7.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -2970,6 +2970,223 @@ input,select,textarea { font-family:inherit; }
   margin-left: 6px; vertical-align: middle;
 }
 
+
+/* ══════════════════════════════════════
+   HOME — "Hari Ini" collapsible section
+══════════════════════════════════════ */
+.hariini-section-wrap { margin-bottom: 4px; }
+
+.hariini-toggle-btn {
+  width: 100%; display: flex; align-items: center;
+  gap: 10px; padding: 0 0 10px;
+  background: none; border: none; cursor: pointer;
+  text-align: left; font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.hariini-toggle-label {
+  font-size: 17px; font-weight: 800;
+  letter-spacing: -.3px; color: var(--ink);
+  flex: 1;
+}
+.hariini-toggle-count {
+  font-size: 12px; font-weight: 700;
+  background: var(--blue-lt); color: var(--blue);
+  padding: 2px 9px; border-radius: 99px;
+}
+.hariini-toggle-count.all-done {
+  background: var(--green-lt,#dcfce7); color: var(--green);
+}
+.hariini-chev {
+  font-size: 13px; color: var(--ink3);
+  transition: transform .25s cubic-bezier(.32,.72,0,1);
+  flex-shrink: 0;
+}
+.hariini-chev.open { transform: rotate(180deg); }
+
+.hariini-body {
+  overflow: hidden;
+  transition: max-height .3s cubic-bezier(.32,.72,0,1), opacity .25s;
+  max-height: 0; opacity: 0;
+}
+.hariini-body.open { max-height: 2000px; opacity: 1; }
+
+/* Project/Area group within Hari Ini */
+.hi-group {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  border: 1px solid var(--line);
+  animation: springIn .38s cubic-bezier(.32,.72,0,1) both;
+}
+.hi-group-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px 10px; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .12s;
+}
+.hi-group-header:active { background: var(--bg); }
+.hi-group-icon {
+  width: 30px; height: 30px; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.hi-group-name {
+  font-size: 14px; font-weight: 800;
+  color: var(--ink); letter-spacing: -.2px; flex: 1;
+}
+.hi-group-type {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: .05em;
+}
+.hi-group-chev { font-size: 14px; color: var(--line2); }
+
+/* Action plan item inside group */
+.hi-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid var(--line);
+  transition: background .12s;
+}
+.hi-item:last-child { border-bottom: none; }
+.hi-item:active { background: var(--bg); }
+.hi-check {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--line2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; background: var(--white);
+  transition: all .18s cubic-bezier(.32,.72,0,1);
+}
+.hi-check.done { background: var(--green); border-color: var(--green); color: #fff; font-size: 11px; }
+.hi-check:active { transform: scale(.82); }
+.hi-item-body { flex: 1; min-width: 0; }
+.hi-item-name {
+  font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3;
+}
+.hi-item-name.done { text-decoration: line-through; color: var(--ink3); }
+.hi-item-meta { display: flex; gap: 5px; margin-top: 4px; flex-wrap: wrap; }
+.hi-recur-badge {
+  font-size: 10px; font-weight: 700;
+  background: var(--bg2); color: var(--ink3);
+  padding: 2px 7px; border-radius: 99px;
+}
+.hi-deadline-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 99px;
+}
+/* Agenda item inside group */
+.hi-agenda-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 16px; border-bottom: 1px solid var(--line);
+  transition: background .12s; cursor: pointer;
+}
+.hi-agenda-item:last-child { border-bottom: none; }
+.hi-agenda-item:active { background: var(--bg); }
+.hi-agenda-time {
+  font-size: 12px; font-weight: 700; color: var(--ink3);
+  min-width: 42px; text-align: right; flex-shrink: 0;
+}
+.hi-agenda-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+
+/* ══════════════════════════════════════
+   HOME — Tugas/Ujian differentiated cards
+══════════════════════════════════════ */
+
+/* UJIAN card — purple tinted, distinct from tugas */
+.attention-item.is-ujian {
+  background: linear-gradient(to right, rgba(124,58,237,.04), var(--white));
+  border-left: 3px solid #7c3aed;
+}
+.attention-item.is-tugas {
+  border-left: 3px solid transparent;
+}
+.attention-item.is-tugas.urgent {
+  border-left-color: var(--red);
+}
+
+/* Left accent bar on attention card */
+.attention-item {
+  padding-left: 14px;
+}
+
+/* Ujian type chip inside card */
+.ujian-type-chip {
+  font-size: 10px; font-weight: 800;
+  padding: 2px 8px; border-radius: 99px;
+  background: rgba(124,58,237,.1); color: #7c3aed;
+  text-transform: uppercase; letter-spacing: .05em;
+  flex-shrink: 0;
+}
+.ujian-type-chip.quiz { background: rgba(124,58,237,.1); color: #7c3aed; }
+.ujian-type-chip.uts  { background: rgba(220,38,38,.1);  color: #dc2626; }
+.ujian-type-chip.uas  { background: rgba(5,150,105,.1);  color: #059669; }
+
+/* Countdown ring for ujian */
+.ujian-days-left {
+  display: flex; flex-direction: column; align-items: center;
+  flex-shrink: 0; min-width: 38px;
+}
+.ujian-days-num {
+  font-size: 18px; font-weight: 900; line-height: 1;
+  letter-spacing: -.5px;
+}
+.ujian-days-label {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; opacity: .7; margin-top: 1px;
+}
+
+
+/* ── Home: Ujian Mendatang reminder strip ── */
+.ujian-reminder-card {
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 2px 14px rgba(0,0,0,.07), 0 1px 3px rgba(0,0,0,.04);
+  overflow: hidden; margin-bottom: 10px;
+  border: 1px solid var(--line);
+  animation: springIn .38s cubic-bezier(.32,.72,0,1) both;
+}
+.ujian-reminder-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .12s;
+}
+.ujian-reminder-row:last-child { border-bottom: none; }
+.ujian-reminder-row:active { background: var(--bg); }
+
+/* Countdown pill on the left — the hero element */
+.ujian-countdown {
+  flex-shrink: 0; width: 46px;
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; gap: 1px;
+}
+.ujian-countdown-num {
+  font-size: 20px; font-weight: 900; letter-spacing: -.5px; line-height: 1;
+}
+.ujian-countdown-lbl {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .05em; opacity: .65; line-height: 1;
+}
+
+/* Divider line between countdown and content */
+.ujian-reminder-div {
+  width: 1px; height: 32px; background: var(--line); flex-shrink: 0;
+}
+
+.ujian-reminder-body { flex: 1; min-width: 0; }
+.ujian-reminder-name {
+  font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ujian-reminder-sub {
+  font-size: 12px; color: var(--ink3); margin-top: 2px;
+  display: flex; align-items: center; gap: 6px;
+}
+.ujian-type-pill {
+  font-size: 10px; font-weight: 800; padding: 1px 7px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: .04em; flex-shrink: 0;
+}
+.ujian-type-pill.quiz { background: rgba(124,58,237,.12); color: #7c3aed; }
+.ujian-type-pill.uts  { background: rgba(220,38,38,.1);   color: #dc2626; }
+.ujian-type-pill.uas  { background: rgba(5,150,105,.1);   color: #059669; }
+.ujian-reminder-chev  { color: var(--line2); font-size: 16px; flex-shrink: 0; }
+
 /* ══ TOGGLE SWITCH ══ */
 .toggle-row {
   display:flex; align-items:center; gap:12px; padding:4px 0;
@@ -3233,11 +3450,11 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
-      <button class="sb-item active" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
+      <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
         <span class="sb-item-ic">📅</span> Kalender
       </button>
       <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
@@ -3266,16 +3483,16 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">📅 Kalender</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
-  <div class="scroll" id="scroll" style="overflow: hidden;">
+  <div class="scroll" id="scroll" style="">
 
     <!-- ══ HOME ══ -->
-    <div class="view" id="v-home">
+    <div class="view active" id="v-home">
       <div class="pad">
 
         <!-- Greeting -->
@@ -3322,11 +3539,16 @@ input,select,textarea { font-family:inherit; }
       <div class="cu-chip-dl" style="color:var(--ink3)">5 hari lagi</div></div></div>
 
 
-        <!-- Need Attention -->
-        <div class="home-sec anim-d1" id="home-attention-label">
-          Perlu Perhatian
-        </div>
-        <div id="home-tugas"><div class="home-section-card"><div class="attention-item"><div class="attention-icon" style="background:#dc262618">📋</div><div class="attention-body"><div class="attention-name">Implementasi Quicksort</div><div class="attention-sub">💻 Algoritma &amp; Pemro · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 9h</span></div><div class="attention-item"><div class="attention-icon" style="background:#2563eb18">📋</div><div class="attention-body"><div class="attention-name">PR Integral Bab 6</div><div class="attention-sub">🔢 Kalkulus 2 · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 6h</span></div><div class="attention-item"><div class="attention-icon" style="background:var(--purple-lt)">📝</div><div class="attention-body"><div class="attention-name">UTS Genap</div><div class="attention-sub">🔢 Kalkulus 2 · UTS</div></div><span class="attention-dl" style="background:var(--amber-lt);color:var(--amber)">H-5</span></div></div></div>
+        <!-- Hari Ini: project/area action plans (collapsible) -->
+        <div id="home-hariini-section"><div class="hariini-section-wrap"><button class="hariini-toggle-btn"><span class="hariini-toggle-label">Hari Ini</span><span class="hariini-toggle-count">1 pending</span><span class="hariini-chev open">▼</span></button><div class="hariini-body open"><div class="hi-group"><div class="hi-group-header"><div class="hi-group-icon" style="background:#be185d18">🌿</div><div class="hi-group-name">B</div><span class="hi-group-type" style="background:rgba(5,150,105,.1);color:var(--green)">Area</span><span class="hi-group-chev">›</span></div><div class="hi-item"><div class="hi-check" onclick="event.stopPropagation();toggleApDone(&#39;ap1780136941426&#39;)"></div><div class="hi-item-body"><div class="hi-item-name">sdjkfsdf</div><div class="hi-item-meta"><span class="hi-recur-badge">🔁 Rutin</span></div></div></div></div></div></div></div>
+
+        <!-- Tugas -->
+        <div class="home-sec anim-d1" id="home-tugas-label" style="">Tugas</div>
+        <div id="home-tugas"><div class="home-section-card"><div class="attention-item is-tugas urgent"><div class="attention-icon" style="background:#dc262618">📋</div><div class="attention-body"><div class="attention-name">Implementasi Quicksort</div><div class="attention-sub">💻 Algoritma &amp; Pemro · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 9h</span></div><div class="attention-item is-tugas urgent"><div class="attention-icon" style="background:#2563eb18">📋</div><div class="attention-body"><div class="attention-name">PR Integral Bab 6</div><div class="attention-sub">🔢 Kalkulus 2 · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 6h</span></div></div></div>
+
+        <!-- Ujian Mendatang -->
+        <div class="home-sec anim-d2" id="home-ujian-label" style="">Ujian Mendatang</div>
+        <div id="home-ujian"><div class="ujian-reminder-card"><div class="ujian-reminder-row"><div class="ujian-countdown" style="color:var(--amber)"><div class="ujian-countdown-num">H-5</div><div class="ujian-countdown-lbl">hari</div></div><div class="ujian-reminder-div"></div><div class="ujian-reminder-body"><div class="ujian-reminder-name">UTS Genap</div><div class="ujian-reminder-sub"><span class="ujian-type-pill uts">UTS</span>🔢 Kalkulus 2</div></div><span class="ujian-reminder-chev">›</span></div></div></div>
 
         <!-- Review Queue -->
         <div id="home-pending-section"><div class="home-sec" style="animation-delay: 0.1s;"><span>Review Queue <span style="font-size:12px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">4</span></span></div><div class="home-section-card"><div class="review-queue-item" style="animation-delay: 0.1s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Parsial</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age old">10 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m3&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.14s;"><div class="rq-accent" style="background:#dc2626"></div><div class="rq-body"><div class="rq-name">Dynamic Programming</div><div class="rq-sub">💻 Algoritma &amp; Pemro</div></div><span class="rq-age old">10 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m6&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.18s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Trigonometri</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age old">9 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m4&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.22s;"><div class="rq-accent" style="background:#7c3aed"></div><div class="rq-body"><div class="rq-name">CNN Architecture</div><div class="rq-sub">🤖 Deep Learning</div></div><span class="rq-age old">9 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m8&#39;)">Latsoal</button></div></div></div>
@@ -3445,7 +3667,7 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ CALENDAR ══ -->
-    <div class="view active" id="v-cal">
+    <div class="view" id="v-cal">
       <!-- Sticky header: compact week strip only -->
       <div class="cal-sticky-head" id="cal-sticky-head">
         <!-- Top row: month label + nav + add -->
@@ -3518,20 +3740,20 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREA DETAIL ══ -->
     <div class="view" id="v-area-detail">
-      <div id="ad-header-wrap"></div>
+      <div id="ad-header-wrap"><div class="ad-header"><div class="ad-accent" style="background:#be185d"></div><div class="ad-body"><div class="ad-top"><div class="ad-icon" style="background:#be185d18">🌿</div><div class="ad-info"><div class="ad-type">Area — Maintaining</div><div class="ad-name">B</div></div></div><div class="ad-meta"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div></div>
       <div class="pad" style="padding-top:14px;padding-bottom:16px">
         <div class="cs-wrap" id="cs-wrap">
           <div class="cs-header">
             <span class="cs-title">⚡ Current State</span>
             <span class="cs-period" id="cs-period">Hari ini</span>
           </div>
-          <div id="cs-body"></div>
+          <div id="cs-body"><div class="cs-body"><div class="cs-card state-warn"><div class="cs-ic">🌅</div><div class="cs-label">sdjkfsdf</div><div class="cs-state">Pending</div></div></div></div>
         </div>
         <div class="gc-wrap">
           <div class="gc-header"><span class="gc-title">🧭 Kompas Tujuan</span><button class="gc-edit-btn" onclick="openEditAreaGoals()">✏️ Edit</button></div>
           <div class="gc-body">
-            <div class="gc-col want"><span class="gc-col-icon">✅</span><div class="gc-col-label">Keinginan</div><div class="gc-col-content" id="gc-want-content"><div class="gc-col-empty">Belum diisi</div></div></div>
-            <div class="gc-col dont"><span class="gc-col-icon">🚫</span><div class="gc-col-label">Ketidakinginan</div><div class="gc-col-content" id="gc-dont-content"><div class="gc-col-empty">Belum diisi</div></div></div>
+            <div class="gc-col want"><span class="gc-col-icon">✅</span><div class="gc-col-label">Keinginan</div><div class="gc-col-content" id="gc-want-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div></div>
+            <div class="gc-col dont"><span class="gc-col-icon">🚫</span><div class="gc-col-label">Ketidakinginan</div><div class="gc-col-content" id="gc-dont-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div></div>
           </div>
         </div>
         <div class="lug-wrap" id="area-lug-wrap">
@@ -3539,17 +3761,17 @@ input,select,textarea { font-family:inherit; }
             <span class="lug-title">🎯 Line Up Goals</span>
             <span id="lug-collapse-chev" style="font-size:14px;color:var(--ink3);transition:transform .2s;">▾</span>
           </button>
-          <div class="lug-body" id="area-lug-body"></div>
+          <div class="lug-body" id="area-lug-body"><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot has-items" style="--area-color: #be185d;">✓</div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📆</span>Minggu Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;week&#39;,&#39;Minggu Ini&#39;,&#39;📆&#39;)">+ Tambah</button></div><div class="lug-item"><div class="lug-check " style="" onclick="toggleLugGoal(&#39;week&#39;,0)"></div><div class="lug-item-text ">bisa 5 km tanpa kucing</div><button class="lug-item-del" onclick="delLugGoal(&#39;week&#39;,0)">✕</button></div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🗓️</span>Bulan Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;month&#39;,&#39;Bulan Ini&#39;,&#39;🗓️&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📌</span>3 Bulan ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;q3&#39;,&#39;3 Bulan ke Depan&#39;,&#39;📌&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🌟</span>Tahun Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;year&#39;,&#39;Tahun Ini&#39;,&#39;🌟&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🚀</span>5 Tahun ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;y5&#39;,&#39;5 Tahun ke Depan&#39;,&#39;🚀&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><button class="lug-someday-toggle" id="lug-someday-toggle"><span class="lug-someday-icon">🌌</span><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span><span class="lug-someday-chevron" id="lug-someday-chev">›</span></button><div class="lug-someday-body" id="lug-someday-body"><div class="lug-horizon-label" style="margin-bottom: 8px;"><span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;someday&#39;,&#39;Someday&#39;,&#39;🌌&#39;)">+ Tambah</button></div><div class="lug-empty-hint" style="margin-bottom: 8px;">Impian jangka panjang, belum ada timeline...</div></div></div>
         </div>
         <div class="ss-wrap" id="ss-wrap">
           <div class="ss-header">
             <span class="ss-title">🔁 Rituals</span>
             <button class="ss-edit" onclick="openAddAreaItem()">＋ Tambah</button>
           </div>
-          <div id="area-ap-list"></div>
+          <div id="area-ap-list"><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1780136941426&#39;)"></div><div class="ap-body"><div class="ap-name">sdjkfsdf</div><div class="ap-meta"><span class="recur-badge">🔁 Setiap hari</span></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1780136941426&#39;)">···</button></div><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842802857&#39;)"></div><div class="ap-body"><div class="ap-name">tes</div><div class="ap-meta"></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842802857&#39;)">···</button></div><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842879765&#39;)"></div><div class="ap-body"><div class="ap-name">outline bab 3</div><div class="ap-meta"><span class="ap-notes-btn" onclick="openApNotes(&#39;ap1779842879765&#39;)">📝 Notes</span></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842879765&#39;)">···</button></div><button class="card-add">＋ Tambah Ritual</button></div>
         </div>
         <div class="sec">🚀 Projects di Area Ini</div>
-        <div id="area-projects-list"></div>
+        <div id="area-projects-list"><div class="empty-card" style="padding:20px;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada project terhubung</div></div></div>
       </div>
     </div>
 
@@ -3557,10 +3779,10 @@ input,select,textarea { font-family:inherit; }
 
   <!-- BOTTOM NAV — 5 tab -->
   <nav class="bnav">
-    <button class="bn active" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
+    <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
       <div class="bn-ic">📅</div><div>K</div>
     </button>
-    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
     </button>
     <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
@@ -3783,7 +4005,7 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field">
         <label class="flbl">Materi yang Diujikan</label>
-        <div class="materi-check-list" id="eu-materi-list"><div class="materi-check-item selected"><div class="materi-check-box">✓</div><div class="materi-check-text">Sorting Algorithms</div></div><div class="materi-check-item selected"><div class="materi-check-box">✓</div><div class="materi-check-text">Dynamic Programming</div></div></div>
+        <div class="materi-check-list" id="eu-materi-list"></div>
       </div>
       <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="eu-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
     </div>
@@ -4195,7 +4417,7 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<div class="toast" id="toast">↩️ Oke, belum selesai</div>
+<div class="toast" id="toast">✅ Done hari ini! Konsisten terus 💪</div>
 
 <script>
 // ════════ SUPABASE CONFIG ═════════════════════
@@ -4679,7 +4901,9 @@ function renderHome(){
   _renderHomeGreeting();
   _renderNowCard();
   _renderComingUp();
+  _renderHomeHariIni();
   _renderHomeTugas();
+  _renderHomeUjian();
   _renderHomePending();
   updateBadge();
 }
@@ -4858,30 +5082,15 @@ function _renderComingUp(){
 }
 
 function _renderHomeTugas(){
-  const ht = document.getElementById('home-tugas');
-  const lbl = document.getElementById('home-attention-label');
+  const ht  = document.getElementById('home-tugas');
+  const lbl = document.getElementById('home-tugas-label');
   if(!ht) return;
 
   const todayStr = tod();
-  // Collect: overdue tugas + due soon (7 days) + upcoming ujian
-  const urgent = [];
+  const active = D.tugas.filter(t => !t.done && diffD(t.deadline, todayStr) <= 7)
+                         .sort((a,b) => a.deadline.localeCompare(b.deadline));
 
-  D.tugas.filter(t => !t.done).forEach(t => {
-    const diff = diffD(t.deadline, todayStr);
-    if(diff <= 7) urgent.push({type:'tugas', diff, item:t});
-  });
-
-  D.ujian.filter(u => {
-    const d = diffD(u.date, todayStr);
-    return d >= 0 && d <= 7;
-  }).forEach(u => {
-    const diff = diffD(u.date, todayStr);
-    urgent.push({type:'ujian', diff, item:u});
-  });
-
-  urgent.sort((a,b) => a.diff - b.diff);
-
-  if(!urgent.length){
+  if(!active.length){
     if(lbl) lbl.style.display = 'none';
     ht.innerHTML = '';
     return;
@@ -4891,47 +5100,251 @@ function _renderHomeTugas(){
   const card = document.createElement('div');
   card.className = 'home-section-card';
 
-  urgent.forEach(({type, diff, item}) => {
+  active.forEach(t => {
+    const s    = gS(t.sid);
+    const diff = diffD(t.deadline, todayStr);
+    const isOverdue = diff < 0;
+    const isToday   = diff === 0;
+    const urgent    = isOverdue || isToday || diff <= 1;
+    const dlText    = isOverdue ? `Telat ${Math.abs(diff)}h` : isToday ? 'Hari ini' : diff===1 ? 'Besok' : `${diff}h lagi`;
+    const dlColor   = isOverdue||isToday ? 'var(--red)'    : diff<=3 ? 'var(--amber)' : 'var(--blue)';
+    const dlBg      = isOverdue||isToday ? 'var(--red-lt)' : diff<=3 ? 'var(--amber-lt)' : 'var(--blue-lt)';
+
     const row = document.createElement('div');
-    row.className = 'attention-item';
-
-    if(type === 'tugas'){
-      const s = gS(item.sid);
-      const isOverdue = diff < 0;
-      const isToday   = diff === 0;
-      let dlText = isOverdue ? `Telat ${Math.abs(diff)}h` : isToday ? 'Hari ini' : diff===1 ? 'Besok' : `${diff}h lagi`;
-      let dlColor = isOverdue||isToday ? 'var(--red)' : diff<=3 ? 'var(--amber)' : 'var(--blue)';
-      let dlBg    = isOverdue||isToday ? 'var(--red-lt)' : diff<=3 ? 'var(--amber-lt)' : 'var(--blue-lt)';
-      row.innerHTML =
-        `<div class="attention-icon" style="background:${s?s.color+'18':'var(--amber-lt)'}">📋</div>`+
-        `<div class="attention-body">`+
-        `<div class="attention-name">${item.name}</div>`+
-        `<div class="attention-sub">${s?s.emoji+' '+s.name:''} · Tugas</div>`+
-        `</div>`+
-        `<span class="attention-dl" style="background:${dlBg};color:${dlColor}">${dlText}</span>`;
-      row.onclick = () => openEditT(item.id);
-    } else {
-      const s = gS(item.sid);
-      const typeLabel = {quiz:'Quiz',uts:'UTS',uas:'UAS'}[item.type];
-      const dlText = diff===0?'Hari ini':diff===1?'Besok':`H-${diff}`;
-      const dlColor = diff<=2?'var(--red)':diff<=5?'var(--amber)':'var(--purple)';
-      const dlBg    = diff<=2?'var(--red-lt)':diff<=5?'var(--amber-lt)':'var(--purple-lt)';
-      row.innerHTML =
-        `<div class="attention-icon" style="background:var(--purple-lt)">📝</div>`+
-        `<div class="attention-body">`+
-        `<div class="attention-name">${item.name||typeLabel}</div>`+
-        `<div class="attention-sub">${s?s.emoji+' '+s.name:''} · ${typeLabel}</div>`+
-        `</div>`+
-        `<span class="attention-dl" style="background:${dlBg};color:${dlColor}">${dlText}</span>`;
-      row.onclick = () => openEditUjian(item.id);
-    }
-
+    row.className = 'attention-item is-tugas' + (urgent ? ' urgent' : '');
+    row.innerHTML =
+      `<div class="attention-icon" style="background:${s?s.color+'18':'var(--amber-lt)'}">📋</div>`+
+      `<div class="attention-body">`+
+      `<div class="attention-name">${escHtml(t.name)}</div>`+
+      `<div class="attention-sub">${s ? s.emoji+' '+escHtml(s.name) : ''} · Tugas</div>`+
+      `</div>`+
+      `<span class="attention-dl" style="background:${dlBg};color:${dlColor}">${dlText}</span>`;
+    row.onclick = () => openEditT(t.id);
     card.appendChild(row);
   });
 
   ht.innerHTML = '';
   ht.appendChild(card);
 }
+
+function _renderHomeUjian(){
+  const el  = document.getElementById('home-ujian');
+  const lbl = document.getElementById('home-ujian-label');
+  if(!el) return;
+
+  const todayStr = tod();
+  const upcoming = D.ujian
+    .filter(u => { const d = diffD(u.date, todayStr); return d >= 0 && d <= 30; })
+    .sort((a,b) => a.date.localeCompare(b.date));
+
+  if(!upcoming.length){
+    if(lbl) lbl.style.display = 'none';
+    el.innerHTML = '';
+    return;
+  }
+  if(lbl) lbl.style.display = '';
+
+  const card = document.createElement('div');
+  card.className = 'ujian-reminder-card';
+
+  upcoming.forEach(u => {
+    const s    = gS(u.sid);
+    const diff = diffD(u.date, todayStr);
+    const typeLabel = {quiz:'Quiz', uts:'UTS', uas:'UAS'}[u.type] || 'Ujian';
+
+    // Countdown color
+    const numColor = diff <= 3 ? 'var(--red)' : diff <= 7 ? 'var(--amber)' : '#7c3aed';
+
+    const row = document.createElement('div');
+    row.className = 'ujian-reminder-row';
+    row.innerHTML =
+      `<div class="ujian-countdown" style="color:${numColor}">`+
+      (diff === 0
+        ? `<div class="ujian-countdown-num">🔔</div>`
+        : `<div class="ujian-countdown-num">H-${diff}</div>`+
+          `<div class="ujian-countdown-lbl">${diff===1?'hari':'hari'}</div>`)+
+      `</div>`+
+      `<div class="ujian-reminder-div"></div>`+
+      `<div class="ujian-reminder-body">`+
+      `<div class="ujian-reminder-name">${escHtml(u.name || typeLabel)}</div>`+
+      `<div class="ujian-reminder-sub">`+
+      `<span class="ujian-type-pill ${u.type}">${typeLabel}</span>`+
+      (s ? escHtml(s.emoji+' '+s.name) : '')+
+      `</div></div>`+
+      `<span class="ujian-reminder-chev">›</span>`;
+    row.onclick = () => openEditUjian(u.id);
+    card.appendChild(row);
+  });
+
+  el.innerHTML = '';
+  el.appendChild(card);
+}
+
+
+function _renderHomeHariIni(){
+  ensurePAData();
+  const sec = document.getElementById('home-hariini-section');
+  if(!sec) return;
+
+  const todayStr = tod();
+
+  // Collect pending action plans grouped by project/area
+  const groups = [];
+
+  // Active projects (not done/pause)
+  const activeProjects = (D.projects||[]).filter(p => p.status === 'aktif' || p.status === 'rencana');
+  activeProjects.forEach(p => {
+    const aps = (D.p_tasks||[]).filter(t => t.parentId === p.id);
+    const ags = (D.p_agendas||[]).filter(ag => ag.parentId === p.id && ag.date === todayStr && !ag.done);
+
+    // Pending one-time action plans (overdue or no deadline)
+    const pendingAps = aps.filter(t => {
+      if(t.done) return false;
+      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
+      if(isRecur) return false;
+      // show if overdue, due today, or due in 3 days
+      if(!t.deadline) return false;
+      const diff = diffD(t.deadline, todayStr);
+      return diff <= 3;
+    });
+
+    // Recurring action plans not done today
+    const recurAps = aps.filter(t => {
+      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
+      if(!isRecur) return false;
+      return t.lastDone !== todayStr;
+    });
+
+    const allItems = [...pendingAps, ...recurAps, ...ags.map(ag => ({...ag, _isAgenda:true}))];
+    if(!allItems.length) return;
+
+    groups.push({type:'project', meta:p, items: allItems});
+  });
+
+  // Active areas
+  (D.areas||[]).forEach(a => {
+    const aps = (D.p_tasks||[]).filter(t => t.parentId === a.id);
+    const ags = (D.p_agendas||[]).filter(ag => ag.parentId === a.id && ag.date === todayStr && !ag.done);
+
+    const pendingAps = aps.filter(t => {
+      if(t.done) return false;
+      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
+      if(isRecur) return false;
+      if(!t.deadline) return false;
+      return diffD(t.deadline, todayStr) <= 3;
+    });
+
+    const recurAps = aps.filter(t => {
+      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
+      if(!isRecur) return false;
+      return t.lastDone !== todayStr;
+    });
+
+    const allItems = [...pendingAps, ...recurAps, ...ags.map(ag => ({...ag, _isAgenda:true}))];
+    if(!allItems.length) return;
+
+    groups.push({type:'area', meta:a, items: allItems});
+  });
+
+  sec.innerHTML = '';
+  if(!groups.length) return;
+
+  // Count total pending
+  const totalPending = groups.reduce((s,g) => s + g.items.filter(i => {
+    if(i._isAgenda) return true;
+    const isRecur = i.recurring && i.recurring.freq && i.recurring.freq !== 'none';
+    return isRecur ? i.lastDone !== todayStr : !i.done;
+  }).length, 0);
+
+  const allDone = totalPending === 0;
+
+  // Section wrapper
+  const wrap = document.createElement('div');
+  wrap.className = 'hariini-section-wrap';
+
+  // Collapsible toggle row
+  const isOpen = _hariiniOpen;
+  const toggle = document.createElement('button');
+  toggle.className = 'hariini-toggle-btn';
+  toggle.innerHTML =
+    `<span class="hariini-toggle-label">Hari Ini</span>`+
+    `<span class="hariini-toggle-count${allDone?' all-done':''}">${allDone?'✓ Selesai':totalPending+' pending'}</span>`+
+    `<span class="hariini-chev${isOpen?' open':''}">▼</span>`;
+  toggle.onclick = () => {
+    _hariiniOpen = !_hariiniOpen;
+    _renderHomeHariIni();
+  };
+  wrap.appendChild(toggle);
+
+  // Collapsible body
+  const body = document.createElement('div');
+  body.className = 'hariini-body' + (isOpen ? ' open' : '');
+
+  groups.forEach(({type, meta, items}) => {
+    const color = meta.color || 'var(--blue)';
+    const typeLabel = type === 'project' ? 'Project' : 'Area';
+    const typeBg    = type === 'project' ? 'rgba(37,99,235,.1)'  : 'rgba(5,150,105,.1)';
+    const typeColor = type === 'project' ? 'var(--blue)'         : 'var(--green)';
+
+    const grp = document.createElement('div');
+    grp.className = 'hi-group';
+
+    // Group header
+    const hdr = document.createElement('div');
+    hdr.className = 'hi-group-header';
+    hdr.innerHTML =
+      `<div class="hi-group-icon" style="background:${color}18">${meta.emoji||'🚀'}</div>`+
+      `<div class="hi-group-name">${escHtml(meta.name)}</div>`+
+      `<span class="hi-group-type" style="background:${typeBg};color:${typeColor}">${typeLabel}</span>`+
+      `<span class="hi-group-chev">›</span>`;
+    hdr.onclick = () => {
+      if(type==='project') openProjDetail(meta.id);
+      else openAreaDetail(meta.id);
+    };
+    grp.appendChild(hdr);
+
+    // Items
+    items.forEach(item => {
+      if(item._isAgenda){
+        const row = document.createElement('div');
+        row.className = 'hi-agenda-item';
+        row.innerHTML =
+          `<div class="hi-agenda-time">${item.time||'—'}</div>`+
+          `<div class="hi-agenda-name">${escHtml(item.name)}</div>`;
+        row.onclick = () => openEditAg(item.id);
+        grp.appendChild(row);
+        return;
+      }
+
+      const isRecur = item.recurring && item.recurring.freq && item.recurring.freq !== 'none';
+      const isDoneToday = isRecur ? item.lastDone === todayStr : item.done;
+      const diff = item.deadline ? diffD(item.deadline, todayStr) : null;
+      const dlText = diff !== null ? (diff<0?`Telat ${Math.abs(diff)}h`:diff===0?'Hari ini':diff===1?'Besok':`${diff}h`) : null;
+      const dlColor = diff!==null ? (diff<0||diff===0?'var(--red)':diff<=2?'var(--amber)':'var(--ink3)') : 'var(--ink3)';
+      const dlBg    = diff!==null ? (diff<0||diff===0?'var(--red-lt)':diff<=2?'var(--amber-lt)':'var(--bg2)') : 'var(--bg2)';
+
+      const row = document.createElement('div');
+      row.className = 'hi-item';
+      row.innerHTML =
+        `<div class="hi-check${isDoneToday?' done':''}" onclick="event.stopPropagation();toggleApDone('${item.id}')">${isDoneToday?'✓':''}</div>`+
+        `<div class="hi-item-body">`+
+        `<div class="hi-item-name${isDoneToday?' done':''}">${escHtml(item.name)}</div>`+
+        `<div class="hi-item-meta">`+
+        (isRecur?`<span class="hi-recur-badge">🔁 Rutin</span>`:'')+
+        (dlText?`<span class="hi-deadline-badge" style="background:${dlBg};color:${dlColor}">${dlText}</span>`:'')+
+        `</div></div>`;
+
+      grp.appendChild(row);
+    });
+
+    body.appendChild(grp);
+  });
+
+  wrap.appendChild(body);
+  sec.appendChild(wrap);
+}
+
+let _hariiniOpen = true; // expanded by default when there are pending items
 
 function _renderHomePending(){
   // Review Queue: spaced repetition nudge
@@ -7190,6 +7603,8 @@ function refreshPAViews(){
   if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderProjAp_c(curProjId,p.color); renderCurrentFocus_c(curProjId,p.color); } }
   if(curView === 'areas')       renderAreas();
   if(curView === 'area-detail'){ const a=gArea(curAreaId); if(a){ renderAreaRituals_c(curAreaId,a.color); renderCurrentState_c(curAreaId,a.color); } }
+  // Always update Hari Ini on home if visible
+  if(curView === 'home') _renderHomeHariIni();
 }
 
 // ════════ PROJECT CRUD ════════════════════════════
