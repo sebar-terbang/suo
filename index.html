@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0067)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_redesign_3.html -->
+<!-- saved from url=(0067)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_redesign_4.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -2667,73 +2667,75 @@ input,select,textarea { font-family:inherit; }
    APPLE CALENDAR TIMELINE — full redesign
 ══════════════════════════════════════════ */
 
-/* Sticky header wrapper */
+/* Sticky header wrapper — compact: ~110px max */
 .cal-sticky-head {
   position: sticky; top: 0; z-index: 50;
   background: var(--white);
   border-bottom: 1px solid var(--line);
-  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  flex-shrink: 0;
 }
 .cal-month-row {
   display: flex; align-items: center;
   justify-content: space-between;
-  padding: 14px 16px 8px;
+  padding: 11px 16px 6px;
 }
 .cal-month-title {
-  font-size: 22px; font-weight: 800;
-  letter-spacing: -.5px; color: var(--ink);
+  font-size: 18px; font-weight: 800;
+  letter-spacing: -.4px; color: var(--ink);
 }
-.cal-month-nav {
-  width: 32px; height: 32px; border-radius: 50%;
+.cal-week-nav {
+  width: 30px; height: 30px; border-radius: 50%;
   background: var(--bg2); border: none; cursor: pointer;
-  font-size: 16px; color: var(--ink2);
+  font-size: 15px; color: var(--ink2);
   display: flex; align-items: center; justify-content: center;
   transition: background .12s, transform .12s;
 }
-.cal-month-nav:active { background: var(--line2); transform: scale(.88); }
+.cal-week-nav:active { background: var(--line2); transform: scale(.88); }
 .cal-add-ev-btn {
-  width: 32px; height: 32px; border-radius: 50%;
+  width: 30px; height: 30px; border-radius: 50%;
   background: var(--blue); color: #fff; border: none;
-  font-size: 18px; font-weight: 700; cursor: pointer;
+  font-size: 18px; font-weight: 400; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 8px rgba(37,99,235,.35);
+  box-shadow: 0 2px 8px rgba(37,99,235,.3);
   transition: transform .15s, box-shadow .15s;
+  line-height: 1;
 }
-.cal-add-ev-btn:active { transform: scale(.88); box-shadow: 0 1px 4px rgba(37,99,235,.25); }
+.cal-add-ev-btn:active { transform: scale(.88); box-shadow: 0 1px 4px rgba(37,99,235,.2); }
 
-/* DOW strip */
-.cal-dow-strip {
+/* Week strip — 7 day pills */
+.cal-week-strip {
   display: grid; grid-template-columns: repeat(7,1fr);
-  padding: 0 6px 4px;
+  padding: 0 8px 10px; gap: 2px;
 }
-.cal-dow-cell {
-  text-align: center; font-size: 11px; font-weight: 700;
-  color: var(--ink3); text-transform: uppercase; letter-spacing: .03em;
-  padding: 2px 0;
-}
-
-/* Month mini-grid */
-.cal-month-grid {
-  display: grid; grid-template-columns: repeat(7,1fr);
-  gap: 1px; padding: 2px 6px 10px;
-}
-.cal-mday {
-  aspect-ratio: 1; display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  border-radius: 50%; font-size: 13px; font-weight: 600;
-  color: var(--ink2); cursor: pointer; gap: 2px;
+.cal-wday {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  cursor: pointer;
+  padding: 4px 2px;
+  border-radius: 10px;
   transition: background .12s;
   -webkit-tap-highlight-color: transparent;
 }
-.cal-mday:active { background: var(--bg2); }
-.cal-mday.faded { color: var(--line2); }
-.cal-mday.is-today { background: var(--blue); color: #fff; font-weight: 800; }
-.cal-mday.is-selected:not(.is-today) {
-  background: var(--bg2); color: var(--ink); font-weight: 700;
-  border: 2px solid var(--blue);
+.cal-wday:active { background: var(--bg2); }
+.cal-wday-name {
+  font-size: 10px; font-weight: 700;
+  color: var(--ink3); text-transform: uppercase; letter-spacing: .04em;
 }
-.cal-mday-dots { display: flex; gap: 2px; margin-top: 1px; }
-.cal-mday-dot { width: 3.5px; height: 3.5px; border-radius: 50%; }
+.cal-wday-num-wrap {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.cal-wday.is-today .cal-wday-num-wrap { background: var(--blue); }
+.cal-wday.is-selected:not(.is-today) .cal-wday-num-wrap {
+  background: var(--bg2); border: 2px solid var(--blue);
+}
+.cal-wday-num {
+  font-size: 14px; font-weight: 700; color: var(--ink2);
+}
+.cal-wday.is-today .cal-wday-num { color: #fff; }
+.cal-wday-dots { display: flex; gap: 2px; height: 5px; align-items: center; }
+.cal-wday-dot { width: 4px; height: 4px; border-radius: 50%; }
 
 /* Timeline scroll */
 .cal-timeline-scroll {
@@ -2911,6 +2913,62 @@ input,select,textarea { font-family:inherit; }
   padding: 0 0 20px;
 }
 
+
+
+/* ── Add Event sheet: recurring UI ── */
+.ae-recur-toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0; border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line); margin: 10px 0 12px;
+}
+.ae-recur-label { font-size: 14px; font-weight: 700; color: var(--ink); }
+.ae-recur-sub   { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+
+/* iOS-style toggle switch */
+.ae-switch { position: relative; width: 48px; height: 28px; flex-shrink: 0; }
+.ae-switch input { opacity: 0; width: 0; height: 0; }
+.ae-switch-track {
+  position: absolute; inset: 0; border-radius: 99px;
+  background: var(--line2); cursor: pointer;
+  transition: background .2s cubic-bezier(.32,.72,0,1);
+}
+.ae-switch-track::after {
+  content: ''; position: absolute;
+  width: 22px; height: 22px; border-radius: 50%;
+  background: #fff; top: 3px; left: 3px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+  transition: transform .22s cubic-bezier(.32,.72,0,1);
+}
+.ae-switch input:checked + .ae-switch-track { background: var(--blue); }
+.ae-switch input:checked + .ae-switch-track::after { transform: translateX(20px); }
+
+/* Day picker pills */
+.ae-day-picker {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.ae-day-btn {
+  flex: 1; min-width: 36px;
+  padding: 8px 4px; border-radius: 10px;
+  border: 1.5px solid var(--line2);
+  background: var(--white); color: var(--ink2);
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  transition: all .15s cubic-bezier(.32,.72,0,1);
+  font-family: inherit;
+}
+.ae-day-btn:active { transform: scale(.92); }
+.ae-day-btn.on {
+  background: var(--blue); color: #fff;
+  border-color: var(--blue);
+  box-shadow: 0 2px 8px rgba(37,99,235,.3);
+}
+
+/* Recurring badge on timeline event */
+.cal-tl-recur-badge {
+  font-size: 9px; font-weight: 800; letter-spacing: .04em;
+  background: rgba(255,255,255,.25); color: rgba(255,255,255,.9);
+  padding: 2px 6px; border-radius: 99px;
+  margin-left: 6px; vertical-align: middle;
+}
 
 /* ══ TOGGLE SWITCH ══ */
 .toggle-row {
@@ -3175,11 +3233,11 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
-        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">3</span>
+        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
-      <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
+      <button class="sb-item active" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
         <span class="sb-item-ic">📅</span> Kalender
       </button>
       <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
@@ -3197,10 +3255,10 @@ input,select,textarea { font-family:inherit; }
     </div>
     <div class="sb-section-label">Subjek lo</div>
     <div class="sb-pomo-pill" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
-    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s1"><span class="sb-subj-emoji">🔢</span><span class="sb-subj-name">Kalkulus 2</span><span class="sb-subj-pending">2</span></button><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button></div>
+    <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
-      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">📱 Mode lokal</div>
+      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">✅ Tersinkron</div>
     </div>
   </aside>
 
@@ -3208,23 +3266,23 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">📅 Kalender</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
-  <div class="scroll" id="scroll" style="">
+  <div class="scroll" id="scroll" style="overflow: hidden;">
 
     <!-- ══ HOME ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
       <div class="pad">
 
         <!-- Greeting -->
         <div class="home-greeting-wrap" id="home-greeting">
           <div class="home-greeting-time" id="home-greeting-time">Good morning</div>
           <div class="home-greeting-name">Halo, <span>Adit</span> 👋</div>
-          <div class="home-greeting-sub" id="home-greeting-sub">3 materi belum latsoal · 2 tugas aktif.</div>
+          <div class="home-greeting-sub" id="home-greeting-sub">4 materi belum latsoal · 2 tugas aktif.</div>
         </div>
 
         <!-- NOW Card (priority engine) -->
@@ -3233,8 +3291,8 @@ input,select,textarea { font-family:inherit; }
             <span class="now-card-dot"></span>
             NOW
           </div>
-          <div class="now-card-title" id="now-title">Implementasi Quicksort</div>
-          <div class="now-card-sub" id="now-subject">Algoritma &amp; Pemro</div>
+          <div class="now-card-title" id="now-title">PR Integral Bab 6</div>
+          <div class="now-card-sub" id="now-subject">Kalkulus 2</div>
           <div class="now-card-footer">
             <div class="now-card-time" id="now-time">⏱ segera</div>
             <button class="now-card-start" onclick="event.stopPropagation(); nowStartAction()">Mulai →</button>
@@ -3245,7 +3303,7 @@ input,select,textarea { font-family:inherit; }
               <span class="chev">▼</span>
             </button>
             <div class="now-why-body" id="now-why-body">
-              <div id="now-why-items"><div class="now-why-item"><div class="now-why-bullet"></div><span>Deadline sudah lewat 0 hari 🚨</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>💻 Algoritma &amp; Pemro</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>Selesaikan sekarang, jangan ditunda lagi!</span></div></div>
+              <div id="now-why-items"><div class="now-why-item"><div class="now-why-bullet"></div><span>Deadline sudah lewat 6 hari 🚨</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>🔢 Kalkulus 2</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>Selesaikan sekarang, jangan ditunda lagi!</span></div></div>
             </div>
           </div>
         </div>
@@ -3256,46 +3314,22 @@ input,select,textarea { font-family:inherit; }
           <a onclick="goView(&#39;cal&#39;, document.getElementById(&#39;bn-cal&#39;))">Lihat semua</a>
         </div>
         <div class="coming-up-scroll" id="coming-up-scroll"><div class="cu-chip anim-d1">
-      <div class="cu-chip-type" style="color:#dc2626">
-        <div class="cu-chip-dot" style="background:#dc2626"></div>
-        Tugas
-      </div>
-      <div class="cu-chip-name">💻 Implementasi Quicksort</div>
-      <div class="cu-chip-dl" style="color:var(--red)">Hari ini</div></div><div class="cu-chip anim-d2">
-      <div class="cu-chip-type" style="color:#dc2626">
-        <div class="cu-chip-dot" style="background:#dc2626"></div>
-        Ujian
-      </div>
-      <div class="cu-chip-name">💻 Quiz 1</div>
-      <div class="cu-chip-dl" style="color:var(--red)">2 hari lagi</div></div><div class="cu-chip anim-d3">
-      <div class="cu-chip-type" style="color:#2563eb">
-        <div class="cu-chip-dot" style="background:#2563eb"></div>
-        Tugas
-      </div>
-      <div class="cu-chip-name">🔢 PR Integral Bab 6</div>
-      <div class="cu-chip-dl" style="color:var(--ink3)">3 hari lagi</div></div><div class="cu-chip anim-d4">
-      <div class="cu-chip-type" style="color:#2563eb">
-        <div class="cu-chip-dot" style="background:#2563eb"></div>
-        Ujian
-      </div>
-      <div class="cu-chip-name">🔢 Quiz 2</div>
-      <div class="cu-chip-dl" style="color:var(--ink3)">4 hari lagi</div></div><div class="cu-chip anim-d5">
       <div class="cu-chip-type" style="color:#2563eb">
         <div class="cu-chip-dot" style="background:#2563eb"></div>
         Ujian
       </div>
       <div class="cu-chip-name">🔢 UTS Genap</div>
-      <div class="cu-chip-dl" style="color:var(--ink3)">14 hari lagi</div></div></div>
+      <div class="cu-chip-dl" style="color:var(--ink3)">5 hari lagi</div></div></div>
 
 
         <!-- Need Attention -->
         <div class="home-sec anim-d1" id="home-attention-label">
           Perlu Perhatian
         </div>
-        <div id="home-tugas"><div class="home-section-card"><div class="attention-item"><div class="attention-icon" style="background:#dc262618">📋</div><div class="attention-body"><div class="attention-name">Implementasi Quicksort</div><div class="attention-sub">💻 Algoritma &amp; Pemro · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Hari ini</span></div><div class="attention-item"><div class="attention-icon" style="background:var(--purple-lt)">📝</div><div class="attention-body"><div class="attention-name">Quiz 1</div><div class="attention-sub">💻 Algoritma &amp; Pemro · Quiz</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">H-2</span></div><div class="attention-item"><div class="attention-icon" style="background:#2563eb18">📋</div><div class="attention-body"><div class="attention-name">PR Integral Bab 6</div><div class="attention-sub">🔢 Kalkulus 2 · Tugas</div></div><span class="attention-dl" style="background:var(--amber-lt);color:var(--amber)">3h lagi</span></div><div class="attention-item"><div class="attention-icon" style="background:var(--purple-lt)">📝</div><div class="attention-body"><div class="attention-name">Quiz 2</div><div class="attention-sub">🔢 Kalkulus 2 · Quiz</div></div><span class="attention-dl" style="background:var(--amber-lt);color:var(--amber)">H-4</span></div></div></div>
+        <div id="home-tugas"><div class="home-section-card"><div class="attention-item"><div class="attention-icon" style="background:#dc262618">📋</div><div class="attention-body"><div class="attention-name">Implementasi Quicksort</div><div class="attention-sub">💻 Algoritma &amp; Pemro · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 9h</span></div><div class="attention-item"><div class="attention-icon" style="background:#2563eb18">📋</div><div class="attention-body"><div class="attention-name">PR Integral Bab 6</div><div class="attention-sub">🔢 Kalkulus 2 · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 6h</span></div><div class="attention-item"><div class="attention-icon" style="background:var(--purple-lt)">📝</div><div class="attention-body"><div class="attention-name">UTS Genap</div><div class="attention-sub">🔢 Kalkulus 2 · UTS</div></div><span class="attention-dl" style="background:var(--amber-lt);color:var(--amber)">H-5</span></div></div></div>
 
         <!-- Review Queue -->
-        <div id="home-pending-section"><div class="home-sec" style="animation-delay: 0.1s;"><span>Review Queue <span style="font-size:12px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">3</span></span></div><div class="home-section-card"><div class="review-queue-item" style="animation-delay: 0.1s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Parsial</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age fresh">1 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m3&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.14s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Trigonometri</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age fresh">Hari ini</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m4&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.18s;"><div class="rq-accent" style="background:#7c3aed"></div><div class="rq-body"><div class="rq-name">CNN Architecture</div><div class="rq-sub">🤖 Deep Learning</div></div><span class="rq-age fresh">Hari ini</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m8&#39;)">Latsoal</button></div></div></div>
+        <div id="home-pending-section"><div class="home-sec" style="animation-delay: 0.1s;"><span>Review Queue <span style="font-size:12px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">4</span></span></div><div class="home-section-card"><div class="review-queue-item" style="animation-delay: 0.1s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Parsial</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age old">10 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m3&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.14s;"><div class="rq-accent" style="background:#dc2626"></div><div class="rq-body"><div class="rq-name">Dynamic Programming</div><div class="rq-sub">💻 Algoritma &amp; Pemro</div></div><span class="rq-age old">10 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m6&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.18s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Trigonometri</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age old">9 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m4&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.22s;"><div class="rq-accent" style="background:#7c3aed"></div><div class="rq-body"><div class="rq-name">CNN Architecture</div><div class="rq-sub">🤖 Deep Learning</div></div><span class="rq-age old">9 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m8&#39;)">Latsoal</button></div></div></div>
 
       </div>
     </div>
@@ -3317,7 +3351,7 @@ input,select,textarea { font-family:inherit; }
           <button class="subj-fpill" onclick="setSubjFilter(&#39;pending&#39;, this)">Ada PR</button>
         </div>
 
-        <div id="subj-active-list"><div class="subj-sem-label-apple">Semester 4</div><div class="subj-card-apple"><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#2563eb18">🔢</div><div class="subj-item-body"><div class="subj-item-name">Kalkulus 2</div><div class="subj-item-meta">4 materi · 1 tugas aktif</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#2563eb"></div></div></div></div><span class="subj-pending-badge">2</span></div><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#dc262618">💻</div><div class="subj-item-body"><div class="subj-item-name">Algoritma &amp; Pemro</div><div class="subj-item-meta">2 materi · 1 tugas aktif</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#dc2626"></div></div></div></div><span class="subj-pending-badge">1</span></div><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#7c3aed18">🤖</div><div class="subj-item-body"><div class="subj-item-name">Deep Learning</div><div class="subj-item-meta">2 materi</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#7c3aed"></div></div></div></div><span class="subj-pending-badge">1</span></div></div></div>
+        <div id="subj-active-list"><div class="subj-sem-label-apple">Semester 4</div><div class="subj-card-apple"><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#dc262618">💻</div><div class="subj-item-body"><div class="subj-item-name">Algoritma &amp; Pemro</div><div class="subj-item-meta">2 materi · 1 tugas aktif</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#dc2626"></div></div></div></div><span class="subj-pending-badge">1</span></div><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#7c3aed18">🤖</div><div class="subj-item-body"><div class="subj-item-name">Deep Learning</div><div class="subj-item-meta">2 materi</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#7c3aed"></div></div></div></div><span class="subj-pending-badge">1</span></div></div><div class="subj-sem-label-apple">Semester 3</div><div class="subj-card-apple"><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#0891b218">📐</div><div class="subj-item-body"><div class="subj-item-name">Kalkulus 1</div><div class="subj-item-meta">Belum ada materi</div></div></div></div></div>
 
         <button onclick="openSheet(&#39;sh-addsubj&#39;)" class="subj-add-btn-apple">
           ＋ Tambah Subjek Baru
@@ -3330,7 +3364,7 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ SUBJECT DETAIL ══ -->
     <div class="view" id="v-detail">
-      <div class="sdh" id="sdh"><div class="sdh-ico" style="background:#dc262622">💻</div><div class="sdh-info"><div class="sdh-type">Mata Kuliah</div><div class="sdh-name" style="color:#dc2626">Algoritma &amp; Pemro</div><div class="sdh-prog">1 dari 2 materi sudah latihan soal</div><div class="pbar"><div class="pfill" style="width:50%"></div></div></div></div>
+      <div class="sdh" id="sdh"></div>
       <div class="pad" style="padding-top:16px">
 
         <!-- Guide -->
@@ -3347,17 +3381,17 @@ input,select,textarea { font-family:inherit; }
           </div>
         </div>
 
-        <div class="sec" id="sec-u-label">📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span></div>
-        <div id="d-ujian"><div class="ujian-card"><div class="ujian-item"><div class="ujian-badge-wrap"><span class="ujian-type-badge ujian-type-quiz">Quiz</span><div class="ujian-countdown uc-crit">H-2</div><div class="ujian-countdown-label">lagi</div></div><div class="ujian-body"><div class="ujian-name">Quiz 1</div><div class="ujian-date">📅 Sen, 1 Jun</div><div class="ujian-materi-list"><span class="ujian-materi-chip">Sorting Algorithms</span><span class="ujian-materi-chip">Dynamic Programming</span></div><div class="ujian-actions"><button class="ujian-ready-btn ready" onclick="toggleUjianReady(&#39;u3&#39;)">✅ Udah Siap</button><button class="ujian-edit-btn" onclick="openEditUjian(&#39;u3&#39;)">✏️</button></div></div></div></div></div>
+        <div class="sec" id="sec-u-label">📝 Ujian</div>
+        <div id="d-ujian"></div>
 
-        <div class="sec" id="sec-m-label">📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
-        <div class="card" id="d-materi"><div class="mitem is-todo"><div class="mi-body"><div class="mi-name">Dynamic Programming</div><div class="mi-date">📅 Jum, 29 Mei</div></div><button class="mi-btn todo" onclick="toggleM(&#39;m6&#39;)">📝 Latsoal</button><button class="mi-more" onclick="openEditM(&#39;m6&#39;)">···</button></div><div class="mitem is-done"><div class="mi-body"><div class="mi-name done">Sorting Algorithms</div><div class="mi-date">📅 Min, 24 Mei</div></div><button class="mi-btn done" onclick="toggleM(&#39;m5&#39;)">✅ Selesai</button><button class="mi-more" onclick="openEditM(&#39;m5&#39;)">···</button></div></div>
+        <div class="sec" id="sec-m-label">📖 Materi</div>
+        <div class="card" id="d-materi"></div>
 
-        <div class="sec" id="sec-t-label">📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span></div>
-        <div class="card" id="d-tugas"><div class="titem"><div class="ti-body"><div class="ti-name">Implementasi Quicksort</div><div class="ti-meta"><span class="ti-dl dl-soon">⏰ Deadline hari ini!</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Jum, 29 Mei</span></div></div><button class="ti-btn todo" onclick="toggleT(&#39;t2&#39;)">Selesai?</button><button class="ti-more" onclick="openEditT(&#39;t2&#39;)">···</button></div><div class="titem is-done"><div class="ti-body"><div class="ti-name done">Laporan Praktikum 2</div><div class="ti-meta"><span class="ti-dl dl-done">✓ Selesai</span></div><div class="ti-meta" style="margin-top:3px"><span style="font-size:11px;color:var(--ink3);">📌 Muncul Sen, 25 Mei</span></div></div><button class="ti-btn done" onclick="toggleT(&#39;t3&#39;)">✅ Selesai</button><button class="ti-more" onclick="openEditT(&#39;t3&#39;)">···</button></div></div>
+        <div class="sec" id="sec-t-label">📋 Tugas</div>
+        <div class="card" id="d-tugas"></div>
 
-        <div class="sec" id="sec-r-label" style="color: var(--ink3); display: none;">🗂 Riwayat Ujian</div>
-        <div id="d-riwayat-ujian" style="display: none;"></div>
+        <div class="sec" id="sec-r-label" style="color:var(--ink3)">🗂 Riwayat Ujian</div>
+        <div id="d-riwayat-ujian"></div>
 
       </div>
     </div>
@@ -3382,7 +3416,7 @@ input,select,textarea { font-family:inherit; }
 
           <div class="pomo-task-label">Lagi Ngerjain Apa? <span style="font-weight:600;color:var(--ink3)">(opsional)</span></div>
           <div class="pomo-task-pick">
-            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Kalkulus 2 — Materi"><option value="m::m3::Integral Parsial">Integral Parsial</option><option value="m::m4::Integral Trigonometri">Integral Trigonometri</option></optgroup><optgroup label="📋 Kalkulus 2 — Tugas"><option value="t::t1::PR Integral Bab 6">PR Integral Bab 6</option></optgroup><optgroup label="📝 Kalkulus 2 — Ujian"><option value="u::u1::Persiapan Quiz – Quiz 2">Persiapan Quiz – Quiz 2</option><option value="u::u2::Persiapan UTS – UTS Genap">Persiapan UTS – UTS Genap</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
+            <select id="pomo-task-sel"><option value="">— Pilih materi / tugas / ujian —</option><optgroup label="📖 Algoritma &amp; Pemro — Materi"><option value="m::m6::Dynamic Programming">Dynamic Programming</option></optgroup><optgroup label="📋 Algoritma &amp; Pemro — Tugas"><option value="t::t2::Implementasi Quicksort">Implementasi Quicksort</option></optgroup><optgroup label="📝 Algoritma &amp; Pemro — Ujian"><option value="u::u3::Persiapan Quiz – Quiz 1">Persiapan Quiz – Quiz 1</option></optgroup><optgroup label="📖 Deep Learning — Materi"><option value="m::m8::CNN Architecture">CNN Architecture</option></optgroup></select>
           </div>
 
           <button class="pomo-start-btn" onclick="startPomo()">Start 🍅</button>
@@ -3411,49 +3445,42 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ CALENDAR ══ -->
-    <div class="view" id="v-cal">
-      <!-- Sticky header: month strip + week strip -->
+    <div class="view active" id="v-cal">
+      <!-- Sticky header: compact week strip only -->
       <div class="cal-sticky-head" id="cal-sticky-head">
-        <!-- Month row -->
+        <!-- Top row: month label + nav + add -->
         <div class="cal-month-row">
           <div class="cal-month-title" id="mc-title">Mei 2026</div>
           <div style="display:flex;gap:6px;align-items:center;">
-            <button class="cal-month-nav" onclick="shiftMcal(-1)">‹</button>
-            <button class="cal-month-nav" onclick="shiftMcal(1)">›</button>
+            <button class="cal-week-nav" onclick="shiftCalWeek(-1)">‹</button>
+            <button class="cal-week-nav" onclick="shiftCalWeek(1)">›</button>
             <button class="cal-add-ev-btn" onclick="openAddEvent()">＋</button>
           </div>
         </div>
-        <!-- DOW row -->
-        <div class="cal-dow-strip" id="mc-dows">
-          <div class="cal-dow-cell">S</div><div class="cal-dow-cell">S</div>
-          <div class="cal-dow-cell">R</div><div class="cal-dow-cell">K</div>
-          <div class="cal-dow-cell">J</div><div class="cal-dow-cell">S</div>
-          <div class="cal-dow-cell">M</div>
-        </div>
-        <!-- Month grid -->
-        <div class="cal-month-grid" id="mc-days"><div class="cal-mday faded"><span>27</span></div><div class="cal-mday faded"><span>28</span></div><div class="cal-mday faded"><span>29</span></div><div class="cal-mday faded"><span>30</span></div><div class="cal-mday"><span>1</span></div><div class="cal-mday"><span>2</span></div><div class="cal-mday"><span>3</span></div><div class="cal-mday"><span>4</span></div><div class="cal-mday"><span>5</span></div><div class="cal-mday"><span>6</span></div><div class="cal-mday"><span>7</span></div><div class="cal-mday"><span>8</span></div><div class="cal-mday"><span>9</span></div><div class="cal-mday"><span>10</span></div><div class="cal-mday"><span>11</span></div><div class="cal-mday"><span>12</span></div><div class="cal-mday"><span>13</span></div><div class="cal-mday"><span>14</span></div><div class="cal-mday"><span>15</span></div><div class="cal-mday"><span>16</span></div><div class="cal-mday"><span>17</span></div><div class="cal-mday"><span>18</span></div><div class="cal-mday"><span>19</span></div><div class="cal-mday"><span>20</span></div><div class="cal-mday"><span>21</span></div><div class="cal-mday"><span>22</span></div><div class="cal-mday"><span>23</span></div><div class="cal-mday"><span>24</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:var(--blue-bd)"></div></div></div><div class="cal-mday"><span>25</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:var(--blue-bd)"></div></div></div><div class="cal-mday"><span>26</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:var(--blue-bd)"></div></div></div><div class="cal-mday"><span>27</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:var(--blue-bd)"></div></div></div><div class="cal-mday"><span>28</span></div><div class="cal-mday"><span>29</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:var(--blue-bd)"></div></div></div><div class="cal-mday is-today"><span>30</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:rgba(255,255,255,.85)"></div><div class="cal-mday-dot" style="background:rgba(255,255,255,.85)"></div><div class="cal-mday-dot" style="background:rgba(255,255,255,.85)"></div></div></div><div class="cal-mday"><span>31</span><div class="cal-mday-dots"><div class="cal-mday-dot" style="background:var(--blue)"></div></div></div></div>
+        <!-- Week strip: 7 days -->
+        <div class="cal-week-strip" id="cal-week-strip"><div class="cal-wday"><div class="cal-wday-name">Sen</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">25</div></div><div class="cal-wday-dots"><div class="cal-wday-dot" style="background:var(--amber)"></div></div></div><div class="cal-wday"><div class="cal-wday-name">Sel</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">26</div></div><div class="cal-wday-dots"><div class="cal-wday-dot" style="background:var(--purple)"></div></div></div><div class="cal-wday"><div class="cal-wday-name">Rab</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">27</div></div><div style="height:5px"></div></div><div class="cal-wday"><div class="cal-wday-name">Kam</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">28</div></div><div style="height:5px"></div></div><div class="cal-wday"><div class="cal-wday-name">Jum</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">29</div></div><div style="height:5px"></div></div><div class="cal-wday"><div class="cal-wday-name">Sab</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">30</div></div><div style="height:5px"></div></div><div class="cal-wday is-today"><div class="cal-wday-name">Min</div><div class="cal-wday-num-wrap"><div class="cal-wday-num">31</div></div><div style="height:5px"></div></div></div>
       </div>
 
       <!-- Timeline scroll area -->
       <div class="cal-timeline-scroll" id="cal-timeline-scroll">
-        <div id="cal-timeline-body"><div class="cal-tl-day" id="cal-tl-day-2026-05-29"><div class="cal-tl-day-header"><div class="cal-tl-day-num">29</div><div><div class="cal-tl-day-name"> Jumat, Mei</div></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#2563eb"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Integral Parsial</div><div class="cal-tl-event-sub">🔢 Kalkulus 2</div></div><span class="cal-tl-event-badge" style="background:#2563eb18;color:#2563eb">Materi</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-05-30"><div class="cal-tl-day-header"><div class="cal-tl-day-num is-today">30</div><div><div class="cal-tl-day-name is-today">Hari ini ·  Sabtu, Mei</div></div></div><div class="cal-tl-event is-allday"><div class="cal-tl-event-bar" style="background:var(--amber)"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Implementasi Quicksort</div><div class="cal-tl-event-sub">💻 Algoritma &amp; Pemro — Deadline</div></div><span class="cal-tl-event-badge" style="background:var(--amber)18;color:var(--amber)">Deadline</span></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#2563eb"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Integral Trigonometri</div><div class="cal-tl-event-sub">🔢 Kalkulus 2</div></div><span class="cal-tl-event-badge" style="background:#2563eb18;color:#2563eb">Materi</span></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">CNN Architecture</div><div class="cal-tl-event-sub">🤖 Deep Learning</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">Materi</span></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#2563eb"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main">08:00</div><div class="cal-tl-event-time-end">09:40</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Kuliah Kalkulus 2</div><div class="cal-tl-event-sub">Ruang B201</div></div><span class="cal-tl-event-badge" style="background:#2563eb18;color:#2563eb">Jadwal</span></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#dc2626"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main">13:00</div><div class="cal-tl-event-time-end">14:40</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Kuliah Algoritma</div><div class="cal-tl-event-sub">Ruang C301</div></div><span class="cal-tl-event-badge" style="background:#dc262618;color:#dc2626">Jadwal</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-05-31"><div class="cal-tl-day-header"><div class="cal-tl-day-num">31</div><div><div class="cal-tl-day-name"> Minggu, Mei</div></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#2563eb"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main">08:00</div><div class="cal-tl-event-time-end">09:40</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Kuliah Kalkulus 2</div><div class="cal-tl-event-sub">Ruang B201</div></div><span class="cal-tl-event-badge" style="background:#2563eb18;color:#2563eb">Jadwal</span></div></div><div class="cal-tl-event"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main">15:00</div><div class="cal-tl-event-time-end">16:40</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Praktikum Deep Learn</div><div class="cal-tl-event-sub">Lab AI</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">Jadwal</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-06-01"><div class="cal-tl-day-header"><div class="cal-tl-day-num">1</div><div><div class="cal-tl-day-name"> Senin, Jun</div></div></div><div class="cal-tl-event is-allday is-ujian"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Quiz 1</div><div class="cal-tl-event-sub">💻 Algoritma &amp; Pemro</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">Quiz</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-06-02"><div class="cal-tl-day-header"><div class="cal-tl-day-num">2</div><div><div class="cal-tl-day-name"> Selasa, Jun</div></div></div><div class="cal-tl-event is-allday"><div class="cal-tl-event-bar" style="background:var(--amber)"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">PR Integral Bab 6</div><div class="cal-tl-event-sub">🔢 Kalkulus 2 — Deadline</div></div><span class="cal-tl-event-badge" style="background:var(--amber)18;color:var(--amber)">Deadline</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-06-03"><div class="cal-tl-day-header"><div class="cal-tl-day-num">3</div><div><div class="cal-tl-day-name"> Rabu, Jun</div></div></div><div class="cal-tl-event is-allday is-ujian"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Quiz 2</div><div class="cal-tl-event-sub">🔢 Kalkulus 2</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">Quiz</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-06-13"><div class="cal-tl-day-header"><div class="cal-tl-day-num">13</div><div><div class="cal-tl-day-name"> Sabtu, Jun</div></div></div><div class="cal-tl-event is-allday is-ujian"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">UTS Genap</div><div class="cal-tl-event-sub">🔢 Kalkulus 2</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">UTS</span></div></div></div></div>
+        <div id="cal-timeline-body"><div class="cal-tl-day" id="cal-tl-day-2026-05-24"><div class="cal-tl-day-header"><div class="cal-tl-day-num">24</div><div><div class="cal-tl-day-name"> Minggu, Mei</div></div></div><div class="cal-tl-event is-allday is-ujian"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Quiz 1</div><div class="cal-tl-event-sub">💻 Algoritma &amp; Pemro</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">Quiz</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-05-25"><div class="cal-tl-day-header"><div class="cal-tl-day-num">25</div><div><div class="cal-tl-day-name"> Senin, Mei</div></div></div><div class="cal-tl-event is-allday"><div class="cal-tl-event-bar" style="background:var(--red)"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">PR Integral Bab 6</div><div class="cal-tl-event-sub">🔢 Kalkulus 2 — Telat!</div></div><span class="cal-tl-event-badge" style="background:var(--red)18;color:var(--red)">Telat</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-05-26"><div class="cal-tl-day-header"><div class="cal-tl-day-num">26</div><div><div class="cal-tl-day-name"> Selasa, Mei</div></div></div><div class="cal-tl-event is-allday is-ujian"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">Quiz 2</div><div class="cal-tl-event-sub">🔢 Kalkulus 2</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">Quiz</span></div></div></div><div class="cal-tl-day" id="cal-tl-day-2026-06-05"><div class="cal-tl-day-header"><div class="cal-tl-day-num">5</div><div><div class="cal-tl-day-name"> Jumat, Jun</div></div></div><div class="cal-tl-event is-allday is-ujian"><div class="cal-tl-event-bar" style="background:#7c3aed"></div><div class="cal-tl-event-inner"><div class="cal-tl-event-time"><div class="cal-tl-event-time-main" style="color:var(--amber)">all-day</div></div><div class="cal-tl-event-body"><div class="cal-tl-event-title">UTS Genap</div><div class="cal-tl-event-sub">🔢 Kalkulus 2</div></div><span class="cal-tl-event-badge" style="background:#7c3aed18;color:#7c3aed">UTS</span></div></div></div></div>
       </div>
     </div>
 
 
     <!-- ══ PROJECTS ══ -->
     <div class="view" id="v-projects"><div class="pad">
-      <div class="ov-banner" id="ov-banner"><div class="ov-stat" style="padding-left:0"><div class="ov-num">0</div><div class="ov-lbl">Aktif</div></div><div class="ov-stat"><div class="ov-num">0<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div><div class="ov-lbl">Avg done</div><div class="ov-bar-wrap"><div class="ov-bar-fill" style="width:0%"></div></div></div><div class="ov-stat"><div class="ov-num">0</div><div class="ov-lbl">Actions pending</div></div></div>
-      <div class="filter-bar" id="filter-bar"><button class="fpill on" onclick="setFilter_c(&#39;all&#39;,this)">Semua</button></div>
+      <div class="ov-banner" id="ov-banner"><div class="ov-stat" style="padding-left:0"><div class="ov-num">2</div><div class="ov-lbl">Aktif</div></div><div class="ov-stat"><div class="ov-num">0<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div><div class="ov-lbl">Avg done</div><div class="ov-bar-wrap"><div class="ov-bar-fill" style="width:0%"></div></div></div><div class="ov-stat"><div class="ov-num">4</div><div class="ov-lbl">Actions pending</div></div></div>
+      <div class="filter-bar" id="filter-bar"><button class="fpill on" onclick="setFilter_c(&#39;all&#39;,this)">Semua</button><button class="fpill">🌿 B</button><button class="fpill">🌿 C</button></div>
 
       <!-- Focus Right Now -->
-      <div id="focus-now-wrap"></div>
+      <div id="focus-now-wrap"><div class="proj-sec-lbl">Focus Right Now</div><div class="hero-card" onclick="openProjDetail(&#39;proj1779776003859&#39;)"><div class="hero-bg" style="background:linear-gradient(135deg,#7c3aedf0 0%,#7c3aedbb 100%)"></div><div class="hero-noise"></div><div class="hero-grad"></div><div class="hero-body"><div class="hero-label">🎯 Active Project</div><div class="hero-name">🚀 g</div><div class="hero-goal">Juara Gemastik</div><div class="hero-foot"><span class="hero-status">Aktif</span><div class="hero-pct-ring"><svg class="hero-ring-svg" viewBox="0 0 48 48"><circle class="hero-ring-bg" cx="24" cy="24" r="18"></circle><circle class="hero-ring-fill" cx="24" cy="24" r="18" stroke-dasharray="0.0 113.1" stroke-dashoffset="0"></circle><text class="hero-pct-txt" x="24" y="24">0%</text></svg></div></div></div></div></div>
 
       <!-- Recently Active -->
-      <div id="recently-active-wrap"></div>
+      <div id="recently-active-wrap"><div class="proj-sec-lbl">Recently Active</div><div class="ra-scroll"><div class="ra-card" onclick="openProjDetail(&#39;proj1780137455865&#39;)"><div class="ra-accent" style="background:#65a30d"></div><div class="ra-body"><div class="ra-icon" style="background:#65a30d18">🚀</div><div class="ra-name">Tes</div><div class="ra-pct">0<span style="font-size:10px;font-weight:700;color:var(--ink3)">%</span></div><div class="ra-pct-lbl">selesai</div></div><div class="ra-bar"><div class="ra-barfill" style="width:0%;background:#65a30d"></div></div></div></div></div>
 
       <!-- All Projects -->
-      <div id="all-projects-wrap"></div>
+      <div id="all-projects-wrap"><div class="pd-sec-lbl" style="margin-bottom:10px">All Projects</div><div class="all-proj-list"></div><div id="rencana-reveal-row" style="margin-top:6px;padding:4px 2px"><span onclick="showRencana()" style="font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer">+ Lihat yang direncanakan</span></div><div id="rencana-list" style="display:none;margin-top:6px"><div class="all-proj-list"><div class="apl-item" onclick="openProjDetail(&#39;proj1779842838809&#39;)"><div class="apl-accent" style="background:#7c3aed"></div><div class="apl-icon" style="background:#7c3aed18">🚀</div><div class="apl-body"><div class="apl-name">tesss</div><div class="apl-sub"><span class="pa-status-chip pa-status-rencana" style="font-size:9px">Rencana</span></div></div><div class="apl-right"><div class="apl-pct">0%</div><div class="apl-bar"><div class="apl-barfill" style="width:0%;background:#7c3aed"></div></div></div></div></div></div></div>
 
       <button class="pa-add-btn project" onclick="openAddProject()" style="margin-top:8px">🚀 Tambah Project Baru</button>
     </div></div>
@@ -3461,7 +3488,7 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREAS ══ -->
     <div class="view" id="v-areas"><div class="pad">
-      <div class="area-gallery" id="areas-list" style="display: block;"><div style="grid-column:span 2;padding:32px 20px;text-align:center;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:32px;display:block;margin-bottom:8px">🌿</span><div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada area</div><div style="font-size:12px;color:var(--ink3);margin-top:3px">Area adalah hal yang kamu jaga selamanya</div></div></div>
+      <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-warn" style="background:rgba(0,0,0,.22);color:#fff">Needs care</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-sub">0 project aktif · 1 ritual</div><div class="agc-pip-row"><div class="agc-pip"></div></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off" style="background:rgba(0,0,0,.22);color:#fff">No rituals</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-sub">0 project aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
 
@@ -3530,11 +3557,11 @@ input,select,textarea { font-family:inherit; }
 
   <!-- BOTTOM NAV — 5 tab -->
   <nav class="bnav">
-    <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
+    <button class="bn active" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
       <div class="bn-ic">📅</div><div>K</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">3</span></div><div>H</div>
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
     </button>
     <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
       <div class="bn-ic">🍅</div><div>P</div>
@@ -3662,6 +3689,10 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="at-n" type="text" placeholder="e.g. PR Kalkulus Bab 5"></div>
       <div class="field"><label class="flbl">Deadline</label><input id="at-dl" type="date"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="at-start" type="time" placeholder="--:--"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="at-end" type="time" placeholder="--:--"></div>
+      </div>
       <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="at-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
@@ -3679,6 +3710,10 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="et-n" type="text"></div>
       <div class="field"><label class="flbl">Deadline</label><input id="et-dl" type="date"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="et-start" type="time" placeholder="--:--"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="et-end" type="time" placeholder="--:--"></div>
+      </div>
       <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="et-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
     </div>
     <div class="sh-footer">
@@ -3709,6 +3744,10 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan (opsional)</label><input id="au-n" type="text" placeholder="e.g. Quiz 2, UTS Genap"></div>
       <div class="field"><label class="flbl">Tanggal Ujian</label><input id="au-d" type="date"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="au-start" type="time" placeholder="--:--"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="au-end" type="time" placeholder="--:--"></div>
+      </div>
       <div class="field">
         <label class="flbl">Materi yang Diujikan</label>
         <div class="materi-check-list" id="au-materi-list"></div>
@@ -3738,9 +3777,13 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan</label><input id="eu-n" type="text"></div>
       <div class="field"><label class="flbl">Tanggal Ujian</label><input id="eu-d" type="date"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="eu-start" type="time" placeholder="--:--"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="eu-end" type="time" placeholder="--:--"></div>
+      </div>
       <div class="field">
         <label class="flbl">Materi yang Diujikan</label>
-        <div class="materi-check-list" id="eu-materi-list"></div>
+        <div class="materi-check-list" id="eu-materi-list"><div class="materi-check-item selected"><div class="materi-check-box">✓</div><div class="materi-check-text">Sorting Algorithms</div></div><div class="materi-check-item selected"><div class="materi-check-box">✓</div><div class="materi-check-text">Dynamic Programming</div></div></div>
       </div>
       <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="eu-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
     </div>
@@ -3844,7 +3887,7 @@ input,select,textarea { font-family:inherit; }
         </div>
       </div>
       <div class="field"><label class="flbl">Link ke Area (opsional)</label><select id="ap-area"><option value="">— Tanpa Area —</option></select></div>
-      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"><div class="co" style="background: rgb(37, 99, 235);"></div><div class="co" style="background: rgb(220, 38, 38);"></div><div class="co" style="background: rgb(22, 163, 74);"></div><div class="co" style="background: rgb(217, 119, 6);"></div><div class="co sel" style="background: rgb(124, 58, 237);"></div><div class="co" style="background: rgb(8, 145, 178);"></div><div class="co" style="background: rgb(190, 24, 93);"></div><div class="co" style="background: rgb(101, 163, 13);"></div></div></div>
+      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"></div></div>
     </div>
     <div class="sh-footer"><div class="sh-row">
       <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addproject&#39;)">Batal</button>
@@ -4090,30 +4133,69 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addevent" onclick="bgc(event,&#39;sh-addevent&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">📅 Tambah Event</div>
+    <div class="sh-title" id="sh-addevent-title">📅 Tambah Event</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Judul</label><input id="ae-title" type="text" placeholder="e.g. Kuliah Kalkulus 2"></div>
-      <div class="field"><label class="flbl">Tanggal</label><input id="ae-date" type="date"></div>
       <div style="display:flex;gap:10px;">
         <div class="field" style="flex:1"><label class="flbl">Mulai</label><input id="ae-start" type="time" value="08:00"></div>
         <div class="field" style="flex:1"><label class="flbl">Selesai</label><input id="ae-end" type="time" value="09:40"></div>
       </div>
       <div class="field"><label class="flbl">Lokasi / Catatan</label><input id="ae-note" type="text" placeholder="e.g. Ruang B201"></div>
-      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-event"></div></div>
+
+      <!-- Recurring toggle -->
+      <div class="ae-recur-toggle-row">
+        <div>
+          <div class="ae-recur-label">Jadwal Berulang</div>
+          <div class="ae-recur-sub">Cocok untuk jadwal kelas mingguan</div>
+        </div>
+        <label class="ae-switch">
+          <input type="checkbox" id="ae-recurring" onchange="toggleRecurUI()">
+          <span class="ae-switch-track"></span>
+        </label>
+      </div>
+
+      <!-- One-time date (shown when NOT recurring) -->
+      <div id="ae-date-wrap" class="field" style="margin-top:0">
+        <label class="flbl">Tanggal</label>
+        <input id="ae-date" type="date">
+      </div>
+
+      <!-- Recurring day picker (shown when recurring) -->
+      <div id="ae-recur-wrap" style="display:none">
+        <label class="flbl" style="margin-bottom:8px;display:block">Hari dalam Seminggu</label>
+        <div class="ae-day-picker" id="ae-day-picker">
+          <button class="ae-day-btn" data-d="1" onclick="toggleDay(this)">Sen</button>
+          <button class="ae-day-btn" data-d="2" onclick="toggleDay(this)">Sel</button>
+          <button class="ae-day-btn" data-d="3" onclick="toggleDay(this)">Rab</button>
+          <button class="ae-day-btn" data-d="4" onclick="toggleDay(this)">Kam</button>
+          <button class="ae-day-btn" data-d="5" onclick="toggleDay(this)">Jum</button>
+          <button class="ae-day-btn" data-d="6" onclick="toggleDay(this)">Sab</button>
+          <button class="ae-day-btn" data-d="0" onclick="toggleDay(this)">Min</button>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:10px;">
+          <div class="field" style="flex:1;margin-bottom:0"><label class="flbl">Mulai Dari</label><input id="ae-recur-from" type="date"></div>
+          <div class="field" style="flex:1;margin-bottom:0"><label class="flbl">Sampai (opsional)</label><input id="ae-recur-until" type="date"></div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:12px"><label class="flbl">Warna</label><div class="color-row" id="cpicker-event"></div></div>
     </div>
     <div class="sh-footer">
       <div class="sh-row">
         <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addevent&#39;)">Batal</button>
         <button class="sbtn sbtn-p" onclick="saveEvent()">Simpan ✓</button>
       </div>
-      <div class="sh-row" id="sh-addevent-del-row" style="display:none">
-        <button class="sbtn sbtn-d" onclick="delEvent()">🗑 Hapus Event Ini</button>
+      <div id="sh-addevent-del-row" style="display:none">
+        <div class="sh-row" style="gap:8px;margin-top:0">
+          <button class="sbtn sbtn-d" style="flex:1" onclick="delEvent(false)">Hapus Ini</button>
+          <button class="sbtn sbtn-d" style="flex:1;opacity:.75" id="sh-del-all-btn" onclick="delEvent(true)">Hapus Semua</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast">✅ Latihan soal selesai! GG 🔥</div>
+<div class="toast" id="toast">↩️ Oke, belum selesai</div>
 
 <script>
 // ════════ SUPABASE CONFIG ═════════════════════
@@ -4159,10 +4241,13 @@ const DEFAULT_DATA = { subjects:[
   {id:'u2',sid:'s1',type:'uts', name:'UTS Genap',date:ago(-14),materiIds:['m1','m2','m3','m4'],ready:false,createdAt:tod()},
   {id:'u3',sid:'s2',type:'quiz',name:'Quiz 1',   date:ago(-2), materiIds:['m5','m6'],ready:true, createdAt:tod()},
 ], events:[
-  {id:'ev1', title:'Kuliah Kalkulus 2',    date:tod(),   startTime:'08:00', endTime:'09:40', color:'#2563eb', note:'Ruang B201'},
-  {id:'ev2', title:'Kuliah Algoritma',     date:tod(),   startTime:'13:00', endTime:'14:40', color:'#dc2626', note:'Ruang C301'},
-  {id:'ev3', title:'Praktikum Deep Learn', date:ago(-1), startTime:'15:00', endTime:'16:40', color:'#7c3aed', note:'Lab AI'},
-  {id:'ev4', title:'Kuliah Kalkulus 2',    date:ago(-1), startTime:'08:00', endTime:'09:40', color:'#2563eb', note:'Ruang B201'},
+  {id:'ev1', title:'Kuliah Kalkulus 2',    startTime:'08:00', endTime:'09:40', color:'#2563eb', note:'Ruang B201',
+   recurring:{days:[1,3], from:ago(-30), until:''}},
+  {id:'ev2', title:'Kuliah Algoritma',     startTime:'13:00', endTime:'14:40', color:'#dc2626', note:'Ruang C301',
+   recurring:{days:[2,4], from:ago(-30), until:''}},
+  {id:'ev3', title:'Praktikum Deep Learn', startTime:'15:00', endTime:'16:40', color:'#7c3aed', note:'Lab AI',
+   recurring:{days:[5], from:ago(-30), until:''}},
+  {id:'ev4', title:'Seminar Research',     date:ago(-2),      startTime:'10:00', endTime:'12:00', color:'#059669', note:'Aula Utama'},
 ]};
 
 // localStorage sebagai cache offline
@@ -5758,7 +5843,9 @@ function saveUjian(){
   const name=document.getElementById('au-n').value.trim();
   const date=document.getElementById('au-d').value||tod();
   const notes=document.getElementById('au-notes').value.trim();
-  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,materiIds:[...selUjianMat],ready:false,notes,createdAt:tod()});
+  const auStart=document.getElementById('au-start').value||'';
+  const auEnd=document.getElementById('au-end').value||'';
+  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,startTime:auStart,endTime:auEnd,materiIds:[...selUjianMat],ready:false,notes,createdAt:tod()});
   save(); closeSheet('sh-addujian');
   document.getElementById('au-notes').value='';
   if(curView==='detail') renderDetail(curSid);
@@ -5772,6 +5859,8 @@ function openEditUjian(id){
   document.getElementById('eu-type').value=u.type;
   document.getElementById('eu-n').value=u.name||'';
   document.getElementById('eu-d').value=u.date;
+  document.getElementById('eu-start').value=u.startTime||'';
+  document.getElementById('eu-end').value=u.endTime||'';
   document.getElementById('eu-notes').value=u.notes||'';
   selUjianMat=new Set(u.materiIds);
   buildUjianMateriList('eu-materi-list', u.sid, selUjianMat);
@@ -5783,6 +5872,8 @@ function saveEditUjian(){
   u.type=document.getElementById('eu-type').value;
   u.name=document.getElementById('eu-n').value.trim();
   u.date=document.getElementById('eu-d').value||u.date;
+  u.startTime=document.getElementById('eu-start').value||'';
+  u.endTime=document.getElementById('eu-end').value||'';
   u.materiIds=[...selUjianMat];
   u.notes=document.getElementById('eu-notes').value.trim();
   save(); closeSheet('sh-editujian');
@@ -5837,90 +5928,130 @@ const MOS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','S
 const DWS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
 
 function shiftMcal(dir){
-  mcalM+=dir;
-  if(mcalM>11){mcalM=0;mcalY++;}
-  if(mcalM<0){mcalM=11;mcalY--;}
-  renderMcal();
+  // Legacy alias — now delegates to week shift
+  shiftCalWeek(dir);
 }
 
 function renderMcal(){
   ensurePAData();
-  // Update month title
-  document.getElementById('mc-title').textContent = MOS[mcalM]+' '+mcalY;
+  renderCalWeekStrip();
+  renderCalTimeline();
+}
 
-  // DOW strip is static HTML
+// calWeekOff: 0=this week, -1=last week, 1=next week
+let calWeekOff = 0;
 
-  // Render mini month grid
-  const daysEl = document.getElementById('mc-days');
-  if(!daysEl) return;
-  daysEl.innerHTML = '';
+function shiftCalWeek(dir){
+  calWeekOff += dir;
+  // move calSelectedDay to new week's equivalent day
+  const base = getWeekDays(calWeekOff);
+  // keep same DOW if possible
+  const selD = new Date(calSelectedDay + 'T12:00:00');
+  const selDow = selD.getDay() === 0 ? 6 : selD.getDay() - 1; // Mon=0..Sun=6
+  calSelectedDay = base[selDow];
+  renderMcal();
+}
 
-  const first = new Date(mcalY, mcalM, 1);
-  const last  = new Date(mcalY, mcalM+1, 0);
-  const todayStr = tod();
-
-  let pad = first.getDay() - 1; if(pad < 0) pad = 6;
-  const prevLast = new Date(mcalY, mcalM, 0).getDate();
-  for(let i = pad-1; i >= 0; i--){
-    const e = document.createElement('div');
-    e.className = 'cal-mday faded';
-    e.innerHTML = `<span>${prevLast-i}</span>`;
-    daysEl.appendChild(e);
+function getWeekDays(weekOff){
+  const now = new Date();
+  const dow = now.getDay();
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - (dow === 0 ? 6 : dow - 1) + weekOff * 7);
+  const days = [];
+  for(let i = 0; i < 7; i++){
+    const d = new Date(mon);
+    d.setDate(mon.getDate() + i);
+    days.push(d.toISOString().slice(0,10));
   }
+  return days;
+}
 
-  for(let d = 1; d <= last.getDate(); d++){
-    const ds = `${mcalY}-${String(mcalM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+function renderCalWeekStrip(){
+  const strip = document.getElementById('cal-week-strip');
+  if(!strip) return;
+  strip.innerHTML = '';
+
+  const todayStr = tod();
+  const DNAMES = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const days = getWeekDays(calWeekOff);
+
+  // Update month title to reflect the week
+  const d0 = new Date(days[0]+'T12:00:00');
+  const d6 = new Date(days[6]+'T12:00:00');
+  const MOS_SHORT = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agt','Sep','Okt','Nov','Des'];
+  let title = '';
+  if(d0.getMonth() === d6.getMonth()){
+    title = d0.toLocaleDateString('id-ID',{month:'long', year:'numeric'});
+  } else {
+    title = MOS_SHORT[d0.getMonth()] + ' – ' + MOS_SHORT[d6.getMonth()] + ' ' + d6.getFullYear();
+  }
+  const titleEl = document.getElementById('mc-title');
+  if(titleEl) titleEl.textContent = title;
+
+  days.forEach((ds, i) => {
+    const d = new Date(ds+'T12:00:00');
+    const dayNum = d.getDate();
     const isToday = ds === todayStr;
     const isSelected = ds === calSelectedDay;
 
     // dots
-    const hasT = D.tugas.some(t => t.deadline === ds && !t.done);
-    const hasU = D.ujian.some(u => u.date === ds);
-    const hasM = D.materi.some(m => m.date === ds);
-    const hasEv = (D.events||[]).some(ev => ev.date === ds);
+    const hasT  = D.tugas.some(t => t.deadline === ds && !t.done);
+    const hasU  = D.ujian.some(u => u.date === ds);
+    const hasM  = D.materi.some(m => m.date === ds);
+    const hasEv = (D.events||[]).some(ev => eventMatchesDate(ev, ds));
 
-    const e = document.createElement('div');
-    e.className = 'cal-mday' + (isToday?' is-today':'') + (isSelected&&!isToday?' is-selected':'');
-    e.onclick = () => selectCalDay(ds);
+    const wday = document.createElement('div');
+    wday.className = 'cal-wday' + (isToday?' is-today':'') + (isSelected&&!isToday?' is-selected':'');
+    wday.onclick = () => selectCalDay(ds);
 
     let dotsHtml = '';
     const dotColors = [];
     if(hasEv) dotColors.push('var(--blue)');
     if(hasT)  dotColors.push('var(--amber)');
     if(hasU)  dotColors.push('var(--purple)');
-    if(hasM)  dotColors.push('var(--blue-bd)');
+    if(hasM && !hasEv && !hasT && !hasU) dotColors.push('var(--blue-bd)');
+
     if(dotColors.length){
-      dotsHtml = `<div class="cal-mday-dots">${
-        dotColors.slice(0,3).map(c=>`<div class="cal-mday-dot" style="background:${isToday?'rgba(255,255,255,.85)':c}"></div>`).join('')
+      const dotStyle = isToday ? 'background:rgba(255,255,255,.8)' : '';
+      dotsHtml = `<div class="cal-wday-dots">${
+        dotColors.slice(0,3).map(c=>`<div class="cal-wday-dot" style="background:${isToday?'rgba(255,255,255,.8)':c}"></div>`).join('')
       }</div>`;
+    } else {
+      dotsHtml = '<div style="height:5px"></div>';
     }
 
-    e.innerHTML = `<span>${d}</span>${dotsHtml}`;
-    daysEl.appendChild(e);
-  }
+    wday.innerHTML =
+      `<div class="cal-wday-name">${DNAMES[i]}</div>`+
+      `<div class="cal-wday-num-wrap"><div class="cal-wday-num">${dayNum}</div></div>`+
+      dotsHtml;
 
-  const rem = 7 - ((pad + last.getDate()) % 7);
-  if(rem < 7) for(let d = 1; d <= rem; d++){
-    const e = document.createElement('div');
-    e.className = 'cal-mday faded';
-    e.innerHTML = `<span>${d}</span>`;
-    daysEl.appendChild(e);
-  }
-
-  renderCalTimeline();
+    strip.appendChild(wday);
+  });
 }
+
 
 let calSelectedDay = tod(); // currently selected date
 
 function selectCalDay(ds){
   calSelectedDay = ds;
-  // update mini grid selection
-  document.querySelectorAll('.cal-mday').forEach(el => el.classList.remove('is-selected'));
-  renderMcal();
-  // scroll timeline to selected day
+  // If selected day not in current week strip, snap week offset
+  const weekDays = getWeekDays(calWeekOff);
+  if(!weekDays.includes(ds)){
+    // find offset from today
+    const today = new Date(tod()+'T12:00:00');
+    const sel   = new Date(ds+'T12:00:00');
+    const diffMs = sel - today;
+    const diffDays = Math.round(diffMs / 86400000);
+    calWeekOff = Math.floor(diffDays / 7);
+    if(diffDays < 0 && diffDays % 7 !== 0) calWeekOff--;
+  }
+  renderCalWeekStrip();
   renderCalTimeline();
-  const target = document.getElementById('cal-tl-day-' + ds);
-  if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  // Scroll timeline to selected day
+  setTimeout(()=>{
+    const target = document.getElementById('cal-tl-day-' + ds);
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  }, 60);
 }
 
 function renderCalTimeline(){
@@ -6005,10 +6136,11 @@ function renderCalTimeline(){
     body.innerHTML = `<div class="cal-tl-empty">📅 Tidak ada event terjadwal<br><span style="font-size:12px">Tap ＋ untuk tambah jadwal baru</span></div>`;
   }
 
-  // Auto-scroll to today on first render
+  // Auto-scroll to selected day (or today if none)
+  const scrollTarget = calSelectedDay || todayStr;
   setTimeout(()=>{
-    const todayEl = document.getElementById('cal-tl-day-' + todayStr);
-    if(todayEl) todayEl.scrollIntoView({block:'start'});
+    const el = document.getElementById('cal-tl-day-' + scrollTarget);
+    if(el) el.scrollIntoView({block:'start'});
   }, 80);
 }
 
@@ -6016,29 +6148,32 @@ function getEventsForDay(ds){
   ensurePAData();
   const events = [];
 
-  // 1. Manual events (jadwal)
-  (D.events||[]).filter(ev => ev.date === ds).forEach(ev => {
+  // 1. Manual events (jadwal) — one-time and recurring
+  (D.events||[]).filter(ev => eventMatchesDate(ev, ds)).forEach(ev => {
+    const isRec = !!ev.recurring;
     events.push({
-      title: ev.title,
+      title: ev.title + (isRec ? ' 🔁' : ''),
       sub: ev.note||'',
       color: ev.color||'var(--blue)',
       startTime: ev.startTime,
       endTime: ev.endTime,
-      badge: 'Jadwal',
-      onClick: () => openEditEvent(ev.id)
+      badge: isRec ? 'Rutin' : 'Jadwal',
+      onClick: () => { calSelectedDay = ds; openEditEvent(ev.id); }
     });
   });
 
   // 2. Ujian
   D.ujian.filter(u => u.date === ds).forEach(u => {
     const s = gS(u.sid);
-    const diff = diffD(u.date, tod());
+    const hasTimed = !!(u.startTime);
     events.push({
       title: u.name || ({quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type]),
       sub: s ? s.emoji+' '+s.name : '',
       color: '#7c3aed',
-      allDay: true,
+      allDay: !hasTimed,
       isUjian: true,
+      startTime: u.startTime || null,
+      endTime:   u.endTime   || null,
       badge: {quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type],
       onClick: () => openEditUjian(u.id)
     });
@@ -6049,11 +6184,14 @@ function getEventsForDay(ds){
     const s = gS(t.sid);
     const diff = diffD(t.deadline, tod());
     const isOverdue = diff < 0;
+    const hasTimed = !!(t.startTime);
     events.push({
       title: t.name,
-      sub: (s ? s.emoji+' '+s.name+' — ' : '') + 'Deadline',
+      sub: (s ? s.emoji+' '+s.name+' — ' : '') + (isOverdue ? 'Telat!' : 'Deadline'),
       color: isOverdue ? 'var(--red)' : 'var(--amber)',
-      allDay: true,
+      allDay: !hasTimed,
+      startTime: t.startTime || null,
+      endTime:   t.endTime   || null,
       badge: isOverdue ? 'Telat' : 'Deadline',
       onClick: () => openEditT(t.id)
     });
@@ -6155,17 +6293,49 @@ function _openAddUjianSheet(sid){
 // ════════ EVENTS (jadwal manual) ════════════════
 let editEventId = null;
 let selColorEvent = '#2563eb';
+let aeSelectedDays = []; // for recurring: array of dow ints (0=Sun..6=Sat)
+
+function toggleRecurUI(){
+  const isRec = document.getElementById('ae-recurring').checked;
+  document.getElementById('ae-date-wrap').style.display  = isRec ? 'none' : '';
+  document.getElementById('ae-recur-wrap').style.display = isRec ? ''     : 'none';
+}
+
+function toggleDay(btn){
+  const d = parseInt(btn.dataset.d);
+  if(aeSelectedDays.includes(d)){
+    aeSelectedDays = aeSelectedDays.filter(x=>x!==d);
+    btn.classList.remove('on');
+  } else {
+    aeSelectedDays.push(d);
+    btn.classList.add('on');
+  }
+}
+
+function resetDayPicker(days=[]){
+  aeSelectedDays = [...days];
+  document.querySelectorAll('.ae-day-btn').forEach(btn=>{
+    const d = parseInt(btn.dataset.d);
+    btn.classList.toggle('on', aeSelectedDays.includes(d));
+  });
+}
 
 function openAddEvent(){
   editEventId = null;
-  document.getElementById('ae-title').value = '';
-  document.getElementById('ae-date').value = calSelectedDay || tod();
-  document.getElementById('ae-start').value = '08:00';
-  document.getElementById('ae-end').value   = '09:40';
-  document.getElementById('ae-note').value  = '';
+  document.getElementById('sh-addevent-title').textContent = '📅 Tambah Event';
+  document.getElementById('ae-title').value    = '';
+  document.getElementById('ae-date').value     = calSelectedDay || tod();
+  document.getElementById('ae-start').value    = '08:00';
+  document.getElementById('ae-end').value      = '09:40';
+  document.getElementById('ae-note').value     = '';
+  document.getElementById('ae-recurring').checked = false;
+  document.getElementById('ae-recur-from').value  = tod();
+  document.getElementById('ae-recur-until').value = '';
+  resetDayPicker([]);
+  toggleRecurUI();
   selColorEvent = '#2563eb';
   buildEventCpicker();
-  document.getElementById('sh-addevent-del-row').style.display='none';
+  document.getElementById('sh-addevent-del-row').style.display = 'none';
   openSheet('sh-addevent');
 }
 
@@ -6174,44 +6344,106 @@ function openEditEvent(id){
   editEventId = id;
   const ev = (D.events||[]).find(e=>e.id===id);
   if(!ev) return;
-  document.getElementById('ae-title').value = ev.title||'';
-  document.getElementById('ae-date').value  = ev.date||tod();
-  document.getElementById('ae-start').value = ev.startTime||'08:00';
-  document.getElementById('ae-end').value   = ev.endTime||'09:40';
-  document.getElementById('ae-note').value  = ev.note||'';
+
+  document.getElementById('sh-addevent-title').textContent = '✏️ Edit Event';
+  document.getElementById('ae-title').value  = ev.title||'';
+  document.getElementById('ae-start').value  = ev.startTime||'08:00';
+  document.getElementById('ae-end').value    = ev.endTime||'09:40';
+  document.getElementById('ae-note').value   = ev.note||'';
   selColorEvent = ev.color||'#2563eb';
   buildEventCpicker();
-  document.getElementById('sh-addevent-del-row').style.display='';
+
+  const isRec = !!ev.recurring;
+  document.getElementById('ae-recurring').checked = isRec;
+  if(isRec){
+    resetDayPicker(ev.recurring.days||[]);
+    document.getElementById('ae-recur-from').value  = ev.recurring.from||tod();
+    document.getElementById('ae-recur-until').value = ev.recurring.until||'';
+  } else {
+    document.getElementById('ae-date').value = ev.date||tod();
+    resetDayPicker([]);
+  }
+  toggleRecurUI();
+
+  const delRow = document.getElementById('sh-addevent-del-row');
+  delRow.style.display = '';
+  // show "Hapus Semua" only for recurring events
+  const delAllBtn = document.getElementById('sh-del-all-btn');
+  if(delAllBtn) delAllBtn.style.display = isRec ? '' : 'none';
+
   openSheet('sh-addevent');
 }
 
 function saveEvent(){
   ensurePAData();
   const title = document.getElementById('ae-title').value.trim();
-  if(!title) return;
-  const date  = document.getElementById('ae-date').value || tod();
+  if(!title){ toast('⚠️ Judul harus diisi'); return; }
+
   const start = document.getElementById('ae-start').value;
   const end   = document.getElementById('ae-end').value;
   const note  = document.getElementById('ae-note').value.trim();
+  const isRec = document.getElementById('ae-recurring').checked;
 
-  if(editEventId){
-    const ev = D.events.find(e=>e.id===editEventId);
-    if(ev){ ev.title=title; ev.date=date; ev.startTime=start; ev.endTime=end; ev.note=note; ev.color=selColorEvent; }
+  if(isRec){
+    if(!aeSelectedDays.length){ toast('⚠️ Pilih minimal 1 hari'); return; }
+    const from  = document.getElementById('ae-recur-from').value  || tod();
+    const until = document.getElementById('ae-recur-until').value || '';
+
+    if(editEventId){
+      const ev = D.events.find(e=>e.id===editEventId);
+      if(ev){
+        ev.title=title; ev.startTime=start; ev.endTime=end; ev.note=note; ev.color=selColorEvent;
+        ev.recurring={days:[...aeSelectedDays], from, until};
+        delete ev.date; // recurring has no single date
+      }
+    } else {
+      D.events.push({
+        id:'ev'+Date.now(), title, startTime:start, endTime:end, note, color:selColorEvent,
+        recurring:{days:[...aeSelectedDays], from, until}
+      });
+    }
+    save(); closeSheet('sh-addevent');
+    if(curView==='cal') renderMcal();
+    toast(editEventId?'✏️ Jadwal diperbarui!':'🔁 Jadwal berulang ditambahkan!');
+
   } else {
-    D.events.push({id:'ev'+Date.now(), title, date, startTime:start, endTime:end, note, color:selColorEvent});
+    const date = document.getElementById('ae-date').value || tod();
+    if(editEventId){
+      const ev = D.events.find(e=>e.id===editEventId);
+      if(ev){
+        ev.title=title; ev.date=date; ev.startTime=start; ev.endTime=end;
+        ev.note=note; ev.color=selColorEvent;
+        delete ev.recurring;
+      }
+    } else {
+      D.events.push({id:'ev'+Date.now(), title, date, startTime:start, endTime:end, note, color:selColorEvent});
+    }
+    save(); closeSheet('sh-addevent');
+    if(curView==='cal'){ calSelectedDay=date; renderMcal(); }
+    toast(editEventId?'✏️ Event diperbarui!':'📅 Event ditambahkan!');
   }
-  save(); closeSheet('sh-addevent');
-  if(curView==='cal'){ calSelectedDay=date; renderMcal(); }
-  toast(editEventId?'✏️ Event diperbarui!':'📅 Event ditambahkan!');
 }
 
-function delEvent(){
-  if(!editEventId || !confirm('Hapus event ini?')) return;
+function delEvent(deleteAll){
+  if(!editEventId) return;
   ensurePAData();
-  D.events = D.events.filter(e=>e.id!==editEventId);
-  save(); closeSheet('sh-addevent');
-  if(curView==='cal') renderMcal();
-  toast('🗑 Event dihapus');
+  const ev = D.events.find(e=>e.id===editEventId);
+  if(!ev) return;
+
+  if(ev.recurring && !deleteAll){
+    // Delete only this occurrence: add exception date
+    if(!ev.recurring.exceptions) ev.recurring.exceptions=[];
+    ev.recurring.exceptions.push(calSelectedDay);
+    save(); closeSheet('sh-addevent');
+    if(curView==='cal') renderMcal();
+    toast('🗑 Kejadian ini dihapus');
+  } else {
+    if(!confirm(deleteAll?'Hapus semua kejadian berulang?':'Hapus event ini?')) return;
+    D.events = D.events.filter(e=>e.id!==editEventId);
+    save(); closeSheet('sh-addevent');
+    if(curView==='cal') renderMcal();
+    toast('🗑 Event dihapus');
+  }
 }
 
 function buildEventCpicker(){
@@ -6226,6 +6458,21 @@ function buildEventCpicker(){
     el.appendChild(d);
   });
 }
+
+// ── Recurring event expansion helper ──
+function eventMatchesDate(ev, ds){
+  if(!ev.recurring) return ev.date === ds;
+  const rec = ev.recurring;
+  // check date in range
+  if(rec.from && ds < rec.from) return false;
+  if(rec.until && ds > rec.until) return false;
+  // check exception
+  if(rec.exceptions && rec.exceptions.includes(ds)) return false;
+  // check day of week (0=Sun..6=Sat stored as JS getDay() values)
+  const dow = new Date(ds+'T12:00:00').getDay();
+  return rec.days.includes(dow);
+}
+
 
 function openEditM(id){
   editMid=id;
@@ -6254,6 +6501,8 @@ function openEditT(id){
   const t=D.tugas.find(x=>x.id===id);
   document.getElementById('et-n').value=t.name;
   document.getElementById('et-dl').value=t.deadline;
+  document.getElementById('et-start').value=t.startTime||'';
+  document.getElementById('et-end').value=t.endTime||'';
   document.getElementById('et-notes').value=t.notes||'';
   openSheet('sh-editt');
 }
@@ -6261,6 +6510,8 @@ function saveEditT(){
   const t=D.tugas.find(x=>x.id===editTid);
   t.name=document.getElementById('et-n').value.trim()||t.name;
   t.deadline=document.getElementById('et-dl').value||t.deadline;
+  t.startTime=document.getElementById('et-start').value||'';
+  t.endTime=document.getElementById('et-end').value||'';
   t.notes=document.getElementById('et-notes').value.trim();
   save(); closeSheet('sh-editt'); refresh(); toast('✏️ Tugas diperbarui!');
 }
@@ -6313,7 +6564,9 @@ function saveMateri(){
 function saveTugas(){
   const name=document.getElementById('at-n').value.trim(); if(!name||!curSid)return;
   const notes=document.getElementById('at-notes').value.trim();
-  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),done:false,notes});
+  const atStart=document.getElementById('at-start').value||'';
+  const atEnd=document.getElementById('at-end').value||'';
+  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),startTime:atStart,endTime:atEnd,done:false,notes});
   save(); closeSheet('sh-addtugas');
   document.getElementById('at-notes').value='';
   renderDetail(curSid); refresh(); toast('📋 Tugas ditambahkan!');
@@ -8163,7 +8416,7 @@ function _updateProjectAreaOptions(){
 }
 
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 
