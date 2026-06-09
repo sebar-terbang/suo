@@ -1942,6 +1942,189 @@ input,select,textarea { font-family:inherit; }
 .bn > div:last-child { display:none !important; }
 .bn-ic { font-size:24px !important; }
 
+/* ══ HOME TIME TABS ══ */
+.home-time-tabs {
+  display:flex; gap:6px; margin-bottom:16px;
+  background:var(--bg2); border-radius:var(--r);
+  padding:4px;
+}
+.home-time-tab {
+  flex:1; padding:9px 12px;
+  border-radius:var(--rsm);
+  font-size:13px; font-weight:700;
+  color:var(--ink3);
+  transition:all .15s;
+  white-space:nowrap;
+}
+.home-time-tab.active {
+  background:var(--white);
+  color:var(--ink);
+  box-shadow:0 1px 6px rgba(0,0,0,.1);
+}
+
+/* ══ HOME CATEGORY SECTIONS ══ */
+.home-cat-section { margin-bottom:20px; }
+.home-cat-heading {
+  font-size:11px; font-weight:800;
+  text-transform:uppercase; letter-spacing:.09em;
+  color:var(--ink3); margin-bottom:10px;
+  display:flex; align-items:center; gap:8px;
+}
+.home-cat-heading-dot {
+  width:7px; height:7px; border-radius:50%; flex-shrink:0;
+}
+.home-cat-badge {
+  font-size:10px; font-weight:800;
+  padding:2px 8px; border-radius:99px;
+  margin-left:auto;
+}
+.home-subj-group { margin-bottom:14px; }
+.home-subj-group-label {
+  font-size:12px; font-weight:800;
+  color:var(--ink2); margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+.home-subj-group-accent {
+  width:3px; height:14px; border-radius:99px; flex-shrink:0;
+}
+.home-empty-state {
+  text-align:center; padding:28px 20px;
+  background:var(--white); border-radius:var(--r);
+  box-shadow:var(--sh);
+}
+.home-empty-state-ic { font-size:28px; margin-bottom:8px; }
+.home-empty-state-txt { font-size:14px; font-weight:700; color:var(--ink2); }
+.home-empty-state-sub { font-size:12px; color:var(--ink3); margin-top:3px; }
+
+/* ══ DETAIL TAB NAV ══ */
+.detail-tab-nav {
+  display:flex; gap:0;
+  background:var(--white);
+  border-bottom:2px solid var(--line);
+  position:sticky; top:0; z-index:50;
+}
+.detail-tab {
+  flex:1; padding:13px 8px;
+  font-size:13px; font-weight:700;
+  color:var(--ink3);
+  border-bottom:2.5px solid transparent;
+  margin-bottom:-2px;
+  transition:all .15s;
+  white-space:nowrap;
+}
+.detail-tab.active {
+  color:var(--blue);
+  border-bottom-color:var(--blue);
+}
+.detail-tab-content { display:none; }
+.detail-tab-content.active { display:block; }
+
+/* ══ MATERI CARD WITH STATUS ══ */
+.mitem-status-row {
+  display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;
+}
+.mitem-status-pill {
+  font-size:10px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+  border:1.5px solid; cursor:pointer;
+  transition:all .15s;
+}
+.mitem-status-pill:active { opacity:.7; }
+.mitem-status-pill.latsoal-done { background:var(--green-lt); border-color:var(--green-bd); color:var(--green); }
+.mitem-status-pill.latsoal-todo { background:var(--bg2); border-color:var(--line2); color:var(--ink3); }
+.mitem-status-pill.ngerti-done { background:#ede9fe; border-color:#c4b5fd; color:#7c3aed; }
+.mitem-status-pill.ngerti-todo { background:var(--bg2); border-color:var(--line2); color:var(--ink3); }
+.mitem-absen-btn {
+  font-size:10px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+  background:var(--amber-lt); border:1.5px solid var(--amber-bd);
+  color:var(--amber); cursor:pointer; transition:all .15s;
+}
+.mitem-absen-btn:active { opacity:.7; }
+
+/* ══ ABSEN SUMMARY BAR ══ */
+.absen-summary-bar {
+  background:var(--white); border-bottom:1px solid var(--line);
+  padding:10px 16px; display:flex; align-items:center; gap:12px;
+}
+.absen-sum-label {
+  font-size:11px; font-weight:800; text-transform:uppercase;
+  letter-spacing:.07em; color:var(--ink3); flex-shrink:0;
+}
+.absen-sum-stats { display:flex; gap:10px; }
+.absen-sum-item {
+  font-size:12px; font-weight:700;
+  padding:3px 10px; border-radius:99px;
+}
+.absen-sum-hadir { background:var(--green-lt); color:var(--green); }
+.absen-sum-bolos { background:var(--red-lt); color:var(--red); }
+.absen-sum-izin  { background:var(--amber-lt); color:var(--amber); }
+
+/* ══ ABSEN MODAL (nested sheet) ══ */
+.absen-overlay {
+  position:fixed; inset:0; z-index:600;
+  background:rgba(26,23,20,.5); backdrop-filter:blur(4px);
+  opacity:0; pointer-events:none; transition:opacity .2s;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.absen-overlay.open { opacity:1; pointer-events:all; }
+.absen-sheet {
+  background:var(--white);
+  border-radius:var(--rxl) var(--rxl) 0 0;
+  width:100%; max-width:480px;
+  padding:0 0 calc(20px + var(--sb));
+  transform:translateY(100%);
+  transition:transform .28s cubic-bezier(.32,.72,0,1);
+}
+.absen-overlay.open .absen-sheet { transform:translateY(0); }
+.absen-sheet-handle { width:38px; height:4px; background:var(--line2); border-radius:99px; margin:13px auto 14px; }
+.absen-sheet-title { font-size:16px; font-weight:800; padding:0 20px 12px; border-bottom:1px solid var(--line); }
+.absen-sheet-body { padding:16px 20px; }
+.absen-form-row { display:flex; gap:10px; margin-bottom:12px; }
+.absen-status-btns { display:flex; gap:6px; }
+.absen-status-btn {
+  flex:1; padding:10px 8px;
+  border-radius:var(--rsm); border:2px solid var(--line2);
+  font-size:13px; font-weight:700; color:var(--ink3);
+  transition:all .15s; text-align:center;
+}
+.absen-status-btn.sel-hadir { background:var(--green-lt); border-color:var(--green-bd); color:var(--green); }
+.absen-status-btn.sel-bolos  { background:var(--red-lt);   border-color:var(--red-bd);   color:var(--red); }
+.absen-status-btn.sel-izin   { background:var(--amber-lt); border-color:var(--amber-bd); color:var(--amber); }
+.absen-list { margin-top:10px; }
+.absen-list-item {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 0; border-bottom:1px solid var(--line);
+}
+.absen-list-item:last-child { border-bottom:none; }
+.absen-list-pertemuan { font-size:12px; font-weight:800; color:var(--ink3); min-width:32px; }
+.absen-list-tanggal { font-size:13px; font-weight:600; color:var(--ink); flex:1; }
+.absen-list-status {
+  font-size:11px; font-weight:700;
+  padding:3px 9px; border-radius:99px;
+}
+.absen-list-hadir { background:var(--green-lt); color:var(--green); }
+.absen-list-bolos  { background:var(--red-lt);   color:var(--red); }
+.absen-list-izin   { background:var(--amber-lt); color:var(--amber); }
+.absen-list-del { font-size:13px; color:var(--ink3); padding:4px 6px; border-radius:4px; }
+.absen-list-del:active { background:var(--red-lt); color:var(--red); }
+
+/* ══ TUGAS TYPE BADGE ══ */
+.tugas-type-pill {
+  font-size:10px; font-weight:800;
+  padding:3px 8px; border-radius:var(--rxs);
+  text-transform:uppercase; letter-spacing:.04em;
+  white-space:nowrap; flex-shrink:0;
+}
+.ttype-soal     { background:var(--blue-lt);   color:var(--blue); }
+.ttype-laporan  { background:var(--amber-lt);  color:var(--amber); }
+.ttype-video    { background:#ede9fe;           color:#7c3aed; }
+.ttype-presentasi { background:var(--green-lt); color:var(--green); }
+.ttype-lainnya  { background:var(--bg2);        color:var(--ink3); }
+
+/* ══ UJIAN SUBTYPE BADGE ══ */
+.ujian-type-demo { background:var(--green-lt); color:var(--green); }
+
 /* ══ NAV POPOVER (Projects & Areas) ══ */
 .nav-popover {
   position:fixed;
@@ -3502,56 +3685,14 @@ input,select,textarea { font-family:inherit; }
           <div class="home-greeting-sub" id="home-greeting-sub">4 materi belum latsoal · 2 tugas aktif.</div>
         </div>
 
-        <!-- NOW Card (priority engine) -->
-        <div class="now-card" id="now-hero-card" onclick="nowCardTapped()">
-          <div class="now-card-label">
-            <span class="now-card-dot"></span>
-            NOW
-          </div>
-          <div class="now-card-title" id="now-title">PR Integral Bab 6</div>
-          <div class="now-card-sub" id="now-subject">Kalkulus 2</div>
-          <div class="now-card-footer">
-            <div class="now-card-time" id="now-time">⏱ segera</div>
-            <button class="now-card-start" onclick="event.stopPropagation(); nowStartAction()">Mulai →</button>
-          </div>
-          <div class="now-why-wrap">
-            <button class="now-why-toggle" id="now-why-toggle" onclick="event.stopPropagation(); toggleNowWhy()">
-              <span>Kenapa sekarang?</span>
-              <span class="chev">▼</span>
-            </button>
-            <div class="now-why-body" id="now-why-body">
-              <div id="now-why-items"><div class="now-why-item"><div class="now-why-bullet"></div><span>Deadline sudah lewat 6 hari 🚨</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>🔢 Kalkulus 2</span></div><div class="now-why-item"><div class="now-why-bullet"></div><span>Selesaikan sekarang, jangan ditunda lagi!</span></div></div>
-            </div>
-          </div>
+        <!-- Home Time Filter Tabs: Besok / Minggu ini -->
+        <div class="home-time-tabs" id="home-time-tabs">
+          <button class="home-time-tab active" id="tab-tomorrow" onclick="setHomeTab('tomorrow', this)">📅 Besok</button>
+          <button class="home-time-tab" id="tab-week" onclick="setHomeTab('week', this)">🗓 Minggu Ini</button>
         </div>
 
-        <!-- Coming Up: horizontal chip scroll -->
-        <div class="coming-up-label">
-          Segera
-          <a onclick="goView(&#39;cal&#39;, document.getElementById(&#39;bn-cal&#39;))">Lihat semua</a>
-        </div>
-        <div class="coming-up-scroll" id="coming-up-scroll"><div class="cu-chip anim-d1">
-      <div class="cu-chip-type" style="color:#2563eb">
-        <div class="cu-chip-dot" style="background:#2563eb"></div>
-        Ujian
-      </div>
-      <div class="cu-chip-name">🔢 UTS Genap</div>
-      <div class="cu-chip-dl" style="color:var(--ink3)">5 hari lagi</div></div></div>
-
-
-        <!-- Hari Ini: project/area action plans (collapsible) -->
-        <div id="home-hariini-section"><div class="hariini-section-wrap"><button class="hariini-toggle-btn"><span class="hariini-toggle-label">Hari Ini</span><span class="hariini-toggle-count">1 pending</span><span class="hariini-chev open">▼</span></button><div class="hariini-body open"><div class="hi-group"><div class="hi-group-header"><div class="hi-group-icon" style="background:#be185d18">🌿</div><div class="hi-group-name">B</div><span class="hi-group-type" style="background:rgba(5,150,105,.1);color:var(--green)">Area</span><span class="hi-group-chev">›</span></div><div class="hi-item"><div class="hi-check" onclick="event.stopPropagation();toggleApDone(&#39;ap1780136941426&#39;)"></div><div class="hi-item-body"><div class="hi-item-name">sdjkfsdf</div><div class="hi-item-meta"><span class="hi-recur-badge">🔁 Rutin</span></div></div></div></div></div></div></div>
-
-        <!-- Tugas -->
-        <div class="home-sec anim-d1" id="home-tugas-label" style="">Tugas</div>
-        <div id="home-tugas"><div class="home-section-card"><div class="attention-item is-tugas urgent"><div class="attention-icon" style="background:#dc262618">📋</div><div class="attention-body"><div class="attention-name">Implementasi Quicksort</div><div class="attention-sub">💻 Algoritma &amp; Pemro · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 9h</span></div><div class="attention-item is-tugas urgent"><div class="attention-icon" style="background:#2563eb18">📋</div><div class="attention-body"><div class="attention-name">PR Integral Bab 6</div><div class="attention-sub">🔢 Kalkulus 2 · Tugas</div></div><span class="attention-dl" style="background:var(--red-lt);color:var(--red)">Telat 6h</span></div></div></div>
-
-        <!-- Ujian Mendatang -->
-        <div class="home-sec anim-d2" id="home-ujian-label" style="">Ujian Mendatang</div>
-        <div id="home-ujian"><div class="ujian-reminder-card"><div class="ujian-reminder-row"><div class="ujian-countdown" style="color:var(--amber)"><div class="ujian-countdown-num">H-5</div><div class="ujian-countdown-lbl">hari</div></div><div class="ujian-reminder-div"></div><div class="ujian-reminder-body"><div class="ujian-reminder-name">UTS Genap</div><div class="ujian-reminder-sub"><span class="ujian-type-pill uts">UTS</span>🔢 Kalkulus 2</div></div><span class="ujian-reminder-chev">›</span></div></div></div>
-
-        <!-- Review Queue -->
-        <div id="home-pending-section"><div class="home-sec" style="animation-delay: 0.1s;"><span>Review Queue <span style="font-size:12px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">4</span></span></div><div class="home-section-card"><div class="review-queue-item" style="animation-delay: 0.1s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Parsial</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age old">10 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m3&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.14s;"><div class="rq-accent" style="background:#dc2626"></div><div class="rq-body"><div class="rq-name">Dynamic Programming</div><div class="rq-sub">💻 Algoritma &amp; Pemro</div></div><span class="rq-age old">10 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m6&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.18s;"><div class="rq-accent" style="background:#2563eb"></div><div class="rq-body"><div class="rq-name">Integral Trigonometri</div><div class="rq-sub">🔢 Kalkulus 2</div></div><span class="rq-age old">9 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m4&#39;)">Latsoal</button></div><div class="review-queue-item" style="animation-delay: 0.22s;"><div class="rq-accent" style="background:#7c3aed"></div><div class="rq-body"><div class="rq-name">CNN Architecture</div><div class="rq-sub">🤖 Deep Learning</div></div><span class="rq-age old">9 hari lalu</span><button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM(&#39;m8&#39;)">Latsoal</button></div></div></div>
+        <!-- ═══ DYNAMIC HOME SECTIONS ═══ -->
+        <div id="home-dynamic-content"></div>
 
       </div>
     </div>
@@ -3587,34 +3728,56 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ SUBJECT DETAIL ══ -->
     <div class="view" id="v-detail">
       <div class="sdh" id="sdh"></div>
-      <div class="pad" style="padding-top:16px">
 
-        <!-- Guide -->
-        <div class="guide">
-          <div class="guide-ic">💡</div>
-          <div>
-            <div class="guide-title">Cara Latihan Soal yang Bener</div>
-            <div class="guide-steps">
-              <div class="guide-step"><div class="guide-step-num">1</div><span>Kerjain <b>5 soal susah</b> per materi</span></div>
-              <div class="guide-step"><div class="guide-step-num">2</div><span>Pilih soal <b>tipe berbeda-beda</b></span></div>
-              <div class="guide-step"><div class="guide-step-num">3</div><span>Jangan lihat catatan dulu, coba sendiri</span></div>
-              <div class="guide-step"><div class="guide-step-num">4</div><span>Baru centang kalau udah selesai semua</span></div>
+      <!-- Absensi Bolos Summary bar -->
+      <div class="absen-summary-bar" id="absen-summary-bar" style="display:none">
+        <span class="absen-sum-label">Kehadiran</span>
+        <div class="absen-sum-stats" id="absen-sum-stats"></div>
+      </div>
+
+      <!-- Detail Tab Nav -->
+      <div class="detail-tab-nav" id="detail-tab-nav">
+        <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab('materi')">📖 Materi</button>
+        <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab('tugas')">📋 Tugas</button>
+        <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab('ujian')">📝 Ujian</button>
+      </div>
+
+      <!-- Materi Tab -->
+      <div class="detail-tab-content active" id="dtab-content-materi">
+        <div class="pad" style="padding-top:14px">
+          <div class="guide">
+            <div class="guide-ic">💡</div>
+            <div>
+              <div class="guide-title">Cara Latihan Soal yang Bener</div>
+              <div class="guide-steps">
+                <div class="guide-step"><div class="guide-step-num">1</div><span>Kerjain <b>5 soal susah</b> per materi</span></div>
+                <div class="guide-step"><div class="guide-step-num">2</div><span>Pilih soal <b>tipe berbeda-beda</b></span></div>
+                <div class="guide-step"><div class="guide-step-num">3</div><span>Jangan lihat catatan dulu, coba sendiri</span></div>
+                <div class="guide-step"><div class="guide-step-num">4</div><span>Baru centang kalau udah selesai semua</span></div>
+              </div>
             </div>
           </div>
+          <div class="sec" id="sec-m-label">📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
+          <div class="card" id="d-materi"></div>
         </div>
+      </div>
 
-        <div class="sec" id="sec-u-label">📝 Ujian</div>
-        <div id="d-ujian"></div>
+      <!-- Tugas Tab -->
+      <div class="detail-tab-content" id="dtab-content-tugas">
+        <div class="pad" style="padding-top:14px">
+          <div class="sec" id="sec-t-label">📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span></div>
+          <div class="card" id="d-tugas"></div>
+        </div>
+      </div>
 
-        <div class="sec" id="sec-m-label">📖 Materi</div>
-        <div class="card" id="d-materi"></div>
-
-        <div class="sec" id="sec-t-label">📋 Tugas</div>
-        <div class="card" id="d-tugas"></div>
-
-        <div class="sec" id="sec-r-label" style="color:var(--ink3)">🗂 Riwayat Ujian</div>
-        <div id="d-riwayat-ujian"></div>
-
+      <!-- Ujian Tab -->
+      <div class="detail-tab-content" id="dtab-content-ujian">
+        <div class="pad" style="padding-top:14px">
+          <div class="sec" id="sec-u-label">📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span></div>
+          <div id="d-ujian"></div>
+          <div class="sec" id="sec-r-label" style="color:var(--ink3);display:none">🗂 Riwayat Ujian</div>
+          <div id="d-riwayat-ujian"></div>
+        </div>
       </div>
     </div>
 
@@ -3910,6 +4073,16 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-title">📋 Tambah Tugas</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="at-n" type="text" placeholder="e.g. PR Kalkulus Bab 5"></div>
+      <div class="field">
+        <label class="flbl">Tipe Tugas</label>
+        <select id="at-type">
+          <option value="soal">📝 Soal / Latihan</option>
+          <option value="laporan">📄 Laporan</option>
+          <option value="video">🎥 Video</option>
+          <option value="presentasi">🖥 Presentasi</option>
+          <option value="lainnya">📌 Lainnya</option>
+        </select>
+      </div>
       <div class="field"><label class="flbl">Deadline</label><input id="at-dl" type="date"></div>
       <div style="display:flex;gap:10px;">
         <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="at-start" type="time" placeholder="--:--"></div>
@@ -3931,6 +4104,16 @@ input,select,textarea { font-family:inherit; }
     <div class="sh-title">✏️ Edit Tugas</div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="et-n" type="text"></div>
+      <div class="field">
+        <label class="flbl">Tipe Tugas</label>
+        <select id="et-type">
+          <option value="soal">📝 Soal / Latihan</option>
+          <option value="laporan">📄 Laporan</option>
+          <option value="video">🎥 Video</option>
+          <option value="presentasi">🖥 Presentasi</option>
+          <option value="lainnya">📌 Lainnya</option>
+        </select>
+      </div>
       <div class="field"><label class="flbl">Deadline</label><input id="et-dl" type="date"></div>
       <div style="display:flex;gap:10px;">
         <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="et-start" type="time" placeholder="--:--"></div>
@@ -3962,6 +4145,7 @@ input,select,textarea { font-family:inherit; }
           <option value="quiz">📝 Quiz</option>
           <option value="uts">📖 UTS (Ujian Tengah Semester)</option>
           <option value="uas">🎓 UAS (Ujian Akhir Semester)</option>
+          <option value="demo">🔬 Demo / Praktikum</option>
         </select>
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan (opsional)</label><input id="au-n" type="text" placeholder="e.g. Quiz 2, UTS Genap"></div>
@@ -3995,6 +4179,7 @@ input,select,textarea { font-family:inherit; }
           <option value="quiz">📝 Quiz</option>
           <option value="uts">📖 UTS</option>
           <option value="uas">🎓 UAS</option>
+          <option value="demo">🔬 Demo / Praktikum</option>
         </select>
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan</label><input id="eu-n" type="text"></div>
@@ -4897,15 +5082,189 @@ function renderSidebar(){
 }
 
 // ════════ HOME ════════════════════════════════
+let _homeTab = 'tomorrow'; // 'tomorrow' | 'week'
+
+function setHomeTab(tab, btn){
+  _homeTab = tab;
+  document.querySelectorAll('.home-time-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  _renderHomeDynamic();
+}
+
 function renderHome(){
   _renderHomeGreeting();
-  _renderNowCard();
-  _renderComingUp();
-  _renderHomeHariIni();
-  _renderHomeTugas();
-  _renderHomeUjian();
-  _renderHomePending();
+  _renderHomeDynamic();
   updateBadge();
+}
+
+function _renderHomeDynamic(){
+  const el = document.getElementById('home-dynamic-content');
+  if(!el) return;
+  el.innerHTML = '';
+
+  const todayStr = tod();
+  // tomorrow = next calendar day
+  const tmrDate = new Date(); tmrDate.setDate(tmrDate.getDate()+1);
+  const tmrStr = tmrDate.toISOString().slice(0,10);
+  // end of this week (Sunday)
+  const now = new Date();
+  const dow = now.getDay(); // 0=Sun
+  const daysUntilSun = dow===0 ? 6 : 7-dow;
+  const weekEndDate = new Date(now); weekEndDate.setDate(now.getDate()+daysUntilSun);
+  const weekEndStr = weekEndDate.toISOString().slice(0,10);
+
+  // ── BELUM LATIHAN SOAL ─────────────────────
+  const pendingMateri = D.materi.filter(m => !m.done && !m.ngerti);
+  _renderHomeCategory(el, {
+    icon:'📖', label:'Belum Latsoal / Ngerti',
+    color:'var(--blue)', badgeBg:'var(--blue-lt)', badgeColor:'var(--blue)',
+    items: pendingMateri,
+    type: 'materi',
+    emptyText: 'Semua materi udah beres! 🔥',
+    emptySub: 'Lo on track banget.'
+  });
+
+  // ── TUGAS AKTIF ────────────────────────────
+  let tugasItems;
+  if(_homeTab === 'tomorrow'){
+    // tugas overdue + deadline today + deadline tomorrow
+    tugasItems = D.tugas.filter(t => {
+      if(t.done) return false;
+      const d = diffD(t.deadline, todayStr);
+      return d <= 1; // overdue, today, tomorrow
+    });
+  } else {
+    // tugas overdue + deadline this week
+    tugasItems = D.tugas.filter(t => {
+      if(t.done) return false;
+      return t.deadline <= weekEndStr;
+    });
+  }
+  _renderHomeCategory(el, {
+    icon:'📋', label:'Tugas',
+    color:'var(--amber)', badgeBg:'var(--amber-lt)', badgeColor:'var(--amber)',
+    items: tugasItems,
+    type: 'tugas',
+    emptyText: _homeTab==='tomorrow' ? 'Ga ada tugas mendesak besok 👌' : 'Ga ada tugas minggu ini 👌',
+    emptySub: 'Keep it clean!'
+  });
+
+  // ── UJIAN / QUIZ ────────────────────────────
+  let ujianItems;
+  if(_homeTab === 'tomorrow'){
+    ujianItems = D.ujian.filter(u => {
+      const d = diffD(u.date, todayStr);
+      return d >= 0 && d <= 3; // within 3 days
+    });
+  } else {
+    ujianItems = D.ujian.filter(u => {
+      const d = diffD(u.date, todayStr);
+      return d >= 0 && u.date <= weekEndStr;
+    });
+  }
+  _renderHomeCategory(el, {
+    icon:'📝', label:'Quiz / Ujian',
+    color:'var(--red)', badgeBg:'var(--red-lt)', badgeColor:'var(--red)',
+    items: ujianItems,
+    type: 'ujian',
+    emptyText: _homeTab==='tomorrow' ? 'Ga ada ujian dalam 3 hari ke depan 😌' : 'Aman, ga ada ujian minggu ini 😌',
+    emptySub: ''
+  });
+}
+
+function _renderHomeCategory(container, {icon, label, color, badgeBg, badgeColor, items, type, emptyText, emptySub}){
+  const todayStr = tod();
+  const sec = document.createElement('div');
+  sec.className = 'home-cat-section';
+
+  // Heading
+  const hdg = document.createElement('div');
+  hdg.className = 'home-cat-heading';
+  hdg.innerHTML =
+    `<div class="home-cat-heading-dot" style="background:${color}"></div>`+
+    `${icon} ${label}`+
+    (items.length?`<span class="home-cat-badge" style="background:${badgeBg};color:${badgeColor}">${items.length}</span>`:'');
+  sec.appendChild(hdg);
+
+  if(!items.length){
+    const emp = document.createElement('div');
+    emp.className = 'home-empty-state';
+    emp.innerHTML = `<div class="home-empty-state-ic">✅</div><div class="home-empty-state-txt">${emptyText}</div>${emptySub?`<div class="home-empty-state-sub">${emptySub}</div>`:''}`;
+    sec.appendChild(emp);
+    container.appendChild(sec);
+    return;
+  }
+
+  // Group by subject
+  const bySubj = {};
+  items.forEach(item => {
+    const sid = item.sid;
+    if(!bySubj[sid]) bySubj[sid] = [];
+    bySubj[sid].push(item);
+  });
+
+  Object.keys(bySubj).forEach(sid => {
+    const s = gS(sid);
+    if(!s) return;
+    const grp = document.createElement('div');
+    grp.className = 'home-subj-group';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'home-subj-group-label';
+    lbl.innerHTML =
+      `<div class="home-subj-group-accent" style="background:${s.color}"></div>`+
+      `${s.emoji} ${s.name}`;
+    grp.appendChild(lbl);
+
+    const card = document.createElement('div');
+    card.className = 'home-section-card';
+
+    bySubj[sid].forEach(item => {
+      if(type === 'materi'){
+        const m = item;
+        const days = diffD(todayStr, m.date);
+        const ageText = days<=0?'Hari ini':days===1?'1 hari lalu':`${days} hari lalu`;
+        const ageCls = days<=2?'fresh':days<=7?'medium':'old';
+        const row = document.createElement('div');
+        row.className = 'review-queue-item';
+        row.innerHTML =
+          `<div class="rq-accent" style="background:${s.color}"></div>`+
+          `<div class="rq-body">`+
+          `<div class="rq-name">${escHtml(m.name)}</div>`+
+          `<div class="rq-sub">${fmtDate(m.date)}</div>`+
+          `</div>`+
+          `<span class="rq-age ${ageCls}">${ageText}</span>`+
+          `<button class="mi-btn todo" style="margin-left:6px;font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();toggleM('${m.id}')">Latsoal</button>`;
+        row.onclick = () => openEditM(m.id);
+        card.appendChild(row);
+      } else if(type === 'tugas'){
+        card.appendChild(mkT(item, false));
+      } else if(type === 'ujian'){
+        const u = item;
+        const diff = diffD(u.date, todayStr);
+        const diffColor = diff<=1?'var(--red)':diff<=3?'var(--amber)':'var(--ink3)';
+        const diffBg    = diff<=1?'var(--red-lt)':diff<=3?'var(--amber-lt)':'var(--bg2)';
+        const diffText  = diff===0?'Hari ini!':diff===1?'Besok!':diff<0?'Sudah lewat':`H-${diff}`;
+        const ucard = document.createElement('div');
+        ucard.className = 'attention-item';
+        ucard.style.cssText='cursor:pointer;';
+        ucard.innerHTML =
+          `<div class="attention-icon" style="background:${s.color}18">📝</div>`+
+          `<div class="attention-body">`+
+          `<div class="attention-name">${escHtml(u.name)}</div>`+
+          `<div class="attention-sub">${s.emoji} ${s.name} · <span class="ujian-type-pill ${u.type}">${u.type.toUpperCase()}</span></div>`+
+          `</div>`+
+          `<span class="attention-dl" style="background:${diffBg};color:${diffColor}">${diffText}</span>`;
+        ucard.onclick = () => openDetail(u.sid);
+        card.appendChild(ucard);
+      }
+    });
+
+    grp.appendChild(card);
+    sec.appendChild(grp);
+  });
+
+  container.appendChild(sec);
 }
 
 function _renderHomeGreeting(){
@@ -5594,84 +5953,66 @@ function mkSubjItem(s, isArchived){
   return row;
 }
 
+// ════════ DETAIL TAB STATE ════════════════════
+let _detailTab = 'materi';
+
+function setDetailTab(tab){
+  _detailTab = tab;
+  document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.detail-tab-content').forEach(c=>c.classList.remove('active'));
+  const btn = document.getElementById('dtab-'+tab);
+  const content = document.getElementById('dtab-content-'+tab);
+  if(btn) btn.classList.add('active');
+  if(content) content.classList.add('active');
+}
+
 // ════════ SUBJECT DETAIL ══════════════════════
 function renderDetail(id){
   const s=gS(id);
   const mat=D.materi.filter(m=>m.sid===id);
   const tgs=D.tugas.filter(t=>t.sid===id);
   const done=mat.filter(m=>m.done).length;
+  const ngerti=mat.filter(m=>m.ngerti).length;
   const pct=mat.length?done/mat.length*100:0;
+
+  // Ensure absen data exists
+  if(!s.absen) s.absen = [];
 
   document.getElementById('sdh').innerHTML=
     `<div class="sdh-ico" style="background:${s.color}22">${s.emoji}</div>`+
     `<div class="sdh-info">`+
     `<div class="sdh-type">${s.type==='matkul'?'Mata Kuliah':'Personal Study'}</div>`+
     `<div class="sdh-name" style="color:${s.color}">${s.name}</div>`+
-    `<div class="sdh-prog">${done} dari ${mat.length} materi sudah latihan soal</div>`+
+    `<div class="sdh-prog">${done} latsoal · ${ngerti} ngerti · dari ${mat.length} materi</div>`+
     `<div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>`+
     `</div>`;
 
-  // set up add buttons on section labels
-  const suEl=document.getElementById('sec-u-label');
-  suEl.innerHTML=`📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span>`;
-  document.getElementById('add-u-btn').onclick=()=>{
-    document.getElementById('au-n').value='';
-    document.getElementById('au-type').value='quiz';
-    document.getElementById('au-d').value='';
-    selUjianMat=new Set();
-    buildUjianMateriList('au-materi-list', id, selUjianMat);
-    openSheet('sh-addujian');
-  };
-
-  // render ujian (upcoming only)
-  const du=document.getElementById('d-ujian');
-  du.innerHTML='';
-  const ujianAll=D.ujian.filter(u=>u.sid===id).sort((a,b)=>a.date.localeCompare(b.date));
-  const ujianUpcoming=ujianAll.filter(u=>diffD(u.date,tod())>=0);
-  const ujianPast=ujianAll.filter(u=>diffD(u.date,tod())<0).reverse(); // terbaru dulu
-
-  if(!ujianUpcoming.length){
-    du.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🗓️</span><div class="empty-t">Belum ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
+  // Absen summary
+  const absenBar = document.getElementById('absen-summary-bar');
+  const absenStats = document.getElementById('absen-sum-stats');
+  if(s.absen.length){
+    const hadir = s.absen.filter(a=>a.status==='hadir').length;
+    const bolos  = s.absen.filter(a=>a.status==='bolos').length;
+    const izin   = s.absen.filter(a=>a.status==='izin').length;
+    absenBar.style.display='flex';
+    absenStats.innerHTML=
+      `<span class="absen-sum-item absen-sum-hadir">✅ Hadir: ${hadir}</span>`+
+      (bolos?`<span class="absen-sum-item absen-sum-bolos">❌ Bolos: ${bolos}</span>`:'')+
+      (izin?`<span class="absen-sum-item absen-sum-izin">📝 Izin: ${izin}</span>`:'');
   } else {
-    ujianUpcoming.forEach(u=>du.appendChild(mkUjianCard(u)));
+    absenBar.style.display='none';
   }
 
-  // render riwayat ujian (past)
-  const dr=document.getElementById('d-riwayat-ujian');
-  const secR=document.getElementById('sec-r-label');
-  dr.innerHTML='';
-  if(!ujianPast.length){
-    secR.style.display='none';
-    dr.style.display='none';
-  } else {
-    secR.style.display='';
-    dr.style.display='';
-    ujianPast.forEach(u=>{
-      const card=mkUjianCard(u, true);
-      dr.appendChild(card);
-    });
-  }
+  // Set active tab (or keep current)
+  setDetailTab(_detailTab);
 
-  // set up add buttons on section labels
-  const smEl=document.getElementById('sec-m-label');
-  smEl.innerHTML=`📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span>`;
+  // ─── MATERI TAB ────────────────────────────
   document.getElementById('add-m-btn').onclick=()=>{
     document.getElementById('am-n').value='';
     document.getElementById('am-d').value=tod();
     document.getElementById('am-notes').value='';
     openSheet('sh-addmateri');
   };
-
-  const stEl=document.getElementById('sec-t-label');
-  stEl.innerHTML=`📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span>`;
-  document.getElementById('add-t-btn').onclick=()=>{
-    document.getElementById('at-n').value='';
-    document.getElementById('at-dl').value='';
-    document.getElementById('at-notes').value='';
-    openSheet('sh-addtugas');
-  };
-
-  // render materi
   const dm=document.getElementById('d-materi');
   dm.innerHTML='';
   if(!mat.length){
@@ -5680,13 +6021,48 @@ function renderDetail(id){
     mat.sort((a,b)=>b.date.localeCompare(a.date)).forEach(m=>dm.appendChild(mkM(m,false)));
   }
 
-  // render tugas
+  // ─── TUGAS TAB ──────────────────────────────
+  document.getElementById('add-t-btn').onclick=()=>{
+    document.getElementById('at-n').value='';
+    document.getElementById('at-dl').value='';
+    document.getElementById('at-notes').value='';
+    openSheet('sh-addtugas');
+  };
   const dt=document.getElementById('d-tugas');
   dt.innerHTML='';
   if(!tgs.length){
     dt.innerHTML=`<div class="empty"><span class="empty-ic">📋</span><div class="empty-t">Belum ada tugas</div><div class="empty-s">Tap "+ Tambah" di atas</div></div>`;
   } else {
     tgs.sort((a,b)=>a.done-b.done||a.deadline.localeCompare(b.deadline)).forEach(t=>dt.appendChild(mkT(t,false)));
+  }
+
+  // ─── UJIAN TAB ──────────────────────────────
+  document.getElementById('add-u-btn').onclick=()=>{
+    document.getElementById('au-n').value='';
+    document.getElementById('au-type').value='quiz';
+    document.getElementById('au-d').value='';
+    selUjianMat=new Set();
+    buildUjianMateriList('au-materi-list', id, selUjianMat);
+    openSheet('sh-addujian');
+  };
+  const du=document.getElementById('d-ujian');
+  du.innerHTML='';
+  const ujianAll=D.ujian.filter(u=>u.sid===id).sort((a,b)=>a.date.localeCompare(b.date));
+  const ujianUpcoming=ujianAll.filter(u=>diffD(u.date,tod())>=0);
+  const ujianPast=ujianAll.filter(u=>diffD(u.date,tod())<0).reverse();
+  if(!ujianUpcoming.length){
+    du.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🗓️</span><div class="empty-t">Belum ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
+  } else {
+    ujianUpcoming.forEach(u=>du.appendChild(mkUjianCard(u)));
+  }
+  const dr=document.getElementById('d-riwayat-ujian');
+  const secR=document.getElementById('sec-r-label');
+  dr.innerHTML='';
+  if(!ujianPast.length){
+    secR.style.display='none'; dr.style.display='none';
+  } else {
+    secR.style.display=''; dr.style.display='';
+    ujianPast.forEach(u=>dr.appendChild(mkUjianCard(u, true)));
   }
 }
 
@@ -5702,15 +6078,29 @@ function mkM(m, showSubj){
     m.notes, m.name, '📖 Materi', 'ujian-type-quiz',
     ()=>openEditM(m.id)
   );
+
+  // Absen count for this subject
+  const subj = gS(m.sid);
+  const absenCount = subj && subj.absen ? subj.absen.filter(a=>a.mid===m.id).length : 0;
+
   bodyDiv.innerHTML=
     (showSubj?`<div class="mi-subj" style="color:${s.color}">${s.emoji} ${s.name}</div>`:'')+
     `<div class="mi-name${m.done?' done':''}">${m.name}</div>`+
-    `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`;
+    `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`+
+    `<div class="mitem-status-row">`+
+      `<button class="mitem-status-pill ${m.done?'latsoal-done':'latsoal-todo'}" onclick="event.stopPropagation();toggleM('${m.id}')">`+
+        (m.done?'✅ Latsoal':'📝 Latsoal')+
+      `</button>`+
+      `<button class="mitem-status-pill ${m.ngerti?'ngerti-done':'ngerti-todo'}" onclick="event.stopPropagation();toggleNgerti('${m.id}')">`+
+        (m.ngerti?'💡 Ngerti':'💡 Ngerti?')+
+      `</button>`+
+      `<button class="mitem-absen-btn" onclick="event.stopPropagation();openAbsenModal('${m.sid}','${m.id}')">`+
+        `🗓 Absen${absenCount?' ('+absenCount+')':''}`+
+      `</button>`+
+    `</div>`;
 
   row.appendChild(bodyDiv);
   row.insertAdjacentHTML('beforeend',
-    `<button class="mi-btn ${m.done?'done':'todo'}" onclick="toggleM('${m.id}')">`+
-    (m.done?'✅ Selesai':'📝 Latsoal')+`</button>`+
     `<button class="mi-more" onclick="openEditM('${m.id}')">···</button>`
   );
   return row;
@@ -5722,12 +6112,25 @@ function toggleM(id){
   toast(m.done?'✅ Latihan soal selesai! GG 🔥':'↩️ Oke, belum selesai');
 }
 
+function toggleNgerti(id){
+  const m=D.materi.find(x=>x.id===id);
+  if(!m) return;
+  m.ngerti=!m.ngerti; save(); refresh();
+  toast(m.ngerti?'💡 Mantap, materi ini udah ngerti!':'↩️ Oke, ditandai belum ngerti');
+}
+
 // ════════ TUGAS ITEM ═════════════════════════
 function mkT(t, showSubj){
   const s=gS(t.sid);
   const diff=diffD(t.deadline,tod());
   let dlClass=t.done?'dl-done':diff<0?'dl-late':diff===0?'dl-soon':diff<=3?'dl-soon':'dl-ok';
   let dlText=t.done?'✓ Selesai':diff<0?`🚨 Telat ${Math.abs(diff)}h`:diff===0?'⏰ Deadline hari ini!':diff===1?'⚡ Deadline besok':`📅 Deadline ${diff}h lagi`;
+
+  // Tugas type badge
+  const typeMap={soal:'📝 Soal',laporan:'📄 Laporan',video:'🎥 Video',presentasi:'🖥 Presentasi',lainnya:'📌 Lainnya'};
+  const typeClass={soal:'ttype-soal',laporan:'ttype-laporan',video:'ttype-video',presentasi:'ttype-presentasi',lainnya:'ttype-lainnya'};
+  const tugasType=t.tugasType||'soal';
+  const typeBadge=`<span class="tugas-type-pill ${typeClass[tugasType]||'ttype-lainnya'}">${typeMap[tugasType]||'📌'}</span>`;
 
   const row=document.createElement('div');
   row.className='titem'+(t.done?' is-done':'');
@@ -5741,6 +6144,7 @@ function mkT(t, showSubj){
   bodyDiv.innerHTML=
     `<div class="ti-name${t.done?' done':''}">${t.name}</div>`+
     `<div class="ti-meta">`+
+    typeBadge+
     (showSubj?`<span class="ti-subj-chip" style="background:${s.color}22;color:${s.color}">${s.emoji} ${s.name}</span>`:'')+
     `<span class="ti-dl ${dlClass}">${dlText}</span>`+
     `</div>`+
@@ -6917,6 +7321,8 @@ function openEditT(id){
   document.getElementById('et-start').value=t.startTime||'';
   document.getElementById('et-end').value=t.endTime||'';
   document.getElementById('et-notes').value=t.notes||'';
+  const etType=document.getElementById('et-type');
+  if(etType) etType.value=t.tugasType||'soal';
   openSheet('sh-editt');
 }
 function saveEditT(){
@@ -6926,6 +7332,8 @@ function saveEditT(){
   t.startTime=document.getElementById('et-start').value||'';
   t.endTime=document.getElementById('et-end').value||'';
   t.notes=document.getElementById('et-notes').value.trim();
+  const etType=document.getElementById('et-type');
+  if(etType) t.tugasType=etType.value||'soal';
   save(); closeSheet('sh-editt'); refresh(); toast('✏️ Tugas diperbarui!');
 }
 function delTugas(){
@@ -6979,7 +7387,8 @@ function saveTugas(){
   const notes=document.getElementById('at-notes').value.trim();
   const atStart=document.getElementById('at-start').value||'';
   const atEnd=document.getElementById('at-end').value||'';
-  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),startTime:atStart,endTime:atEnd,done:false,notes});
+  const tugasType=document.getElementById('at-type')?.value||'soal';
+  D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),startTime:atStart,endTime:atEnd,done:false,notes,tugasType});
   save(); closeSheet('sh-addtugas');
   document.getElementById('at-notes').value='';
   renderDetail(curSid); refresh(); toast('📋 Tugas ditambahkan!');
@@ -8830,6 +9239,95 @@ function _updateProjectAreaOptions(){
   });
 }
 
+// ════════ ABSEN ══════════════════════════════
+let _absenSid = null;
+let _absenMid = null;
+let _absenStatus = 'hadir';
+
+function openAbsenModal(sid, mid){
+  _absenSid = sid; _absenMid = mid;
+  const s = gS(sid);
+  const mat = D.materi.find(m=>m.id===mid);
+  if(!s.absen) s.absen = [];
+  const title = document.getElementById('absen-sheet-title');
+  if(title) title.textContent = `🗓 Absen — ${mat?mat.name:'Materi'}`;
+  _absenStatus = 'hadir';
+  selectAbsenStatus('hadir');
+  // Set default pertemuan number
+  const pertEl = document.getElementById('absen-pertemuan');
+  const existing = s.absen.filter(a=>a.mid===mid);
+  if(pertEl) pertEl.value = existing.length + 1;
+  // Set default date to today
+  const dateEl = document.getElementById('absen-date');
+  if(dateEl) dateEl.value = tod();
+  _renderAbsenList();
+  document.getElementById('absen-overlay').classList.add('open');
+}
+
+function absenOverlayTap(e){
+  if(e.target === document.getElementById('absen-overlay'))
+    document.getElementById('absen-overlay').classList.remove('open');
+}
+
+function selectAbsenStatus(status){
+  _absenStatus = status;
+  ['hadir','bolos','izin'].forEach(s=>{
+    const btn = document.getElementById('absen-btn-'+s);
+    if(!btn) return;
+    btn.className = 'absen-status-btn' + (s===status?' sel-'+s:'');
+  });
+}
+
+function saveAbsen(){
+  const s = gS(_absenSid);
+  if(!s) return;
+  if(!s.absen) s.absen = [];
+  const dateEl = document.getElementById('absen-date');
+  const pertEl = document.getElementById('absen-pertemuan');
+  const date = dateEl?.value || tod();
+  const pertemuan = parseInt(pertEl?.value||'1')||1;
+  s.absen.push({
+    id: 'ab'+Date.now(),
+    mid: _absenMid,
+    date, pertemuan,
+    status: _absenStatus
+  });
+  // Auto-increment pertemuan for next entry
+  if(pertEl) pertEl.value = pertemuan + 1;
+  if(dateEl){ const d=new Date(date+'T12:00:00'); d.setDate(d.getDate()+7); dateEl.value=d.toISOString().slice(0,10); }
+  save();
+  _renderAbsenList();
+  renderDetail(_absenSid);
+  toast(_absenStatus==='hadir'?'✅ Hadir dicatat!':_absenStatus==='bolos'?'❌ Bolos dicatat':'📝 Izin dicatat');
+}
+
+function deleteAbsen(absenId){
+  const s = gS(_absenSid);
+  if(!s||!s.absen) return;
+  s.absen = s.absen.filter(a=>a.id!==absenId);
+  save(); _renderAbsenList(); renderDetail(_absenSid);
+  toast('🗑 Data absen dihapus');
+}
+
+function _renderAbsenList(){
+  const s = gS(_absenSid);
+  const list = document.getElementById('absen-list');
+  if(!list||!s) return;
+  const absenForMat = (s.absen||[]).filter(a=>a.mid===_absenMid).sort((a,b)=>a.pertemuan-b.pertemuan);
+  if(!absenForMat.length){
+    list.innerHTML='<div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px;font-weight:600;">Belum ada catatan absen untuk materi ini</div>';
+    return;
+  }
+  list.innerHTML = absenForMat.map(a=>
+    `<div class="absen-list-item">`+
+    `<div class="absen-list-pertemuan">P${a.pertemuan}</div>`+
+    `<div class="absen-list-tanggal">${fmtDate(a.date)}</div>`+
+    `<span class="absen-list-status absen-list-${a.status}">${{hadir:'✅ Hadir',bolos:'❌ Bolos',izin:'📝 Izin'}[a.status]||a.status}</span>`+
+    `<button class="absen-list-del" onclick="deleteAbsen('${a.id}')">🗑</button>`+
+    `</div>`
+  ).join('');
+}
+
 boot();
 </script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
@@ -8866,5 +9364,41 @@ boot();
   </div>
   <div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editwhy&#39;)">Batal</button><button class="sbtn sbtn-p" onclick="saveWhy_c()">Simpan ✓</button></div></div>
 </div></div>
+
+<!-- Absen Modal -->
+<div class="absen-overlay" id="absen-overlay" onclick="absenOverlayTap(event)">
+  <div class="absen-sheet" id="absen-sheet">
+    <div class="absen-sheet-handle"></div>
+    <div class="absen-sheet-title" id="absen-sheet-title">🗓 Absensi — Materi</div>
+    <div class="absen-sheet-body">
+      <!-- Add form -->
+      <div style="background:var(--bg);border-radius:var(--r);padding:14px;margin-bottom:16px">
+        <div style="font-size:12px;font-weight:800;color:var(--ink3);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">+ Tambah Pertemuan</div>
+        <div class="absen-form-row">
+          <div class="field" style="flex:1;margin-bottom:0">
+            <label class="flbl">Tanggal</label>
+            <input id="absen-date" type="date" style="font-size:14px">
+          </div>
+          <div class="field" style="width:80px;margin-bottom:0">
+            <label class="flbl">Pertemuan ke-</label>
+            <input id="absen-pertemuan" type="number" min="1" placeholder="1" style="font-size:14px;text-align:center">
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <label class="flbl" style="margin-bottom:6px;display:block">Status</label>
+          <div class="absen-status-btns">
+            <button class="absen-status-btn sel-hadir" id="absen-btn-hadir" onclick="selectAbsenStatus('hadir')">✅ Hadir</button>
+            <button class="absen-status-btn" id="absen-btn-bolos" onclick="selectAbsenStatus('bolos')">❌ Bolos</button>
+            <button class="absen-status-btn" id="absen-btn-izin" onclick="selectAbsenStatus('izin')">📝 Izin</button>
+          </div>
+        </div>
+        <button class="sbtn sbtn-p" style="width:100%;margin-top:12px" onclick="saveAbsen()">Simpan ✓</button>
+      </div>
+      <!-- List -->
+      <div style="font-size:12px;font-weight:800;color:var(--ink3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Riwayat Absen</div>
+      <div class="absen-list" id="absen-list"></div>
+    </div>
+  </div>
+</div>
 
 </body></html>
