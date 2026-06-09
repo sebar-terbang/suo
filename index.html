@@ -372,6 +372,250 @@ input,select,textarea { font-family:inherit; }
   }
 }
 
+
+/* ══════════════════════════════════
+   HOME REDESIGN — Weekly Calendar Header
+══════════════════════════════════ */
+.home-week-cal {
+  background: var(--white);
+  border-radius: var(--r);
+  box-shadow: var(--sh);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.hwc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 14px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.hwc-month {
+  font-size: 14px; font-weight: 800;
+  letter-spacing: -.3px; color: var(--ink);
+}
+.hwc-nav { display: flex; gap: 5px; }
+.hwc-arr {
+  width: 32px; height: 32px; border-radius: var(--rsm);
+  background: var(--bg); border: 1.5px solid var(--line);
+  color: var(--ink2); font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s; cursor: pointer;
+}
+.hwc-arr:active { background: var(--bg2); }
+.hwc-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  padding: 10px 8px 12px; gap: 2px;
+}
+.hwc-day {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+  padding: 5px 2px; border-radius: var(--rsm);
+  cursor: pointer; transition: background .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.hwc-day:active { background: var(--bg); }
+.hwc-day.selected { background: var(--blue-lt); }
+.hwc-day-name {
+  font-size: 9px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink3);
+}
+.hwc-day.is-today .hwc-day-name { color: var(--blue); }
+.hwc-day.selected .hwc-day-name { color: var(--blue); }
+.hwc-num-wrap {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.hwc-day.is-today .hwc-num-wrap { background: var(--blue); }
+.hwc-day.status-ok .hwc-num-wrap {
+  box-shadow: 0 0 0 2.5px var(--green);
+}
+.hwc-day.status-partial .hwc-num-wrap {
+  box-shadow: 0 0 0 2.5px var(--amber);
+}
+.hwc-day.status-miss .hwc-num-wrap {
+  box-shadow: 0 0 0 2.5px var(--red);
+}
+.hwc-num {
+  font-size: 14px; font-weight: 700; color: var(--ink2);
+}
+.hwc-day.is-today .hwc-num { color: #fff; }
+.hwc-day.past .hwc-num { color: var(--ink3); }
+.hwc-dots {
+  display: flex; gap: 2px; justify-content: center;
+  min-height: 6px; margin-top: 1px;
+}
+.hwc-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.hwcd-red    { background: var(--red); }
+.hwcd-amber  { background: var(--amber); }
+.hwcd-blue   { background: var(--blue-bd); }
+.hwcd-green  { background: var(--green); }
+.hwcd-purple { background: var(--purple); }
+
+/* ══════════════════════════════════
+   HOME REDESIGN — Tanggungan per Matkul
+══════════════════════════════════ */
+.home-matkul-section {
+  margin-bottom: 4px;
+}
+.home-matkul-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.home-matkul-title {
+  font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: var(--ink3);
+}
+.home-matkul-lihat {
+  font-size: 12px; font-weight: 700;
+  color: var(--blue); cursor: pointer;
+}
+
+.mk-tanggungan-card {
+  background: var(--white);
+  border-radius: var(--r);
+  box-shadow: var(--sh);
+  overflow: hidden;
+  margin-bottom: 10px;
+  border: 1.5px solid var(--line);
+  transition: transform .14s, box-shadow .14s;
+  cursor: pointer;
+  animation: springIn .36s cubic-bezier(.32,.72,0,1) both;
+}
+.mk-tanggungan-card:active { transform: scale(.982); box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+
+/* urgency strip top */
+.mk-urgency-strip {
+  height: 3px; width: 100%;
+}
+.mk-urgency-strip.urgent { background: var(--red); }
+.mk-urgency-strip.warn   { background: var(--amber); }
+.mk-urgency-strip.clean  { background: var(--green); opacity: .5; }
+.mk-urgency-strip.none   { background: transparent; }
+
+.mk-top-row {
+  display: flex; align-items: center; gap: 11px;
+  padding: 11px 14px 10px;
+}
+.mk-icon-wrap {
+  width: 38px; height: 38px; border-radius: var(--rsm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0;
+}
+.mk-info { flex: 1; min-width: 0; }
+.mk-name {
+  font-size: 14px; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.mk-deadline-sub {
+  font-size: 11px; font-weight: 600; margin-top: 2px;
+}
+.mk-deadline-sub.urgent { color: var(--red); }
+.mk-deadline-sub.warn   { color: var(--amber); }
+.mk-deadline-sub.ok     { color: var(--green); }
+.mk-deadline-sub.gray   { color: var(--ink3); }
+.mk-chev { color: var(--ink3); font-size: 17px; flex-shrink: 0; }
+
+.mk-counters {
+  border-top: 1px solid var(--line);
+  display: flex;
+}
+.mk-counter-item {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 2px;
+  padding: 9px 6px;
+  position: relative;
+}
+.mk-counter-item:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 20%; height: 60%;
+  width: 1px; background: var(--line);
+}
+.mk-counter-num {
+  font-size: 16px; font-weight: 800; line-height: 1;
+}
+.mk-counter-num.red    { color: var(--red); }
+.mk-counter-num.amber  { color: var(--amber); }
+.mk-counter-num.blue   { color: var(--blue); }
+.mk-counter-num.green  { color: var(--green); }
+.mk-counter-num.gray   { color: var(--ink3); font-size: 14px; }
+.mk-counter-lbl {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink3);
+}
+
+/* ══ Clean / All Done State ══ */
+.home-clean-banner {
+  background: linear-gradient(135deg, var(--green-lt) 0%, #bbf7d0 100%);
+  border-radius: var(--r);
+  padding: 20px 18px;
+  margin-bottom: 14px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; gap: 6px;
+  box-shadow: var(--sh);
+  border: 1px solid var(--green-bd);
+  animation: springIn .4s cubic-bezier(.32,.72,0,1);
+}
+.home-clean-ic { font-size: 32px; }
+.home-clean-title {
+  font-size: 17px; font-weight: 800;
+  color: var(--green-dk); letter-spacing: -.3px;
+}
+.home-clean-sub {
+  font-size: 13px; color: #166534; font-weight: 500;
+  line-height: 1.5;
+}
+.home-clean-streak {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 6px; padding: 5px 14px;
+  background: var(--white); border-radius: 99px;
+  border: 1px solid var(--green-bd);
+  font-size: 12px; font-weight: 700; color: var(--green);
+}
+
+/* ══ Matkul cards in clean state ══ */
+.mk-tanggungan-card.is-clean {
+  border-color: var(--green-bd);
+  opacity: .85;
+}
+.mk-tanggungan-card.is-clean .mk-counter-num.all-done {
+  color: var(--green); font-size: 14px;
+}
+
+/* ══ Selected day detail panel ══ */
+.hwc-day-detail {
+  border-top: 1px solid var(--line);
+  padding: 10px 14px 12px;
+  background: var(--bg);
+}
+.hwc-day-detail-title {
+  font-size: 11px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink3); margin-bottom: 8px;
+}
+.hwc-day-detail-empty {
+  font-size: 13px; color: var(--ink3);
+  font-weight: 500; text-align: center; padding: 8px 0;
+}
+.hwc-event-chip {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: var(--rsm);
+  background: var(--white); margin-bottom: 6px;
+  border: 1px solid var(--line);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: background .12s;
+}
+.hwc-event-chip:active { background: var(--bg2); }
+.hwc-event-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.hwc-event-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hwc-event-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px; flex-shrink: 0;
+}
+
 /* ══════════════════════════════════
    WEEKLY CALENDAR
 ══════════════════════════════════ */
@@ -2260,6 +2504,21 @@ input,select,textarea { font-family:inherit; }
 #v-subjects .pad {
   padding: 0 16px 16px;
 }
+/* Home week cal: full-bleed, no side padding */
+.home-week-cal {
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .home-week-cal {
+    border-radius: var(--r) !important;
+    margin-bottom: 16px !important;
+    box-shadow: var(--sh) !important;
+    border-bottom: none;
+  }
+}
 
 /* ════════════════════════════════
    HOME — large title greeting
@@ -3637,15 +3896,11 @@ input,select,textarea { font-family:inherit; }
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
       </button>
-      <button class="sb-item" id="sbn-cal" onclick="goView(&#39;cal&#39;,document.getElementById(&#39;bn-cal&#39;))">
-        <span class="sb-item-ic">📅</span> Kalender
-      </button>
+      <!-- cal tab removed — merged into home -->
       <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
         <span class="sb-item-ic">🍅</span> Pomodoro
       </button>
-      <button class="sb-item" id="sbn-subjects" onclick="goView(&#39;subjects&#39;,document.getElementById(&#39;bn-s&#39;))">
-        <span class="sb-item-ic">📚</span> Semua Subjek
-      </button>
+      <!-- subjects tab removed -->
       <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
         <span class="sb-item-ic">🚀</span> Projects
       </button>
@@ -3674,26 +3929,44 @@ input,select,textarea { font-family:inherit; }
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
 
-    <!-- ══ HOME ══ -->
+    <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
     <div class="view active" id="v-home">
-      <div class="pad">
 
-        <!-- Greeting -->
-        <div class="home-greeting-wrap" id="home-greeting">
-          <div class="home-greeting-time" id="home-greeting-time">Good morning</div>
-          <div class="home-greeting-name">Halo, <span>Adit</span> 👋</div>
-          <div class="home-greeting-sub" id="home-greeting-sub">4 materi belum latsoal · 2 tugas aktif.</div>
+      <!-- Weekly Calendar Header -->
+      <div class="home-week-cal" id="home-week-cal">
+        <div class="hwc-header">
+          <div class="hwc-month" id="hwc-month-label">Juni 2025</div>
+          <div class="hwc-nav">
+            <button class="hwc-arr" onclick="shiftHomeWeek(-1)">‹</button>
+            <button class="hwc-arr" onclick="shiftHomeWeek(1)">›</button>
+          </div>
+        </div>
+        <div class="hwc-grid" id="hwc-grid"></div>
+        <!-- Selected day detail panel -->
+        <div class="hwc-day-detail" id="hwc-day-detail" style="display:none">
+          <div class="hwc-day-detail-title" id="hwc-detail-title">Rabu, 11 Jun</div>
+          <div id="hwc-detail-items"></div>
+        </div>
+      </div>
+
+      <!-- Tanggungan per Matkul -->
+      <div class="pad" style="padding-top:0">
+        <!-- Greeting compact -->
+        <div id="home-greeting" style="padding: 4px 0 12px">
+          <div class="home-greeting-sub" id="home-greeting-sub" style="font-size:13px;color:var(--ink3);font-weight:600">4 materi belum latsoal · 2 tugas aktif.</div>
         </div>
 
-        <!-- Home Time Filter Tabs: Besok / Minggu ini -->
-        <div class="home-time-tabs" id="home-time-tabs">
-          <button class="home-time-tab active" id="tab-tomorrow" onclick="setHomeTab('tomorrow', this)">📅 Besok</button>
-          <button class="home-time-tab" id="tab-week" onclick="setHomeTab('week', this)">🗓 Minggu Ini</button>
+        <!-- Clean state banner (shown when all done) -->
+        <div id="home-clean-banner" style="display:none"></div>
+
+        <!-- Matkul list -->
+        <div class="home-matkul-section">
+          <div class="home-matkul-header">
+            <div class="home-matkul-title">Tanggungan per Matkul</div>
+            <button onclick="openSheet('sh-addsubj')" style="font-size:12px;font-weight:700;color:var(--blue);background:none;border:none;cursor:pointer;padding:4px">＋ Matkul</button>
+          </div>
+          <div id="home-matkul-list"></div>
         </div>
-
-        <!-- ═══ DYNAMIC HOME SECTIONS ═══ -->
-        <div id="home-dynamic-content"></div>
-
       </div>
     </div>
 
@@ -3940,22 +4213,16 @@ input,select,textarea { font-family:inherit; }
 
   </div><!-- /scroll -->
 
-  <!-- BOTTOM NAV — 5 tab -->
+  <!-- BOTTOM NAV — 3 tab (cal & subjects merged into home) -->
   <nav class="bnav">
-    <button class="bn" id="bn-cal" onclick="goView(&#39;cal&#39;, this)">
-      <div class="bn-ic">📅</div><div>K</div>
-    </button>
     <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge">4</span></div><div>H</div>
+      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="display:none">0</span></div><div>Home</div>
     </button>
     <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
-      <div class="bn-ic">🍅</div><div>P</div>
-    </button>
-    <button class="bn" id="bn-s" onclick="goView(&#39;subjects&#39;, this)">
-      <div class="bn-ic">📚</div><div>S</div>
+      <div class="bn-ic">🍅</div><div>Fokus</div>
     </button>
     <button class="bn" id="bn-focus" onclick="toggleNavPopover(this)">
-      <div class="bn-ic">⚡</div><div>F</div>
+      <div class="bn-ic">⚡</div><div>Lainnya</div>
     </button>
   </nav>
 
@@ -4959,11 +5226,11 @@ function openDetail(id){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('v-detail').classList.add('active');
   document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('bn-s').classList.add('active');
+  document.getElementById('bn-h').classList.add('active');
 
   // mobile topbar
   document.getElementById('topbar').innerHTML=
-    `<button class="tb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Kembali</button>`+
+    `<button class="tb-back" onclick="goView('home',document.getElementById('bn-h'))">‹ Home</button>`+
     `<div class="tb-title">${s.emoji} ${s.name}</div>`+
     `<button class="tb-action ghost" onclick="openEditSubj('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
 
@@ -5011,7 +5278,7 @@ function updateDesktopTopbar(view, subj){
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="goView('subjects',document.getElementById('bn-s'))">‹ Subjek</button>`+
+      `<button class="dtb-back" onclick="goView('home',document.getElementById('bn-h'))">‹ Subjek</button>`+
       `<div class="dtb-title">${subj.emoji} ${subj.name}</div>`+
       `<div class="dtb-actions">`+
       `<button class="dtb-btn ghost" onclick="openEditSubj('${subj.id}')">✏️ Edit</button>`+
@@ -5023,9 +5290,9 @@ function updateSidebarActive(view, sid){
   // nav items
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
   if(view==='home')     document.getElementById('sbn-home')?.classList.add('active');
-  if(view==='cal')      document.getElementById('sbn-cal')?.classList.add('active');
+  // cal tab removed from sidebar
   if(view==='pomo')     document.getElementById('sbn-pomo')?.classList.add('active');
-  if(view==='subjects') document.getElementById('sbn-subjects')?.classList.add('active');
+  // subjects tab removed from sidebar
   if(view==='projects' || view==='proj-detail') document.getElementById('sbn-projects')?.classList.add('active');
   if(view==='areas'    || view==='area-detail') document.getElementById('sbn-areas')?.classList.add('active');
   // subject items
@@ -5081,758 +5348,374 @@ function renderSidebar(){
   updateSidebarActive(curView, curSid);
 }
 
-// ════════ HOME ════════════════════════════════
-let _homeTab = 'tomorrow'; // 'tomorrow' | 'week'
-
-function setHomeTab(tab, btn){
-  _homeTab = tab;
-  document.querySelectorAll('.home-time-tab').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  _renderHomeDynamic();
-}
+// ════════ HOME (REDESIGN) ════════════════════════
+let _hwcWeekOff = 0; // week offset from current
+let _hwcSelectedDay = null; // 'YYYY-MM-DD'
 
 function renderHome(){
   _renderHomeGreeting();
-  _renderHomeDynamic();
+  _renderHomeWeekCal();
+  _renderHomeMatkul();
   updateBadge();
 }
 
-function _renderHomeDynamic(){
-  const el = document.getElementById('home-dynamic-content');
-  if(!el) return;
-  el.innerHTML = '';
-
-  const todayStr = tod();
-  // tomorrow = next calendar day
-  const tmrDate = new Date(); tmrDate.setDate(tmrDate.getDate()+1);
-  const tmrStr = tmrDate.toISOString().slice(0,10);
-  // end of this week (Sunday)
-  const now = new Date();
-  const dow = now.getDay(); // 0=Sun
-  const daysUntilSun = dow===0 ? 6 : 7-dow;
-  const weekEndDate = new Date(now); weekEndDate.setDate(now.getDate()+daysUntilSun);
-  const weekEndStr = weekEndDate.toISOString().slice(0,10);
-
-  // ── BELUM LATIHAN SOAL ─────────────────────
-  const pendingMateri = D.materi.filter(m => !m.done && !m.ngerti);
-  _renderHomeCategory(el, {
-    icon:'📖', label:'Belum Latsoal / Ngerti',
-    color:'var(--blue)', badgeBg:'var(--blue-lt)', badgeColor:'var(--blue)',
-    items: pendingMateri,
-    type: 'materi',
-    emptyText: 'Semua materi udah beres! 🔥',
-    emptySub: 'Lo on track banget.'
-  });
-
-  // ── TUGAS AKTIF ────────────────────────────
-  let tugasItems;
-  if(_homeTab === 'tomorrow'){
-    // tugas overdue + deadline today + deadline tomorrow
-    tugasItems = D.tugas.filter(t => {
-      if(t.done) return false;
-      const d = diffD(t.deadline, todayStr);
-      return d <= 1; // overdue, today, tomorrow
-    });
-  } else {
-    // tugas overdue + deadline this week
-    tugasItems = D.tugas.filter(t => {
-      if(t.done) return false;
-      return t.deadline <= weekEndStr;
-    });
-  }
-  _renderHomeCategory(el, {
-    icon:'📋', label:'Tugas',
-    color:'var(--amber)', badgeBg:'var(--amber-lt)', badgeColor:'var(--amber)',
-    items: tugasItems,
-    type: 'tugas',
-    emptyText: _homeTab==='tomorrow' ? 'Ga ada tugas mendesak besok 👌' : 'Ga ada tugas minggu ini 👌',
-    emptySub: 'Keep it clean!'
-  });
-
-  // ── UJIAN / QUIZ ────────────────────────────
-  let ujianItems;
-  if(_homeTab === 'tomorrow'){
-    ujianItems = D.ujian.filter(u => {
-      const d = diffD(u.date, todayStr);
-      return d >= 0 && d <= 3; // within 3 days
-    });
-  } else {
-    ujianItems = D.ujian.filter(u => {
-      const d = diffD(u.date, todayStr);
-      return d >= 0 && u.date <= weekEndStr;
-    });
-  }
-  _renderHomeCategory(el, {
-    icon:'📝', label:'Quiz / Ujian',
-    color:'var(--red)', badgeBg:'var(--red-lt)', badgeColor:'var(--red)',
-    items: ujianItems,
-    type: 'ujian',
-    emptyText: _homeTab==='tomorrow' ? 'Ga ada ujian dalam 3 hari ke depan 😌' : 'Aman, ga ada ujian minggu ini 😌',
-    emptySub: ''
-  });
+function shiftHomeWeek(dir){
+  _hwcWeekOff += dir;
+  _renderHomeWeekCal();
 }
 
-function _renderHomeCategory(container, {icon, label, color, badgeBg, badgeColor, items, type, emptyText, emptySub}){
-  const todayStr = tod();
-  const sec = document.createElement('div');
-  sec.className = 'home-cat-section';
+function _getWeekDays(weekOff){
+  const now = new Date();
+  const dow = now.getDay(); // 0=Sun
+  const mondayOffset = dow === 0 ? -6 : 1 - dow;
+  const monday = new Date(now);
+  monday.setDate(now.getDate() + mondayOffset + weekOff * 7);
+  const days = [];
+  for(let i = 0; i < 7; i++){
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    days.push(d);
+  }
+  return days;
+}
 
-  // Heading
-  const hdg = document.createElement('div');
-  hdg.className = 'home-cat-heading';
-  hdg.innerHTML =
-    `<div class="home-cat-heading-dot" style="background:${color}"></div>`+
-    `${icon} ${label}`+
-    (items.length?`<span class="home-cat-badge" style="background:${badgeBg};color:${badgeColor}">${items.length}</span>`:'');
-  sec.appendChild(hdg);
+function _renderHomeWeekCal(){
+  const days = _getWeekDays(_hwcWeekOff);
+  const todayStr = tod();
+
+  // Month label
+  const ml = document.getElementById('hwc-month-label');
+  if(ml){
+    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    const firstDay = days[0];
+    const lastDay = days[6];
+    if(firstDay.getMonth() === lastDay.getMonth()){
+      ml.textContent = months[firstDay.getMonth()] + ' ' + firstDay.getFullYear();
+    } else {
+      ml.textContent = months[firstDay.getMonth()] + ' – ' + months[lastDay.getMonth()] + ' ' + lastDay.getFullYear();
+    }
+  }
+
+  const grid = document.getElementById('hwc-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+
+  const dayNames = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+
+  days.forEach((d, i) => {
+    const dStr = d.toISOString().slice(0, 10);
+    const isToday = dStr === todayStr;
+    const isPast = dStr < todayStr;
+    const isSelected = dStr === _hwcSelectedDay;
+
+    // Compute dots: what's on this day
+    const dots = _getDayDots(dStr);
+
+    // Status ring: only for past + today
+    let statusClass = '';
+    if(isPast || isToday){
+      statusClass = _getDayStatus(dStr, dots, isPast);
+    }
+
+    const dayEl = document.createElement('div');
+    let cls = 'hwc-day';
+    if(isToday) cls += ' is-today';
+    if(isPast) cls += ' past';
+    if(isSelected) cls += ' selected';
+    if(statusClass) cls += ' ' + statusClass;
+    dayEl.className = cls;
+    dayEl.onclick = () => _selectHwcDay(dStr, d);
+
+    const dotsHtml = dots.slice(0, 3).map(dot =>
+      `<div class="hwc-dot hwcd-${dot}"></div>`
+    ).join('');
+
+    dayEl.innerHTML =
+      `<div class="hwc-day-name">${dayNames[i]}</div>`+
+      `<div class="hwc-num-wrap"><div class="hwc-num">${d.getDate()}</div></div>`+
+      `<div class="hwc-dots">${dotsHtml}</div>`;
+
+    grid.appendChild(dayEl);
+  });
+
+  // Update detail panel for currently selected day
+  if(_hwcSelectedDay) _renderHwcDayDetail(_hwcSelectedDay);
+}
+
+function _getDayDots(dStr){
+  const dots = [];
+  // Tugas deadline on this day
+  const hasTugas = D.tugas.some(t => !t.done && t.deadline === dStr);
+  const hasOverdueTugas = D.tugas.some(t => !t.done && t.deadline < dStr && dStr === tod());
+  if(hasTugas || hasOverdueTugas) dots.push('red');
+  // Ujian on this day
+  if(D.ujian.some(u => u.date === dStr)) dots.push('amber');
+  // Materi scheduled on this day
+  if(D.materi.some(m => !m.done && m.date === dStr)) dots.push('blue');
+  return dots;
+}
+
+function _getDayStatus(dStr, dots, isPast){
+  if(!isPast && dStr !== tod()) return '';
+  // For past days: check if all items on that day were completed
+  const tugas = D.tugas.filter(t => t.deadline === dStr);
+  const materi = D.materi.filter(m => m.date === dStr);
+  const ujian = D.ujian.filter(u => u.date === dStr);
+
+  const allItems = [...tugas, ...materi];
+  if(!allItems.length && !ujian.length) return ''; // no items = no ring
+
+  const doneTugas = tugas.every(t => t.done);
+  const doneMateri = materi.every(m => m.done || m.ngerti);
+
+  if(doneTugas && doneMateri) return 'status-ok';
+  if(tugas.some(t => !t.done && t.deadline < tod())) return 'status-miss';
+  return 'status-partial';
+}
+
+function _selectHwcDay(dStr, dateObj){
+  if(_hwcSelectedDay === dStr){
+    // deselect
+    _hwcSelectedDay = null;
+    const det = document.getElementById('hwc-day-detail');
+    if(det) det.style.display = 'none';
+    _renderHomeWeekCal();
+    return;
+  }
+  _hwcSelectedDay = dStr;
+  _renderHomeWeekCal();
+  _renderHwcDayDetail(dStr);
+}
+
+function _renderHwcDayDetail(dStr){
+  const det = document.getElementById('hwc-day-detail');
+  const titleEl = document.getElementById('hwc-detail-title');
+  const itemsEl = document.getElementById('hwc-detail-items');
+  if(!det || !titleEl || !itemsEl) return;
+
+  const d = new Date(dStr + 'T00:00:00');
+  const dayNames = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  titleEl.textContent = dayNames[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()];
+
+  // Collect items for this day
+  const items = [];
+  D.tugas.filter(t => t.deadline === dStr).forEach(t => {
+    const s = gS(t.sid);
+    items.push({type:'tugas', name: t.name, subj: s ? s.emoji + ' ' + s.name : '', done: t.done, color: s ? s.color : 'var(--amber)', id: t.id});
+  });
+  D.ujian.filter(u => u.date === dStr).forEach(u => {
+    const s = gS(u.sid);
+    const tl = {quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type] || 'Ujian';
+    items.push({type:'ujian', name: (u.name||tl), subj: s ? s.emoji + ' ' + s.name : '', done: false, color: 'var(--purple)', id: u.id});
+  });
+  D.materi.filter(m => m.date === dStr).forEach(m => {
+    const s = gS(m.sid);
+    items.push({type:'materi', name: m.name, subj: s ? s.emoji + ' ' + s.name : '', done: m.done || m.ngerti, color: s ? s.color : 'var(--blue)', id: m.id});
+  });
+
+  det.style.display = 'block';
 
   if(!items.length){
-    const emp = document.createElement('div');
-    emp.className = 'home-empty-state';
-    emp.innerHTML = `<div class="home-empty-state-ic">✅</div><div class="home-empty-state-txt">${emptyText}</div>${emptySub?`<div class="home-empty-state-sub">${emptySub}</div>`:''}`;
-    sec.appendChild(emp);
-    container.appendChild(sec);
+    itemsEl.innerHTML = `<div class="hwc-day-detail-empty">Tidak ada item di hari ini</div>`;
     return;
   }
 
-  // Group by subject
-  const bySubj = {};
-  items.forEach(item => {
-    const sid = item.sid;
-    if(!bySubj[sid]) bySubj[sid] = [];
-    bySubj[sid].push(item);
-  });
+  const typeLabel = {tugas:'Tugas', ujian:'Ujian', materi:'Materi'};
+  const typeBg = {
+    tugas: 'var(--amber-lt)', ujian: 'var(--purple-lt)', materi: 'var(--blue-lt)'
+  };
+  const typeColor = {
+    tugas: 'var(--amber)', ujian: 'var(--purple)', materi: 'var(--blue)'
+  };
 
-  Object.keys(bySubj).forEach(sid => {
-    const s = gS(sid);
-    if(!s) return;
-    const grp = document.createElement('div');
-    grp.className = 'home-subj-group';
+  itemsEl.innerHTML = items.map(item =>
+    `<div class="hwc-event-chip" onclick="_hwcEventTap('${item.type}','${item.id}')">
+      <div class="hwc-event-dot" style="background:${item.color}"></div>
+      <div class="hwc-event-name">${item.done ? '✓ ' : ''}${escHtml(item.name)}</div>
+      <span class="hwc-event-badge" style="background:${typeBg[item.type]};color:${typeColor[item.type]}">${typeLabel[item.type]}</span>
+    </div>`
+  ).join('');
+}
 
-    const lbl = document.createElement('div');
-    lbl.className = 'home-subj-group-label';
-    lbl.innerHTML =
-      `<div class="home-subj-group-accent" style="background:${s.color}"></div>`+
-      `${s.emoji} ${s.name}`;
-    grp.appendChild(lbl);
-
-    const card = document.createElement('div');
-    card.className = 'home-section-card';
-
-    bySubj[sid].forEach(item => {
-      if(type === 'materi'){
-        const m = item;
-        const days = diffD(todayStr, m.date);
-        const ageText = days<=0?'Hari ini':days===1?'1 hari lalu':`${days} hari lalu`;
-        const ageCls = days<=2?'fresh':days<=7?'medium':'old';
-        const row = document.createElement('div');
-        row.className = 'review-queue-item';
-        row.innerHTML =
-          `<div class="rq-accent" style="background:${s.color}"></div>`+
-          `<div class="rq-body">`+
-          `<div class="rq-name">${escHtml(m.name)}</div>`+
-          `<div class="rq-sub">${fmtDate(m.date)}</div>`+
-          `</div>`+
-          `<span class="rq-age ${ageCls}">${ageText}</span>`+
-          `<button class="mi-btn todo" style="margin-left:6px;font-size:11px;padding:5px 10px;" onclick="event.stopPropagation();toggleM('${m.id}')">Latsoal</button>`;
-        row.onclick = () => openEditM(m.id);
-        card.appendChild(row);
-      } else if(type === 'tugas'){
-        card.appendChild(mkT(item, false));
-      } else if(type === 'ujian'){
-        const u = item;
-        const diff = diffD(u.date, todayStr);
-        const diffColor = diff<=1?'var(--red)':diff<=3?'var(--amber)':'var(--ink3)';
-        const diffBg    = diff<=1?'var(--red-lt)':diff<=3?'var(--amber-lt)':'var(--bg2)';
-        const diffText  = diff===0?'Hari ini!':diff===1?'Besok!':diff<0?'Sudah lewat':`H-${diff}`;
-        const ucard = document.createElement('div');
-        ucard.className = 'attention-item';
-        ucard.style.cssText='cursor:pointer;';
-        ucard.innerHTML =
-          `<div class="attention-icon" style="background:${s.color}18">📝</div>`+
-          `<div class="attention-body">`+
-          `<div class="attention-name">${escHtml(u.name)}</div>`+
-          `<div class="attention-sub">${s.emoji} ${s.name} · <span class="ujian-type-pill ${u.type}">${u.type.toUpperCase()}</span></div>`+
-          `</div>`+
-          `<span class="attention-dl" style="background:${diffBg};color:${diffColor}">${diffText}</span>`;
-        ucard.onclick = () => openDetail(u.sid);
-        card.appendChild(ucard);
-      }
-    });
-
-    grp.appendChild(card);
-    sec.appendChild(grp);
-  });
-
-  container.appendChild(sec);
+function _hwcEventTap(type, id){
+  if(type === 'tugas') openEditT(id);
+  else if(type === 'materi') openEditM(id);
+  else if(type === 'ujian') openEditUjian(id);
 }
 
 function _renderHomeGreeting(){
-  const hr=new Date().getHours();
-  let greet=hr<12?'Good morning':'Good afternoon';
-  if(hr>=18) greet='Good evening';
-  const el=document.getElementById('home-greeting-time');
-  if(el) el.textContent=greet;
-
-  // dynamic sub
-  const pending=D.materi.filter(m=>!m.done).length;
-  const activeTugas=D.tugas.filter(t=>!t.done).length;
-  const sub=document.getElementById('home-greeting-sub');
+  const pending = D.materi.filter(m => !m.done && !m.ngerti).length;
+  const activeTugas = D.tugas.filter(t => !t.done).length;
+  const sub = document.getElementById('home-greeting-sub');
   if(sub){
-    if(!pending&&!activeTugas) sub.textContent='Semua selesai! Lo legend hari ini. 🔥';
-    else if(pending&&activeTugas) sub.textContent=`${pending} materi belum latsoal · ${activeTugas} tugas aktif.`;
-    else if(pending) sub.textContent=`${pending} materi menunggu latihan soal.`;
-    else sub.textContent=`${activeTugas} tugas aktif sedang berjalan.`;
+    if(!pending && !activeTugas) sub.textContent = 'Semua beres! Lo legend hari ini. 🔥';
+    else if(pending && activeTugas) sub.textContent = `${pending} materi belum latsoal · ${activeTugas} tugas aktif.`;
+    else if(pending) sub.textContent = `${pending} materi menunggu latihan soal.`;
+    else sub.textContent = `${activeTugas} tugas aktif sedang berjalan.`;
   }
 }
 
-function _renderNowCard(){
-  // Priority engine (Tugas ALWAYS above materi review):
-  // 1. Overdue tugas 2. Tugas deadline today/tomorrow
-  // 3. Exam readiness (ujian close) 4. Materi overdue (forgetting)
-  // 5. Materi today 6. Fallback: nothing pending
-  const todayStr=tod();
-
-  // 1+2. Tugas overdue or due soon — HIGHEST PRIORITY
-  const overdueT=D.tugas.filter(t=>!t.done&&diffD(t.deadline,todayStr)<=0);
-  const soonT=D.tugas.filter(t=>!t.done&&diffD(t.deadline,todayStr)===1);
-  const dueTodayM=D.materi.filter(m=>!m.done&&m.date===todayStr);
-
-  // 2. Exam readiness: ujian dalam 14 hari
-  const urgentUjian=D.ujian
-    .filter(u=>{ const d=diffD(u.date,todayStr); return d>=0&&d<=14; })
-    .sort((a,b)=>diffD(a.date,todayStr)-diffD(b.date,todayStr));
-  const nextUjian=urgentUjian[0]||null;
-  const examMateri=nextUjian?D.materi.filter(m=>nextUjian.materiIds.includes(m.id)&&!m.done):[];
-
-  // 4. Forgetting: materi belum latsoal paling lama tidak diakses
-  const pending=D.materi.filter(m=>!m.done);
-  pending.sort((a,b)=>a.date.localeCompare(b.date));
-  const oldestPending=pending[0]||null;
-
-  // Determine winner
-  let nowTitle='', nowSubj='', nowTime='15 menit', nowWhy=[];
-
-  if(overdueT.length){
-    const t=overdueT[0]; const s=gS(t.sid);
-    const daysLate=Math.abs(diffD(t.deadline,todayStr));
-    nowTitle=t.name; nowSubj=s?s.name:'';
-    nowTime='segera'; nowWhy=[
-      `Deadline sudah lewat ${daysLate} hari 🚨`,
-      s?`${s.emoji} ${s.name}`:'',
-      'Selesaikan sekarang, jangan ditunda lagi!'
-    ].filter(Boolean);
-  } else if(soonT.length){
-    const t=soonT[0]; const s=gS(t.sid);
-    nowTitle=t.name; nowSubj=s?s.name:'';
-    nowTime='sebelum besok'; nowWhy=[
-      'Deadline besok ⚡',
-      s?`${s.emoji} ${s.name}`:'',
-      'Selesaikan hari ini!'
-    ].filter(Boolean);
-  } else if(nextUjian&&examMateri.length){
-    const s=gS(nextUjian.sid);
-    const daysLeft=diffD(nextUjian.date,todayStr);
-    const m=examMateri[0];
-    nowTitle='Review '+m.name; nowSubj=s?s.name:'';
-    nowTime='~15 menit'; nowWhy=[
-      `Ujian dalam ${daysLeft} hari`,
-      `${examMateri.length} materi belum latsoal`,
-      'Sering missed dalam sesi sebelumnya'
-    ];
-  } else if(dueTodayM.length){
-    const m=dueTodayM[0]; const s=gS(m.sid);
-    nowTitle='Latsoal '+m.name; nowSubj=s?s.name:'';
-    nowTime='~20 menit'; nowWhy=[
-      'Dijadwalkan hari ini 📅',
-      s?`${s.emoji} ${s.name}`:'',
-      'Jangan tunda, hasilnya lebih maksimal!'
-    ].filter(Boolean);
-  } else if(oldestPending){
-    const s=gS(oldestPending.sid);
-    const daysSince=diffD(todayStr,oldestPending.date);
-    nowTitle='Latsoal '+oldestPending.name; nowSubj=s?s.name:'';
-    nowTime='~20 menit'; nowWhy=[
-      daysSince>=7?`Sudah ${daysSince} hari tidak diulang`:'Belum pernah latihan soal',
-      s?`${s.emoji} ${s.name}`:'',
-      'Spaced repetition = ingat lebih lama 🧠'
-    ].filter(Boolean);
-  } else {
-    const card=document.getElementById('now-hero-card');
-    if(card){
-      card.innerHTML=`
-        <div class="now-card-label"><span class="now-card-dot"></span>NOW</div>
-        <div class="now-card-title">🎉 Semua beres!</div>
-        <div class="now-card-sub">Ga ada yang perlu dikerjakan sekarang. Legend.</div>
-        <div class="now-card-footer">
-          <div class="now-card-time">⚡ On track</div>
-          <button class="now-card-start" onclick="goView('subjects',document.getElementById('bn-s'))">Lihat →</button>
-        </div>`;
-    }
-    return;
-  }
-
-  const t=document.getElementById('now-title');
-  const s=document.getElementById('now-subject');
-  const ti=document.getElementById('now-time');
-  if(t) t.textContent=nowTitle;
-  if(s) s.textContent=nowSubj;
-  if(ti) ti.textContent='⏱ '+nowTime;
-  // why now items
-  const wi=document.getElementById('now-why-items');
-  if(wi) wi.innerHTML=nowWhy.map(w=>`<div class="now-why-item"><div class="now-why-bullet"></div><span>${w}</span></div>`).join('');
-}
-
-function toggleNowWhy(){
-  const btn=document.getElementById('now-why-toggle');
-  const body=document.getElementById('now-why-body');
-  if(!btn||!body) return;
-  const isOpen=body.classList.toggle('open');
-  btn.classList.toggle('open',isOpen);
-}
-
-function nowCardTapped(){
-  // navigate to subjects
-  goView('subjects',document.getElementById('bn-s'));
-}
-function nowStartAction(){
-  // go to pomodoro with context
-  goView('pomo',document.getElementById('bn-pomo'));
-}
-
-function _renderComingUp(){
-  const el=document.getElementById('coming-up-scroll');
-  if(!el) return;
-  el.innerHTML='';
-  const todayStr=tod();
-
-  // Collect upcoming: tugas & ujian in next 14 days
-  const items=[];
-  D.tugas.filter(t=>!t.done).forEach(t=>{
-    const d=diffD(t.deadline,todayStr);
-    if(d>=0&&d<=14){ const s=gS(t.sid); items.push({type:'tugas',name:t.name,dl:d,color:s?s.color:'var(--blue)',emoji:s?s.emoji:'📋',id:t.id}); }
-  });
-  D.ujian.forEach(u=>{
-    const d=diffD(u.date,todayStr);
-    if(d>=0&&d<=14){ const s=gS(u.sid); items.push({type:'ujian',name:u.name||({quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type]),dl:d,color:s?s.color:'var(--purple)',emoji:s?s.emoji:'📝',id:u.id}); }
-  });
-  items.sort((a,b)=>a.dl-b.dl);
-
-  if(!items.length){
-    el.innerHTML=`<div style="font-size:13px;color:var(--ink3);font-weight:500;padding:12px 0;">Tidak ada deadline dalam 14 hari ke depan 🎉</div>`;
-    return;
-  }
-
-  items.slice(0,8).forEach((item,i)=>{
-    const isUrgent=item.dl<=2;
-    const dlText=item.dl===0?'Hari ini':item.dl===1?'Besok':`${item.dl} hari lagi`;
-    const typeLabel=item.type==='ujian'?'Ujian':'Tugas';
-    const chip=document.createElement('div');
-    chip.className=`cu-chip anim-d${Math.min(i+1,5)}`;
-    chip.innerHTML=`
-      <div class="cu-chip-type" style="color:${item.color}">
-        <div class="cu-chip-dot" style="background:${item.color}"></div>
-        ${typeLabel}
-      </div>
-      <div class="cu-chip-name">${item.emoji} ${item.name}</div>
-      <div class="cu-chip-dl" style="color:${isUrgent?'var(--red)':'var(--ink3)'}">${dlText}</div>`;
-    el.appendChild(chip);
-  });
-}
-
-function _renderHomeTugas(){
-  const ht  = document.getElementById('home-tugas');
-  const lbl = document.getElementById('home-tugas-label');
-  if(!ht) return;
-
-  const todayStr = tod();
-  const active = D.tugas.filter(t => !t.done && diffD(t.deadline, todayStr) <= 7)
-                         .sort((a,b) => a.deadline.localeCompare(b.deadline));
-
-  if(!active.length){
-    if(lbl) lbl.style.display = 'none';
-    ht.innerHTML = '';
-    return;
-  }
-  if(lbl) lbl.style.display = '';
-
-  const card = document.createElement('div');
-  card.className = 'home-section-card';
-
-  active.forEach(t => {
-    const s    = gS(t.sid);
-    const diff = diffD(t.deadline, todayStr);
-    const isOverdue = diff < 0;
-    const isToday   = diff === 0;
-    const urgent    = isOverdue || isToday || diff <= 1;
-    const dlText    = isOverdue ? `Telat ${Math.abs(diff)}h` : isToday ? 'Hari ini' : diff===1 ? 'Besok' : `${diff}h lagi`;
-    const dlColor   = isOverdue||isToday ? 'var(--red)'    : diff<=3 ? 'var(--amber)' : 'var(--blue)';
-    const dlBg      = isOverdue||isToday ? 'var(--red-lt)' : diff<=3 ? 'var(--amber-lt)' : 'var(--blue-lt)';
-
-    const row = document.createElement('div');
-    row.className = 'attention-item is-tugas' + (urgent ? ' urgent' : '');
-    row.innerHTML =
-      `<div class="attention-icon" style="background:${s?s.color+'18':'var(--amber-lt)'}">📋</div>`+
-      `<div class="attention-body">`+
-      `<div class="attention-name">${escHtml(t.name)}</div>`+
-      `<div class="attention-sub">${s ? s.emoji+' '+escHtml(s.name) : ''} · Tugas</div>`+
-      `</div>`+
-      `<span class="attention-dl" style="background:${dlBg};color:${dlColor}">${dlText}</span>`;
-    row.onclick = () => openEditT(t.id);
-    card.appendChild(row);
-  });
-
-  ht.innerHTML = '';
-  ht.appendChild(card);
-}
-
-function _renderHomeUjian(){
-  const el  = document.getElementById('home-ujian');
-  const lbl = document.getElementById('home-ujian-label');
+function _renderHomeMatkul(){
+  const el = document.getElementById('home-matkul-list');
+  const banner = document.getElementById('home-clean-banner');
   if(!el) return;
 
   const todayStr = tod();
-  const upcoming = D.ujian
-    .filter(u => { const d = diffD(u.date, todayStr); return d >= 0 && d <= 30; })
-    .sort((a,b) => a.date.localeCompare(b.date));
+  const activeSubjects = D.subjects.filter(s => !s.archived);
 
-  if(!upcoming.length){
-    if(lbl) lbl.style.display = 'none';
-    el.innerHTML = '';
-    return;
-  }
-  if(lbl) lbl.style.display = '';
+  // Compute per-subject urgency
+  const subjData = activeSubjects.map(s => {
+    const materi = D.materi.filter(m => m.sid === s.id && !m.done && !m.ngerti);
+    const tugas = D.tugas.filter(t => t.sid === s.id && !t.done);
+    const ujian = D.ujian.filter(u => u.sid === s.id && diffD(u.date, todayStr) >= 0);
 
-  const card = document.createElement('div');
-  card.className = 'ujian-reminder-card';
+    // Nearest deadline
+    let nearestDL = null, nearestDLDiff = 9999;
+    tugas.forEach(t => {
+      const d = diffD(t.deadline, todayStr);
+      if(d < nearestDLDiff){ nearestDLDiff = d; nearestDL = {type:'tugas', diff:d, deadline:t.deadline}; }
+    });
+    ujian.forEach(u => {
+      const d = diffD(u.date, todayStr);
+      if(d < nearestDLDiff){ nearestDLDiff = d; nearestDL = {type:'ujian', diff:d, deadline:u.date}; }
+    });
 
-  upcoming.forEach(u => {
-    const s    = gS(u.sid);
-    const diff = diffD(u.date, todayStr);
-    const typeLabel = {quiz:'Quiz', uts:'UTS', uas:'UAS'}[u.type] || 'Ujian';
+    // Urgency level
+    let urgency = 'none';
+    if(nearestDL){
+      if(nearestDL.diff <= 0) urgency = 'urgent'; // overdue or today
+      else if(nearestDL.diff <= 7) urgency = 'warn';
+      else urgency = 'ok';
+    } else if(materi.length) urgency = 'ok';
 
-    // Countdown color
-    const numColor = diff <= 3 ? 'var(--red)' : diff <= 7 ? 'var(--amber)' : '#7c3aed';
+    const allDone = materi.length === 0 && tugas.length === 0;
 
-    const row = document.createElement('div');
-    row.className = 'ujian-reminder-row';
-    row.innerHTML =
-      `<div class="ujian-countdown" style="color:${numColor}">`+
-      (diff === 0
-        ? `<div class="ujian-countdown-num">🔔</div>`
-        : `<div class="ujian-countdown-num">H-${diff}</div>`+
-          `<div class="ujian-countdown-lbl">${diff===1?'hari':'hari'}</div>`)+
-      `</div>`+
-      `<div class="ujian-reminder-div"></div>`+
-      `<div class="ujian-reminder-body">`+
-      `<div class="ujian-reminder-name">${escHtml(u.name || typeLabel)}</div>`+
-      `<div class="ujian-reminder-sub">`+
-      `<span class="ujian-type-pill ${u.type}">${typeLabel}</span>`+
-      (s ? escHtml(s.emoji+' '+s.name) : '')+
-      `</div></div>`+
-      `<span class="ujian-reminder-chev">›</span>`;
-    row.onclick = () => openEditUjian(u.id);
-    card.appendChild(row);
+    return { s, materi, tugas, ujian, nearestDL, nearestDLDiff, urgency, allDone };
   });
 
-  el.innerHTML = '';
-  el.appendChild(card);
-}
-
-
-function _renderHomeHariIni(){
-  ensurePAData();
-  const sec = document.getElementById('home-hariini-section');
-  if(!sec) return;
-
-  const todayStr = tod();
-
-  // Collect pending action plans grouped by project/area
-  const groups = [];
-
-  // Active projects (not done/pause)
-  const activeProjects = (D.projects||[]).filter(p => p.status === 'aktif' || p.status === 'rencana');
-  activeProjects.forEach(p => {
-    const aps = (D.p_tasks||[]).filter(t => t.parentId === p.id);
-    const ags = (D.p_agendas||[]).filter(ag => ag.parentId === p.id && ag.date === todayStr && !ag.done);
-
-    // Pending one-time action plans (overdue or no deadline)
-    const pendingAps = aps.filter(t => {
-      if(t.done) return false;
-      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
-      if(isRecur) return false;
-      // show if overdue, due today, or due in 3 days
-      if(!t.deadline) return false;
-      const diff = diffD(t.deadline, todayStr);
-      return diff <= 3;
-    });
-
-    // Recurring action plans not done today
-    const recurAps = aps.filter(t => {
-      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
-      if(!isRecur) return false;
-      return t.lastDone !== todayStr;
-    });
-
-    const allItems = [...pendingAps, ...recurAps, ...ags.map(ag => ({...ag, _isAgenda:true}))];
-    if(!allItems.length) return;
-
-    groups.push({type:'project', meta:p, items: allItems});
+  // Sort: urgent → warn → ok → none → allDone
+  const urgencyOrder = { urgent: 0, warn: 1, ok: 2, none: 3 };
+  subjData.sort((a, b) => {
+    if(a.allDone !== b.allDone) return a.allDone ? 1 : -1;
+    const uDiff = (urgencyOrder[a.urgency] ?? 4) - (urgencyOrder[b.urgency] ?? 4);
+    if(uDiff !== 0) return uDiff;
+    return a.nearestDLDiff - b.nearestDLDiff;
   });
 
-  // Active areas
-  (D.areas||[]).forEach(a => {
-    const aps = (D.p_tasks||[]).filter(t => t.parentId === a.id);
-    const ags = (D.p_agendas||[]).filter(ag => ag.parentId === a.id && ag.date === todayStr && !ag.done);
+  const allClean = subjData.every(sd => sd.allDone) && subjData.length > 0;
 
-    const pendingAps = aps.filter(t => {
-      if(t.done) return false;
-      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
-      if(isRecur) return false;
-      if(!t.deadline) return false;
-      return diffD(t.deadline, todayStr) <= 3;
-    });
-
-    const recurAps = aps.filter(t => {
-      const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
-      if(!isRecur) return false;
-      return t.lastDone !== todayStr;
-    });
-
-    const allItems = [...pendingAps, ...recurAps, ...ags.map(ag => ({...ag, _isAgenda:true}))];
-    if(!allItems.length) return;
-
-    groups.push({type:'area', meta:a, items: allItems});
-  });
-
-  sec.innerHTML = '';
-  if(!groups.length) return;
-
-  // Count total pending
-  const totalPending = groups.reduce((s,g) => s + g.items.filter(i => {
-    if(i._isAgenda) return true;
-    const isRecur = i.recurring && i.recurring.freq && i.recurring.freq !== 'none';
-    return isRecur ? i.lastDone !== todayStr : !i.done;
-  }).length, 0);
-
-  const allDone = totalPending === 0;
-
-  // Section wrapper
-  const wrap = document.createElement('div');
-  wrap.className = 'hariini-section-wrap';
-
-  // Collapsible toggle row
-  const isOpen = _hariiniOpen;
-  const toggle = document.createElement('button');
-  toggle.className = 'hariini-toggle-btn';
-  toggle.innerHTML =
-    `<span class="hariini-toggle-label">Hari Ini</span>`+
-    `<span class="hariini-toggle-count${allDone?' all-done':''}">${allDone?'✓ Selesai':totalPending+' pending'}</span>`+
-    `<span class="hariini-chev${isOpen?' open':''}">▼</span>`;
-  toggle.onclick = () => {
-    _hariiniOpen = !_hariiniOpen;
-    _renderHomeHariIni();
-  };
-  wrap.appendChild(toggle);
-
-  // Collapsible body
-  const body = document.createElement('div');
-  body.className = 'hariini-body' + (isOpen ? ' open' : '');
-
-  groups.forEach(({type, meta, items}) => {
-    const color = meta.color || 'var(--blue)';
-    const typeLabel = type === 'project' ? 'Project' : 'Area';
-    const typeBg    = type === 'project' ? 'rgba(37,99,235,.1)'  : 'rgba(5,150,105,.1)';
-    const typeColor = type === 'project' ? 'var(--blue)'         : 'var(--green)';
-
-    const grp = document.createElement('div');
-    grp.className = 'hi-group';
-
-    // Group header
-    const hdr = document.createElement('div');
-    hdr.className = 'hi-group-header';
-    hdr.innerHTML =
-      `<div class="hi-group-icon" style="background:${color}18">${meta.emoji||'🚀'}</div>`+
-      `<div class="hi-group-name">${escHtml(meta.name)}</div>`+
-      `<span class="hi-group-type" style="background:${typeBg};color:${typeColor}">${typeLabel}</span>`+
-      `<span class="hi-group-chev">›</span>`;
-    hdr.onclick = () => {
-      if(type==='project') openProjDetail(meta.id);
-      else openAreaDetail(meta.id);
-    };
-    grp.appendChild(hdr);
-
-    // Items
-    items.forEach(item => {
-      if(item._isAgenda){
-        const row = document.createElement('div');
-        row.className = 'hi-agenda-item';
-        row.innerHTML =
-          `<div class="hi-agenda-time">${item.time||'—'}</div>`+
-          `<div class="hi-agenda-name">${escHtml(item.name)}</div>`;
-        row.onclick = () => openEditAg(item.id);
-        grp.appendChild(row);
-        return;
+  // Clean state banner
+  if(banner){
+    if(allClean){
+      // Compute streak (days in a row with all done at EOD — simplified: count consecutive days back)
+      let streak = 0;
+      const today = new Date();
+      for(let i = 1; i <= 30; i++){
+        const d = new Date(today); d.setDate(today.getDate() - i);
+        const ds = d.toISOString().slice(0, 10);
+        const hadPending = D.tugas.some(t => !t.done && t.deadline <= ds)
+          || D.materi.some(m => !m.done && !m.ngerti && m.date <= ds);
+        if(!hadPending) streak++;
+        else break;
       }
+      banner.style.display = 'block';
+      banner.innerHTML =
+        `<div class="home-clean-banner">`+
+        `<div class="home-clean-ic">🎉</div>`+
+        `<div class="home-clean-title">Semua beres minggu ini!</div>`+
+        `<div class="home-clean-sub">Tidak ada tugas, materi, atau ujian yang tertunggak. Lo on track.</div>`+
+        (streak > 1 ? `<div class="home-clean-streak">🔥 ${streak} hari beres berturut-turut</div>` : '')+
+        `</div>`;
+    } else {
+      banner.style.display = 'none';
+      banner.innerHTML = '';
+    }
+  }
 
-      const isRecur = item.recurring && item.recurring.freq && item.recurring.freq !== 'none';
-      const isDoneToday = isRecur ? item.lastDone === todayStr : item.done;
-      const diff = item.deadline ? diffD(item.deadline, todayStr) : null;
-      const dlText = diff !== null ? (diff<0?`Telat ${Math.abs(diff)}h`:diff===0?'Hari ini':diff===1?'Besok':`${diff}h`) : null;
-      const dlColor = diff!==null ? (diff<0||diff===0?'var(--red)':diff<=2?'var(--amber)':'var(--ink3)') : 'var(--ink3)';
-      const dlBg    = diff!==null ? (diff<0||diff===0?'var(--red-lt)':diff<=2?'var(--amber-lt)':'var(--bg2)') : 'var(--bg2)';
+  // Render matkul cards
+  el.innerHTML = '';
 
-      const row = document.createElement('div');
-      row.className = 'hi-item';
-      row.innerHTML =
-        `<div class="hi-check${isDoneToday?' done':''}" onclick="event.stopPropagation();toggleApDone('${item.id}')">${isDoneToday?'✓':''}</div>`+
-        `<div class="hi-item-body">`+
-        `<div class="hi-item-name${isDoneToday?' done':''}">${escHtml(item.name)}</div>`+
-        `<div class="hi-item-meta">`+
-        (isRecur?`<span class="hi-recur-badge">🔁 Rutin</span>`:'')+
-        (dlText?`<span class="hi-deadline-badge" style="background:${dlBg};color:${dlColor}">${dlText}</span>`:'')+
-        `</div></div>`;
-
-      grp.appendChild(row);
-    });
-
-    body.appendChild(grp);
-  });
-
-  wrap.appendChild(body);
-  sec.appendChild(wrap);
-}
-
-let _hariiniOpen = true; // expanded by default when there are pending items
-
-function _renderHomePending(){
-  // Review Queue: spaced repetition nudge
-  // Shows pending materi sorted by age (days since added), oldest = most urgent
-  const pending = D.materi.filter(m => !m.done);
-  const sec = document.getElementById('home-pending-section');
-  if(!sec) return;
-
-  if(!pending.length){
-    const msgs=[
-      {e:'🔥',t:'Gasss! Semua latsoal selesai!',s:'Lo literally the goat hari ini.'},
-      {e:'🎉',t:'Clean slate!',s:'Semua materi udah dilatsoalin. Legend.'},
-    ];
-    const msg=msgs[new Date().getDate()%msgs.length];
-    sec.innerHTML=`<div class="sip-banner" style="margin-bottom:0"><div class="sip-emoji">${msg.e}</div><div><div class="sip-title">${msg.t}</div><div class="sip-sub">${msg.s}</div></div></div>`;
+  if(!activeSubjects.length){
+    el.innerHTML =
+      `<div class="empty" style="background:var(--white);border-radius:var(--r);box-shadow:var(--sh)">`+
+      `<span class="empty-ic">📚</span>`+
+      `<div class="empty-t">Belum ada mata kuliah</div>`+
+      `<div class="empty-s">Tambahkan subjek pertamamu</div>`+
+      `<button onclick="openSheet('sh-addsubj')" style="margin-top:14px;padding:10px 22px;background:var(--blue);color:#fff;border-radius:var(--rsm);font-size:14px;font-weight:700">＋ Tambah Subjek</button>`+
+      `</div>`;
     return;
   }
 
-  // Sort by age (oldest = highest priority)
-  const todayStr = tod();
-  const sorted = [...pending].sort((a,b) => a.date.localeCompare(b.date));
+  subjData.forEach(({s, materi, tugas, ujian, nearestDL, urgency, allDone}, idx) => {
+    const card = document.createElement('div');
+    card.className = 'mk-tanggungan-card' + (allDone ? ' is-clean' : '');
+    card.style.animationDelay = (idx * 0.04) + 's';
+    card.onclick = () => openDetail(s.id);
 
-  // Section heading
-  const hd = document.createElement('div');
-  hd.className = 'home-sec';
-  hd.style.animationDelay = '.1s';
-  hd.innerHTML = `<span>Review Queue <span style="font-size:12px;font-weight:700;background:var(--amber-lt);color:var(--amber);padding:2px 9px;border-radius:99px;margin-left:6px;">${pending.length}</span></span>`;
-  sec.innerHTML = '';
-  sec.appendChild(hd);
+    // Strip color
+    const stripClass = allDone ? 'clean' : urgency === 'urgent' ? 'urgent' : urgency === 'warn' ? 'warn' : 'none';
 
-  const card = document.createElement('div');
-  card.className = 'home-section-card';
-
-  sorted.forEach((m, idx) => {
-    const s = gS(m.sid);
-    const days = diffD(todayStr, m.date);
-    const ageText = days <= 0 ? 'Hari ini' : days === 1 ? '1 hari lalu' : `${days} hari lalu`;
-    // Color: fresh<3 blue, medium 3-7 amber, old >7 red
-    const ageCls = days <= 2 ? 'fresh' : days <= 7 ? 'medium' : 'old';
-
-    const row = document.createElement('div');
-    row.className = 'review-queue-item';
-    row.style.animationDelay = `${.1 + idx*.04}s`;
-
-    row.innerHTML =
-      `<div class="rq-accent" style="background:${s?s.color:'var(--blue)'}"></div>`+
-      `<div class="rq-body">`+
-      `<div class="rq-name">${m.name}</div>`+
-      `<div class="rq-sub">${s?s.emoji+' '+s.name:''}</div>`+
-      `</div>`+
-      `<span class="rq-age ${ageCls}">${ageText}</span>`+
-      `<button class="mi-btn todo" style="margin-left:8px;font-size:11px;padding:6px 12px;" onclick="event.stopPropagation();toggleM('${m.id}')">Latsoal</button>`;
-
-    row.onclick = () => openEditM(m.id);
-    card.appendChild(row);
-  });
-
-  sec.appendChild(card);
-}
-
-function renderWeek(){
-  const now=new Date();
-  const dow=now.getDay(); // 0=Sun
-  // Monday as first day
-  const mon=new Date(now);
-  mon.setDate(now.getDate() - (dow===0?6:dow-1) + weekOff*7);
-
-  const days=[];
-  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);days.push(d);}
-
-  const s=days[0],e=days[6];
-  const todayStr=tod();
-  const sameMonth=s.getMonth()===e.getMonth();
-  const rangeStr=sameMonth
-    ?`${s.getDate()}–${e.getDate()} ${e.toLocaleDateString('id-ID',{month:'long'})}`
-    :`${s.getDate()} ${s.toLocaleDateString('id-ID',{month:'short'})} – ${e.getDate()} ${e.toLocaleDateString('id-ID',{month:'short'})}`;
-
-  document.getElementById('wk-title').textContent=weekOff===0?'Minggu ini':weekOff===-1?'Minggu lalu':'Minggu depan';
-  document.getElementById('wk-sub').textContent=rangeStr+' '+e.getFullYear();
-
-  const DNAMES=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
-  const grid=document.getElementById('week-grid');
-  grid.innerHTML='';
-
-  days.forEach((d,i)=>{
-    const ds=d.toISOString().slice(0,10);
-    const isToday=ds===todayStr;
-
-    // materi & tugas on this date
-    const matHari=D.materi.filter(m=>m.date===ds);
-    const tgsHari=D.tugas.filter(t=>t.inputDate===ds);
-    const hasM=matHari.length>0, hasT=tgsHari.length>0;
-    const allDone=hasM && matHari.every(m=>m.done);
-
-    const el=document.createElement('div');
-    el.className='wday'+(isToday?' is-today':'');
-
-    // status indicator
-    let statusHTML='';
-    if(hasM && allDone){
-      statusHTML=`<div class="wd-status"><div class="wd-x">✕</div></div>`;
-    } else if(hasM || hasT){
-      let dots='';
-      if(hasM) dots+=`<div class="wd-dot wd-dot-m"></div>`;
-      if(hasT) dots+=`<div class="wd-dot wd-dot-t"></div>`;
-      statusHTML=`<div class="wd-status"><div class="wd-dots-row">${dots}</div></div>`;
+    // Deadline subtitle
+    let dlHtml = '';
+    if(allDone){
+      dlHtml = `<div class="mk-deadline-sub ok">✓ Semua selesai</div>`;
+    } else if(nearestDL){
+      const diff = nearestDL.diff;
+      const typeLabel = nearestDL.type === 'ujian' ? 'Ujian' : 'Tugas';
+      let text, cls;
+      if(diff < 0){ text = `⚠ ${typeLabel} overdue ${Math.abs(diff)} hari`; cls = 'urgent'; }
+      else if(diff === 0){ text = `⚠ ${typeLabel} deadline hari ini`; cls = 'urgent'; }
+      else if(diff === 1){ text = `${typeLabel} deadline besok`; cls = 'warn'; }
+      else if(diff <= 7){ text = `${typeLabel} dalam ${diff} hari`; cls = 'warn'; }
+      else { text = `${typeLabel} dalam ${diff} hari`; cls = 'gray'; }
+      dlHtml = `<div class="mk-deadline-sub ${cls}">${text}</div>`;
+    } else if(materi.length){
+      dlHtml = `<div class="mk-deadline-sub gray">${materi.length} materi belum dipelajari</div>`;
     } else {
-      statusHTML=`<div class="wd-status"><div class="wd-none"></div></div>`;
+      dlHtml = `<div class="mk-deadline-sub gray">Tidak ada deadline dekat</div>`;
     }
 
-    el.innerHTML=
-      `<div class="wd-name">${DNAMES[i]}</div>`+
-      `<div class="wd-num-wrap"><div class="wd-num">${d.getDate()}</div></div>`+
-      statusHTML;
-    grid.appendChild(el);
+    // Counter colors
+    const materiBadgeCls = materi.length ? 'blue' : 'gray';
+    const tugasBadgeCls = tugas.some(t => diffD(t.deadline, todayStr) <= 0) ? 'red'
+      : tugas.some(t => diffD(t.deadline, todayStr) <= 3) ? 'amber'
+      : tugas.length ? 'amber' : 'gray';
+    const ujianBadgeCls = ujian.some(u => diffD(u.date, todayStr) <= 3) ? 'red'
+      : ujian.some(u => diffD(u.date, todayStr) <= 7) ? 'amber'
+      : ujian.length ? 'blue' : 'gray';
+
+    const materiFmt = allDone ? `<span class="mk-counter-num all-done">✓</span>` : `<span class="mk-counter-num ${materiBadgeCls}">${materi.length || '—'}</span>`;
+    const tugasFmt = allDone ? `<span class="mk-counter-num all-done">✓</span>` : `<span class="mk-counter-num ${tugasBadgeCls}">${tugas.length || '—'}</span>`;
+    const ujianFmt = `<span class="mk-counter-num ${ujianBadgeCls}">${ujian.length || '—'}</span>`;
+
+    card.innerHTML =
+      `<div class="mk-urgency-strip ${stripClass}"></div>`+
+      `<div class="mk-top-row">`+
+        `<div class="mk-icon-wrap" style="background:${s.color}18">${s.emoji}</div>`+
+        `<div class="mk-info">`+
+          `<div class="mk-name">${escHtml(s.name)}</div>`+
+          dlHtml+
+        `</div>`+
+        `<div class="mk-chev">›</div>`+
+      `</div>`+
+      `<div class="mk-counters">`+
+        `<div class="mk-counter-item">`+
+          materiFmt+
+          `<div class="mk-counter-lbl">Materi</div>`+
+        `</div>`+
+        `<div class="mk-counter-item">`+
+          tugasFmt+
+          `<div class="mk-counter-lbl">Tugas</div>`+
+        `</div>`+
+        `<div class="mk-counter-item">`+
+          ujianFmt+
+          `<div class="mk-counter-lbl">Ujian</div>`+
+        `</div>`+
+      `</div>`;
+
+    el.appendChild(card);
   });
-}
-
-function shiftWeek(dir){ weekOff+=dir; renderWeek(); }
-
-// ════════ SUBJECT LISTS ═══════════════════════
-let archiveExpanded = false;
-let subjFilter = 'all';
-
-function setSubjFilter(f, btn){
-  subjFilter=f;
-  document.querySelectorAll('.subj-fpill').forEach(b=>b.classList.remove('on'));
-  if(btn) btn.classList.add('on');
-  renderSubjLists();
 }
 
 function renderSubjLists(){
@@ -7403,7 +7286,7 @@ function execDelSubj(){
   D.materi  =D.materi.filter(x=>x.sid!==delSid);
   D.tugas   =D.tugas.filter(x=>x.sid!==delSid);
   save(); closeSheet('sh-dels');
-  goView('subjects',document.getElementById('bn-s'));
+  goView('home',document.getElementById('bn-h'));
   toast('🗑 Subjek dihapus');
 }
 
@@ -7440,7 +7323,7 @@ function hapusSubjDariEdit(){
   D.materi  =D.materi.filter(x=>x.sid!==editSid);
   D.tugas   =D.tugas.filter(x=>x.sid!==editSid);
   save(); closeSheet('sh-editsubj');
-  goView('subjects',document.getElementById('bn-s'));
+  goView('home',document.getElementById('bn-h'));
   toast('🗑 Subjek dihapus');
 }
 function archiveSubj(){
@@ -7448,7 +7331,7 @@ function archiveSubj(){
   if(!confirm(`Archive "${s.name}"? Subjek akan disembunyikan tapi datanya tetap tersimpan.`))return;
   s.archived=true;
   save(); closeSheet('sh-editsubj');
-  goView('subjects',document.getElementById('bn-s'));
+  goView('home',document.getElementById('bn-h'));
   renderSidebar(); archiveExpanded=true;
   toast(`🗂 "${s.name}" diarsipkan`);
 }
