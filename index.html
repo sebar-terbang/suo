@@ -574,6 +574,123 @@ input,select,textarea { font-family:inherit; }
   font-size: 12px; font-weight: 700; color: var(--green);
 }
 
+
+/* ══════════════════════════════════
+   HOME STATS STRIP (3 stats only)
+══════════════════════════════════ */
+.home-stats-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px 10px 10px;
+  background: var(--white);
+  border-bottom: 1.5px solid var(--line);
+}
+.hstat {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 10px 6px 11px;
+  border-radius: var(--rsm);
+  background: var(--bg);
+  text-align: center;
+}
+.hstat.hstat-danger  { background: var(--red-lt); }
+.hstat.hstat-warn    { background: var(--amber-lt); }
+.hstat.hstat-neutral { background: var(--bg); }
+.hstat-num {
+  font-size: 24px; font-weight: 800; line-height: 1;
+  letter-spacing: -.5px;
+}
+.hstat-num.red   { color: var(--red); }
+.hstat-num.amber { color: var(--amber); }
+.hstat-num.blue  { color: var(--blue); }
+.hstat-num.gray  { color: var(--ink2); }
+.hstat-lbl {
+  font-size: 9px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em;
+  color: var(--ink3); margin-top: 4px; line-height: 1.3;
+}
+
+/* ══════════════════════════════════
+   MATERI ITEM — status dot system
+   (no mandatory checkbox)
+══════════════════════════════════ */
+.mitem-v3 {
+  display: flex; align-items: center; gap: 11px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  transition: background .1s; cursor: pointer;
+}
+.mitem-v3:last-child { border-bottom: none; }
+.mitem-v3:active { background: var(--bg); }
+
+.mitem-v3-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  flex-shrink: 0; transition: background .2s;
+}
+.mitem-v3-dot.paham   { background: var(--green); }
+.mitem-v3-dot.belajar { background: var(--blue); }
+.mitem-v3-dot.idle    { background: var(--line2); border: 1.5px solid var(--line2); }
+
+.mitem-v3-body { flex: 1; min-width: 0; }
+.mitem-v3-name {
+  font-size: 14px; font-weight: 600; color: var(--ink);
+  line-height: 1.3;
+}
+.mitem-v3-name.paham { color: var(--ink3); }
+.mitem-v3-sub {
+  font-size: 11px; color: var(--ink3); font-weight: 500; margin-top: 2px;
+}
+.mitem-v3-chip {
+  display: inline-block; font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px; margin-top: 4px;
+}
+.mitem-v3-chip.paham   { background: var(--green-lt); color: var(--green); }
+.mitem-v3-chip.belajar { background: var(--blue-lt);  color: var(--blue); }
+/* no chip for idle — no pressure */
+
+.mitem-v3-more {
+  font-size: 17px; color: var(--ink3); padding: 6px;
+  flex-shrink: 0;
+}
+.mitem-v3-more:active { color: var(--ink); }
+
+/* status bottom sheet */
+.materi-status-sheet {
+  padding: 6px 0 0;
+}
+.mss-title {
+  font-size: 12px; font-weight: 700; color: var(--ink3);
+  text-transform: uppercase; letter-spacing: .07em;
+  padding: 0 20px 12px;
+}
+.mss-option {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--line);
+  cursor: pointer; transition: background .12s;
+}
+.mss-option:active { background: var(--bg); }
+.mss-option.selected { background: var(--bg); }
+.mss-dot {
+  width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0;
+}
+.mss-dot.paham   { background: var(--green); }
+.mss-dot.belajar { background: var(--blue); }
+.mss-dot.idle    { background: var(--line2); }
+.mss-label { font-size: 15px; font-weight: 600; flex: 1; }
+.mss-check { font-size: 16px; color: var(--green); }
+
+/* ujian materi pills: tap cycles status */
+.ujian-v2-materi-pill.paham {
+  background: var(--green-lt); border-color: var(--green-bd); color: var(--green);
+}
+.ujian-v2-materi-pill.belajar {
+  background: var(--blue-lt); border-color: var(--blue-bd); color: var(--blue);
+}
+.ujian-v2-materi-pill.idle {
+  background: var(--bg); border-color: var(--line2); color: var(--ink2);
+}
+
 /* ══ Matkul cards in clean state ══ */
 .mk-tanggungan-card.is-clean {
   border-color: var(--green-bd);
@@ -880,12 +997,7 @@ input,select,textarea { font-family:inherit; }
 /* ══════════════════════════════════
    SUBJECT DETAIL HEADER
 ══════════════════════════════════ */
-.sdh {
-  background:var(--white);
-  border-bottom:1px solid var(--line);
-  padding:18px 16px 16px;
-  display:flex; align-items:center; gap:14px;
-}
+.sdh { /* container only — sdh-v2 handles all layout */ }
 .sdh-ico {
   width:52px; height:52px; border-radius:var(--r);
   display:flex; align-items:center; justify-content:center;
@@ -2262,6 +2374,298 @@ input,select,textarea { font-family:inherit; }
 }
 .detail-tab-content { display:none; }
 .detail-tab-content.active { display:block; }
+
+
+/* ══════════════════════════════════
+   DETAIL PAGE REDESIGN
+══════════════════════════════════ */
+
+/* ── Header ── */
+.sdh-v2 {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 16px 14px;
+}
+.sdh-v2-top {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+}
+.sdh-v2-ico {
+  width: 48px; height: 48px; border-radius: var(--r);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; flex-shrink: 0;
+}
+.sdh-v2-info { flex: 1; min-width: 0; }
+.sdh-v2-type {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink3); margin-bottom: 2px;
+}
+.sdh-v2-name {
+  font-size: 20px; font-weight: 800;
+  letter-spacing: -.5px; line-height: 1.1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sdh-v2-sem {
+  font-size: 12px; color: var(--ink3); font-weight: 500; margin-top: 2px;
+}
+
+/* dual progress bars */
+.sdh-v2-progress { display: flex; flex-direction: column; gap: 7px; }
+.sdh-v2-prog-row {
+  display: flex; align-items: center; gap: 10px;
+}
+.sdh-v2-prog-label {
+  font-size: 11px; font-weight: 700; color: var(--ink3);
+  flex-shrink: 0; min-width: 52px;
+}
+.sdh-v2-prog-track {
+  flex: 1; height: 6px; background: var(--bg2);
+  border-radius: 99px; overflow: hidden;
+}
+.sdh-v2-prog-fill {
+  height: 100%; border-radius: 99px;
+  transition: width .5s cubic-bezier(.32,.72,0,1);
+}
+.sdh-v2-prog-fill.latsoal { background: var(--blue); }
+.sdh-v2-prog-fill.ngerti  { background: var(--purple); }
+.sdh-v2-prog-count {
+  font-size: 11px; font-weight: 700;
+  color: var(--ink2); flex-shrink: 0; min-width: 32px; text-align: right;
+}
+
+/* absen bar redesigned — compact row inside header */
+.sdh-v2-absen {
+  display: flex; gap: 8px; margin-top: 11px;
+  padding-top: 11px; border-top: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.sdh-v2-absen-item {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 700;
+  padding: 4px 10px; border-radius: 99px;
+}
+.sdh-v2-absen-item.hadir { background: var(--green-lt); color: var(--green); }
+.sdh-v2-absen-item.bolos { background: var(--red-lt); color: var(--red); }
+.sdh-v2-absen-item.izin  { background: var(--amber-lt); color: var(--amber); }
+.sdh-v2-absen-empty {
+  font-size: 12px; color: var(--ink3); font-weight: 500;
+  margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--line);
+}
+
+/* ── Materi item redesign ── */
+.mitem-v2 {
+  display: flex; align-items: flex-start; gap: 0;
+  padding: 13px 14px 12px;
+  border-bottom: 1px solid var(--line);
+  transition: background .1s;
+  position: relative;
+}
+.mitem-v2:last-child { border-bottom: none; }
+.mitem-v2:active { background: var(--bg); }
+.mitem-v2.is-done { opacity: .6; }
+
+/* left urgency bar */
+.mitem-v2-bar {
+  width: 3px; border-radius: 99px; flex-shrink: 0;
+  align-self: stretch; margin-right: 12px; min-height: 20px;
+}
+.mitem-v2-bar.done   { background: var(--green); }
+.mitem-v2-bar.todo   { background: var(--blue-bd); }
+.mitem-v2-bar.urgent { background: var(--red); }
+
+.mitem-v2-body { flex: 1; min-width: 0; }
+.mitem-v2-name {
+  font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.3;
+}
+.mitem-v2-name.done {
+  text-decoration: line-through; color: var(--ink3);
+}
+.mitem-v2-date {
+  font-size: 11px; color: var(--ink3); font-weight: 500; margin-top: 3px;
+}
+
+/* Action pills — big enough to tap */
+.mitem-v2-actions {
+  display: flex; gap: 6px; margin-top: 9px; flex-wrap: wrap;
+}
+.mitem-v2-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 34px; padding: 0 12px;
+  border-radius: var(--rsm); border: 1.5px solid;
+  font-size: 12px; font-weight: 700;
+  cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.mitem-v2-pill:active { transform: scale(.95); opacity: .8; }
+
+.mitem-v2-pill.latsoal-on  {
+  background: var(--green-lt); border-color: var(--green-bd); color: var(--green);
+}
+.mitem-v2-pill.latsoal-off {
+  background: var(--bg); border-color: var(--line2); color: var(--ink3);
+}
+.mitem-v2-pill.ngerti-on  {
+  background: #ede9fe; border-color: #c4b5fd; color: #7c3aed;
+}
+.mitem-v2-pill.ngerti-off {
+  background: var(--bg); border-color: var(--line2); color: var(--ink3);
+}
+.mitem-v2-pill.absen-pill {
+  background: var(--amber-lt); border-color: var(--amber-bd); color: var(--amber);
+}
+
+/* ── Tugas item redesign (like screenshot) ── */
+.titem-v2 {
+  padding: 13px 14px 12px;
+  border-bottom: 1px solid var(--line);
+  transition: background .1s;
+  position: relative;
+}
+.titem-v2:last-child { border-bottom: none; }
+
+/* urgency left bar */
+.titem-v2-inner {
+  display: flex; align-items: flex-start; gap: 0;
+}
+.titem-v2-bar {
+  width: 3px; border-radius: 99px; flex-shrink: 0;
+  align-self: stretch; margin-right: 12px; min-height: 20px;
+}
+.titem-v2-bar.overdue { background: var(--red); }
+.titem-v2-bar.soon    { background: var(--amber); }
+.titem-v2-bar.ok      { background: var(--blue-bd); }
+.titem-v2-bar.done    { background: var(--green); }
+
+.titem-v2-body { flex: 1; min-width: 0; }
+.titem-v2-name {
+  font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.3;
+}
+.titem-v2-name.done { text-decoration: line-through; color: var(--ink3); }
+
+.titem-v2-chips {
+  display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; align-items: center;
+}
+.titem-v2-type {
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px;
+}
+.ttype-v2-soal       { background: var(--blue-lt);   color: var(--blue); }
+.ttype-v2-laporan    { background: var(--amber-lt);  color: var(--amber); }
+.ttype-v2-video      { background: #fce7f3;          color: #db2777; }
+.ttype-v2-presentasi { background: var(--purple-lt); color: var(--purple); }
+.ttype-v2-lainnya    { background: var(--bg2);       color: var(--ink3); }
+
+.titem-v2-dl {
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 99px;
+}
+.tdl-late { background: var(--red-lt);   color: var(--red); }
+.tdl-soon { background: var(--amber-lt); color: var(--amber); }
+.tdl-ok   { background: var(--blue-lt);  color: var(--blue); }
+.tdl-done { background: var(--bg2);      color: var(--ink3); }
+
+/* Done toggle button */
+.titem-v2-action {
+  display: flex; align-items: center; gap: 8px; margin-top: 10px;
+}
+.titem-v2-check {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--line2); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; cursor: pointer; font-size: 13px;
+  transition: all .2s cubic-bezier(.32,.72,0,1);
+}
+.titem-v2-check.done {
+  background: var(--green); border-color: var(--green); color: #fff;
+}
+.titem-v2-check:active { transform: scale(.85); }
+.titem-v2-check-label {
+  font-size: 12px; font-weight: 700; color: var(--ink3);
+}
+.titem-v2-more {
+  margin-left: auto; padding: 6px 8px; border-radius: var(--rxs);
+  color: var(--ink3); font-size: 17px; flex-shrink: 0;
+}
+.titem-v2-more:active { background: var(--bg); }
+
+/* ── Ujian card redesign (like screenshot) ── */
+.ujian-v2-card {
+  background: var(--white);
+  border-radius: var(--r);
+  border: 1.5px solid var(--line);
+  box-shadow: var(--sh);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.ujian-v2-card.is-past { opacity: .7; }
+
+.ujian-v2-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.ujian-v2-type-badge {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .04em; padding: 4px 9px; border-radius: var(--rxs);
+  flex-shrink: 0;
+}
+.ujian-v2-type-quiz  { background: var(--blue-lt);  color: var(--blue); }
+.ujian-v2-type-uts   { background: var(--amber-lt); color: var(--amber); }
+.ujian-v2-type-uas   { background: var(--red-lt);   color: var(--red); }
+
+.ujian-v2-name {
+  flex: 1; font-size: 15px; font-weight: 700;
+  color: var(--ink); min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ujian-v2-countdown {
+  flex-shrink: 0; font-size: 13px; font-weight: 800;
+  padding: 4px 11px; border-radius: 99px;
+  letter-spacing: -.2px;
+}
+.uv2cd-crit { background: var(--red-lt);   color: var(--red); }
+.uv2cd-warn { background: var(--amber-lt); color: var(--amber); }
+.uv2cd-ok   { background: var(--blue-lt);  color: var(--blue); }
+.uv2cd-done { background: var(--bg2);      color: var(--ink3); }
+
+.ujian-v2-body { padding: 10px 14px 12px; }
+.ujian-v2-date {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 600; color: var(--ink2); margin-bottom: 8px;
+}
+.ujian-v2-kesiapan-label {
+  font-size: 11px; font-weight: 700; color: var(--ink3); margin-bottom: 6px;
+}
+.ujian-v2-materi-pills {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;
+}
+.ujian-v2-materi-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 700;
+  padding: 5px 12px; border-radius: var(--rsm);
+  border: 1.5px solid; cursor: pointer; transition: all .15s;
+}
+.ujian-v2-materi-pill:active { transform: scale(.95); }
+.ujian-v2-materi-pill.done  {
+  background: var(--green-lt); border-color: var(--green-bd); color: var(--green);
+}
+.ujian-v2-materi-pill.undone {
+  background: var(--bg); border-color: var(--line2); color: var(--ink2);
+}
+.ujian-v2-actions {
+  display: flex; gap: 8px; align-items: center;
+}
+.ujian-v2-ready-btn {
+  flex: 1; padding: 11px 14px; border-radius: var(--rsm);
+  font-size: 14px; font-weight: 700; border: 1.5px solid;
+  transition: all .18s; text-align: center; cursor: pointer;
+}
+.ujian-v2-ready-btn:active { opacity: .75; transform: scale(.98); }
+.ujian-v2-ready-btn.ready    { background: var(--green-lt); border-color: var(--green-bd); color: var(--green); }
+.ujian-v2-ready-btn.not-ready { background: var(--bg); border-color: var(--line2); color: var(--ink2); }
+.ujian-v2-more-btn {
+  padding: 10px 12px; border-radius: var(--rsm);
+  border: 1.5px solid var(--line2); background: var(--bg);
+  font-size: 14px; color: var(--ink3); cursor: pointer;
+}
+.ujian-v2-more-btn:active { background: var(--bg2); }
 
 /* ══ MATERI CARD WITH STATUS ══ */
 .mitem-status-row {
@@ -3880,6 +4284,230 @@ input,select,textarea { font-family:inherit; }
 .pd-sec-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
 .pd-sec-btn{font-size:12px;font-weight:700;color:var(--blue);padding:3px 0;}
 
+
+/* ══════════════════════════════════
+   AREA DETAIL REDESIGN — Atomic Habits
+══════════════════════════════════ */
+
+/* identity card */
+.ad2-identity {
+  margin: 12px 12px 0;
+  border-radius: 14px;
+  padding: 18px 16px;
+  position: relative; overflow: hidden;
+}
+.ad2-identity-bg {
+  position: absolute; inset: 0;
+  border-radius: 14px;
+}
+.ad2-identity-label {
+  position: relative; z-index: 1;
+  font-size: 10px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .09em;
+  color: rgba(255,255,255,.65); margin-bottom: 8px;
+}
+.ad2-identity-text {
+  position: relative; z-index: 1;
+  font-size: 15px; font-weight: 500;
+  color: #fff; line-height: 1.6;
+}
+.ad2-identity-text em {
+  font-style: normal; color: rgba(255,255,255,.65);
+}
+.ad2-identity-edit {
+  position: relative; z-index: 1;
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 12px; font-size: 12px;
+  color: rgba(255,255,255,.75); cursor: pointer;
+  background: rgba(255,255,255,.12);
+  padding: 4px 10px; border-radius: 6px;
+  border: none;
+}
+
+/* section header */
+.ad2-sec-hd {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 16px 8px;
+}
+.ad2-sec-title {
+  font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--ink3);
+}
+.ad2-sec-add {
+  font-size: 13px; font-weight: 700;
+  color: var(--blue); cursor: pointer;
+  background: none; border: none;
+}
+
+/* habits card */
+.ad2-habits-card {
+  background: var(--white);
+  border-radius: 14px;
+  margin: 0 12px 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh);
+  overflow: hidden;
+}
+.ad2-habit-row {
+  padding: 13px 14px 10px;
+}
+.ad2-habit-top {
+  display: flex; align-items: center; gap: 9px; margin-bottom: 3px;
+}
+.ad2-habit-emoji { font-size: 18px; line-height: 1; flex-shrink: 0; }
+.ad2-habit-name {
+  font-size: 14px; font-weight: 600;
+  color: var(--ink); flex: 1;
+}
+.ad2-check-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1.5px solid var(--line2);
+  background: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink3); font-size: 13px; flex-shrink: 0;
+  transition: all .18s cubic-bezier(.32,.72,0,1);
+}
+.ad2-check-btn.done {
+  color: #fff;
+  border-color: transparent;
+}
+.ad2-check-btn:active { transform: scale(.85); }
+.ad2-habit-freq {
+  font-size: 12px; color: var(--ink3);
+  margin-bottom: 9px; padding-left: 27px;
+}
+.ad2-streak-row {
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 14px 12px;
+}
+.ad2-streak-track {
+  flex: 1; height: 5px;
+  background: var(--bg2); border-radius: 99px; overflow: hidden;
+}
+.ad2-streak-fill {
+  height: 100%; border-radius: 99px;
+  transition: width .4s cubic-bezier(.32,.72,0,1);
+}
+.ad2-streak-lbl {
+  font-size: 11px; color: var(--ink3);
+  white-space: nowrap; flex-shrink: 0;
+}
+.ad2-habit-divider { height: 1px; background: var(--line); }
+
+/* weekly scoreboard */
+.ad2-score-card {
+  background: var(--white);
+  border-radius: 14px;
+  margin: 0 12px 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh);
+  padding: 14px;
+}
+.ad2-day-row {
+  display: flex; gap: 4px; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ad2-day-cell {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 5px;
+}
+.ad2-day-name {
+  font-size: 9px; font-weight: 700;
+  color: var(--ink3);
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.ad2-day-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  transition: all .2s;
+}
+.ad2-day-dot.done { background: var(--green-lt); color: var(--green); }
+.ad2-day-dot.miss { background: var(--bg2); color: var(--ink3); font-size: 16px; }
+.ad2-day-dot.today { color: #fff; font-size: 10px; font-weight: 800; }
+.ad2-score-foot {
+  display: flex; align-items: center; gap: 10px;
+  padding-top: 10px; border-top: 1px solid var(--line);
+}
+.ad2-score-num {
+  font-size: 22px; font-weight: 800; letter-spacing: -.5px;
+}
+.ad2-score-lbl {
+  font-size: 13px; color: var(--ink3); font-weight: 500;
+}
+
+/* reflection note */
+.ad2-note-card {
+  background: var(--white);
+  border-radius: 14px;
+  margin: 0 12px 8px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh);
+  padding: 14px;
+}
+.ad2-note-text {
+  font-size: 14px; color: var(--ink2);
+  line-height: 1.65; font-style: italic;
+}
+.ad2-note-empty {
+  font-size: 13px; color: var(--ink3); font-style: italic;
+}
+
+/* project linked cards */
+.ad2-proj-card {
+  background: var(--bg);
+  border-radius: 12px;
+  margin: 0 12px 8px;
+  border: 1px solid var(--line);
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 11px;
+  cursor: pointer; transition: background .12s;
+}
+.ad2-proj-card:active { background: var(--bg2); }
+.ad2-proj-accent {
+  width: 3px; height: 34px;
+  border-radius: 99px; flex-shrink: 0;
+}
+.ad2-proj-info { flex: 1; min-width: 0; }
+.ad2-proj-name {
+  font-size: 13px; font-weight: 600; color: var(--ink);
+}
+.ad2-proj-sub {
+  font-size: 11px; color: var(--ink3); margin-top: 2px;
+}
+.ad2-proj-pct {
+  font-size: 13px; font-weight: 700; color: var(--ink3); flex-shrink: 0;
+}
+
+/* identity sheet */
+.ad2-identity-field {
+  padding: 0 20px 16px;
+}
+.ad2-identity-field label {
+  display: block; font-size: 12px; font-weight: 700;
+  color: var(--ink3); margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: .06em;
+}
+.ad2-identity-field textarea {
+  width: 100%; padding: 12px 14px;
+  border: 1.5px solid var(--line2);
+  border-radius: var(--rsm);
+  font-size: 15px; line-height: 1.6;
+  background: var(--bg); color: var(--ink);
+  resize: none;
+}
+.ad2-identity-field textarea:focus {
+  outline: none; border-color: var(--blue);
+}
+
+/* habit add sheet */
+.ad2-habit-sheet-emoji {
+  font-size: 32px; text-align: center;
+  padding: 8px 0 12px; cursor: pointer;
+  display: block;
+}
+
 </style>
 </head>
 <body>
@@ -3949,13 +4577,11 @@ input,select,textarea { font-family:inherit; }
         </div>
       </div>
 
-      <!-- Tanggungan per Matkul -->
-      <div class="pad" style="padding-top:0">
-        <!-- Greeting compact -->
-        <div id="home-greeting" style="padding: 4px 0 12px">
-          <div class="home-greeting-sub" id="home-greeting-sub" style="font-size:13px;color:var(--ink3);font-weight:600">4 materi belum latsoal · 2 tugas aktif.</div>
-        </div>
+      <!-- Stats strip (rendered by JS) -->
+      <div id="home-stats-strip"></div>
 
+      <!-- Tanggungan per Matkul -->
+      <div class="pad" style="padding-top:12px">
         <!-- Clean state banner (shown when all done) -->
         <div id="home-clean-banner" style="display:none"></div>
 
@@ -4000,9 +4626,10 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ SUBJECT DETAIL ══ -->
     <div class="view" id="v-detail">
-      <div class="sdh" id="sdh"></div>
+      <!-- Dynamic header (sdh-v2 injected here by renderDetail) -->
+      <div id="sdh"></div>
 
-      <!-- Absensi Bolos Summary bar -->
+      <!-- Old absen bar kept but hidden — now integrated in sdh-v2 -->
       <div class="absen-summary-bar" id="absen-summary-bar" style="display:none">
         <span class="absen-sum-label">Kehadiran</span>
         <div class="absen-sum-stats" id="absen-sum-stats"></div>
@@ -4015,21 +4642,9 @@ input,select,textarea { font-family:inherit; }
         <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab('ujian')">📝 Ujian</button>
       </div>
 
-      <!-- Materi Tab -->
+      <!-- Materi Tab — guide box removed -->
       <div class="detail-tab-content active" id="dtab-content-materi">
         <div class="pad" style="padding-top:14px">
-          <div class="guide">
-            <div class="guide-ic">💡</div>
-            <div>
-              <div class="guide-title">Cara Latihan Soal yang Bener</div>
-              <div class="guide-steps">
-                <div class="guide-step"><div class="guide-step-num">1</div><span>Kerjain <b>5 soal susah</b> per materi</span></div>
-                <div class="guide-step"><div class="guide-step-num">2</div><span>Pilih soal <b>tipe berbeda-beda</b></span></div>
-                <div class="guide-step"><div class="guide-step-num">3</div><span>Jangan lihat catatan dulu, coba sendiri</span></div>
-                <div class="guide-step"><div class="guide-step-num">4</div><span>Baru centang kalau udah selesai semua</span></div>
-              </div>
-            </div>
-          </div>
           <div class="sec" id="sec-m-label">📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
           <div class="card" id="d-materi"></div>
         </div>
@@ -4176,40 +4791,39 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREA DETAIL ══ -->
     <div class="view" id="v-area-detail">
-      <div id="ad-header-wrap"><div class="ad-header"><div class="ad-accent" style="background:#be185d"></div><div class="ad-body"><div class="ad-top"><div class="ad-icon" style="background:#be185d18">🌿</div><div class="ad-info"><div class="ad-type">Area — Maintaining</div><div class="ad-name">B</div></div></div><div class="ad-meta"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div></div>
-      <div class="pad" style="padding-top:14px;padding-bottom:16px">
-        <div class="cs-wrap" id="cs-wrap">
-          <div class="cs-header">
-            <span class="cs-title">⚡ Current State</span>
-            <span class="cs-period" id="cs-period">Hari ini</span>
-          </div>
-          <div id="cs-body"><div class="cs-body"><div class="cs-card state-warn"><div class="cs-ic">🌅</div><div class="cs-label">sdjkfsdf</div><div class="cs-state">Pending</div></div></div></div>
+      <!-- scroll body -->
+      <div id="ad2-body">
+        <!-- identity card injected by JS -->
+        <div id="ad2-identity-wrap"></div>
+
+        <!-- habits section -->
+        <div class="ad2-sec-hd">
+          <span class="ad2-sec-title" id="ad2-habits-count">Habits</span>
+          <button class="ad2-sec-add" onclick="openAddHabit()">+ Tambah</button>
         </div>
-        <div class="gc-wrap">
-          <div class="gc-header"><span class="gc-title">🧭 Kompas Tujuan</span><button class="gc-edit-btn" onclick="openEditAreaGoals()">✏️ Edit</button></div>
-          <div class="gc-body">
-            <div class="gc-col want"><span class="gc-col-icon">✅</span><div class="gc-col-label">Keinginan</div><div class="gc-col-content" id="gc-want-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div></div>
-            <div class="gc-col dont"><span class="gc-col-icon">🚫</span><div class="gc-col-label">Ketidakinginan</div><div class="gc-col-content" id="gc-dont-content"><div class="gc-col-empty">Belum diisi</div><button class="gc-col-add" onclick="openEditAreaGoals()">+ Tambah</button></div></div>
-          </div>
+        <div id="ad2-habits-list"></div>
+
+        <!-- weekly scoreboard -->
+        <div class="ad2-sec-hd">
+          <span class="ad2-sec-title">Minggu Ini</span>
         </div>
-        <div class="lug-wrap" id="area-lug-wrap">
-          <button class="lug-header" id="lug-collapse-btn" onclick="toggleLugCollapse()" style="width:100%;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;">
-            <span class="lug-title">🎯 Line Up Goals</span>
-            <span id="lug-collapse-chev" style="font-size:14px;color:var(--ink3);transition:transform .2s;">▾</span>
-          </button>
-          <div class="lug-body" id="area-lug-body"><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot has-items" style="--area-color: #be185d;">✓</div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📆</span>Minggu Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;week&#39;,&#39;Minggu Ini&#39;,&#39;📆&#39;)">+ Tambah</button></div><div class="lug-item"><div class="lug-check " style="" onclick="toggleLugGoal(&#39;week&#39;,0)"></div><div class="lug-item-text ">bisa 5 km tanpa kucing</div><button class="lug-item-del" onclick="delLugGoal(&#39;week&#39;,0)">✕</button></div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🗓️</span>Bulan Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;month&#39;,&#39;Bulan Ini&#39;,&#39;🗓️&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">📌</span>3 Bulan ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;q3&#39;,&#39;3 Bulan ke Depan&#39;,&#39;📌&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🌟</span>Tahun Ini</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;year&#39;,&#39;Tahun Ini&#39;,&#39;🌟&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><div style="display: flex; align-items: flex-start; padding-left: 16px;"><div style="width: 2px; height: 10px; background: var(--line); border-radius: 99px; margin-left: 12px;"></div></div><div class="lug-horizon"><div class="lug-spine"><div class="lug-dot"></div></div><div class="lug-content"><div class="lug-horizon-label"><span class="lug-label-text"><span class="lug-label-emoji">🚀</span>5 Tahun ke Depan</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;y5&#39;,&#39;5 Tahun ke Depan&#39;,&#39;🚀&#39;)">+ Tambah</button></div><div class="lug-empty-hint">Belum ada goal untuk horizon ini</div></div></div><button class="lug-someday-toggle" id="lug-someday-toggle"><span class="lug-someday-icon">🌌</span><span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;">Someday</span><span class="lug-someday-chevron" id="lug-someday-chev">›</span></button><div class="lug-someday-body" id="lug-someday-body"><div class="lug-horizon-label" style="margin-bottom: 8px;"><span class="lug-label-text"><span class="lug-label-emoji">🌌</span>Someday</span><button class="lug-add-btn" onclick="openAddLugGoal(&#39;someday&#39;,&#39;Someday&#39;,&#39;🌌&#39;)">+ Tambah</button></div><div class="lug-empty-hint" style="margin-bottom: 8px;">Impian jangka panjang, belum ada timeline...</div></div></div>
+        <div id="ad2-scoreboard"></div>
+
+        <!-- reflection -->
+        <div class="ad2-sec-hd">
+          <span class="ad2-sec-title">Catatan Refleksi</span>
+          <button class="ad2-sec-add" onclick="openEditReflection()">Edit</button>
         </div>
-        <div class="ss-wrap" id="ss-wrap">
-          <div class="ss-header">
-            <span class="ss-title">🔁 Rituals</span>
-            <button class="ss-edit" onclick="openAddAreaItem()">＋ Tambah</button>
-          </div>
-          <div id="area-ap-list"><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1780136941426&#39;)"></div><div class="ap-body"><div class="ap-name">sdjkfsdf</div><div class="ap-meta"><span class="recur-badge">🔁 Setiap hari</span></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1780136941426&#39;)">···</button></div><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842802857&#39;)"></div><div class="ap-body"><div class="ap-name">tes</div><div class="ap-meta"></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842802857&#39;)">···</button></div><div class="ap-item"><div class="ap-check " onclick="toggleApDone(&#39;ap1779842879765&#39;)"></div><div class="ap-body"><div class="ap-name">outline bab 3</div><div class="ap-meta"><span class="ap-notes-btn" onclick="openApNotes(&#39;ap1779842879765&#39;)">📝 Notes</span></div></div><button class="ap-more" onclick="openEditAp(&#39;ap1779842879765&#39;)">···</button></div><button class="card-add">＋ Tambah Ritual</button></div>
+        <div id="ad2-reflection"></div>
+
+        <!-- projects -->
+        <div class="ad2-sec-hd">
+          <span class="ad2-sec-title">Projects Terkait</span>
         </div>
-        <div class="sec">🚀 Projects di Area Ini</div>
-        <div id="area-projects-list"><div class="empty-card" style="padding:20px;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada project terhubung</div></div></div>
-      </div>
-    </div>
+        <div id="area-projects-list"></div>
+        <div style="height:24px"></div>
+      </div><!-- /ad2-body -->
+    </div><!-- /v-area-detail -->
 
   </div><!-- /scroll -->
 
@@ -5353,10 +5967,75 @@ let _hwcWeekOff = 0; // week offset from current
 let _hwcSelectedDay = null; // 'YYYY-MM-DD'
 
 function renderHome(){
-  _renderHomeGreeting();
+  _renderHomeStats();
   _renderHomeWeekCal();
   _renderHomeMatkul();
   updateBadge();
+}
+
+function _renderHomeStats(){
+  const el = document.getElementById('home-stats-strip');
+  if(!el) return;
+  const todayStr = tod();
+
+  // Stat 1: Overdue tugas
+  const overdue = D.tugas.filter(t => !t.done && diffD(t.deadline, todayStr) < 0).length;
+  // Stat 2: Tugas aktif (belum selesai, belum overdue)
+  const aktif = D.tugas.filter(t => !t.done && diffD(t.deadline, todayStr) >= 0).length;
+  // Stat 3: Hari ke ujian terdekat
+  const upcoming = D.ujian
+    .map(u => ({ diff: diffD(u.date, todayStr), u }))
+    .filter(x => x.diff >= 0)
+    .sort((a,b) => a.diff - b.diff);
+  const nearestUjian = upcoming[0] || null;
+  const hariUjian = nearestUjian ? nearestUjian.diff : null;
+  const ujianName = nearestUjian ? (nearestUjian.u.name || {quiz:'Quiz',uts:'UTS',uas:'UAS'}[nearestUjian.u.type] || 'Ujian') : null;
+
+  // Build stat cards — overdue only shows if > 0
+  let statsHtml = '<div class="home-stats-strip">';
+
+  if(overdue > 0){
+    statsHtml +=
+      `<div class="hstat hstat-danger">`+
+      `<div class="hstat-num red">${overdue}</div>`+
+      `<div class="hstat-lbl">Overdue</div>`+
+      `</div>`;
+  } else {
+    // Show "Aman" as positive
+    statsHtml +=
+      `<div class="hstat hstat-neutral">`+
+      `<div class="hstat-num gray">0</div>`+
+      `<div class="hstat-lbl">Overdue</div>`+
+      `</div>`;
+  }
+
+  const aktifCls = aktif > 5 ? 'hstat-warn' : 'hstat-neutral';
+  const aktifNum = aktif > 5 ? 'amber' : 'gray';
+  statsHtml +=
+    `<div class="hstat ${aktifCls}">`+
+    `<div class="hstat-num ${aktifNum}">${aktif}</div>`+
+    `<div class="hstat-lbl">Tugas aktif</div>`+
+    `</div>`;
+
+  if(nearestUjian){
+    const ujianCls = hariUjian <= 3 ? 'hstat-danger' : hariUjian <= 7 ? 'hstat-warn' : 'hstat-neutral';
+    const ujianNum = hariUjian <= 3 ? 'red' : hariUjian <= 7 ? 'amber' : 'blue';
+    const shortName = ujianName.length > 8 ? ujianName.slice(0,8)+'…' : ujianName;
+    statsHtml +=
+      `<div class="hstat ${ujianCls}">`+
+      `<div class="hstat-num ${ujianNum}">H-${hariUjian}</div>`+
+      `<div class="hstat-lbl">${shortName}</div>`+
+      `</div>`;
+  } else {
+    statsHtml +=
+      `<div class="hstat hstat-neutral">`+
+      `<div class="hstat-num gray">—</div>`+
+      `<div class="hstat-lbl">Ujian</div>`+
+      `</div>`;
+  }
+
+  statsHtml += '</div>';
+  el.innerHTML = statsHtml;
 }
 
 function shiftHomeWeek(dir){
@@ -5444,32 +6123,31 @@ function _renderHomeWeekCal(){
 
 function _getDayDots(dStr){
   const dots = [];
-  // Tugas deadline on this day
+  // Tugas deadline on this day (or overdue shown on today)
   const hasTugas = D.tugas.some(t => !t.done && t.deadline === dStr);
   const hasOverdueTugas = D.tugas.some(t => !t.done && t.deadline < dStr && dStr === tod());
   if(hasTugas || hasOverdueTugas) dots.push('red');
   // Ujian on this day
   if(D.ujian.some(u => u.date === dStr)) dots.push('amber');
-  // Materi scheduled on this day
-  if(D.materi.some(m => !m.done && m.date === dStr)) dots.push('blue');
+  // Materi: only show dot if there's a class/session on that day
+  // (materi with that date = scheduled teaching day)
+  if(D.materi.some(m => m.date === dStr)) dots.push('blue');
   return dots;
 }
 
 function _getDayStatus(dStr, dots, isPast){
   if(!isPast && dStr !== tod()) return '';
-  // For past days: check if all items on that day were completed
   const tugas = D.tugas.filter(t => t.deadline === dStr);
-  const materi = D.materi.filter(m => m.date === dStr);
   const ujian = D.ujian.filter(u => u.date === dStr);
 
-  const allItems = [...tugas, ...materi];
-  if(!allItems.length && !ujian.length) return ''; // no items = no ring
+  // Only tugas + ujian days get a ring (materi alone = no ring, no pressure)
+  if(!tugas.length && !ujian.length) return '';
 
-  const doneTugas = tugas.every(t => t.done);
-  const doneMateri = materi.every(m => m.done || m.ngerti);
+  const allTugasDone = tugas.every(t => t.done);
+  const hasOverdue = tugas.some(t => !t.done && t.deadline < tod());
 
-  if(doneTugas && doneMateri) return 'status-ok';
-  if(tugas.some(t => !t.done && t.deadline < tod())) return 'status-miss';
+  if(hasOverdue) return 'status-miss';
+  if(allTugasDone) return 'status-ok';
   return 'status-partial';
 }
 
@@ -5545,15 +6223,7 @@ function _hwcEventTap(type, id){
 }
 
 function _renderHomeGreeting(){
-  const pending = D.materi.filter(m => !m.done && !m.ngerti).length;
-  const activeTugas = D.tugas.filter(t => !t.done).length;
-  const sub = document.getElementById('home-greeting-sub');
-  if(sub){
-    if(!pending && !activeTugas) sub.textContent = 'Semua beres! Lo legend hari ini. 🔥';
-    else if(pending && activeTugas) sub.textContent = `${pending} materi belum latsoal · ${activeTugas} tugas aktif.`;
-    else if(pending) sub.textContent = `${pending} materi menunggu latihan soal.`;
-    else sub.textContent = `${activeTugas} tugas aktif sedang berjalan.`;
-  }
+  // greeting sub removed — stats strip handles the summary now
 }
 
 function _renderHomeMatkul(){
@@ -5566,7 +6236,7 @@ function _renderHomeMatkul(){
 
   // Compute per-subject urgency
   const subjData = activeSubjects.map(s => {
-    const materi = D.materi.filter(m => m.sid === s.id && !m.done && !m.ngerti);
+    const materi = D.materi.filter(m => m.sid === s.id); // all materi for count display
     const tugas = D.tugas.filter(t => t.sid === s.id && !t.done);
     const ujian = D.ujian.filter(u => u.sid === s.id && diffD(u.date, todayStr) >= 0);
 
@@ -5587,9 +6257,10 @@ function _renderHomeMatkul(){
       if(nearestDL.diff <= 0) urgency = 'urgent'; // overdue or today
       else if(nearestDL.diff <= 7) urgency = 'warn';
       else urgency = 'ok';
-    } else if(materi.length) urgency = 'ok';
+    }
+    // materi alone does NOT drive urgency — it's a neutral shelf
 
-    const allDone = materi.length === 0 && tugas.length === 0;
+    const allDone = tugas.length === 0 && ujian.length === 0; // materi alone doesn't block "done" state
 
     return { s, materi, tugas, ujian, nearestDL, nearestDLDiff, urgency, allDone };
   });
@@ -5614,8 +6285,7 @@ function _renderHomeMatkul(){
       for(let i = 1; i <= 30; i++){
         const d = new Date(today); d.setDate(today.getDate() - i);
         const ds = d.toISOString().slice(0, 10);
-        const hadPending = D.tugas.some(t => !t.done && t.deadline <= ds)
-          || D.materi.some(m => !m.done && !m.ngerti && m.date <= ds);
+        const hadPending = D.tugas.some(t => !t.done && t.deadline <= ds);
         if(!hadPending) streak++;
         else break;
       }
@@ -5670,14 +6340,26 @@ function _renderHomeMatkul(){
       else if(diff <= 7){ text = `${typeLabel} dalam ${diff} hari`; cls = 'warn'; }
       else { text = `${typeLabel} dalam ${diff} hari`; cls = 'gray'; }
       dlHtml = `<div class="mk-deadline-sub ${cls}">${text}</div>`;
-    } else if(materi.length){
-      dlHtml = `<div class="mk-deadline-sub gray">${materi.length} materi belum dipelajari</div>`;
     } else {
       dlHtml = `<div class="mk-deadline-sub gray">Tidak ada deadline dekat</div>`;
     }
 
     // Counter colors
-    const materiBadgeCls = materi.length ? 'blue' : 'gray';
+    // Materi counter: neutral gray UNLESS ujian ≤7 days with unpaham linked materi
+    let materiBadgeCls = 'gray';
+    if(materi.length > 0){
+      const linkedUjian = ujian.filter(u => {
+        const d = diffD(u.date, todayStr);
+        return d >= 0 && d <= 7;
+      });
+      const hasUnpahamLinked = linkedUjian.some(u =>
+        u.materiIds && u.materiIds.some(mid => {
+          const m = D.materi.find(x => x.id === mid);
+          return m && !m.ngerti;
+        })
+      );
+      materiBadgeCls = hasUnpahamLinked ? 'amber' : 'gray';
+    }
     const tugasBadgeCls = tugas.some(t => diffD(t.deadline, todayStr) <= 0) ? 'red'
       : tugas.some(t => diffD(t.deadline, todayStr) <= 3) ? 'amber'
       : tugas.length ? 'amber' : 'gray';
@@ -5685,7 +6367,10 @@ function _renderHomeMatkul(){
       : ujian.some(u => diffD(u.date, todayStr) <= 7) ? 'amber'
       : ujian.length ? 'blue' : 'gray';
 
-    const materiFmt = allDone ? `<span class="mk-counter-num all-done">✓</span>` : `<span class="mk-counter-num ${materiBadgeCls}">${materi.length || '—'}</span>`;
+    const materiTotal = D.materi.filter(m => m.sid === s.id).length;
+    const materiFmt = allDone
+      ? `<span class="mk-counter-num all-done">✓</span>`
+      : `<span class="mk-counter-num ${materiBadgeCls}">${materiTotal || '—'}</span>`;
     const tugasFmt = allDone ? `<span class="mk-counter-num all-done">✓</span>` : `<span class="mk-counter-num ${tugasBadgeCls}">${tugas.length || '—'}</span>`;
     const ujianFmt = `<span class="mk-counter-num ${ujianBadgeCls}">${ujian.length || '—'}</span>`;
 
@@ -5742,7 +6427,7 @@ function renderSubjLists(){
 
   // ── NORMAL MODE ──
   let active = D.subjects.filter(s => !s.archived);
-  if(subjFilter==='pending') active=active.filter(s=>D.materi.some(m=>m.sid===s.id&&!m.done));
+  if(subjFilter==='pending') active=active.filter(s=>D.tugas.some(t=>t.sid===s.id&&!t.done)||D.ujian.some(u=>u.sid===s.id&&diffD(u.date,tod())>=0));
 
   if(!active.length){
     activeEl.innerHTML=`<div class="subj-card-apple"><div class="empty" style="padding:28px"><span class="empty-ic">📭</span><div class="empty-t">Belum ada subjek${subjFilter!=='all'?' di filter ini':' aktif'}</div><div class="empty-s">Tambah subjek baru di bawah</div></div></div>`;
@@ -5854,39 +6539,42 @@ function renderDetail(id){
   const s=gS(id);
   const mat=D.materi.filter(m=>m.sid===id);
   const tgs=D.tugas.filter(t=>t.sid===id);
-  const done=mat.filter(m=>m.done).length;
-  const ngerti=mat.filter(m=>m.ngerti).length;
-  const pct=mat.length?done/mat.length*100:0;
+  const doneNgerti=mat.filter(m=>m.ngerti).length;
 
-  // Ensure absen data exists
   if(!s.absen) s.absen = [];
 
-  document.getElementById('sdh').innerHTML=
-    `<div class="sdh-ico" style="background:${s.color}22">${s.emoji}</div>`+
-    `<div class="sdh-info">`+
-    `<div class="sdh-type">${s.type==='matkul'?'Mata Kuliah':'Personal Study'}</div>`+
-    `<div class="sdh-name" style="color:${s.color}">${s.name}</div>`+
-    `<div class="sdh-prog">${done} latsoal · ${ngerti} ngerti · dari ${mat.length} materi</div>`+
-    `<div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>`+
-    `</div>`;
+  // ── Build new sdh-v2 header ──
+  const hadir = s.absen.filter(a=>a.status==='hadir').length;
+  const bolos = s.absen.filter(a=>a.status==='bolos').length;
+  const izin  = s.absen.filter(a=>a.status==='izin').length;
 
-  // Absen summary
-  const absenBar = document.getElementById('absen-summary-bar');
-  const absenStats = document.getElementById('absen-sum-stats');
+  let absenHtml = '';
   if(s.absen.length){
-    const hadir = s.absen.filter(a=>a.status==='hadir').length;
-    const bolos  = s.absen.filter(a=>a.status==='bolos').length;
-    const izin   = s.absen.filter(a=>a.status==='izin').length;
-    absenBar.style.display='flex';
-    absenStats.innerHTML=
-      `<span class="absen-sum-item absen-sum-hadir">✅ Hadir: ${hadir}</span>`+
-      (bolos?`<span class="absen-sum-item absen-sum-bolos">❌ Bolos: ${bolos}</span>`:'')+
-      (izin?`<span class="absen-sum-item absen-sum-izin">📝 Izin: ${izin}</span>`:'');
-  } else {
-    absenBar.style.display='none';
+    absenHtml =
+      `<div class="sdh-v2-absen">`+
+      `<div class="sdh-v2-absen-item hadir">✅ Hadir ${hadir}</div>`+
+      (bolos?`<div class="sdh-v2-absen-item bolos">❌ Bolos ${bolos}</div>`:'')+
+      (izin?`<div class="sdh-v2-absen-item izin">📝 Izin ${izin}</div>`:'')+
+      `</div>`;
   }
 
-  // Set active tab (or keep current)
+  document.getElementById('sdh').innerHTML=
+    `<div class="sdh-v2">`+
+      `<div class="sdh-v2-top">`+
+        `<div class="sdh-v2-ico" style="background:${s.color}22">${s.emoji}</div>`+
+        `<div class="sdh-v2-info">`+
+          `<div class="sdh-v2-type">${s.type==='matkul'?'Mata Kuliah':'Personal Study'}${s.semester?' · '+s.semester:''}</div>`+
+          `<div class="sdh-v2-name" style="color:${s.color}">${s.name}</div>`+
+          (mat.length?`<div style="font-size:12px;color:var(--ink3);margin-top:3px">${doneNgerti}/${mat.length} materi paham</div>`:'')+
+        `</div>`+
+      `</div>`+
+      absenHtml+
+    `</div>`;
+
+  // Hide old absen bar (now integrated in header)
+  const absenBar = document.getElementById('absen-summary-bar');
+  if(absenBar) absenBar.style.display='none';
+
   setDetailTab(_detailTab);
 
   // ─── MATERI TAB ────────────────────────────
@@ -5901,7 +6589,8 @@ function renderDetail(id){
   if(!mat.length){
     dm.innerHTML=`<div class="empty"><span class="empty-ic">📂</span><div class="empty-t">Belum ada materi</div><div class="empty-s">Tap "+ Tambah" di atas</div></div>`;
   } else {
-    mat.sort((a,b)=>b.date.localeCompare(a.date)).forEach(m=>dm.appendChild(mkM(m,false)));
+    // sort ascending: oldest first
+    mat.sort((a,b)=>a.date.localeCompare(b.date)).forEach(m=>dm.appendChild(mkM(m,false)));
   }
 
   // ─── TUGAS TAB ──────────────────────────────
@@ -5934,7 +6623,7 @@ function renderDetail(id){
   const ujianUpcoming=ujianAll.filter(u=>diffD(u.date,tod())>=0);
   const ujianPast=ujianAll.filter(u=>diffD(u.date,tod())<0).reverse();
   if(!ujianUpcoming.length){
-    du.innerHTML=`<div class="card" style="margin-bottom:12px"><div class="empty"><span class="empty-ic">🗓️</span><div class="empty-t">Belum ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
+    du.innerHTML=`<div class="ujian-v2-card" style="margin-bottom:10px"><div class="empty"><span class="empty-ic">🗓️</span><div class="empty-t">Belum ada ujian terjadwal</div><div class="empty-s">Tap "+ Tambah" di atas</div></div></div>`;
   } else {
     ujianUpcoming.forEach(u=>du.appendChild(mkUjianCard(u)));
   }
@@ -5949,44 +6638,112 @@ function renderDetail(id){
   }
 }
 
-// ════════ MATERI ITEM ════════════════════════
+// ════════ MATERI ITEM v3 — dot status, no mandatory checkbox ════════
 function mkM(m, showSubj){
   const s=gS(m.sid);
+
+  // status: 'paham' | 'belajar' | 'idle'
+  const status = m.ngerti ? 'paham' : (m.done ? 'belajar' : 'idle');
+
   const row=document.createElement('div');
-  row.className='mitem '+(m.done?'is-done':'is-todo');
+  row.className='mitem-v3';
+  row.onclick = (e) => {
+    if(e.target.closest('.mitem-v3-more')) return;
+    openMateriStatusSheet(m.id);
+  };
 
-  const bodyDiv=document.createElement('div');
-  bodyDiv.className='mi-body'+(m.notes?' has-notes':'');
-  if(m.notes) bodyDiv.onclick=()=>openNotesSheet(
-    m.notes, m.name, '📖 Materi', 'ujian-type-quiz',
-    ()=>openEditM(m.id)
-  );
+  // linked ujian info
+  const linkedU = D.ujian.filter(u => u.materiIds && u.materiIds.includes(m.id));
+  const nearestU = linkedU
+    .map(u => ({ diff: diffD(u.date, tod()), u }))
+    .filter(x => x.diff >= 0)
+    .sort((a,b) => a.diff - b.diff)[0];
+  const ujianSub = nearestU
+    ? `terhubung ke ${nearestU.u.name || {quiz:'Quiz',uts:'UTS',uas:'UAS'}[nearestU.u.type]} · H-${nearestU.diff}`
+    : (m.date ? fmtDate(m.date) : '');
 
-  // Absen count for this subject
-  const subj = gS(m.sid);
-  const absenCount = subj && subj.absen ? subj.absen.filter(a=>a.mid===m.id).length : 0;
+  const chipHtml = status === 'paham'
+    ? `<div class="mitem-v3-chip paham">Paham ✓</div>`
+    : status === 'belajar'
+    ? `<div class="mitem-v3-chip belajar">Sedang dipelajari</div>`
+    : ''; // idle = no chip, no pressure
 
-  bodyDiv.innerHTML=
-    (showSubj?`<div class="mi-subj" style="color:${s.color}">${s.emoji} ${s.name}</div>`:'')+
-    `<div class="mi-name${m.done?' done':''}">${m.name}</div>`+
-    `<div class="mi-date">📅 ${fmtDate(m.date)}</div>`+
-    `<div class="mitem-status-row">`+
-      `<button class="mitem-status-pill ${m.done?'latsoal-done':'latsoal-todo'}" onclick="event.stopPropagation();toggleM('${m.id}')">`+
-        (m.done?'✅ Latsoal':'📝 Latsoal')+
-      `</button>`+
-      `<button class="mitem-status-pill ${m.ngerti?'ngerti-done':'ngerti-todo'}" onclick="event.stopPropagation();toggleNgerti('${m.id}')">`+
-        (m.ngerti?'💡 Ngerti':'💡 Ngerti?')+
-      `</button>`+
-      `<button class="mitem-absen-btn" onclick="event.stopPropagation();openAbsenModal('${m.sid}','${m.id}')">`+
-        `🗓 Absen${absenCount?' ('+absenCount+')':''}`+
-      `</button>`+
-    `</div>`;
+  row.innerHTML=
+    `<div class="mitem-v3-dot ${status}"></div>`+
+    `<div class="mitem-v3-body">`+
+      (showSubj?`<div style="font-size:11px;font-weight:700;color:${s.color};margin-bottom:2px">${s.emoji} ${s.name}</div>`:'')+
+      `<div class="mitem-v3-name${status==='paham'?' paham':''}">${escHtml(m.name)}</div>`+
+      `<div class="mitem-v3-sub">${ujianSub}</div>`+
+      chipHtml+
+    `</div>`+
+    `<button class="mitem-v3-more" onclick="event.stopPropagation();openEditM('${m.id}')">···</button>`;
 
-  row.appendChild(bodyDiv);
-  row.insertAdjacentHTML('beforeend',
-    `<button class="mi-more" onclick="openEditM('${m.id}')">···</button>`
-  );
   return row;
+}
+
+// Opens a lightweight status picker sheet for materi
+function openMateriStatusSheet(id){
+  const m = D.materi.find(x => x.id === id);
+  if(!m) return;
+  const status = m.ngerti ? 'paham' : (m.done ? 'belajar' : 'idle');
+
+  const options = [
+    { key:'paham',   dot:'paham',   label:'Paham' },
+    { key:'belajar', dot:'belajar', label:'Sedang dipelajari' },
+    { key:'idle',    dot:'idle',    label:'Belum dipelajari' },
+  ];
+
+  // Reuse sh-materi-status sheet or create inline sheet
+  let sh = document.getElementById('sh-materi-status');
+  if(!sh){
+    sh = document.createElement('div');
+    sh.id = 'sh-materi-status';
+    sh.className = 'sheet';
+    sh.innerHTML =
+      `<div class="sh-handle"></div>`+
+      `<div class="sh-head"><div class="sh-title">Status Materi</div><button class="sh-x" onclick="closeSheet('sh-materi-status')">✕</button></div>`+
+      `<div class="materi-status-sheet" id="mss-body"></div>`+
+      `<div style="height:calc(20px + var(--sb,0px))"></div>`;
+    document.body.appendChild(sh);
+  }
+
+  const body = document.getElementById('mss-body');
+  body.innerHTML =
+    `<div class="mss-title">Ubah status — opsional</div>`+
+    options.map(opt =>
+      `<div class="mss-option${status===opt.key?' selected':''}" onclick="_setMateriStatus('${id}','${opt.key}')">`+
+      `<div class="mss-dot ${opt.dot}"></div>`+
+      `<div class="mss-label">${opt.label}</div>`+
+      (status===opt.key?`<div class="mss-check">✓</div>`:'')+
+      `</div>`
+    ).join('');
+
+  openSheet('sh-materi-status');
+}
+
+function _cycleMateriStatus(id){
+  const m = D.materi.find(x => x.id === id);
+  if(!m) return;
+  if(m.ngerti)        { m.ngerti = false; m.done = false; } // paham → idle
+  else if(m.done)     { m.ngerti = true;  m.done = false; } // belajar → paham
+  else                { m.ngerti = false; m.done = true;  } // idle → belajar
+  save(); refresh();
+  const st = m.ngerti?'paham':m.done?'belajar':'idle';
+  const msgs={paham:'💡 Materi ini paham!',belajar:'📖 Lagi dipelajari',idle:'↩️ Status dikosongkan'};
+  toast(msgs[st]);
+}
+
+function _setMateriStatus(id, status){
+  const m = D.materi.find(x => x.id === id);
+  if(!m) return;
+  if(status === 'paham')   { m.ngerti = true;  m.done = false; }
+  else if(status === 'belajar') { m.ngerti = false; m.done = true; }
+  else                     { m.ngerti = false; m.done = false; }
+  save();
+  closeSheet('sh-materi-status');
+  refresh();
+  const msgs = { paham:'💡 Mantap, materi ini udah paham!', belajar:'📖 Lagi dipelajari, semangat!', idle:'↩️ Oke, status dikosongkan' };
+  toast(msgs[status]);
 }
 
 function toggleM(id){
@@ -6002,45 +6759,57 @@ function toggleNgerti(id){
   toast(m.ngerti?'💡 Mantap, materi ini udah ngerti!':'↩️ Oke, ditandai belum ngerti');
 }
 
-// ════════ TUGAS ITEM ═════════════════════════
+// ════════ TUGAS ITEM v2 ═════════════════════════
 function mkT(t, showSubj){
   const s=gS(t.sid);
   const diff=diffD(t.deadline,tod());
-  let dlClass=t.done?'dl-done':diff<0?'dl-late':diff===0?'dl-soon':diff<=3?'dl-soon':'dl-ok';
-  let dlText=t.done?'✓ Selesai':diff<0?`🚨 Telat ${Math.abs(diff)}h`:diff===0?'⏰ Deadline hari ini!':diff===1?'⚡ Deadline besok':`📅 Deadline ${diff}h lagi`;
 
-  // Tugas type badge
-  const typeMap={soal:'📝 Soal',laporan:'📄 Laporan',video:'🎥 Video',presentasi:'🖥 Presentasi',lainnya:'📌 Lainnya'};
-  const typeClass={soal:'ttype-soal',laporan:'ttype-laporan',video:'ttype-video',presentasi:'ttype-presentasi',lainnya:'ttype-lainnya'};
+  const typeMap={soal:'Soal',laporan:'Laporan',video:'Video',presentasi:'Presentasi',lainnya:'Lainnya'};
+  const typeClsMap={soal:'ttype-v2-soal',laporan:'ttype-v2-laporan',video:'ttype-v2-video',presentasi:'ttype-v2-presentasi',lainnya:'ttype-v2-lainnya'};
   const tugasType=t.tugasType||'soal';
-  const typeBadge=`<span class="tugas-type-pill ${typeClass[tugasType]||'ttype-lainnya'}">${typeMap[tugasType]||'📌'}</span>`;
 
-  const row=document.createElement('div');
-  row.className='titem'+(t.done?' is-done':'');
+  // Deadline chip
+  let dlText, dlCls;
+  if(t.done){ dlText='Selesai'; dlCls='tdl-done'; }
+  else if(diff<0){ dlText=`Telat ${Math.abs(diff)} hari`; dlCls='tdl-late'; }
+  else if(diff===0){ dlText='Hari ini'; dlCls='tdl-soon'; }
+  else if(diff===1){ dlText='Besok'; dlCls='tdl-soon'; }
+  else { dlText=`${diff} hari lagi`; dlCls='tdl-ok'; }
 
-  const bodyDiv=document.createElement('div');
-  bodyDiv.className='ti-body'+(t.notes?' has-notes':'');
-  if(t.notes) bodyDiv.onclick=()=>openNotesSheet(
-    t.notes, t.name, '📋 Tugas', 'ujian-type-uts',
-    ()=>openEditT(t.id)
-  );
-  bodyDiv.innerHTML=
-    `<div class="ti-name${t.done?' done':''}">${t.name}</div>`+
-    `<div class="ti-meta">`+
-    typeBadge+
-    (showSubj?`<span class="ti-subj-chip" style="background:${s.color}22;color:${s.color}">${s.emoji} ${s.name}</span>`:'')+
-    `<span class="ti-dl ${dlClass}">${dlText}</span>`+
-    `</div>`+
-    `<div class="ti-meta" style="margin-top:3px">`+
-    `<span style="font-size:11px;color:var(--ink3);">📌 Muncul ${fmtDate(t.inputDate)}</span>`+
+  // Left bar urgency
+  let barCls;
+  if(t.done) barCls='done';
+  else if(diff<0) barCls='overdue';
+  else if(diff<=2) barCls='soon';
+  else barCls='ok';
+
+  // Check circle state
+  const checkHtml=
+    `<div class="titem-v2-check ${t.done?'done':''}" onclick="event.stopPropagation();toggleT('${t.id}')">`+
+    (t.done?'✓':'')+
     `</div>`;
 
-  row.appendChild(bodyDiv);
-  row.insertAdjacentHTML('beforeend',
-    `<button class="ti-btn ${t.done?'done':'todo'}" onclick="toggleT('${t.id}')">`+
-    (t.done?'✅ Selesai':'Selesai?')+`</button>`+
-    `<button class="ti-more" onclick="openEditT('${t.id}')">···</button>`
-  );
+  const row=document.createElement('div');
+  row.className='titem-v2'+(t.done?' is-done':'');
+
+  row.innerHTML=
+    `<div class="titem-v2-inner">`+
+      `<div class="titem-v2-bar ${barCls}"></div>`+
+      `<div class="titem-v2-body">`+
+        `<div class="titem-v2-name${t.done?' done':''}">${escHtml(t.name)}</div>`+
+        `<div class="titem-v2-chips">`+
+          `<span class="titem-v2-type ${typeClsMap[tugasType]||'ttype-v2-lainnya'}">${typeMap[tugasType]||'Lainnya'}</span>`+
+          `<span class="titem-v2-dl ${dlCls}">${dlText}</span>`+
+          (showSubj?`<span style="font-size:11px;font-weight:700;background:${s.color}22;color:${s.color};padding:3px 9px;border-radius:99px">${s.emoji} ${s.name}</span>`:'')+
+        `</div>`+
+        `<div class="titem-v2-action">`+
+          checkHtml+
+          `<span class="titem-v2-check-label">${t.done?'Selesai':'Tandai selesai'}</span>`+
+          `<button class="titem-v2-more" onclick="event.stopPropagation();openEditT('${t.id}')">···</button>`+
+        `</div>`+
+      `</div>`+
+    `</div>`;
+
   return row;
 }
 
@@ -6462,55 +7231,83 @@ function notesOverlayTap(e){
 function mkUjianCard(u, isPastOverride=false){
   const diff=diffD(u.date,tod());
   const isPast=isPastOverride||diff<0;
-  const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type];
-  const typeCls=`ujian-type-${u.type}`;
-  let numCls=isPast?'uc-done':diff===0?'uc-crit':diff<=3?'uc-crit':diff<=7?'uc-warn':'uc-ok';
-  let countdownTxt=isPast?'Selesai':`H-${diff}`;
-  let countdownLbl=isPast?fmtDate(u.date):diff===0?'HARI INI':'lagi';
+  const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type]||'Ujian';
   const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
 
-  const card=document.createElement('div');
-  card.className='ujian-card';
-  if(isPast) card.style.opacity='.75';
-  const item=document.createElement('div'); item.className='ujian-item';
+  // Countdown text
+  let cdTxt, cdCls;
+  if(isPast){ cdTxt='Selesai'; cdCls='uv2cd-done'; }
+  else if(diff===0){ cdTxt='Hari ini'; cdCls='uv2cd-crit'; }
+  else if(diff<=3){ cdTxt=`H-${diff}`; cdCls='uv2cd-crit'; }
+  else if(diff<=7){ cdTxt=`H-${diff}`; cdCls='uv2cd-warn'; }
+  else { cdTxt=`H-${diff}`; cdCls='uv2cd-ok'; }
 
-  let actionsHtml='';
+  // Type badge class
+  const typeBadgeCls = `ujian-v2-type-${u.type}`;
+
+  // Time string
+  let timeStr = '';
+  if(u.startTime){
+    timeStr = u.startTime + (u.endTime ? '–' + u.endTime : '');
+  }
+
+  // Kesiapan materi — based on ngerti (paham) status
+  const pahamCount = mats.filter(m=>m.ngerti).length;
+  const belajarCount = mats.filter(m=>m.done && !m.ngerti).length;
+  const kesiapanLabel = mats.length
+    ? `Kesiapan materi (${pahamCount}/${mats.length} paham)`
+    : '';
+
+  // Materi pills — tap cycles status
+  const materiPillsHtml = mats.length
+    ? `<div class="ujian-v2-kesiapan-label">${kesiapanLabel}</div>`+
+      `<div class="ujian-v2-materi-pills">`+
+      mats.map(m=>{
+        const st = m.ngerti ? 'paham' : (m.done ? 'belajar' : 'idle');
+        const lbl = m.ngerti ? '✓ '+escHtml(m.name) : escHtml(m.name);
+        return `<button class="ujian-v2-materi-pill ${st}" onclick="event.stopPropagation();_cycleMateriStatus('${m.id}')">${lbl}</button>`;
+      }).join('')+
+      `</div>`
+    : '';
+
+  // Action row
+  let actionsHtml;
   if(isPast){
-    actionsHtml=`<div class="ujian-actions">`+
-      `<span style="font-size:12px;font-weight:600;color:var(--ink3);flex:1;padding:8px 0;">`+
-      (u.ready?'✅ Sudah siap saat itu':'📖 Belum sempat siap')+`</span>`+
-      `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
+    actionsHtml =
+      `<div class="ujian-v2-actions">`+
+      `<div class="ujian-v2-ready-btn ${u.ready?'ready':'not-ready'}" style="pointer-events:none">`+
+      (u.ready?'✅ Sudah siap':'📖 Belum sempat siap')+
+      `</div>`+
+      `<button class="ujian-v2-more-btn" onclick="openEditUjian('${u.id}')">···</button>`+
       `</div>`;
   } else {
-    actionsHtml=`<div class="ujian-actions">`+
-      `<button class="ujian-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
-      (u.ready?'✅ Udah Siap':'📖 Belum Siap')+`</button>`+
-      `<button class="ujian-edit-btn" onclick="openEditUjian('${u.id}')">✏️</button>`+
+    actionsHtml =
+      `<div class="ujian-v2-actions">`+
+      `<button class="ujian-v2-ready-btn ${u.ready?'ready':'not-ready'}" onclick="toggleUjianReady('${u.id}')">`+
+      (u.ready?'✅ Tandai Siap →':'Tandai Siap →')+
+      `</button>`+
+      `<button class="ujian-v2-more-btn" onclick="openEditUjian('${u.id}')">···</button>`+
       `</div>`;
   }
 
-  const bodyDiv=document.createElement('div');
-  bodyDiv.className='ujian-body'+(u.notes?' has-notes':'');
-  if(u.notes) bodyDiv.onclick=(e)=>{
-    // don't intercept button clicks inside
-    if(e.target.closest('button')) return;
-    openNotesSheet(u.notes, u.name||(typeLabel), `📝 ${typeLabel}`, typeCls, ()=>openEditUjian(u.id));
-  };
-  bodyDiv.innerHTML=
-    `<div class="ujian-name">${u.name||typeLabel}</div>`+
-    `<div class="ujian-date">📅 ${fmtDate(u.date)}</div>`+
-    (mats.length?`<div class="ujian-materi-list">${mats.map(m=>`<span class="ujian-materi-chip">${m.name}</span>`).join('')}</div>`:'')+
-    actionsHtml;
+  const card=document.createElement('div');
+  card.className='ujian-v2-card'+(isPast?' is-past':'');
 
-  item.innerHTML=
-    `<div class="ujian-badge-wrap">`+
-    `<span class="ujian-type-badge ${typeCls}">${typeLabel}</span>`+
-    `<div class="ujian-countdown ${numCls}">${countdownTxt}</div>`+
-    `<div class="ujian-countdown-label">${countdownLbl}</div>`+
+  card.innerHTML=
+    `<div class="ujian-v2-header">`+
+      `<span class="ujian-v2-type-badge ${typeBadgeCls}">${typeLabel}</span>`+
+      `<div class="ujian-v2-name">${escHtml(u.name||typeLabel)}</div>`+
+      `<div class="ujian-v2-countdown ${cdCls}">${cdTxt}</div>`+
+    `</div>`+
+    `<div class="ujian-v2-body">`+
+      `<div class="ujian-v2-date">`+
+      `📅 ${fmtDate(u.date)}`+
+      (timeStr?` · ${timeStr}`:'')+
+      `</div>`+
+      materiPillsHtml+
+      actionsHtml+
     `</div>`;
-  item.appendChild(bodyDiv);
-  card.appendChild(item);
-  return card;
+
   return card;
 }
 
@@ -6615,12 +7412,12 @@ function refresh(){
 }
 
 function updateBadge(){
-  const n=D.materi.filter(m=>!m.done).length;
+  // Badge = overdue tugas only (actionable, not materi)
+  const overdue = D.tugas.filter(t => !t.done && diffD(t.deadline, tod()) < 0).length;
   const b=document.getElementById('bn-badge');
-  b.textContent=n; b.style.display=n?'':'none';
-  // also update sidebar badge
+  if(b){ b.textContent=overdue; b.style.display=overdue?'':'none'; }
   const sb=document.getElementById('sb-badge');
-  if(sb){ sb.textContent=n; sb.style.display=n?'inline-block':'none'; }
+  if(sb){ sb.textContent=overdue; sb.style.display=overdue?'inline-block':'none'; }
 }
 
 // ════════ MONTHLY CALENDAR ════════════════════
@@ -7397,6 +8194,11 @@ function ensurePAData(){
   if(!D.p_tasks)    D.p_tasks    = [];
   if(!D.p_agendas)  D.p_agendas  = [];
   if(!D.events)     D.events     = [];
+  if(!D.habits)     D.habits     = [];
+  (D.areas||[]).forEach(a => {
+    if(a.identity   === undefined) a.identity   = '';
+    if(a.reflection === undefined) a.reflection = '';
+  });
 }
 
 // ════════ HELPERS ════════════════════════════════
@@ -9018,9 +9820,8 @@ function delResource_c(){
 // Area Detail — new style
 function openAreaDetail(id){
   ensurePAData();
-  curAreaId=id;curAreaTab='ap';curView='area-detail';
-  _lugCollapsed=false;
-  const a=gArea(id);if(!a)return;
+  curAreaId=id; curView='area-detail';
+  const a=gArea(id); if(!a) return;
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('v-area-detail').classList.add('active');
   document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
@@ -9028,25 +9829,340 @@ function openAreaDetail(id){
 
   document.getElementById('topbar').innerHTML=
     '<button class="tb-back" onclick="navPopGoView(\'areas\')">‹ Areas</button>'+
-    '<div class="tb-title">'+(a.emoji||'🌿')+' '+a.name+'</div>'+
-    '<button style="padding:6px 10px;font-size:15px;font-weight:700;border:1.5px solid var(--line2);border-radius:var(--rxs);color:var(--ink2);" onclick="openEditArea(\''+id+'\')">✏️</button>';
+    '<div class="tb-title">'+(a.emoji||'🌿')+' '+escHtml(a.name)+'</div>'+
+    '<button style="padding:6px 10px;font-size:13px;font-weight:700;border:1.5px solid var(--line2);border-radius:var(--rxs);color:var(--ink2);" onclick="openEditArea(\''+id+'\')">Edit</button>';
 
   updateDesktopTopbar('area-detail', a);
-
-  const aHw=document.getElementById('ad-header-wrap');
-  if(aHw) aHw.innerHTML=
-    '<div class="ad-header"><div class="ad-accent" style="background:'+a.color+'"></div>'+
-    '<div class="ad-body"><div class="ad-top">'+
-    '<div class="ad-icon" style="background:'+a.color+'18">'+(a.emoji||'🌿')+'</div>'+
-    '<div class="ad-info"><div class="ad-type">Area — Maintaining</div><div class="ad-name">'+escHtml(a.name)+'</div></div>'+
-    '</div><div class="ad-meta"><span class="pa-status-chip pa-status-area">maintaining</span></div></div></div>';
-
-  renderCurrentState_c(id, a.color);
-  renderGoalsCompass(id);
-  renderLineUpGoals(id);
-  renderAreaRituals_c(id, a.color);
-  renderAreaProjects_c(id);
+  renderAreaDetail2(id);
   document.getElementById('scroll').scrollTop=0;
+}
+
+function renderAreaDetail2(id){
+  ensurePAData();
+  const a = gArea(id); if(!a) return;
+
+  // ── Identity card ──
+  const iw = document.getElementById('ad2-identity-wrap');
+  if(iw){
+    const identityText = a.identity
+      ? `<em>Saya adalah orang yang</em><br>${escHtml(a.identity)}`
+      : `<em>Belum ada pernyataan identitas.</em><br><span style="font-size:13px;opacity:.7">Tap untuk menambahkan →</span>`;
+    iw.innerHTML =
+      `<div class="ad2-identity" onclick="openEditIdentity('${id}')">` +
+      `<div class="ad2-identity-bg" style="background:linear-gradient(135deg,${a.color}dd,${a.color}99)"></div>` +
+      `<div class="ad2-identity-label">Identitas Saya</div>` +
+      `<div class="ad2-identity-text">${identityText}</div>` +
+      `<button class="ad2-identity-edit" onclick="event.stopPropagation();openEditIdentity('${id}')">✏ Ubah pernyataan</button>` +
+      `</div>`;
+  }
+
+  // ── Habits list ──
+  const habits = (D.habits||[]).filter(h => h.areaId === id);
+  const hCount = document.getElementById('ad2-habits-count');
+  if(hCount) hCount.textContent = `Habits${habits.length?' ('+habits.length+')':''}`;
+
+  const hl = document.getElementById('ad2-habits-list');
+  if(hl){
+    if(!habits.length){
+      hl.innerHTML =
+        `<div style="margin:0 12px 8px;padding:20px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh)">` +
+        `<div style="font-size:13px;color:var(--ink3);font-style:italic">Belum ada habit — tap + Tambah di atas</div>` +
+        `</div>`;
+    } else {
+      const card = document.createElement('div');
+      card.className = 'ad2-habits-card';
+      habits.forEach((h, i) => {
+        if(i > 0){
+          const div = document.createElement('div');
+          div.className = 'ad2-habit-divider';
+          card.appendChild(div);
+        }
+        card.appendChild(_mkHabitRow(h, a.color));
+      });
+      hl.innerHTML = '';
+      hl.appendChild(card);
+    }
+  }
+
+  // ── Weekly scoreboard ──
+  _renderAreaScoreboard(id, a.color);
+
+  // ── Reflection ──
+  const rf = document.getElementById('ad2-reflection');
+  if(rf){
+    rf.innerHTML = a.reflection
+      ? `<div class="ad2-note-card"><div class="ad2-note-text">"${escHtml(a.reflection)}"</div></div>`
+      : `<div class="ad2-note-card"><div class="ad2-note-empty">Belum ada catatan refleksi. Tap "Edit" untuk menambahkan.</div></div>`;
+  }
+
+  // ── Projects ──
+  renderAreaProjects_c(id);
+}
+
+function _mkHabitRow(h, color){
+  const todayStr = tod();
+  const logs = h.logs || [];
+  const doneToday = logs.some(l => l.date === todayStr);
+
+  // Weekly stats: freq target
+  const target = h.freqDays || 7;
+  const monday = _getWeekMonday();
+  const weekLogs = logs.filter(l => l.date >= monday && l.date <= todayStr);
+  const weekCount = weekLogs.length;
+  const pct = Math.min(100, Math.round(weekCount / target * 100));
+
+  const wrap = document.createElement('div');
+
+  const checkId = 'hc-' + h.id;
+  wrap.innerHTML =
+    `<div class="ad2-habit-row">` +
+      `<div class="ad2-habit-top">` +
+        `<span class="ad2-habit-emoji">${h.emoji||'⭐'}</span>` +
+        `<span class="ad2-habit-name">${escHtml(h.name)}</span>` +
+        `<button class="ad2-check-btn${doneToday?' done':''}" id="${checkId}" `+
+          `style="${doneToday?'background:'+color+';border-color:'+color:''}" `+
+          `onclick="toggleHabitLog('${h.id}')">${doneToday?'✓':'○'}</button>` +
+      `</div>` +
+      `<div class="ad2-habit-freq">${_habitFreqLabel(h)}</div>` +
+    `</div>` +
+    `<div class="ad2-streak-row">` +
+      `<div class="ad2-streak-track">` +
+        `<div class="ad2-streak-fill" style="width:${pct}%;background:${color}"></div>` +
+      `</div>` +
+      `<span class="ad2-streak-lbl">${weekCount}/${target} minggu ini</span>` +
+    `</div>`;
+
+  return wrap;
+}
+
+function _habitFreqLabel(h){
+  if(h.freq === 'daily') return `Setiap hari${h.time?' · '+h.time:''}`;
+  if(h.freq === 'weekly') return `${h.freqDays||1}x seminggu${h.time?' · '+h.time:''}`;
+  return h.freq || 'Setiap hari';
+}
+
+function _getWeekMonday(){
+  const now = new Date();
+  const dow = now.getDay();
+  const diff = dow === 0 ? -6 : 1 - dow;
+  const mon = new Date(now);
+  mon.setDate(now.getDate() + diff);
+  return mon.toISOString().slice(0,10);
+}
+
+function toggleHabitLog(hid){
+  ensurePAData();
+  const h = D.habits.find(x => x.id === hid);
+  if(!h) return;
+  if(!h.logs) h.logs = [];
+  const todayStr = tod();
+  const idx = h.logs.findIndex(l => l.date === todayStr);
+  if(idx >= 0){
+    h.logs.splice(idx, 1);
+    toast('Habit dibatalkan');
+  } else {
+    h.logs.push({ date: todayStr });
+    toast('✓ Habit dicatat hari ini!');
+  }
+  save();
+  renderAreaDetail2(curAreaId);
+}
+
+function _renderAreaScoreboard(areaId, color){
+  const el = document.getElementById('ad2-scoreboard');
+  if(!el) return;
+  const habits = (D.habits||[]).filter(h => h.areaId === areaId);
+  if(!habits.length){
+    el.innerHTML = `<div style="margin:0 12px 8px;padding:14px;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);text-align:center;font-size:13px;color:var(--ink3)">Tambah habit untuk melihat scoreboard minggu ini.</div>`;
+    return;
+  }
+
+  const todayStr = tod();
+  const monday = _getWeekMonday();
+  const dayNames = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const today = new Date();
+  const dow = today.getDay(); // 0=Sun
+  const mondayIdx = dow === 0 ? 6 : dow - 1;
+
+  // For each day of week, count how many habits were done
+  const days = [];
+  for(let i = 0; i < 7; i++){
+    const d = new Date(monday + 'T12:00:00');
+    d.setDate(d.getDate() + i);
+    const ds = d.toISOString().slice(0,10);
+    const doneCt = habits.filter(h => (h.logs||[]).some(l => l.date === ds)).length;
+    days.push({ ds, doneCt, total: habits.length, isToday: ds === todayStr, isFuture: ds > todayStr });
+  }
+
+  const weekDone = days.filter(d => !d.isFuture && d.doneCt === d.total && d.total > 0).length;
+  const weekTotal = days.filter(d => !d.isFuture).length;
+
+  const dotsHtml = days.map((d, i) => {
+    let cls, txt;
+    if(d.isToday){
+      cls = 'today'; txt = 'Hari ini';
+    } else if(d.isFuture){
+      cls = 'miss'; txt = '·';
+    } else if(d.doneCt === d.total && d.total > 0){
+      cls = 'done'; txt = '✓';
+    } else {
+      cls = 'miss'; txt = '·';
+    }
+    const style = d.isToday ? `background:${color}` : '';
+    return `<div class="ad2-day-cell">` +
+      `<span class="ad2-day-name">${dayNames[i]}</span>` +
+      `<div class="ad2-day-dot ${cls}" style="${style}">${d.isToday ? 'Hari' : txt}</div>` +
+      `</div>`;
+  }).join('');
+
+  el.innerHTML =
+    `<div class="ad2-score-card">` +
+      `<div class="ad2-day-row">${dotsHtml}</div>` +
+      `<div class="ad2-score-foot">` +
+        `<span class="ad2-score-num" style="color:${color}">${weekDone}/${weekTotal}</span>` +
+        `<span class="ad2-score-lbl">hari semua habit dijalankan minggu ini</span>` +
+      `</div>` +
+    `</div>`;
+}
+
+function openEditIdentity(areaId){
+  const a = gArea(areaId);
+  if(!a) return;
+  let sh = document.getElementById('sh-area-identity');
+  if(!sh){
+    sh = document.createElement('div');
+    sh.id = 'sh-area-identity';
+    sh.className = 'overlay';
+    sh.onclick = e => { if(e.target===sh) closeSheet('sh-area-identity'); };
+    sh.innerHTML =
+      `<div class="sheet">` +
+      `<div class="sh-handle"></div>` +
+      `<div class="sh-head"><div class="sh-title">Identitas Saya</div>` +
+      `<button class="sh-x" onclick="closeSheet('sh-area-identity')">✕</button></div>` +
+      `<div class="sh-body">` +
+      `<div class="ad2-identity-field">` +
+      `<label>Saya adalah orang yang…</label>` +
+      `<textarea id="identity-input" rows="4" placeholder="menjaga tubuh saya dengan disiplin setiap hari"></textarea>` +
+      `</div></div>` +
+      `<div class="sh-footer"><div class="sh-row">` +
+      `<button class="sbtn sbtn-g" onclick="closeSheet('sh-area-identity')">Batal</button>` +
+      `<button class="sbtn sbtn-p" onclick="saveIdentity('${areaId}')">Simpan ✓</button>` +
+      `</div></div></div>`;
+    document.body.appendChild(sh);
+  }
+  document.getElementById('identity-input').value = a.identity || '';
+  openSheet('sh-area-identity');
+}
+
+function saveIdentity(areaId){
+  const a = gArea(areaId);
+  if(!a) return;
+  a.identity = document.getElementById('identity-input').value.trim();
+  save(); closeSheet('sh-area-identity');
+  renderAreaDetail2(areaId);
+  toast('Identitas disimpan ✓');
+}
+
+function openEditReflection(){
+  const a = gArea(curAreaId); if(!a) return;
+  let sh = document.getElementById('sh-area-reflection');
+  if(!sh){
+    sh = document.createElement('div');
+    sh.id = 'sh-area-reflection';
+    sh.className = 'overlay';
+    sh.onclick = e => { if(e.target===sh) closeSheet('sh-area-reflection'); };
+    sh.innerHTML =
+      `<div class="sheet">` +
+      `<div class="sh-handle"></div>` +
+      `<div class="sh-head"><div class="sh-title">Catatan Refleksi</div>` +
+      `<button class="sh-x" onclick="closeSheet('sh-area-reflection')">✕</button></div>` +
+      `<div class="sh-body">` +
+      `<div class="ad2-identity-field">` +
+      `<label>Refleksi minggu ini</label>` +
+      `<textarea id="reflection-input" rows="5" placeholder="Apa yang berjalan baik? Apa yang perlu diperbaiki?"></textarea>` +
+      `</div></div>` +
+      `<div class="sh-footer"><div class="sh-row">` +
+      `<button class="sbtn sbtn-g" onclick="closeSheet('sh-area-reflection')">Batal</button>` +
+      `<button class="sbtn sbtn-p" onclick="saveReflection()">Simpan ✓</button>` +
+      `</div></div></div>`;
+    document.body.appendChild(sh);
+  }
+  document.getElementById('reflection-input').value = a.reflection || '';
+  openSheet('sh-area-reflection');
+}
+
+function saveReflection(){
+  const a = gArea(curAreaId); if(!a) return;
+  a.reflection = document.getElementById('reflection-input').value.trim();
+  save(); closeSheet('sh-area-reflection');
+  renderAreaDetail2(curAreaId);
+  toast('Refleksi disimpan ✓');
+}
+
+function openAddHabit(){
+  let sh = document.getElementById('sh-add-habit');
+  if(!sh){
+    sh = document.createElement('div');
+    sh.id = 'sh-add-habit';
+    sh.className = 'overlay';
+    sh.onclick = e => { if(e.target===sh) closeSheet('sh-add-habit'); };
+    sh.innerHTML =
+      `<div class="sheet">` +
+      `<div class="sh-handle"></div>` +
+      `<div class="sh-head"><div class="sh-title">Tambah Habit</div>` +
+      `<button class="sh-x" onclick="closeSheet('sh-add-habit')">✕</button></div>` +
+      `<div class="sh-body">` +
+      `<div class="field"><label class="flbl">Nama Habit</label>` +
+      `<input id="ah-name" type="text" placeholder="e.g. Olahraga 30 menit"></div>` +
+      `<div class="field"><label class="flbl">Emoji</label>` +
+      `<input id="ah-emoji" type="text" placeholder="⭐" style="width:64px;font-size:22px;text-align:center"></div>` +
+      `<div class="field"><label class="flbl">Frekuensi</label>` +
+      `<select id="ah-freq">` +
+      `<option value="daily">Setiap hari</option>` +
+      `<option value="weekly">Beberapa hari seminggu</option>` +
+      `</select></div>` +
+      `<div class="field" id="ah-days-field" style="display:none">` +
+      `<label class="flbl">Target hari per minggu</label>` +
+      `<input id="ah-days" type="number" min="1" max="7" value="3" style="width:80px"></div>` +
+      `<div class="field"><label class="flbl">Waktu (opsional)</label>` +
+      `<input id="ah-time" type="text" placeholder="e.g. Pagi hari, 06.00"></div>` +
+      `</div>` +
+      `<div class="sh-footer"><div class="sh-row">` +
+      `<button class="sbtn sbtn-g" onclick="closeSheet('sh-add-habit')">Batal</button>` +
+      `<button class="sbtn sbtn-p" onclick="saveNewHabit()">Simpan ✓</button>` +
+      `</div></div></div>`;
+    document.body.appendChild(sh);
+    document.getElementById('ah-freq').onchange = function(){
+      document.getElementById('ah-days-field').style.display = this.value==='weekly'?'':'none';
+    };
+  }
+  document.getElementById('ah-name').value='';
+  document.getElementById('ah-emoji').value='';
+  document.getElementById('ah-freq').value='daily';
+  document.getElementById('ah-days-field').style.display='none';
+  document.getElementById('ah-time').value='';
+  openSheet('sh-add-habit');
+}
+
+function saveNewHabit(){
+  ensurePAData();
+  const name = document.getElementById('ah-name').value.trim();
+  if(!name){ toast('Nama habit tidak boleh kosong'); return; }
+  const freq = document.getElementById('ah-freq').value;
+  const freqDays = freq==='weekly' ? parseInt(document.getElementById('ah-days').value||'3') : 7;
+  D.habits.push({
+    id: 'h'+Date.now(),
+    areaId: curAreaId,
+    name,
+    emoji: document.getElementById('ah-emoji').value.trim() || '⭐',
+    freq, freqDays,
+    time: document.getElementById('ah-time').value.trim(),
+    logs: []
+  });
+  save();
+  closeSheet('sh-add-habit');
+  renderAreaDetail2(curAreaId);
+  toast('Habit ditambahkan ✓');
 }
 
 function renderCurrentState_c(areaId,color){
@@ -9096,17 +10212,21 @@ function renderAreaProjects_c(areaId){
   const el=document.getElementById('area-projects-list');if(!el)return;
   el.innerHTML='';
   const projs=(D.projects||[]).filter(p=>p.areaId===areaId);
-  if(!projs.length){el.innerHTML='<div class="empty-card" style="padding:20px;background:var(--white);border-radius:var(--r);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada project terhubung</div></div>';return;}
+  if(!projs.length){
+    el.innerHTML='<div style="margin:0 12px 8px;padding:20px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada project terhubung</div></div>';
+    return;
+  }
   projs.forEach(p=>{
     const ts=pTasks_c(p.id),done=ts.filter(t=>t.done).length,total=ts.length,pct=total?Math.round(done/total*100):0;
-    const card=document.createElement('div');card.className='proj-linked';
+    const card=document.createElement('div');
+    card.className='ad2-proj-card';
     card.innerHTML=
-      '<div class="proj-linked-hd"><div class="pl-accent" style="background:'+p.color+'"></div>'+
-      '<div class="pl-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
-      '<div class="pl-info"><div class="pl-name">'+escHtml(p.name)+'</div>'+
-      '<div class="pl-sub">'+(total?pct+'% · '+done+'/'+total+' done':'Belum ada action')+'</div></div>'+
-      '<div class="pl-chev">›</div></div>'+
-      '<div class="proj-linked-foot"><span class="pa-status-chip pa-status-'+p.status+'">'+sLbl_c(p.status)+'</span>'+(fmtDl_c(p)?'<span class="pa-deadline-chip">'+fmtDl_c(p)+'</span>':'')+'</div>';
+      `<div class="ad2-proj-accent" style="background:${p.color}"></div>`+
+      `<div class="ad2-proj-info">`+
+        `<div class="ad2-proj-name">${(p.emoji||'🚀')} ${escHtml(p.name)}</div>`+
+        `<div class="ad2-proj-sub">${sLbl_c(p.status)} · ${total?done+'/'+total+' selesai':'Belum ada action'}</div>`+
+      `</div>`+
+      `<span class="ad2-proj-pct">${total?pct+'%':''}</span>`;
     card.onclick=()=>openProjDetail(p.id);
     el.appendChild(card);
   });
