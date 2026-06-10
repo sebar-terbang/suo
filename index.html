@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0067)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_redesign_7.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_58.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -580,7 +580,7 @@ input,select,textarea { font-family:inherit; }
 ══════════════════════════════════ */
 .home-stats-strip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 8px;
   padding: 10px 10px 10px;
   background: var(--white);
@@ -1439,19 +1439,129 @@ input,select,textarea { font-family:inherit; }
   flex-shrink:0; margin-left:4px;
 }
 
+/* ══ POMO BOTTOM SHEET ═════════════════════ */
+.pomo-bs-overlay {
+  position:fixed; inset:0; z-index:300;
+  background:rgba(26,23,20,.52);
+  backdrop-filter:blur(3px);
+  display:flex; flex-direction:column; justify-content:flex-end; align-items:center;
+  opacity:0; pointer-events:none;
+  transition:opacity .22s;
+}
+.pomo-bs-overlay.open { opacity:1; pointer-events:all; }
+
+.pomo-bs {
+  background:#1c1c1e;
+  border-radius:22px 22px 0 0;
+  width:100%; max-width:480px;
+  overflow:hidden;
+  transform:translateY(100%);
+  transition:transform .3s cubic-bezier(.32,0,.15,1);
+}
+.pomo-bs-overlay.open .pomo-bs { transform:translateY(0); }
+
+.pomo-bs-handle { width:36px; height:4px; border-radius:99px; background:rgba(255,255,255,.2); margin:12px auto 0; }
+
+.pomo-bs-head {
+  display:flex; align-items:center; gap:8px;
+  padding:12px 16px 10px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.pomo-bs-title { font-size:14px; font-weight:700; color:#fff; flex:1; }
+.pomo-bs-close {
+  font-size:12px; color:rgba(255,255,255,.45);
+  padding:4px 10px; border-radius:99px;
+  background:rgba(255,255,255,.08); cursor:pointer;
+}
+
+/* Timer ring */
+.pomo-bs-timer-wrap {
+  display:flex; flex-direction:column; align-items:center;
+  padding:18px 16px 10px;
+}
+.pomo-ring-outer { position:relative; width:100px; height:100px; margin-bottom:10px; }
+.pomo-ring-outer svg { position:absolute; inset:0; width:100%; height:100%; }
+.pomo-ring-time {
+  position:absolute; inset:0; display:flex;
+  align-items:center; justify-content:center;
+  font-size:22px; font-weight:800; color:#fff;
+  letter-spacing:-1px; line-height:1;
+}
+
+/* Task context */
+.pomo-bs-task {
+  font-size:11px; font-weight:600; color:rgba(255,255,255,.6);
+  text-align:center; margin-bottom:14px;
+  padding:0 16px;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+
+/* Task picker */
+.pomo-bs-task-pick {
+  padding:0 16px; margin-bottom:12px;
+}
+.pomo-bs-task-pick select {
+  width:100%; padding:10px 12px;
+  background:rgba(255,255,255,.07); color:rgba(255,255,255,.75);
+  border:1.5px solid rgba(255,255,255,.12); border-radius:10px;
+  font-size:12px; font-weight:600; font-family:inherit;
+  -webkit-appearance:none; appearance:none;
+}
+
+/* Dur pills */
+.pomo-bs-dur-row { display:flex; gap:6px; padding:0 16px; margin-bottom:14px; }
+.pomo-bs-dur {
+  flex:1; padding:9px 0; border-radius:10px;
+  font-size:11px; font-weight:800; text-align:center;
+  cursor:pointer; transition:all .15s;
+  background:rgba(255,255,255,.08); color:rgba(255,255,255,.55);
+  border:1.5px solid rgba(255,255,255,.06);
+}
+.pomo-bs-dur.sel { background:var(--pomo-red); color:#fff; border-color:var(--pomo-red); }
+
+/* CTA button */
+.pomo-bs-cta {
+  margin:0 16px 8px; padding:13px;
+  border-radius:12px; font-size:14px; font-weight:800; text-align:center;
+  cursor:pointer; transition:all .15s;
+  background:var(--pomo-red); color:#fff;
+  letter-spacing:-.2px;
+}
+.pomo-bs-cta.stop { background:rgba(255,255,255,.1); color:rgba(255,255,255,.6); }
+.pomo-bs-cta.brk-skip {
+  margin:0 16px 8px; padding:11px;
+  border-radius:10px; font-size:12px; font-weight:800; text-align:center;
+  cursor:pointer; transition:all .15s;
+  background:rgba(74,222,128,.12); color:#4ade80;
+  border:1.5px solid rgba(74,222,128,.25);
+}
+
+/* Session dots */
+.pomo-bs-dots { display:flex; gap:6px; justify-content:center; padding:6px 0 16px; }
+.pomo-bs-dot { width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.18); }
+.pomo-bs-dot.done { background:var(--pomo-red); opacity:.9; }
+.pomo-bs-dot.cur { background:var(--pomo-red); animation:pomo-pulse 1.2s ease-in-out infinite; }
+
+/* Break sheet variant */
+.pomo-bs-break-time { font-size:36px; font-weight:900; color:#4ade80; text-align:center; letter-spacing:-2px; margin:16px 0 4px; }
+.pomo-bs-break-label { font-size:11px; color:rgba(255,255,255,.45); text-align:center; margin-bottom:14px; }
+
 /* ══ POMODORO TAB ══════════════════════════ */
 
 /* Active indicator pill in topbar */
 .pomo-topbar-pill {
-  display:none;
+  display:flex;
   align-items:center; gap:6px;
   padding:5px 12px; border-radius:99px;
   font-size:12px; font-weight:800;
   letter-spacing:.02em;
-  animation:pomo-pulse 2.4s ease-in-out infinite;
+  cursor:pointer; transition:all .2s; user-select:none;
+  white-space:nowrap;
 }
-.pomo-topbar-pill.focus { background:var(--pomo-red-lt); color:var(--pomo-red); }
-.pomo-topbar-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); }
+.pomo-topbar-pill.idle { background:var(--bg2); color:var(--ink3); border:1.5px solid var(--line2); }
+.pomo-topbar-pill.focus { background:var(--pomo-red-lt); color:var(--pomo-red); border:1.5px solid var(--red-bd); animation:pomo-pulse 2.4s ease-in-out infinite; }
+.pomo-topbar-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); border:1.5px solid var(--green-bd); }
+/* show class no longer needed — pill always visible */
 .pomo-topbar-pill.show  { display:flex; }
 /* Main pomo view */
 .pomo-view {
@@ -1646,16 +1756,7 @@ input,select,textarea { font-family:inherit; }
   background:var(--pomo-red); opacity:.45;
 }
 
-/* topbar pill — subtler, no pulse */
-.pomo-topbar-pill {
-  display:none; align-items:center; gap:5px;
-  padding:4px 11px; border-radius:99px;
-  font-size:12px; font-weight:700;
-  letter-spacing:.01em;
-}
-.pomo-topbar-pill.focus { background:var(--pomo-red-lt); color:#c2604a; }
-.pomo-topbar-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); }
-.pomo-topbar-pill.show  { display:flex; }
+/* topbar pill — handled by main .pomo-topbar-pill block above */
 
 /* desktop sidebar pomo item */
 .sb-pomo-pill {
@@ -4522,12 +4623,10 @@ input,select,textarea { font-family:inherit; }
     <div class="sb-nav">
       <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
-        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">4</span>
+        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">2</span>
       </button>
       <!-- cal tab removed — merged into home -->
-      <button class="sb-item" id="sbn-pomo" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">
-        <span class="sb-item-ic">🍅</span> Pomodoro
-      </button>
+      <!-- pomodoro removed — accessible via topbar pill -->
       <!-- subjects tab removed -->
       <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
         <span class="sb-item-ic">🚀</span> Projects
@@ -4552,7 +4651,7 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill " id="pomo-topbar-pill" onclick="goView(&#39;pomo&#39;,document.getElementById(&#39;bn-pomo&#39;))">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
@@ -4560,25 +4659,25 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
     <div class="view active" id="v-home">
 
+      <!-- Stats strip (rendered by JS) — above weekly cal -->
+      <div id="home-stats-strip"><div class="home-stats-strip" style="grid-template-columns:1fr 1fr;"><div class="hstat hstat-neutral"><div class="hstat-num blue">2</div><div class="hstat-lbl">Tugas</div></div><div class="hstat hstat-neutral" style=""><div style="display:flex;align-items:baseline;gap:2px;justify-content:center"><span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--ink3)">—</span></div><div class="hstat-lbl">Focus</div></div></div></div>
+
       <!-- Weekly Calendar Header -->
       <div class="home-week-cal" id="home-week-cal">
         <div class="hwc-header">
-          <div class="hwc-month" id="hwc-month-label">Juni 2025</div>
+          <div class="hwc-month" id="hwc-month-label">Jun 2026</div>
           <div class="hwc-nav">
             <button class="hwc-arr" onclick="shiftHomeWeek(-1)">‹</button>
             <button class="hwc-arr" onclick="shiftHomeWeek(1)">›</button>
           </div>
         </div>
-        <div class="hwc-grid" id="hwc-grid"></div>
+        <div class="hwc-grid" id="hwc-grid"><div class="hwc-day past"><div class="hwc-day-name">Sen</div><div class="hwc-num-wrap"><div class="hwc-num">8</div></div><div class="hwc-dots"></div></div><div class="hwc-day past"><div class="hwc-day-name">Sel</div><div class="hwc-num-wrap"><div class="hwc-num">9</div></div><div class="hwc-dots"></div></div><div class="hwc-day is-today"><div class="hwc-day-name">Rab</div><div class="hwc-num-wrap"><div class="hwc-num">10</div></div><div class="hwc-dots"><div class="hwc-dot hwcd-red"></div></div></div><div class="hwc-day"><div class="hwc-day-name">Kam</div><div class="hwc-num-wrap"><div class="hwc-num">11</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Jum</div><div class="hwc-num-wrap"><div class="hwc-num">12</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Sab</div><div class="hwc-num-wrap"><div class="hwc-num">13</div></div><div class="hwc-dots"><div class="hwc-dot hwcd-amber"></div></div></div><div class="hwc-day"><div class="hwc-day-name">Min</div><div class="hwc-num-wrap"><div class="hwc-num">14</div></div><div class="hwc-dots"></div></div></div>
         <!-- Selected day detail panel -->
         <div class="hwc-day-detail" id="hwc-day-detail" style="display:none">
           <div class="hwc-day-detail-title" id="hwc-detail-title">Rabu, 11 Jun</div>
           <div id="hwc-detail-items"></div>
         </div>
       </div>
-
-      <!-- Stats strip (rendered by JS) -->
-      <div id="home-stats-strip"></div>
 
       <!-- Tanggungan per Matkul -->
       <div class="pad" style="padding-top:12px">
@@ -4589,9 +4688,9 @@ input,select,textarea { font-family:inherit; }
         <div class="home-matkul-section">
           <div class="home-matkul-header">
             <div class="home-matkul-title">Tanggungan per Matkul</div>
-            <button onclick="openSheet('sh-addsubj')" style="font-size:12px;font-weight:700;color:var(--blue);background:none;border:none;cursor:pointer;padding:4px">＋ Matkul</button>
+            <button onclick="openSheet(&#39;sh-addsubj&#39;)" style="font-size:12px;font-weight:700;color:var(--blue);background:none;border:none;cursor:pointer;padding:4px">＋ Matkul</button>
           </div>
-          <div id="home-matkul-list"></div>
+          <div id="home-matkul-list"><div class="mk-tanggungan-card" style="animation-delay: 0s;"><div class="mk-urgency-strip urgent"></div><div class="mk-top-row"><div class="mk-icon-wrap" style="background:#dc262618">💻</div><div class="mk-info"><div class="mk-name">Algoritma &amp; Pemro</div><div class="mk-deadline-sub urgent">⚠ Tugas overdue 11 hari</div></div><div class="mk-chev">›</div></div><div class="mk-counters"><div class="mk-counter-item"><span class="mk-counter-num gray">2</span><div class="mk-counter-lbl">Materi</div></div><div class="mk-counter-item"><span class="mk-counter-num red">1</span><div class="mk-counter-lbl">Tugas</div></div><div class="mk-counter-item"><span class="mk-counter-num gray">—</span><div class="mk-counter-lbl">Ujian</div></div></div></div><div class="mk-tanggungan-card" style="animation-delay: 0.04s;"><div class="mk-urgency-strip urgent"></div><div class="mk-top-row"><div class="mk-icon-wrap" style="background:#2563eb18">🔢</div><div class="mk-info"><div class="mk-name">Kalkulus 2</div><div class="mk-deadline-sub urgent">⚠ Tugas overdue 8 hari</div></div><div class="mk-chev">›</div></div><div class="mk-counters"><div class="mk-counter-item"><span class="mk-counter-num amber">4</span><div class="mk-counter-lbl">Materi</div></div><div class="mk-counter-item"><span class="mk-counter-num red">1</span><div class="mk-counter-lbl">Tugas</div></div><div class="mk-counter-item"><span class="mk-counter-num red">1</span><div class="mk-counter-lbl">Ujian</div></div></div></div><div class="mk-tanggungan-card is-clean" style="animation-delay: 0.08s;"><div class="mk-urgency-strip clean"></div><div class="mk-top-row"><div class="mk-icon-wrap" style="background:#7c3aed18">🤖</div><div class="mk-info"><div class="mk-name">Deep Learning</div><div class="mk-deadline-sub ok">✓ Semua selesai</div></div><div class="mk-chev">›</div></div><div class="mk-counters"><div class="mk-counter-item"><span class="mk-counter-num all-done">✓</span><div class="mk-counter-lbl">Materi</div></div><div class="mk-counter-item"><span class="mk-counter-num all-done">✓</span><div class="mk-counter-lbl">Tugas</div></div><div class="mk-counter-item"><span class="mk-counter-num gray">—</span><div class="mk-counter-lbl">Ujian</div></div></div></div></div>
         </div>
       </div>
     </div>
@@ -4613,13 +4712,13 @@ input,select,textarea { font-family:inherit; }
           <button class="subj-fpill" onclick="setSubjFilter(&#39;pending&#39;, this)">Ada PR</button>
         </div>
 
-        <div id="subj-active-list"><div class="subj-sem-label-apple">Semester 4</div><div class="subj-card-apple"><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#dc262618">💻</div><div class="subj-item-body"><div class="subj-item-name">Algoritma &amp; Pemro</div><div class="subj-item-meta">2 materi · 1 tugas aktif</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#dc2626"></div></div></div></div><span class="subj-pending-badge">1</span></div><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#7c3aed18">🤖</div><div class="subj-item-body"><div class="subj-item-name">Deep Learning</div><div class="subj-item-meta">2 materi</div><div class="subj-item-prog-wrap"><div class="subj-item-prog-bar"><div class="subj-item-prog-fill" style="width:50%;background:#7c3aed"></div></div></div></div><span class="subj-pending-badge">1</span></div></div><div class="subj-sem-label-apple">Semester 3</div><div class="subj-card-apple"><div class="subj-item-apple"><div class="subj-icon-apple" style="background:#0891b218">📐</div><div class="subj-item-body"><div class="subj-item-name">Kalkulus 1</div><div class="subj-item-meta">Belum ada materi</div></div></div></div></div>
+        <div id="subj-active-list"></div>
 
         <button onclick="openSheet(&#39;sh-addsubj&#39;)" class="subj-add-btn-apple">
           ＋ Tambah Subjek Baru
         </button>
 
-        <div id="subj-archive-wrap" style="margin-top:8px"><button class="archive-toggle-btn"><span>🗂</span><span>Arsip Subjek</span><span class="atb-count">2 subjek</span><span class="atb-chev">▼</span></button></div>
+        <div id="subj-archive-wrap" style="margin-top:8px"></div>
 
       </div>
     </div>
@@ -4637,9 +4736,9 @@ input,select,textarea { font-family:inherit; }
 
       <!-- Detail Tab Nav -->
       <div class="detail-tab-nav" id="detail-tab-nav">
-        <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab('materi')">📖 Materi</button>
-        <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab('tugas')">📋 Tugas</button>
-        <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab('ujian')">📝 Ujian</button>
+        <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab(&#39;materi&#39;)">📖 Materi</button>
+        <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab(&#39;tugas&#39;)">📋 Tugas</button>
+        <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab(&#39;ujian&#39;)">📝 Ujian</button>
       </div>
 
       <!-- Materi Tab — guide box removed -->
@@ -4827,13 +4926,10 @@ input,select,textarea { font-family:inherit; }
 
   </div><!-- /scroll -->
 
-  <!-- BOTTOM NAV — 3 tab (cal & subjects merged into home) -->
+  <!-- BOTTOM NAV — 2 tab -->
   <nav class="bnav">
     <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="display:none">0</span></div><div>Home</div>
-    </button>
-    <button class="bn" id="bn-pomo" onclick="goView(&#39;pomo&#39;, this)">
-      <div class="bn-ic">🍅</div><div>Fokus</div>
+      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
     </button>
     <button class="bn" id="bn-focus" onclick="toggleNavPopover(this)">
       <div class="bn-ic">⚡</div><div>Lainnya</div>
@@ -4864,6 +4960,77 @@ input,select,textarea { font-family:inherit; }
   </div><!-- /desktop-main -->
 
 </div><!-- /app -->
+
+<!-- ════ POMO BOTTOM SHEET ════ -->
+<div class="pomo-bs-overlay" id="pomo-bs-overlay" onclick="pomoBsBackdropTap(event)">
+  <div class="pomo-bs" id="pomo-bs">
+    <div class="pomo-bs-handle"></div>
+
+    <!-- IDLE SHEET: pick duration & start -->
+    <div id="pomo-bs-idle">
+      <div class="pomo-bs-head">
+        <span class="pomo-bs-title">🍅 Sesi Fokus</span>
+        <span class="pomo-bs-close" onclick="closePomoBs()">Tutup</span>
+      </div>
+      <div class="pomo-bs-timer-wrap">
+        <div class="pomo-ring-outer">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,.08)" stroke-width="5"></circle>
+            <circle cx="50" cy="50" r="42" stroke="#e53e2f" stroke-width="5" stroke-dasharray="264" stroke-dashoffset="264" stroke-linecap="round" transform="rotate(-90 50 50)" id="pomo-bs-ring-idle"></circle>
+          </svg>
+          <div class="pomo-ring-time" id="pomo-bs-idle-time">25:00</div>
+        </div>
+      </div>
+      <div class="pomo-bs-task-pick">
+        <select id="pomo-bs-task-sel">
+          <option value="">— Lagi ngerjain apa? (opsional) —</option>
+        </select>
+      </div>
+      <div class="pomo-bs-dur-row" id="pomo-bs-dur-row">
+        <div class="pomo-bs-dur" onclick="pomoBsSelDur(this,20,&#39;20:00&#39;)">20 min</div>
+        <div class="pomo-bs-dur sel" onclick="pomoBsSelDur(this,25,&#39;25:00&#39;)">25 min</div>
+        <div class="pomo-bs-dur" onclick="pomoBsSelDur(this,30,&#39;30:00&#39;)">30 min</div>
+        <div class="pomo-bs-dur" onclick="pomoBsSelDur(this,45,&#39;45:00&#39;)">45 min</div>
+      </div>
+      <div class="pomo-bs-cta" id="pomo-bs-start-btn" onclick="pomoBsStart()">▶ Mulai Fokus</div>
+      <div class="pomo-bs-dots" id="pomo-bs-idle-dots"></div>
+    </div>
+
+    <!-- ACTIVE FOCUS SHEET -->
+    <div id="pomo-bs-focus" style="display:none">
+      <div class="pomo-bs-head">
+        <span class="pomo-bs-title">🍅 Fokus Aktif</span>
+        <span class="pomo-bs-close" onclick="closePomoBs()">Tutup ✕</span>
+      </div>
+      <div class="pomo-bs-timer-wrap">
+        <div class="pomo-ring-outer">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="42" stroke="rgba(255,255,255,.08)" stroke-width="5"></circle>
+            <circle cx="50" cy="50" r="42" stroke="#e53e2f" stroke-width="5" stroke-dasharray="264" stroke-dashoffset="66" stroke-linecap="round" transform="rotate(-90 50 50)" id="pomo-bs-ring-focus"></circle>
+          </svg>
+          <div class="pomo-ring-time" id="pomo-bs-focus-time">--:--</div>
+        </div>
+      </div>
+      <div class="pomo-bs-task" id="pomo-bs-focus-task">Sesi Fokus</div>
+      <div class="pomo-bs-cta stop" onclick="pomoBsStop()">■ Stop Sesi</div>
+      <div class="pomo-bs-cta brk-skip" onclick="pomoBsSkipToBreak()">☕ Skip ke Break</div>
+      <div class="pomo-bs-dots" id="pomo-bs-focus-dots"></div>
+    </div>
+
+    <!-- BREAK SHEET -->
+    <div id="pomo-bs-break" style="display:none">
+      <div class="pomo-bs-head">
+        <span class="pomo-bs-title">🌿 Istirahat</span>
+        <span class="pomo-bs-close" onclick="closePomoBs()">Tutup ✕</span>
+      </div>
+      <div class="pomo-bs-break-time" id="pomo-bs-break-time">05:00</div>
+      <div class="pomo-bs-break-label" id="pomo-bs-break-label">Istirahat singkat</div>
+      <div class="pomo-bs-cta" style="background:rgba(74,222,128,.2);color:#4ade80;border:1.5px solid rgba(74,222,128,.3);margin-bottom:16px" onclick="pomoBsResumeFocus()">→ Lanjut Fokus</div>
+      <div class="pomo-bs-dots" id="pomo-bs-break-dots"></div>
+    </div>
+
+  </div>
+</div>
 <div class="notes-overlay" id="notes-overlay" onclick="notesOverlayTap(event)">
   <div class="notes-sheet">
     <div class="notes-sheet-handle"></div>
@@ -5978,61 +6145,37 @@ function _renderHomeStats(){
   if(!el) return;
   const todayStr = tod();
 
-  // Stat 1: Overdue tugas
-  const overdue = D.tugas.filter(t => !t.done && diffD(t.deadline, todayStr) < 0).length;
-  // Stat 2: Tugas aktif (belum selesai, belum overdue)
-  const aktif = D.tugas.filter(t => !t.done && diffD(t.deadline, todayStr) >= 0).length;
-  // Stat 3: Hari ke ujian terdekat
-  const upcoming = D.ujian
-    .map(u => ({ diff: diffD(u.date, todayStr), u }))
-    .filter(x => x.diff >= 0)
-    .sort((a,b) => a.diff - b.diff);
-  const nearestUjian = upcoming[0] || null;
-  const hariUjian = nearestUjian ? nearestUjian.diff : null;
-  const ujianName = nearestUjian ? (nearestUjian.u.name || {quiz:'Quiz',uts:'UTS',uas:'UAS'}[nearestUjian.u.type] || 'Ujian') : null;
+  // Stat 1: Tugas pending (belum selesai)
+  const tugasPending = D.tugas.filter(t => !t.done).length;
 
-  // Build stat cards — overdue only shows if > 0
-  let statsHtml = '<div class="home-stats-strip">';
+  // Stat 2: Focus — total menit dari pomoSessions hari ini
+  const totalMins = pomoSessions.reduce((acc, s) => acc + (s.dur || 0), 0);
+  const focusHrs = Math.floor(totalMins / 60);
+  const focusMins = totalMins % 60;
 
-  if(overdue > 0){
-    statsHtml +=
-      `<div class="hstat hstat-danger">`+
-      `<div class="hstat-num red">${overdue}</div>`+
-      `<div class="hstat-lbl">Overdue</div>`+
-      `</div>`;
-  } else {
-    // Show "Aman" as positive
-    statsHtml +=
-      `<div class="hstat hstat-neutral">`+
-      `<div class="hstat-num gray">0</div>`+
-      `<div class="hstat-lbl">Overdue</div>`+
-      `</div>`;
-  }
+  let statsHtml = '<div class="home-stats-strip" style="grid-template-columns:1fr 1fr;">';
 
-  const aktifCls = aktif > 5 ? 'hstat-warn' : 'hstat-neutral';
-  const aktifNum = aktif > 5 ? 'amber' : 'gray';
+  // Tugas stat
+  const tugasCls = tugasPending > 5 ? 'hstat-warn' : tugasPending === 0 ? 'hstat-neutral' : 'hstat-neutral';
+  const tugasNumCls = tugasPending > 5 ? 'amber' : tugasPending > 0 ? 'blue' : 'gray';
   statsHtml +=
-    `<div class="hstat ${aktifCls}">`+
-    `<div class="hstat-num ${aktifNum}">${aktif}</div>`+
-    `<div class="hstat-lbl">Tugas aktif</div>`+
+    `<div class="hstat ${tugasCls}">`+
+    `<div class="hstat-num ${tugasNumCls}">${tugasPending}</div>`+
+    `<div class="hstat-lbl">Tugas</div>`+
     `</div>`;
 
-  if(nearestUjian){
-    const ujianCls = hariUjian <= 3 ? 'hstat-danger' : hariUjian <= 7 ? 'hstat-warn' : 'hstat-neutral';
-    const ujianNum = hariUjian <= 3 ? 'red' : hariUjian <= 7 ? 'amber' : 'blue';
-    const shortName = ujianName.length > 8 ? ujianName.slice(0,8)+'…' : ujianName;
-    statsHtml +=
-      `<div class="hstat ${ujianCls}">`+
-      `<div class="hstat-num ${ujianNum}">H-${hariUjian}</div>`+
-      `<div class="hstat-lbl">${shortName}</div>`+
-      `</div>`;
-  } else {
-    statsHtml +=
-      `<div class="hstat hstat-neutral">`+
-      `<div class="hstat-num gray">—</div>`+
-      `<div class="hstat-lbl">Ujian</div>`+
-      `</div>`;
-  }
+  // Focus stat
+  const focusDisplay = focusHrs > 0
+    ? `<span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--pomo-red)">${focusHrs}</span><span style="font-size:12px;font-weight:700;color:var(--ink3);margin-right:3px">j</span><span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--pomo-red)">${focusMins}</span><span style="font-size:12px;font-weight:700;color:var(--ink3)">m</span>`
+    : totalMins > 0
+      ? `<span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--pomo-red)">${focusMins}</span><span style="font-size:12px;font-weight:700;color:var(--ink3)">m</span>`
+      : `<span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--ink3)">—</span>`;
+
+  statsHtml +=
+    `<div class="hstat ${totalMins > 0 ? 'hstat-neutral' : 'hstat-neutral'}" style="${totalMins > 0 ? 'background:var(--pomo-red-lt)' : ''}">`+
+    `<div style="display:flex;align-items:baseline;gap:2px;justify-content:center">${focusDisplay}</div>`+
+    `<div class="hstat-lbl">Focus</div>`+
+    `</div>`;
 
   statsHtml += '</div>';
   el.innerHTML = statsHtml;
@@ -7095,13 +7238,24 @@ function updatePomoPill(){
   const sbLbl=document.getElementById('sb-pomo-label');
   if(pomoState){
     const cls=pomoPhase==='focus'?'focus':'brk';
-    const txt=pomoPhase==='focus'?'Fokus aktif':'Break';
-    if(pill){ pill.className='pomo-topbar-pill '+cls+' show'; if(pillLbl) pillLbl.textContent=txt; }
-    if(sbPill){ sbPill.className='sb-pomo-pill '+cls; if(sbLbl) sbLbl.textContent=txt; }
+    if(pomoPhase==='focus'){
+      // show countdown
+      const rem=Math.max(0,Math.ceil((pomoEndMs-Date.now())/1000));
+      const m=Math.floor(rem/60), s=rem%60;
+      const txt=`${m}:${String(s).padStart(2,'0')}`;
+      if(pill){ pill.className='pomo-topbar-pill focus'; if(pillLbl) pillLbl.textContent=txt; }
+    } else {
+      if(pill){ pill.className='pomo-topbar-pill brk'; if(pillLbl) pillLbl.textContent='Break'; }
+    }
+    if(sbPill){ sbPill.className='sb-pomo-pill '+cls; if(sbLbl) sbLbl.textContent=pomoPhase==='focus'?'Fokus aktif':'Break'; }
   } else {
-    if(pill) pill.className='pomo-topbar-pill';
+    if(pill){ pill.className='pomo-topbar-pill idle'; if(pillLbl) pillLbl.textContent='Fokus'; }
     if(sbPill) sbPill.className='sb-pomo-pill';
   }
+  // update bottom sheet if open
+  _updatePomoBsTimers();
+  // refresh home stats to update focus minutes
+  if(document.getElementById('v-home')?.classList.contains('active')) _renderHomeStats();
 }
 
 function startPomo(){
@@ -7128,6 +7282,8 @@ function pomoTick(){
   if(Date.now()>=pomoEndMs){ phaseEnd(); return; }
   // update dots live if on pomo view
   if(curView==='pomo' && pomoState) updateProgressDots();
+  // update pill countdown & bottom sheet
+  updatePomoPill();
 }
 
 function phaseEnd(){
@@ -7147,6 +7303,7 @@ function phaseEnd(){
     sbPushPomoState();
     updatePomoActiveUI();
     updatePomoPill();
+    if(_pomoBsOpen) _syncPomoBsState();
     if(curView!=='pomo') toast('🍅 Sesi selesai! Istirahat dulu ☕');
   } else {
     pomoBeep('break_done');
@@ -10331,8 +10488,193 @@ function _renderAbsenList(){
   ).join('');
 }
 
+// ════════ POMO BOTTOM SHEET (topbar pill) ════════════
+let _pomoBsDurMin = 25;
+let _pomoBsOpen = false;
+
+function pillTap(){
+  if(pomoState){
+    openPomoBs();
+  } else {
+    if(_pomoBsOpen) closePomoBs();
+    else openPomoBs();
+  }
+}
+
+function openPomoBs(){
+  _pomoBsOpen = true;
+  const overlay = document.getElementById('pomo-bs-overlay');
+  if(!overlay) return;
+  overlay.classList.add('open');
+  _syncPomoBsState();
+  // populate task selector
+  _buildPomoBsTaskOptions();
+}
+
+function closePomoBs(){
+  _pomoBsOpen = false;
+  const overlay = document.getElementById('pomo-bs-overlay');
+  if(overlay) overlay.classList.remove('open');
+}
+
+function pomoBsBackdropTap(e){
+  if(e.target === document.getElementById('pomo-bs-overlay')) closePomoBs();
+}
+
+function _syncPomoBsState(){
+  const idleEl   = document.getElementById('pomo-bs-idle');
+  const focusEl  = document.getElementById('pomo-bs-focus');
+  const breakEl  = document.getElementById('pomo-bs-break');
+  if(!idleEl) return;
+
+  if(!pomoState){
+    idleEl.style.display  = '';
+    focusEl.style.display = 'none';
+    breakEl.style.display = 'none';
+    _updatePomoBsIdleDots();
+  } else if(pomoPhase === 'focus'){
+    idleEl.style.display  = 'none';
+    focusEl.style.display = '';
+    breakEl.style.display = 'none';
+    _updatePomoBsTimers();
+    _updatePomoBsFocusDots();
+  } else {
+    idleEl.style.display  = 'none';
+    focusEl.style.display = 'none';
+    breakEl.style.display = '';
+    _updatePomoBsTimers();
+    _updatePomoBsFocusDots();
+  }
+}
+
+function _updatePomoBsTimers(){
+  if(!_pomoBsOpen) return;
+  if(!pomoState) return;
+  const rem = Math.max(0, Math.ceil((pomoEndMs - Date.now()) / 1000));
+  const m = Math.floor(rem / 60), s = rem % 60;
+  const txt = `${m}:${String(s).padStart(2,'0')}`;
+  const totalMs = pomoDurMinutes() * 60 * 1000;
+  const elapsed = Date.now() - pomoStartMs;
+  const prog = Math.min(1, elapsed / totalMs);
+  const circum = 264;
+
+  if(pomoPhase === 'focus'){
+    const timeEl = document.getElementById('pomo-bs-focus-time');
+    if(timeEl) timeEl.textContent = txt;
+    const ring = document.getElementById('pomo-bs-ring-focus');
+    if(ring) ring.setAttribute('stroke-dashoffset', String(circum * (1 - prog)));
+    const taskEl = document.getElementById('pomo-bs-focus-task');
+    if(taskEl) taskEl.textContent = pomoTask || 'Sesi Fokus';
+  } else {
+    const breakRem = Math.max(0, Math.ceil((pomoEndMs - Date.now()) / 1000));
+    const bm = Math.floor(breakRem / 60), bs = breakRem % 60;
+    const breakEl = document.getElementById('pomo-bs-break-time');
+    if(breakEl) breakEl.textContent = `${bm}:${String(bs).padStart(2,'0')}`;
+    const labelEl = document.getElementById('pomo-bs-break-label');
+    if(labelEl) labelEl.textContent = `Sesi ke-${pomoSessions.length} selesai · istirahat singkat`;
+  }
+}
+
+function _updatePomoBsIdleDots(){
+  const el = document.getElementById('pomo-bs-idle-dots');
+  if(!el) return;
+  const count = 4;
+  el.innerHTML = Array.from({length:count}, (_,i) =>
+    `<div class="pomo-bs-dot ${i < pomoSessions.length % count ? 'done' : ''}"></div>`
+  ).join('');
+}
+
+function _updatePomoBsFocusDots(){
+  ['pomo-bs-focus-dots','pomo-bs-break-dots'].forEach(id => {
+    const el = document.getElementById(id);
+    if(!el) return;
+    const count = 4;
+    const done = pomoSessions.length % count;
+    el.innerHTML = Array.from({length:count}, (_,i) => {
+      if(i < done) return `<div class="pomo-bs-dot done"></div>`;
+      if(i === done && pomoPhase === 'focus') return `<div class="pomo-bs-dot cur"></div>`;
+      return `<div class="pomo-bs-dot"></div>`;
+    }).join('');
+  });
+}
+
+function _buildPomoBsTaskOptions(){
+  const sel = document.getElementById('pomo-bs-task-sel');
+  if(!sel) return;
+  // Copy from pomo-task-sel if available
+  const src = document.getElementById('pomo-task-sel');
+  if(src) { sel.innerHTML = src.innerHTML; return; }
+  // Fallback: build ourselves
+  sel.innerHTML = `<option value="">— Lagi ngerjain apa? (opsional) —</option>`;
+  const active = D.subjects.filter(s => !s.archived);
+  active.forEach(s => {
+    const tgs = D.tugas.filter(t => t.sid === s.id && !t.done);
+    if(tgs.length){
+      const og = document.createElement('optgroup'); og.label = `📋 ${s.name}`;
+      tgs.forEach(t => { og.appendChild(new Option(t.name, `t::${t.id}::${t.name}`)); });
+      sel.appendChild(og);
+    }
+  });
+}
+
+function pomoBsSelDur(el, min, label){
+  _pomoBsDurMin = min;
+  // sync to real dur picker
+  const idx = POMO_DURATIONS.focus.indexOf(min);
+  if(idx >= 0){ pomoDurIdx = idx; selectDur(min); }
+  document.querySelectorAll('.pomo-bs-dur').forEach(d => d.classList.remove('sel'));
+  el.classList.add('sel');
+  const timeEl = document.getElementById('pomo-bs-idle-time');
+  if(timeEl) timeEl.textContent = label;
+}
+
+function pomoBsStart(){
+  // sync task
+  const bsSel = document.getElementById('pomo-bs-task-sel');
+  const mainSel = document.getElementById('pomo-task-sel');
+  if(bsSel && mainSel) mainSel.value = bsSel.value;
+  closePomoBs();
+  startPomo();
+}
+
+function pomoBsStop(){
+  stopPomo();
+  closePomoBs();
+}
+
+function pomoBsSkipToBreak(){
+  // force end focus phase early, start break
+  clearInterval(pomoTimer);
+  const session = {label: pomoTask||'Sesi Fokus', dur: pomoDurMinutes(), endAt: new Date().toISOString()};
+  pomoSessions.push(session);
+  sbSavePomoSession(session);
+  pomoPhase = 'break';
+  const breakMs = pomoBreakDur * 60 * 1000;
+  pomoStartMs = Date.now();
+  pomoEndMs = pomoStartMs + breakMs;
+  pomoDotsThresholds = [];
+  pomoTimer = setInterval(pomoTick, 1000);
+  savePomoState(); sbPushPomoState(); updatePomoPill();
+  closePomoBs();
+  toast('☕ Break dimulai!');
+}
+
+function pomoBsResumeFocus(){
+  // end break early, start new focus
+  clearInterval(pomoTimer);
+  pomoPhase = 'focus';
+  const totalMs = pomoDurMinutes() * 60 * 1000;
+  pomoStartMs = Date.now();
+  pomoEndMs = pomoStartMs + totalMs;
+  pomoDotsThresholds = genDotsThresholds(totalMs);
+  pomoTimer = setInterval(pomoTick, 1000);
+  savePomoState(); sbPushPomoState(); updatePomoPill();
+  closePomoBs();
+  toast('🍅 Fokus dimulai!');
+}
+
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 1;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
 
 
 
@@ -10390,9 +10732,9 @@ boot();
         <div style="margin-top:10px">
           <label class="flbl" style="margin-bottom:6px;display:block">Status</label>
           <div class="absen-status-btns">
-            <button class="absen-status-btn sel-hadir" id="absen-btn-hadir" onclick="selectAbsenStatus('hadir')">✅ Hadir</button>
-            <button class="absen-status-btn" id="absen-btn-bolos" onclick="selectAbsenStatus('bolos')">❌ Bolos</button>
-            <button class="absen-status-btn" id="absen-btn-izin" onclick="selectAbsenStatus('izin')">📝 Izin</button>
+            <button class="absen-status-btn sel-hadir" id="absen-btn-hadir" onclick="selectAbsenStatus(&#39;hadir&#39;)">✅ Hadir</button>
+            <button class="absen-status-btn" id="absen-btn-bolos" onclick="selectAbsenStatus(&#39;bolos&#39;)">❌ Bolos</button>
+            <button class="absen-status-btn" id="absen-btn-izin" onclick="selectAbsenStatus(&#39;izin&#39;)">📝 Izin</button>
           </div>
         </div>
         <button class="sbtn sbtn-p" style="width:100%;margin-top:12px" onclick="saveAbsen()">Simpan ✓</button>
