@@ -545,6 +545,58 @@ input,select,textarea { font-family:inherit; }
   color: var(--ink3);
 }
 
+/* ══ Simple Matkul List ══ */
+#home-matkul-list {
+  background: var(--white);
+  border-radius: var(--r);
+  box-shadow: var(--sh);
+  overflow: hidden;
+  border: 1.5px solid var(--line);
+}
+.mk-simple-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .1s;
+  animation: springIn .36s cubic-bezier(.32,.72,0,1) both;
+}
+.mk-simple-item:last-child { border-bottom: none; }
+.mk-simple-item:active { background: var(--bg); }
+.mk-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.mk-si-icon {
+  width: 36px; height: 36px; border-radius: var(--rsm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.mk-si-body { flex: 1; min-width: 0; }
+.mk-si-name {
+  font-size: 14px; font-weight: 700; color: var(--ink);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.mk-si-prog {
+  height: 3px; background: var(--bg2); border-radius: 99px;
+  overflow: hidden; margin-bottom: 5px;
+}
+.mk-si-prog-fill {
+  height: 100%; border-radius: 99px;
+  transition: width .4s cubic-bezier(.32,.72,0,1);
+}
+.mk-si-pills { display: flex; gap: 5px; flex-wrap: wrap; }
+.mk-pill {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px;
+  display: inline-block; white-space: nowrap;
+}
+.mk-pill.ok      { background: var(--green-lt); color: var(--green); }
+.mk-pill.urgent  { background: var(--red-lt);   color: var(--red); }
+.mk-pill.warn    { background: var(--amber-lt);  color: var(--amber); }
+.mk-pill.neutral { background: var(--bg2);       color: var(--ink2); }
+.mk-pill.ujian   { background: var(--purple-lt); color: var(--purple); }
+.mk-si-chev { color: var(--ink3); font-size: 17px; flex-shrink: 0; }
+
 /* ══ Clean / All Done State ══ */
 .home-clean-banner {
   background: linear-gradient(135deg, var(--green-lt) 0%, #bbf7d0 100%);
@@ -2710,6 +2762,8 @@ input,select,textarea { font-family:inherit; }
 .ujian-v2-type-quiz  { background: var(--blue-lt);  color: var(--blue); }
 .ujian-v2-type-uts   { background: var(--amber-lt); color: var(--amber); }
 .ujian-v2-type-uas   { background: var(--red-lt);   color: var(--red); }
+.ujian-v2-type-presentasi { background: var(--green-lt); color: var(--green); }
+.ujian-v2-type-demo  { background: var(--purple-lt); color: var(--purple); }
 
 .ujian-v2-name {
   flex: 1; font-size: 15px; font-weight: 700;
@@ -4474,6 +4528,14 @@ input,select,textarea { font-family:inherit; }
   border-color: transparent;
 }
 .ad2-check-btn:active { transform: scale(.85); }
+.ad2-habit-more {
+  flex-shrink: 0; width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; color: var(--ink3);
+  background: none; border: none; cursor: pointer;
+  border-radius: 50%; transition: background .12s;
+}
+.ad2-habit-more:active { background: var(--bg2); }
 .ad2-habit-freq {
   font-size: 12px; color: var(--ink3);
   margin-bottom: 9px; padding-left: 27px;
@@ -4607,6 +4669,64 @@ input,select,textarea { font-family:inherit; }
   font-size: 32px; text-align: center;
   padding: 8px 0 12px; cursor: pointer;
   display: block;
+}
+
+/* ── Identity Hero Header ── */
+.ad2-id-hero {
+  position: relative; overflow: hidden;
+  padding: 20px 16px 16px; cursor: pointer;
+  min-height: 100px;
+}
+.ad2-id-hero-noise {
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: .25; pointer-events: none;
+}
+.ad2-id-hero-label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em;
+  color: rgba(255,255,255,.6); margin-bottom: 6px;
+  position: relative;
+}
+.ad2-id-hero-text {
+  font-size: 14px; font-weight: 500;
+  color: #fff; line-height: 1.55; font-style: italic;
+  position: relative; padding-right: 60px;
+}
+.ad2-id-hero-text.empty {
+  color: rgba(255,255,255,.55); font-size: 13px; font-style: normal;
+}
+.ad2-id-hero-edit {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 11px; font-weight: 600;
+  color: rgba(255,255,255,.7);
+  background: rgba(255,255,255,.15);
+  border: none; border-radius: 99px;
+  padding: 4px 10px; cursor: pointer;
+  transition: background .15s;
+}
+.ad2-id-hero-edit:active { background: rgba(255,255,255,.25); }
+
+/* ── Reflection card ── */
+.ad2-refl-card {
+  margin: 0 12px 8px;
+  background: var(--white);
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  box-shadow: var(--sh);
+  padding: 12px 14px;
+}
+.ad2-refl-q {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--ink3); margin-bottom: 4px;
+}
+.ad2-refl-text {
+  font-size: 13px; color: var(--ink2);
+  line-height: 1.55; font-style: italic;
+}
+.ad2-refl-empty {
+  font-size: 13px; color: var(--line2); font-style: italic;
 }
 
 </style>
@@ -5127,7 +5247,6 @@ input,select,textarea { font-family:inherit; }
           <option value="soal">📝 Soal / Latihan</option>
           <option value="laporan">📄 Laporan</option>
           <option value="video">🎥 Video</option>
-          <option value="presentasi">🖥 Presentasi</option>
           <option value="lainnya">📌 Lainnya</option>
         </select>
       </div>
@@ -5158,7 +5277,6 @@ input,select,textarea { font-family:inherit; }
           <option value="soal">📝 Soal / Latihan</option>
           <option value="laporan">📄 Laporan</option>
           <option value="video">🎥 Video</option>
-          <option value="presentasi">🖥 Presentasi</option>
           <option value="lainnya">📌 Lainnya</option>
         </select>
       </div>
@@ -5193,6 +5311,7 @@ input,select,textarea { font-family:inherit; }
           <option value="quiz">📝 Quiz</option>
           <option value="uts">📖 UTS (Ujian Tengah Semester)</option>
           <option value="uas">🎓 UAS (Ujian Akhir Semester)</option>
+          <option value="presentasi">🖥 Presentasi</option>
           <option value="demo">🔬 Demo / Praktikum</option>
         </select>
       </div>
@@ -5228,6 +5347,7 @@ input,select,textarea { font-family:inherit; }
           <option value="uts">📖 UTS</option>
           <option value="uas">🎓 UAS</option>
           <option value="demo">🔬 Demo / Praktikum</option>
+          <option value="presentasi">🖥 Presentasi</option>
         </select>
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan</label><input id="eu-n" type="text"></div>
@@ -5975,12 +6095,14 @@ function goView(name, btn){
 
   // mobile topbar
   const tb=document.getElementById('topbar');
-  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
-  if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
-  if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill ${pomoState?((pomoPhase==='focus'?'focus':'brk')+' show'):''}" id="pomo-topbar-pill" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 <span id="pomo-pill-label">${pomoPhase==='focus'?'Fokus':'Break'}</span></div>`;
+  if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
-  if(name==='projects') tb.innerHTML=`<div class="tb-title">🚀 Projects</div>`;
-  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div>`;
+  if(name==='projects') tb.innerHTML=`<div class="tb-title">🚀 Projects</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  // Sync pill state after topbar rebuild
+  updatePomoPill();
 
   // desktop topbar
   updateDesktopTopbar(name, null);
@@ -6462,85 +6584,39 @@ function _renderHomeMatkul(){
 
   subjData.forEach(({s, materi, tugas, ujian, nearestDL, urgency, allDone}, idx) => {
     const card = document.createElement('div');
-    card.className = 'mk-tanggungan-card' + (allDone ? ' is-clean' : '');
+    card.className = 'mk-simple-item' + (idx === 0 ? ' first' : '') + (idx === subjData.length-1 ? ' last' : '');
     card.style.animationDelay = (idx * 0.04) + 's';
     card.onclick = () => openDetail(s.id);
 
-    // Strip color
-    const stripClass = allDone ? 'clean' : urgency === 'urgent' ? 'urgent' : urgency === 'warn' ? 'warn' : 'none';
+    // Urgency dot color
+    const dotColor = allDone ? 'var(--green)' : urgency === 'urgent' ? 'var(--red)' : urgency === 'warn' ? 'var(--amber)' : 'var(--ink3)';
 
-    // Deadline subtitle
-    let dlHtml = '';
+    // Materi progress
+    const matTotal = D.materi.filter(m => m.sid === s.id).length;
+    const matDone = D.materi.filter(m => m.sid === s.id && m.ngerti).length;
+    const progPct = matTotal ? Math.round(matDone / matTotal * 100) : 0;
+
+    // Status pills
+    const pills = [];
     if(allDone){
-      dlHtml = `<div class="mk-deadline-sub ok">✓ Semua selesai</div>`;
-    } else if(nearestDL){
-      const diff = nearestDL.diff;
-      const typeLabel = nearestDL.type === 'ujian' ? 'Ujian' : 'Tugas';
-      let text, cls;
-      if(diff < 0){ text = `⚠ ${typeLabel} overdue ${Math.abs(diff)} hari`; cls = 'urgent'; }
-      else if(diff === 0){ text = `⚠ ${typeLabel} deadline hari ini`; cls = 'urgent'; }
-      else if(diff === 1){ text = `${typeLabel} deadline besok`; cls = 'warn'; }
-      else if(diff <= 7){ text = `${typeLabel} dalam ${diff} hari`; cls = 'warn'; }
-      else { text = `${typeLabel} dalam ${diff} hari`; cls = 'gray'; }
-      dlHtml = `<div class="mk-deadline-sub ${cls}">${text}</div>`;
+      pills.push(`<span class="mk-pill ok">Semua selesai ✓</span>`);
     } else {
-      dlHtml = `<div class="mk-deadline-sub gray">Tidak ada deadline dekat</div>`;
+      const overdueT = tugas.filter(t => diffD(t.deadline, todayStr) < 0);
+      if(overdueT.length) pills.push(`<span class="mk-pill urgent">${overdueT.length} tugas overdue</span>`);
+      else if(tugas.length) pills.push(`<span class="mk-pill warn">${tugas.length} tugas</span>`);
+      if(materi.length) pills.push(`<span class="mk-pill neutral">${matTotal} materi</span>`);
+      if(ujian.length) pills.push(`<span class="mk-pill ujian">${ujian.length} ujian</span>`);
     }
-
-    // Counter colors
-    // Materi counter: neutral gray UNLESS ujian ≤7 days with unpaham linked materi
-    let materiBadgeCls = 'gray';
-    if(materi.length > 0){
-      const linkedUjian = ujian.filter(u => {
-        const d = diffD(u.date, todayStr);
-        return d >= 0 && d <= 7;
-      });
-      const hasUnpahamLinked = linkedUjian.some(u =>
-        u.materiIds && u.materiIds.some(mid => {
-          const m = D.materi.find(x => x.id === mid);
-          return m && !m.ngerti;
-        })
-      );
-      materiBadgeCls = hasUnpahamLinked ? 'amber' : 'gray';
-    }
-    const tugasBadgeCls = tugas.some(t => diffD(t.deadline, todayStr) <= 0) ? 'red'
-      : tugas.some(t => diffD(t.deadline, todayStr) <= 3) ? 'amber'
-      : tugas.length ? 'amber' : 'gray';
-    const ujianBadgeCls = ujian.some(u => diffD(u.date, todayStr) <= 3) ? 'red'
-      : ujian.some(u => diffD(u.date, todayStr) <= 7) ? 'amber'
-      : ujian.length ? 'blue' : 'gray';
-
-    const materiTotal = D.materi.filter(m => m.sid === s.id).length;
-    const materiFmt = allDone
-      ? `<span class="mk-counter-num all-done">✓</span>`
-      : `<span class="mk-counter-num ${materiBadgeCls}">${materiTotal || '—'}</span>`;
-    const tugasFmt = allDone ? `<span class="mk-counter-num all-done">✓</span>` : `<span class="mk-counter-num ${tugasBadgeCls}">${tugas.length || '—'}</span>`;
-    const ujianFmt = `<span class="mk-counter-num ${ujianBadgeCls}">${ujian.length || '—'}</span>`;
 
     card.innerHTML =
-      `<div class="mk-urgency-strip ${stripClass}"></div>`+
-      `<div class="mk-top-row">`+
-        `<div class="mk-icon-wrap" style="background:${s.color}18">${s.emoji}</div>`+
-        `<div class="mk-info">`+
-          `<div class="mk-name">${escHtml(s.name)}</div>`+
-          dlHtml+
-        `</div>`+
-        `<div class="mk-chev">›</div>`+
+      `<div class="mk-dot" style="background:${dotColor}"></div>`+
+      `<div class="mk-si-icon" style="background:${s.color}18">${s.emoji}</div>`+
+      `<div class="mk-si-body">`+
+        `<div class="mk-si-name">${escHtml(s.name)}</div>`+
+        (matTotal > 0 ? `<div class="mk-si-prog"><div class="mk-si-prog-fill" style="width:${progPct}%;background:${s.color}"></div></div>` : '') +
+        `<div class="mk-si-pills">${pills.join('')}</div>`+
       `</div>`+
-      `<div class="mk-counters">`+
-        `<div class="mk-counter-item">`+
-          materiFmt+
-          `<div class="mk-counter-lbl">Materi</div>`+
-        `</div>`+
-        `<div class="mk-counter-item">`+
-          tugasFmt+
-          `<div class="mk-counter-lbl">Tugas</div>`+
-        `</div>`+
-        `<div class="mk-counter-item">`+
-          ujianFmt+
-          `<div class="mk-counter-lbl">Ujian</div>`+
-        `</div>`+
-      `</div>`;
+      `<div class="mk-si-chev">›</div>`;
 
     el.appendChild(card);
   });
@@ -6841,12 +6917,15 @@ function openMateriStatusSheet(id){
   if(!sh){
     sh = document.createElement('div');
     sh.id = 'sh-materi-status';
-    sh.className = 'sheet';
+    sh.className = 'overlay';
+    sh.onclick = e => { if(e.target === sh) closeSheet('sh-materi-status'); };
     sh.innerHTML =
+      `<div class="sheet">`+
       `<div class="sh-handle"></div>`+
       `<div class="sh-head"><div class="sh-title">Status Materi</div><button class="sh-x" onclick="closeSheet('sh-materi-status')">✕</button></div>`+
       `<div class="materi-status-sheet" id="mss-body"></div>`+
-      `<div style="height:calc(20px + var(--sb,0px))"></div>`;
+      `<div style="height:calc(20px + var(--sb,0px))"></div>`+
+      `</div>`;
     document.body.appendChild(sh);
   }
 
@@ -7388,7 +7467,7 @@ function notesOverlayTap(e){
 function mkUjianCard(u, isPastOverride=false){
   const diff=diffD(u.date,tod());
   const isPast=isPastOverride||diff<0;
-  const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type]||'Ujian';
+  const typeLabel={quiz:'Quiz',uts:'UTS',uas:'UAS',presentasi:'Presentasi',demo:'Demo'}[u.type]||'Ujian';
   const mats=u.materiIds.map(mid=>D.materi.find(m=>m.id===mid)).filter(Boolean);
 
   // Countdown text
@@ -9987,7 +10066,8 @@ function openAreaDetail(id){
   document.getElementById('topbar').innerHTML=
     '<button class="tb-back" onclick="navPopGoView(\'areas\')">‹ Areas</button>'+
     '<div class="tb-title">'+(a.emoji||'🌿')+' '+escHtml(a.name)+'</div>'+
-    '<button style="padding:6px 10px;font-size:13px;font-weight:700;border:1.5px solid var(--line2);border-radius:var(--rxs);color:var(--ink2);" onclick="openEditArea(\''+id+'\')">Edit</button>';
+    '<div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div>';
+  updatePomoPill();
 
   updateDesktopTopbar('area-detail', a);
   renderAreaDetail2(id);
@@ -9998,18 +10078,19 @@ function renderAreaDetail2(id){
   ensurePAData();
   const a = gArea(id); if(!a) return;
 
-  // ── Identity card ──
+  // ── Identity hero header ──
   const iw = document.getElementById('ad2-identity-wrap');
   if(iw){
-    const identityText = a.identity
-      ? `<em>Saya adalah orang yang</em><br>${escHtml(a.identity)}`
-      : `<em>Belum ada pernyataan identitas.</em><br><span style="font-size:13px;opacity:.7">Tap untuk menambahkan →</span>`;
+    const hasIdentity = !!a.identity;
+    const identityText = hasIdentity
+      ? `"${escHtml(a.identity)}"`
+      : `Tap untuk menambahkan pernyataan identitas →`;
     iw.innerHTML =
-      `<div class="ad2-identity" onclick="openEditIdentity('${id}')">` +
-      `<div class="ad2-identity-bg" style="background:linear-gradient(135deg,${a.color}dd,${a.color}99)"></div>` +
-      `<div class="ad2-identity-label">Identitas Saya</div>` +
-      `<div class="ad2-identity-text">${identityText}</div>` +
-      `<button class="ad2-identity-edit" onclick="event.stopPropagation();openEditIdentity('${id}')">✏ Ubah pernyataan</button>` +
+      `<div class="ad2-id-hero" style="background:linear-gradient(145deg,${a.color}ee 0%,${a.color}99 100%)" onclick="openEditIdentity('${id}')">` +
+      `<div class="ad2-id-hero-noise"></div>` +
+      `<div class="ad2-id-hero-label">Identitas Saya</div>` +
+      `<div class="ad2-id-hero-text${hasIdentity?'':' empty'}">${identityText}</div>` +
+      `<button class="ad2-id-hero-edit" onclick="event.stopPropagation();openEditIdentity('${id}')">✏ Ubah</button>` +
       `</div>`;
   }
 
@@ -10047,9 +10128,21 @@ function renderAreaDetail2(id){
   // ── Reflection ──
   const rf = document.getElementById('ad2-reflection');
   if(rf){
-    rf.innerHTML = a.reflection
-      ? `<div class="ad2-note-card"><div class="ad2-note-text">"${escHtml(a.reflection)}"</div></div>`
-      : `<div class="ad2-note-card"><div class="ad2-note-empty">Belum ada catatan refleksi. Tap "Edit" untuk menambahkan.</div></div>`;
+    const refl = a.reflection || {};
+    const good = typeof refl === 'string' ? refl : (refl.good || '');
+    const improve = typeof refl === 'string' ? '' : (refl.improve || '');
+    rf.innerHTML =
+      `<div class="ad2-refl-card">` +
+      `<div class="ad2-refl-q">Apa yang berjalan baik?</div>` +
+      (good
+        ? `<div class="ad2-refl-text">"${escHtml(good)}"</div>`
+        : `<div class="ad2-refl-empty">Belum diisi minggu ini.</div>`) +
+      `<div style="height:8px"></div>` +
+      `<div class="ad2-refl-q">Apa yang perlu diperbaiki?</div>` +
+      (improve
+        ? `<div class="ad2-refl-text">"${escHtml(improve)}"</div>`
+        : `<div class="ad2-refl-empty">Belum diisi minggu ini.</div>`) +
+      `</div>`;
   }
 
   // ── Projects ──
@@ -10079,6 +10172,7 @@ function _mkHabitRow(h, color){
         `<button class="ad2-check-btn${doneToday?' done':''}" id="${checkId}" `+
           `style="${doneToday?'background:'+color+';border-color:'+color:''}" `+
           `onclick="toggleHabitLog('${h.id}')">${doneToday?'✓':'○'}</button>` +
+        `<button class="ad2-habit-more" onclick="openEditHabit('${h.id}')">···</button>` +
       `</div>` +
       `<div class="ad2-habit-freq">${_habitFreqLabel(h)}</div>` +
     `</div>` +
@@ -10203,10 +10297,12 @@ function openEditIdentity(areaId){
       `</div></div>` +
       `<div class="sh-footer"><div class="sh-row">` +
       `<button class="sbtn sbtn-g" onclick="closeSheet('sh-area-identity')">Batal</button>` +
-      `<button class="sbtn sbtn-p" onclick="saveIdentity('${areaId}')">Simpan ✓</button>` +
+      `<button class="sbtn sbtn-p" id="identity-save-btn">Simpan ✓</button>` +
       `</div></div></div>`;
     document.body.appendChild(sh);
   }
+  // Always update the save button's onclick with the current areaId
+  document.getElementById('identity-save-btn').onclick = () => saveIdentity(areaId);
   document.getElementById('identity-input').value = a.identity || '';
   openSheet('sh-area-identity');
 }
@@ -10231,26 +10327,36 @@ function openEditReflection(){
     sh.innerHTML =
       `<div class="sheet">` +
       `<div class="sh-handle"></div>` +
-      `<div class="sh-head"><div class="sh-title">Catatan Refleksi</div>` +
+      `<div class="sh-head"><div class="sh-title">📝 Refleksi Mingguan</div>` +
       `<button class="sh-x" onclick="closeSheet('sh-area-reflection')">✕</button></div>` +
       `<div class="sh-body">` +
       `<div class="ad2-identity-field">` +
-      `<label>Refleksi minggu ini</label>` +
-      `<textarea id="reflection-input" rows="5" placeholder="Apa yang berjalan baik? Apa yang perlu diperbaiki?"></textarea>` +
-      `</div></div>` +
+      `<label>Apa yang berjalan baik minggu ini?</label>` +
+      `<textarea id="refl-good-input" rows="3" placeholder="e.g. Review harian terasa lebih ringan sekarang..."></textarea>` +
+      `</div>` +
+      `<div class="ad2-identity-field" style="margin-top:12px">` +
+      `<label>Apa yang perlu diperbaiki?</label>` +
+      `<textarea id="refl-improve-input" rows="3" placeholder="e.g. Sesi fokus masih sering terganggu..."></textarea>` +
+      `</div>` +
+      `</div>` +
       `<div class="sh-footer"><div class="sh-row">` +
       `<button class="sbtn sbtn-g" onclick="closeSheet('sh-area-reflection')">Batal</button>` +
       `<button class="sbtn sbtn-p" onclick="saveReflection()">Simpan ✓</button>` +
       `</div></div></div>`;
     document.body.appendChild(sh);
   }
-  document.getElementById('reflection-input').value = a.reflection || '';
+  const refl = a.reflection || {};
+  document.getElementById('refl-good-input').value = typeof refl === 'string' ? refl : (refl.good || '');
+  document.getElementById('refl-improve-input').value = typeof refl === 'string' ? '' : (refl.improve || '');
   openSheet('sh-area-reflection');
 }
 
 function saveReflection(){
   const a = gArea(curAreaId); if(!a) return;
-  a.reflection = document.getElementById('reflection-input').value.trim();
+  a.reflection = {
+    good: document.getElementById('refl-good-input').value.trim(),
+    improve: document.getElementById('refl-improve-input').value.trim()
+  };
   save(); closeSheet('sh-area-reflection');
   renderAreaDetail2(curAreaId);
   toast('Refleksi disimpan ✓');
@@ -10320,6 +10426,89 @@ function saveNewHabit(){
   closeSheet('sh-add-habit');
   renderAreaDetail2(curAreaId);
   toast('Habit ditambahkan ✓');
+}
+
+function openEditHabit(hid){
+  ensurePAData();
+  const h = D.habits.find(x => x.id === hid);
+  if(!h) return;
+  let sh = document.getElementById('sh-edit-habit');
+  if(!sh){
+    sh = document.createElement('div');
+    sh.id = 'sh-edit-habit';
+    sh.className = 'overlay';
+    sh.onclick = e => { if(e.target===sh) closeSheet('sh-edit-habit'); };
+    sh.innerHTML =
+      `<div class="sheet">` +
+      `<div class="sh-handle"></div>` +
+      `<div class="sh-head"><div class="sh-title">Edit Habit</div>` +
+      `<button class="sh-x" onclick="closeSheet('sh-edit-habit')">✕</button></div>` +
+      `<div class="sh-body">` +
+      `<div class="field"><label class="flbl">Nama Habit</label>` +
+      `<input id="eh-name" type="text" placeholder="e.g. Olahraga 30 menit"></div>` +
+      `<div class="field"><label class="flbl">Emoji</label>` +
+      `<input id="eh-emoji" type="text" placeholder="⭐" style="width:64px;font-size:22px;text-align:center"></div>` +
+      `<div class="field"><label class="flbl">Frekuensi</label>` +
+      `<select id="eh-freq">` +
+      `<option value="daily">Setiap hari</option>` +
+      `<option value="weekly">Beberapa hari seminggu</option>` +
+      `</select></div>` +
+      `<div class="field" id="eh-days-field" style="display:none">` +
+      `<label class="flbl">Target hari per minggu</label>` +
+      `<input id="eh-days" type="number" min="1" max="7" value="3" style="width:80px"></div>` +
+      `<div class="field"><label class="flbl">Waktu (opsional)</label>` +
+      `<input id="eh-time" type="text" placeholder="e.g. Pagi hari, 06.00"></div>` +
+      `</div>` +
+      `<div class="sh-footer">` +
+      `<div class="sh-row">` +
+      `<button class="sbtn sbtn-g" onclick="closeSheet('sh-edit-habit')">Batal</button>` +
+      `<button class="sbtn sbtn-p" id="eh-save-btn">Simpan ✓</button>` +
+      `</div>` +
+      `<div class="sh-row">` +
+      `<button class="sbtn sbtn-d" id="eh-del-btn">🗑 Hapus Habit</button>` +
+      `</div>` +
+      `</div></div>`;
+    document.body.appendChild(sh);
+    document.getElementById('eh-freq').onchange = function(){
+      document.getElementById('eh-days-field').style.display = this.value==='weekly'?'':'none';
+    };
+  }
+  // Populate fields
+  document.getElementById('eh-name').value = h.name || '';
+  document.getElementById('eh-emoji').value = h.emoji || '';
+  document.getElementById('eh-freq').value = h.freq || 'daily';
+  document.getElementById('eh-days-field').style.display = h.freq==='weekly'?'':'none';
+  document.getElementById('eh-days').value = h.freqDays || 3;
+  document.getElementById('eh-time').value = h.time || '';
+  // Bind buttons to this specific habit
+  document.getElementById('eh-save-btn').onclick = () => saveEditHabit(hid);
+  document.getElementById('eh-del-btn').onclick = () => deleteHabit(hid);
+  openSheet('sh-edit-habit');
+}
+
+function saveEditHabit(hid){
+  const h = D.habits.find(x => x.id === hid);
+  if(!h) return;
+  const name = document.getElementById('eh-name').value.trim();
+  if(!name){ toast('Nama habit tidak boleh kosong'); return; }
+  h.name = name;
+  h.emoji = document.getElementById('eh-emoji').value.trim() || h.emoji;
+  h.freq = document.getElementById('eh-freq').value;
+  h.freqDays = h.freq==='weekly' ? parseInt(document.getElementById('eh-days').value||'3') : 7;
+  h.time = document.getElementById('eh-time').value.trim();
+  save();
+  closeSheet('sh-edit-habit');
+  renderAreaDetail2(curAreaId);
+  toast('Habit diperbarui ✓');
+}
+
+function deleteHabit(hid){
+  if(!confirm('Hapus habit ini?')) return;
+  D.habits = (D.habits||[]).filter(x => x.id !== hid);
+  save();
+  closeSheet('sh-edit-habit');
+  renderAreaDetail2(curAreaId);
+  toast('🗑 Habit dihapus');
 }
 
 function renderCurrentState_c(areaId,color){
