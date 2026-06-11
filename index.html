@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_58.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_61.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -95,11 +95,8 @@ input,select,textarea { font-family:inherit; }
   letter-spacing:-.3px; flex:1;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
 }
-.tb-back {
-  color:var(--blue); font-size:15px; font-weight:700;
-  display:flex; align-items:center; gap:4px;
-  padding:6px 10px 6px 0;
-}
+.tb-action-btn{font-size:13px;font-weight:700;color:var(--blue);padding:6px 10px;border-radius:8px;background:var(--blue-lt);flex-shrink:0;}
+.tb-back{color:var(--blue);font-size:15px;font-weight:700;display:flex;align-items:center;gap:4px;padding:6px 10px 6px 0;}
 .tb-action {
   padding:8px 14px; border-radius:var(--rsm);
   font-size:13px; font-weight:700;
@@ -4243,7 +4240,7 @@ input,select,textarea { font-family:inherit; }
 }
 
 /* ── OVERVIEW BANNER ── */
-.ov-banner{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);padding:13px 16px;margin-bottom:12px;display:flex;gap:0;}
+.ov-banner{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);padding:13px 16px;margin-bottom:12px;display:flex;gap:0;border-left:3px solid var(--blue);}
 .ov-stat{flex:1;display:flex;flex-direction:column;gap:2px;padding:0 10px;}
 .ov-stat:first-child{padding-left:0;}
 .ov-stat:not(:last-child){border-right:1px solid var(--line);}
@@ -4273,6 +4270,23 @@ input,select,textarea { font-family:inherit; }
 
 /* ── PROJECTS ADAPTIVE VIEW ── */
 .proj-sec-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin:0 0 10px;}
+
+/* ── KEGIATAN CARD (new unified list style) ── */
+.keg-list{display:flex;flex-direction:column;gap:8px;margin-bottom:4px;}
+.keg-card{background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;cursor:pointer;transition:transform .14s,box-shadow .14s;}
+.keg-card:active{transform:scale(.982);box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.keg-card.is-pause{opacity:.7;}
+.keg-card-hd{display:flex;align-items:center;gap:11px;padding:12px 14px 10px;}
+.keg-card-icon{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.keg-card-info{flex:1;min-width:0;}
+.keg-card-name{font-size:14px;font-weight:800;color:var(--ink);letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.keg-card-sub{font-size:11px;color:var(--ink3);margin-top:2px;font-weight:500;}
+.keg-card-badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:99px;flex-shrink:0;}
+.keg-card-prog{height:3px;background:var(--bg2);border-radius:99px;margin:0 14px 10px;overflow:hidden;}
+.keg-card-progfill{height:100%;border-radius:99px;transition:width .4s ease;}
+/* rencana section reveal */
+.keg-rencana-btn{font-size:12px;font-weight:600;color:var(--ink3);padding:8px 2px;cursor:pointer;display:block;}
+.keg-rencana-btn:hover{color:var(--ink2);}
 
 /* Hero card */
 .hero-card{border-radius:20px;overflow:hidden;position:relative;cursor:pointer;margin-bottom:20px;min-height:148px;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 4px 20px rgba(0,0,0,.13);transition:transform .18s cubic-bezier(.32,.72,0,1);}
@@ -4337,14 +4351,17 @@ input,select,textarea { font-family:inherit; }
 .agc-top-badge{position:absolute;top:11px;right:11px;z-index:3;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);letter-spacing:.03em;}
 
 /* ── PROJECT DETAIL NEW STYLE ── */
+.pd-goal-sub{font-size:12px;font-weight:500;color:var(--ink3);margin-top:3px;line-height:1.4;font-style:italic;}
+.pd-prog-row{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.pd-prog-label{font-size:11px;font-weight:700;color:var(--ink3);flex-shrink:0;white-space:nowrap;}
 .pd-header{background:var(--white);border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
 .pd-accent{height:4px;width:100%;}
 .pd-body{padding:16px 16px 14px;}
 .pd-top{display:flex;align-items:center;gap:14px;}
 .pd-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
 .pd-info{flex:1;min-width:0;}
-.pd-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink3);margin-bottom:2px;}
-.pd-name{font-size:22px;font-weight:900;letter-spacing:-.6px;line-height:1.1;color:var(--ink);}
+.pd-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue);margin-bottom:2px;}
+.pd-name{font-size:20px;font-weight:900;letter-spacing:-.5px;line-height:1.15;color:var(--ink);}
 .pd-meta{display:flex;gap:7px;margin-top:10px;align-items:center;flex-wrap:wrap;}
 .pd-dl{font-size:11px;font-weight:600;color:var(--ink3);}
 .pd-grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 16px 0;}
@@ -4354,7 +4371,7 @@ input,select,textarea { font-family:inherit; }
 .pd-arah-empty{font-size:12px;color:var(--ink3);font-style:italic;}
 .pd-prog-big{font-size:28px;font-weight:900;letter-spacing:-.5px;color:var(--ink);line-height:1;}
 .pd-prog-sub{font-size:11px;font-weight:600;color:var(--ink3);margin-top:3px;}
-.pd-prog-bar{height:4px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:8px;}
+.pd-prog-bar{height:5px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:8px;}
 .pd-prog-barfill{height:100%;border-radius:99px;}
 .linked-area-card{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);border:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:transform .14s;position:relative;overflow:hidden;}
 .linked-area-card:active{transform:scale(.982);}
@@ -4396,13 +4413,13 @@ input,select,textarea { font-family:inherit; }
 .ss-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 11px;border-bottom:1px solid var(--line);}
 .ss-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
 .ss-edit{font-size:12px;font-weight:700;color:var(--blue);}
-.pd-why-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);margin-bottom:14px;overflow:hidden;}
-.pd-why-hd{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px;border-bottom:1px solid var(--line);}
-.pd-why-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
-.pd-why-edit{font-size:12px;font-weight:700;color:var(--blue);}
-.pd-why-body{padding:13px 16px 14px;}
-.pd-why-text{font-size:14px;font-weight:500;color:var(--ink2);line-height:1.65;font-style:italic;}
-.pd-why-empty{font-size:13px;color:var(--ink3);font-style:italic;}
+.pd-why-wrap{background:#fffbeb;border-radius:var(--rsm);border:1px solid var(--amber-bd);margin-bottom:14px;overflow:hidden;}
+.pd-why-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;}
+.pd-why-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#92400e;}
+.pd-why-edit{font-size:12px;font-weight:700;color:#d97706;}
+.pd-why-body{padding:0 14px 12px;}
+.pd-why-text{font-size:13px;font-weight:500;color:#78350f;line-height:1.6;}
+.pd-why-empty{font-size:12px;color:#b45309;font-style:italic;}
 .pd-focus-card{border-radius:var(--r);margin-bottom:14px;overflow:hidden;}
 .pd-focus-inner{padding:16px 16px 14px;border-radius:var(--r);border:1.5px solid transparent;}
 .pd-focus-label{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;margin-bottom:7px;}
@@ -4420,6 +4437,9 @@ input,select,textarea { font-family:inherit; }
 .ap-drag-handle{display:flex;align-items:center;justify-content:center;width:28px;flex-shrink:0;cursor:grab;color:var(--ink3);font-size:13px;opacity:.4;padding-left:4px;touch-action:none;}
 .ap-drag-handle:active{cursor:grabbing;opacity:.7;}
 .ap-item-wrap.is-done-wrap .ap-drag-handle{opacity:.2;}
+/* Step number circle for kegiatan detail */
+.ap-step-num{width:32px;height:52px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;font-weight:800;}
+.ap-step-meta{font-size:11px;color:var(--ink3);font-weight:500;}
 .res-feed{display:flex;flex-direction:column;gap:9px;}
 .res-card{background:var(--white);border-radius:12px;box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:transform .14s;}
 .res-card:active{transform:scale(.982);}
@@ -4759,7 +4779,7 @@ input,select,textarea { font-family:inherit; }
       <!-- pomodoro removed — accessible via topbar pill -->
       <!-- subjects tab removed -->
       <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
-        <span class="sb-item-ic">🚀</span> Projects
+        <span class="sb-item-ic">📋</span> Kegiatan
       </button>
       <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
         <span class="sb-item-ic">🌿</span> Areas
@@ -4801,7 +4821,7 @@ input,select,textarea { font-family:inherit; }
             <button class="hwc-arr" onclick="shiftHomeWeek(1)">›</button>
           </div>
         </div>
-        <div class="hwc-grid" id="hwc-grid"><div class="hwc-day past"><div class="hwc-day-name">Sen</div><div class="hwc-num-wrap"><div class="hwc-num">8</div></div><div class="hwc-dots"></div></div><div class="hwc-day past"><div class="hwc-day-name">Sel</div><div class="hwc-num-wrap"><div class="hwc-num">9</div></div><div class="hwc-dots"></div></div><div class="hwc-day is-today"><div class="hwc-day-name">Rab</div><div class="hwc-num-wrap"><div class="hwc-num">10</div></div><div class="hwc-dots"><div class="hwc-dot hwcd-red"></div></div></div><div class="hwc-day"><div class="hwc-day-name">Kam</div><div class="hwc-num-wrap"><div class="hwc-num">11</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Jum</div><div class="hwc-num-wrap"><div class="hwc-num">12</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Sab</div><div class="hwc-num-wrap"><div class="hwc-num">13</div></div><div class="hwc-dots"><div class="hwc-dot hwcd-amber"></div></div></div><div class="hwc-day"><div class="hwc-day-name">Min</div><div class="hwc-num-wrap"><div class="hwc-num">14</div></div><div class="hwc-dots"></div></div></div>
+        <div class="hwc-grid" id="hwc-grid"><div class="hwc-day past"><div class="hwc-day-name">Sen</div><div class="hwc-num-wrap"><div class="hwc-num">8</div></div><div class="hwc-dots"></div></div><div class="hwc-day past"><div class="hwc-day-name">Sel</div><div class="hwc-num-wrap"><div class="hwc-num">9</div></div><div class="hwc-dots"></div></div><div class="hwc-day past"><div class="hwc-day-name">Rab</div><div class="hwc-num-wrap"><div class="hwc-num">10</div></div><div class="hwc-dots"></div></div><div class="hwc-day is-today"><div class="hwc-day-name">Kam</div><div class="hwc-num-wrap"><div class="hwc-num">11</div></div><div class="hwc-dots"><div class="hwc-dot hwcd-red"></div></div></div><div class="hwc-day"><div class="hwc-day-name">Jum</div><div class="hwc-num-wrap"><div class="hwc-num">12</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Sab</div><div class="hwc-num-wrap"><div class="hwc-num">13</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Min</div><div class="hwc-num-wrap"><div class="hwc-num">14</div></div><div class="hwc-dots"></div></div></div>
         <!-- Selected day detail panel -->
         <div class="hwc-day-detail" id="hwc-day-detail" style="display:none">
           <div class="hwc-day-detail-title" id="hwc-detail-title">Rabu, 11 Jun</div>
@@ -4820,7 +4840,7 @@ input,select,textarea { font-family:inherit; }
             <div class="home-matkul-title">Tanggungan per Matkul</div>
             <button onclick="openSheet(&#39;sh-addsubj&#39;)" style="font-size:12px;font-weight:700;color:var(--blue);background:none;border:none;cursor:pointer;padding:4px">＋ Matkul</button>
           </div>
-          <div id="home-matkul-list"><div class="mk-tanggungan-card" style="animation-delay: 0s;"><div class="mk-urgency-strip urgent"></div><div class="mk-top-row"><div class="mk-icon-wrap" style="background:#dc262618">💻</div><div class="mk-info"><div class="mk-name">Algoritma &amp; Pemro</div><div class="mk-deadline-sub urgent">⚠ Tugas overdue 11 hari</div></div><div class="mk-chev">›</div></div><div class="mk-counters"><div class="mk-counter-item"><span class="mk-counter-num gray">2</span><div class="mk-counter-lbl">Materi</div></div><div class="mk-counter-item"><span class="mk-counter-num red">1</span><div class="mk-counter-lbl">Tugas</div></div><div class="mk-counter-item"><span class="mk-counter-num gray">—</span><div class="mk-counter-lbl">Ujian</div></div></div></div><div class="mk-tanggungan-card" style="animation-delay: 0.04s;"><div class="mk-urgency-strip urgent"></div><div class="mk-top-row"><div class="mk-icon-wrap" style="background:#2563eb18">🔢</div><div class="mk-info"><div class="mk-name">Kalkulus 2</div><div class="mk-deadline-sub urgent">⚠ Tugas overdue 8 hari</div></div><div class="mk-chev">›</div></div><div class="mk-counters"><div class="mk-counter-item"><span class="mk-counter-num amber">4</span><div class="mk-counter-lbl">Materi</div></div><div class="mk-counter-item"><span class="mk-counter-num red">1</span><div class="mk-counter-lbl">Tugas</div></div><div class="mk-counter-item"><span class="mk-counter-num red">1</span><div class="mk-counter-lbl">Ujian</div></div></div></div><div class="mk-tanggungan-card is-clean" style="animation-delay: 0.08s;"><div class="mk-urgency-strip clean"></div><div class="mk-top-row"><div class="mk-icon-wrap" style="background:#7c3aed18">🤖</div><div class="mk-info"><div class="mk-name">Deep Learning</div><div class="mk-deadline-sub ok">✓ Semua selesai</div></div><div class="mk-chev">›</div></div><div class="mk-counters"><div class="mk-counter-item"><span class="mk-counter-num all-done">✓</span><div class="mk-counter-lbl">Materi</div></div><div class="mk-counter-item"><span class="mk-counter-num all-done">✓</span><div class="mk-counter-lbl">Tugas</div></div><div class="mk-counter-item"><span class="mk-counter-num gray">—</span><div class="mk-counter-lbl">Ujian</div></div></div></div></div>
+          <div id="home-matkul-list"><div class="mk-simple-item first" style="animation-delay: 0s;"><div class="mk-dot" style="background:var(--red)"></div><div class="mk-si-icon" style="background:#dc262618">💻</div><div class="mk-si-body"><div class="mk-si-name">Algoritma &amp; Pemro</div><div class="mk-si-prog-wrap"><div class="mk-si-prog"><div class="mk-si-prog-fill" style="width:50%;background:#dc2626"></div></div><span class="mk-si-prog-lbl">1/2 tugas selesai</span></div><div class="mk-si-pills"><span class="mk-pill urgent">1 tugas overdue</span><span class="mk-pill neutral">2 materi</span></div></div><div class="mk-si-chev">›</div></div><div class="mk-simple-item" style="animation-delay: 0.04s;"><div class="mk-dot" style="background:var(--green)"></div><div class="mk-si-icon" style="background:#7c3aed18">🤖</div><div class="mk-si-body"><div class="mk-si-name">Deep Learning</div><div class="mk-si-pills"><span class="mk-pill ok">Semua selesai ✓</span></div></div><div class="mk-si-chev">›</div></div><div class="mk-simple-item last" style="animation-delay: 0.08s;"><div class="mk-dot" style="background:var(--green)"></div><div class="mk-si-icon" style="background:#0891b218">📐</div><div class="mk-si-body"><div class="mk-si-name">Kalkulus 1</div><div class="mk-si-pills"><span class="mk-pill ok">Semua selesai ✓</span></div></div><div class="mk-si-chev">›</div></div></div>
         </div>
       </div>
     </div>
@@ -4972,25 +4992,19 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ PROJECTS ══ -->
     <div class="view" id="v-projects"><div class="pad">
-      <div class="ov-banner" id="ov-banner"><div class="ov-stat" style="padding-left:0"><div class="ov-num">2</div><div class="ov-lbl">Aktif</div></div><div class="ov-stat"><div class="ov-num">0<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div><div class="ov-lbl">Avg done</div><div class="ov-bar-wrap"><div class="ov-bar-fill" style="width:0%"></div></div></div><div class="ov-stat"><div class="ov-num">4</div><div class="ov-lbl">Actions pending</div></div></div>
-      <div class="filter-bar" id="filter-bar"><button class="fpill on" onclick="setFilter_c(&#39;all&#39;,this)">Semua</button><button class="fpill">🌿 B</button><button class="fpill">🌿 C</button></div>
+      <div class="ov-banner" id="ov-banner"><div style="display:flex;align-items:center;gap:10px;width:100%"><span style="font-size:22px">📋</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:var(--ink)">Memuat kegiatan...</div></div></div></div>
+      <div class="filter-bar" id="filter-bar"><button class="fpill on" onclick="setFilter_c(&#39;all&#39;,this)">Semua</button></div>
 
-      <!-- Focus Right Now -->
-      <div id="focus-now-wrap"><div class="proj-sec-lbl">Focus Right Now</div><div class="hero-card" onclick="openProjDetail(&#39;proj1779776003859&#39;)"><div class="hero-bg" style="background:linear-gradient(135deg,#7c3aedf0 0%,#7c3aedbb 100%)"></div><div class="hero-noise"></div><div class="hero-grad"></div><div class="hero-body"><div class="hero-label">🎯 Active Project</div><div class="hero-name">🚀 g</div><div class="hero-goal">Juara Gemastik</div><div class="hero-foot"><span class="hero-status">Aktif</span><div class="hero-pct-ring"><svg class="hero-ring-svg" viewBox="0 0 48 48"><circle class="hero-ring-bg" cx="24" cy="24" r="18"></circle><circle class="hero-ring-fill" cx="24" cy="24" r="18" stroke-dasharray="0.0 113.1" stroke-dashoffset="0"></circle><text class="hero-pct-txt" x="24" y="24">0%</text></svg></div></div></div></div></div>
+      <!-- Unified kegiatan list -->
+      <div id="kegiatan-list-wrap"></div>
 
-      <!-- Recently Active -->
-      <div id="recently-active-wrap"><div class="proj-sec-lbl">Recently Active</div><div class="ra-scroll"><div class="ra-card" onclick="openProjDetail(&#39;proj1780137455865&#39;)"><div class="ra-accent" style="background:#65a30d"></div><div class="ra-body"><div class="ra-icon" style="background:#65a30d18">🚀</div><div class="ra-name">Tes</div><div class="ra-pct">0<span style="font-size:10px;font-weight:700;color:var(--ink3)">%</span></div><div class="ra-pct-lbl">selesai</div></div><div class="ra-bar"><div class="ra-barfill" style="width:0%;background:#65a30d"></div></div></div></div></div>
-
-      <!-- All Projects -->
-      <div id="all-projects-wrap"><div class="pd-sec-lbl" style="margin-bottom:10px">All Projects</div><div class="all-proj-list"></div><div id="rencana-reveal-row" style="margin-top:6px;padding:4px 2px"><span onclick="showRencana()" style="font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer">+ Lihat yang direncanakan</span></div><div id="rencana-list" style="display:none;margin-top:6px"><div class="all-proj-list"><div class="apl-item" onclick="openProjDetail(&#39;proj1779842838809&#39;)"><div class="apl-accent" style="background:#7c3aed"></div><div class="apl-icon" style="background:#7c3aed18">🚀</div><div class="apl-body"><div class="apl-name">tesss</div><div class="apl-sub"><span class="pa-status-chip pa-status-rencana" style="font-size:9px">Rencana</span></div></div><div class="apl-right"><div class="apl-pct">0%</div><div class="apl-bar"><div class="apl-barfill" style="width:0%;background:#7c3aed"></div></div></div></div></div></div></div>
-
-      <button class="pa-add-btn project" onclick="openAddProject()" style="margin-top:8px">🚀 Tambah Project Baru</button>
+      <button class="pa-add-btn project" onclick="openAddProject()" style="margin-top:8px">📋 Tambah Kegiatan Baru</button>
     </div></div>
 
 
     <!-- ══ AREAS ══ -->
     <div class="view" id="v-areas"><div class="pad">
-      <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-warn" style="background:rgba(0,0,0,.22);color:#fff">Needs care</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-sub">0 project aktif · 1 ritual</div><div class="agc-pip-row"><div class="agc-pip"></div></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off" style="background:rgba(0,0,0,.22);color:#fff">No rituals</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-sub">0 project aktif</div></div></div></div>
+      <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-warn" style="background:rgba(0,0,0,.22);color:#fff">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-sub">0 kegiatan aktif · 1 ritual</div><div class="agc-pip-row"><div class="agc-pip"></div></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off" style="background:rgba(0,0,0,.22);color:#fff">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-sub">0 kegiatan aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
 
@@ -5000,19 +5014,18 @@ input,select,textarea { font-family:inherit; }
       <div class="pd-grid2" id="pd-grid2"></div>
       <div class="pad" style="padding-top:14px;padding-bottom:32px">
         <div class="pd-why-wrap" id="pd-why-wrap"></div>
-        <div id="pd-focus-wrap"></div>
         <div class="pd-section-hd">
-          <span class="pd-sec-lbl">✅ Next Actions</span>
+          <span class="pd-sec-lbl">📋 Langkah-langkah</span>
           <button class="pd-sec-btn" onclick="openAddProjItem()">＋ Tambah</button>
         </div>
-        <div class="card" id="proj-ap-list"></div>
+        <div id="proj-ap-list"></div>
         <div class="pd-section-hd" style="margin-top:16px">
-          <span class="pd-sec-lbl">📎 Resources &amp; Notes</span>
+          <span class="pd-sec-lbl">📎 Catatan &amp; File</span>
           <button class="pd-sec-btn" onclick="openAddResource()">＋ Tambah</button>
         </div>
         <div id="proj-resources-list"></div>
         <div class="pd-section-hd" style="margin-top:16px">
-          <span class="pd-sec-lbl">🔗 Linked Area</span>
+          <span class="pd-sec-lbl">🔗 Area Terkait</span>
         </div>
         <div id="proj-linked-area"></div>
       </div>
@@ -5047,7 +5060,7 @@ input,select,textarea { font-family:inherit; }
 
         <!-- projects -->
         <div class="ad2-sec-hd">
-          <span class="ad2-sec-title">Projects Terkait</span>
+          <span class="ad2-sec-title">Kegiatan Terkait</span>
         </div>
         <div id="area-projects-list"></div>
         <div style="height:24px"></div>
@@ -5070,10 +5083,10 @@ input,select,textarea { font-family:inherit; }
   <div class="nav-popover-bd" id="nav-pop-bd" onclick="closeNavPopover()"></div>
   <div class="nav-popover" id="nav-popover">
     <button class="nav-pop-item" id="nav-pop-proj" onclick="navPopGoView(&#39;projects&#39;)">
-      <span class="nav-pop-ic">🚀</span>
+      <span class="nav-pop-ic">📋</span>
       <span class="nav-pop-label">
-        <div>Projects</div>
-        <div class="nav-pop-sub">Hal sementara yang sedang dikerjain</div>
+        <div>Kegiatan Singkat</div>
+        <div class="nav-pop-sub">Kegiatan yang ada langkah-langkah dan akhirnya</div>
       </span>
       <span class="nav-pop-arrow">›</span>
     </button>
@@ -5442,11 +5455,11 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addproject" onclick="bgc(event,&#39;sh-addproject&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">🚀 Tambah Project</div>
+    <div class="sh-title">📋 Tambah Kegiatan Singkat</div>
     <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Project</label><input id="ap-n" type="text" placeholder="e.g. Skripsi, Lomba GEMASTIK"></div>
-      <div class="field"><label class="flbl">Emoji</label><input id="ap-e" type="text" placeholder="🚀" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Arah Project</label><textarea id="ap-g" rows="2" placeholder="Ke mana project ini mau dibawa? Apa yang ingin dicapai?"></textarea></div>
+      <div class="field"><label class="flbl">Nama Kegiatan</label><input id="ap-n" type="text" placeholder="e.g. Sertifikasi Python, Baca Esensialisme"></div>
+      <div class="field"><label class="flbl">Emoji</label><input id="ap-e" type="text" placeholder="📋" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
+      <div class="field"><label class="flbl">Tujuan Kegiatan</label><textarea id="ap-g" rows="2" placeholder="Apa yang ingin dicapai setelah kegiatan ini selesai?"></textarea></div>
       <div class="field"><label class="flbl">Status</label>
         <select id="ap-st">
           <option value="aktif">🟢 Aktif — sedang dikerjakan</option>
@@ -5485,11 +5498,11 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-editproject" onclick="bgc(event,&#39;sh-editproject&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">✏️ Edit Project</div>
+    <div class="sh-title">✏️ Edit Kegiatan</div>
     <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Project</label><input id="ep-n" type="text"></div>
+      <div class="field"><label class="flbl">Nama Kegiatan</label><input id="ep-n" type="text"></div>
       <div class="field"><label class="flbl">Emoji</label><input id="ep-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Arah Project</label><textarea id="ep-g" rows="2"></textarea></div>
+      <div class="field"><label class="flbl">Tujuan Kegiatan</label><textarea id="ep-g" rows="2"></textarea></div>
       <div class="field"><label class="flbl">Status</label>
         <select id="ep-st">
           <option value="aktif">🟢 Aktif</option>
@@ -5524,7 +5537,7 @@ input,select,textarea { font-family:inherit; }
         <button class="sbtn sbtn-p" onclick="saveEditProject()">Simpan ✓</button>
       </div>
       <div class="sh-row">
-        <button class="sbtn sbtn-d" onclick="delProject()">🗑 Hapus Project Ini</button>
+        <button class="sbtn sbtn-d" onclick="delProject()">🗑 Hapus Kegiatan Ini</button>
       </div>
     </div>
   </div>
@@ -5622,9 +5635,9 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addap-title">✅ Action Plan</div>
+    <div class="sh-title" id="sh-addap-title">📋 Langkah Kegiatan</div>
     <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Action</label><input id="addap-n" type="text" placeholder="e.g. Bikin outline bab 3, Olahraga rutin 3x/minggu"></div>
+      <div class="field"><label class="flbl">Nama Langkah</label><input id="addap-n" type="text" placeholder="e.g. Daftar platform, Selesaikan modul 1, Beli buku"></div>
 
       <div class="field"><label class="flbl">Berulang?</label>
         <select id="addap-recur" onchange="updateApRecurUI()">
@@ -5833,7 +5846,36 @@ const DEFAULT_DATA = { subjects:[
   {id:'ev3', title:'Praktikum Deep Learn', startTime:'15:00', endTime:'16:40', color:'#7c3aed', note:'Lab AI',
    recurring:{days:[5], from:ago(-30), until:''}},
   {id:'ev4', title:'Seminar Research',     date:ago(-2),      startTime:'10:00', endTime:'12:00', color:'#059669', note:'Aula Utama'},
-]};
+], projects:[
+  {id:'proj_python',  name:'Sertifikasi Python',       emoji:'🐍', color:'#7c3aed', status:'aktif',   goal:'Lulus sertifikasi Python dasar', why:'Python adalah pintu masuk ke dunia data science dan AI. Ini investasi skill jangka panjang gue.', lastMod: ago(1)},
+  {id:'proj_humas',   name:'Kepanitiaan Humas',         emoji:'👥', color:'#0891b2', status:'aktif',   goal:'Sukses menjalankan 2 proker Humas di Capstone & Ospek', why:'Ini kesempatan buat develop soft skill komunikasi dan kepemimpinan selain akademik.', lastMod: ago(2)},
+  {id:'proj_buku',    name:'Baca: Esensialisme',        emoji:'📚', color:'#d97706', status:'aktif',   goal:'Selesai baca dan paham isi buku Esensialisme', why:'Buku ini relevan banget buat hidup gue sekarang — biar bisa fokus ke hal yang benar-benar penting.', lastMod: ago(3)},
+], p_tasks:[
+  {id:'pt_py1', parentId:'proj_python', parentType:'project', name:'Pilih platform sertifikasi (Coursera/Dicoding)',  done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py2', parentId:'proj_python', parentType:'project', name:'Beli atau daftar paket belajar Python',           done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py3', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 1: Dasar-dasar Python',         done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py4', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 2: Struktur Data',               done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py5', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 3: OOP',                        done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py6', parentId:'proj_python', parentType:'project', name:'Latihan soal dan mock test',                      done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py7', parentId:'proj_python', parentType:'project', name:'Ikut ujian sertifikasi',                         done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py8', parentId:'proj_python', parentType:'project', name:'Download dan simpan sertifikat',                 done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_hm1', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Rapat kick-off tim Humas', done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_hm2', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Buat konten publikasi',   done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_hm3', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Distribusi info ke peserta', done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_hm4', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Dokumentasi & evaluasi',  done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_hm5', parentId:'proj_humas',  parentType:'project', name:'[Proker 2 · Ospek] Koordinasi dengan panitia inti', done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_hm6', parentId:'proj_humas',  parentType:'project', name:'[Proker 2 · Ospek] Siapkan materi sosialisasi', done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_hm7', parentId:'proj_humas',  parentType:'project', name:'[Proker 2 · Ospek] Pelaksanaan hari H',         done:false, deadline:'', notes:'', createdAt: ago(3)},
+  {id:'pt_bk1', parentId:'proj_buku',   parentType:'project', name:'Bab 1: Esensialis vs Non-Esensialis',            done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk2', parentId:'proj_buku',   parentType:'project', name:'Bab 2: Pilih — kekuatan memilih',               done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk3', parentId:'proj_buku',   parentType:'project', name:'Bab 3: Eksplorasi — cara melihat pilihan',       done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk4', parentId:'proj_buku',   parentType:'project', name:'Bab 4: Lihat — cara melihat lebih jelas',       done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk5', parentId:'proj_buku',   parentType:'project', name:'Bab 5: Main — kekuatan bermain',                done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk6', parentId:'proj_buku',   parentType:'project', name:'Bab 6: Tidur — melindungi aset',                done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk7', parentId:'proj_buku',   parentType:'project', name:'Bab 7: Seleksi — standar selektif tinggi',      done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk8', parentId:'proj_buku',   parentType:'project', name:'Bab 8: Clarity — kekuatan kepastian tujuan',    done:false, deadline:'', notes:'', createdAt: ago(4)},
+  {id:'pt_bk9', parentId:'proj_buku',   parentType:'project', name:'Bab 9 & seterusnya — selesaikan buku',         done:false, deadline:'', notes:'', createdAt: ago(4)},
+], p_agendas:[]};
 
 // localStorage sebagai cache offline
 const loadLocal=()=>{try{return JSON.parse(localStorage.getItem('sos_v6')||'null');}catch{return null;}};
@@ -6110,7 +6152,7 @@ function goView(name, btn){
   if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
-  if(name==='projects') tb.innerHTML=`<div class="tb-title">🚀 Projects</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='projects') tb.innerHTML=`<div class="tb-title">📋 Kegiatan Singkat</div><button class="tb-action-btn" onclick="openAddProject()">＋ Baru</button>`;
   if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   // Sync pill state after topbar rebuild
   updatePomoPill();
@@ -6178,12 +6220,12 @@ function updateDesktopTopbar(view, subj){
   } else if(view==='pomo'){
     dtb.innerHTML=`<div class="dtb-title">🍅 Pomodoro</div>`;
   } else if(view==='projects'){
-    dtb.innerHTML=`<div class="dtb-title">🚀 Projects</div>`;
+    dtb.innerHTML=`<div class="dtb-title">📋 Kegiatan Singkat</div>`;
   } else if(view==='areas'){
     dtb.innerHTML=`<div class="dtb-title">🌿 Areas</div>`;
   } else if(view==='proj-detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="navPopGoView('projects')">‹ Projects</button>`+
+      `<button class="dtb-back" onclick="navPopGoView('projects')">‹ Kegiatan</button>`+
       `<div class="dtb-title">${subj.emoji||'🚀'} ${subj.name}</div>`+
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='area-detail' && subj){
@@ -8482,7 +8524,7 @@ function fmtDeadline(p){
 }
 
 function statusLabel(st){
-  return {aktif:'aktif', rencana:'rencana', pause:'pause', selesai:'selesai'}[st] || st;
+  return {aktif:'Aktif', rencana:'Rencana', pause:'Pause', selesai:'Selesai'}[st] || st;
 }
 
 // ════════ PROJECTS LIST ══════════════════════════
@@ -8552,7 +8594,7 @@ function switchProjTab_disabled(tab){
   document.getElementById('proj-tab-ag').classList.toggle('active', tab === 'ag');
   document.getElementById('proj-detail-ap-list').style.display = tab === 'ap' ? '' : 'none';
   document.getElementById('proj-detail-ag-list').style.display = tab === 'ag' ? '' : 'none';
-  document.getElementById('sh-addap-title').textContent = '✅ Action Plan';
+  document.getElementById('sh-addap-title').textContent = '📋 Tambah Langkah';
   renderProjItems();
 }
 
@@ -8566,7 +8608,7 @@ function renderProjItems_old_disabled(){
     el.innerHTML = '';
     const items = D.p_tasks.filter(t => t.parentId === curProjId);
     if(!items.length){
-      el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div>`;
+      el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada langkah plan</div><div class="empty-s">Tambah langkah-langkah yang perlu dikerjain</div></div>`;
     } else {
       const card = document.createElement('div'); card.className = 'card';
       const td = tod();
@@ -8620,7 +8662,7 @@ function mkAreaCard(a){
     (a.want ? `<div class="pa-card-goal">${escHtml(a.want)}</div>` : '')+
     `</div><div class="pa-card-chev">›</div></div>`+
     `<div class="pa-card-footer">`+
-    `<span class="pa-status-chip pa-status-area">maintaining</span>`+
+    `<span class="pa-status-chip pa-status-area">Dijaga</span>`+
     (recurCount ? `<span class="pa-pill pa-pill-recur">🔁 ${recurCount}</span>` : '')+
     (pendingAp  ? `<span class="pa-pill pa-pill-task">✅ ${pendingAp}</span>` : '')+
     (pendingAg  ? `<span class="pa-pill pa-pill-agenda">📅 ${pendingAg}</span>` : '')+
@@ -8648,7 +8690,7 @@ function renderAreaItems_old_disabled(){
     el.innerHTML = '';
     const items = D.p_tasks.filter(t => t.parentId === curAreaId);
     if(!items.length){
-      el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada action plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div>`;
+      el.innerHTML = `<div class="empty"><span class="empty-ic">✅</span><div class="empty-t">Belum ada langkah plan</div><div class="empty-s">Tambah hal-hal yang perlu dijaga di area ini</div></div>`;
     } else {
       const card = document.createElement('div'); card.className = 'card';
       const tda = tod();
@@ -8775,7 +8817,7 @@ function openAddAreaItem(){
 
 function openAddApSheet(){
   _apMode = 'add'; editApId = null;
-  document.getElementById('sh-addap-title').textContent = '✅ Tambah Action Plan';
+  document.getElementById('sh-addap-title').textContent = '📋 Tambah Langkah';
   document.getElementById('addap-n').value = '';
   document.getElementById('addap-dl').value = '';
   document.getElementById('addap-notes').value = '';
@@ -8796,7 +8838,7 @@ function openEditAp(id){
   const t = D.p_tasks.find(x => x.id === id);
   _apParentType = t.parentType;
   _apParentId   = t.parentId;
-  document.getElementById('sh-addap-title').textContent = '✏️ Edit Action Plan';
+  document.getElementById('sh-addap-title').textContent = '✏️ Edit Langkah';
   document.getElementById('addap-n').value = t.name;
   document.getElementById('addap-notes').value = t.notes || '';
   document.getElementById('addap-show-cal').checked = t.showCal !== false;
@@ -8945,7 +8987,7 @@ function delAgenda(){
 
 function refreshPAViews(){
   if(curView === 'projects')    renderProjects();
-  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderProjAp_c(curProjId,p.color); renderCurrentFocus_c(curProjId,p.color); } }
+  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderProjAp_c(curProjId,p.color); } }
   if(curView === 'areas')       renderAreas();
   if(curView === 'area-detail'){ const a=gArea(curAreaId); if(a){ renderAreaRituals_c(curAreaId,a.color); renderCurrentState_c(curAreaId,a.color); } }
   // Always update Hari Ini on home if visible
@@ -9009,7 +9051,7 @@ function openAddProject(){
 
 function saveNewProject(){
   const name = document.getElementById('ap-n').value.trim(); if(!name) return;
-  const emoji = document.getElementById('ap-e').value.trim() || '🚀';
+  const emoji = document.getElementById('ap-e').value.trim() || '📋';
   const goal  = document.getElementById('ap-g').value.trim();
   const status= document.getElementById('ap-st').value;
   const deadline = getDeadlineValue('ap-dl-type','ap-dl-month','ap-dl-year','ap-dl-date');
@@ -9017,7 +9059,7 @@ function saveNewProject(){
   const areaId_ap = document.getElementById('ap-area')?.value||null;
   D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, color:selColorProj, areaId:areaId_ap, createdAt:tod()});
   save(); closeSheet('sh-addproject'); renderProjects();
-  toast(`"${name}" ditambahkan ke Projects!`);
+  toast(`"${name}" ditambahkan ke Kegiatan Singkat! 📋`);
 }
 
 function openEditProject(id){
@@ -9027,7 +9069,7 @@ function openEditProject(id){
   const epAreaSel=document.getElementById('ep-area');
   if(epAreaSel){epAreaSel.innerHTML='<option value="">— Tanpa Area —</option>';(D.areas||[]).forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=(a.emoji||'')+' '+a.name;if(a.id===p.areaId)o.selected=true;epAreaSel.appendChild(o);});}
   document.getElementById('ep-n').value = p.name;
-  document.getElementById('ep-e').value = p.emoji || '🚀';
+  document.getElementById('ep-e').value = p.emoji || '📋';
   document.getElementById('ep-g').value = p.goal || '';
   document.getElementById('ep-st').value = p.status || 'aktif';
   buildCpickerProj('cpicker-proj-edit', selColorProjEdit, c => selColorProjEdit = c);
@@ -9054,18 +9096,18 @@ function saveEditProject(){
   save(); closeSheet('sh-editproject');
   openProjDetail(editProjId);
   renderProjects();
-  toast('✏️ Project diperbarui!');
+  toast('✏️ Kegiatan diperbarui! 📋');
 }
 
 function delProject(){
   const p = gProj(editProjId);
-  if(!confirm(`Hapus project "${p.name}" dan semua isinya?`)) return;
+  if(!confirm(`Hapus kegiatan "${p.name}" dan semua langkahnya?`)) return;
   D.projects  = D.projects.filter(x => x.id !== editProjId);
   D.p_tasks   = D.p_tasks.filter(x => x.parentId !== editProjId);
   D.p_agendas = D.p_agendas.filter(x => x.parentId !== editProjId);
   save(); closeSheet('sh-editproject');
   navPopGoView('projects');
-  toast('🗑 Project dihapus');
+  toast('🗑 Kegiatan dihapus');
 }
 
 // ════════ AREA CRUD ═══════════════════════════════
@@ -9408,7 +9450,7 @@ function openDayDetail(dateStr){
     events.push({
       emoji: rec ? '🔁' : '✅', name: t.name,
       sub: parent ? (parent.emoji||'') + ' ' + parent.name + (rec ? ' — berulang' : ' — action deadline') : '',
-      type: t.parentType === 'project' ? 'Project' : 'Area',
+      type: t.parentType === 'project' ? 'Kegiatan' : 'Area',
       color: parent ? parent.color : '#16a34a',
       typeClass: 'ujian-type-quiz'
     });
@@ -9420,7 +9462,7 @@ function openDayDetail(dateStr){
     events.push({
       emoji: '📅', name: ag.name,
       sub: parent ? (parent.emoji||'') + ' ' + parent.name + (ag.time ? ' · ' + ag.time : '') : '',
-      type: ag.parentType === 'project' ? 'Project' : 'Area',
+      type: ag.parentType === 'project' ? 'Kegiatan' : 'Area',
       color: parent ? parent.color : '#16a34a',
       typeClass: 'ujian-type-quiz'
     });
@@ -9524,7 +9566,7 @@ function renderCalFeed(){
         name: t.name,
         sub: parent?(parent.emoji||'')+'  '+parent.name+(isRecur?' — rutin':' — action plan'):'',
         color: parent?parent.color:'#16a34a',
-        type: t.parentType==='project'?'Project':'Area'
+        type: t.parentType==='project'?'Kegiatan':'Area'
       });
     });
 
@@ -9536,7 +9578,7 @@ function renderCalFeed(){
         name: ag.name,
         sub: parent?(parent.emoji||'')+'  '+parent.name+(ag.time?' · '+ag.time:''):'',
         color: parent?parent.color:'#16a34a',
-        type: ag.parentType==='project'?'Project':'Area'
+        type: ag.parentType==='project'?'Kegiatan':'Area'
       });
     });
 
@@ -9630,7 +9672,7 @@ function apRecurMatchesDate(t, dateStr){
 function openApNotes(id){
   const t = D.p_tasks.find(x => x.id === id);
   if(!t || !t.notes) return;
-  openNotesSheet(t.notes, t.name, '✅ Action Plan', 'ujian-type-quiz', () => openEditAp(id));
+  openNotesSheet(t.notes, t.name, '📋 Langkah', 'ujian-type-quiz', () => openEditAp(id));
 }
 function openAgNotes(id){
   const ag = D.p_agendas.find(x => x.id === id);
@@ -9701,11 +9743,22 @@ function renderProjects(){
   const _ovEl=document.getElementById('ov-banner');
   if(_ovEl){
     const _aktif=(D.projects||[]).filter(p=>p.status==='aktif');
-    const _avg=_aktif.length?Math.round(_aktif.reduce((s,p)=>s+calcPct_c(p.id),0)/_aktif.length):0;
     const _pend=(D.p_tasks||[]).filter(t=>!t.done&&(!t.recurring||t.recurring.freq==='none')&&_aktif.find(p=>p.id===t.parentId)).length;
-    _ovEl.innerHTML='<div class="ov-stat" style="padding-left:0"><div class="ov-num">'+_aktif.length+'</div><div class="ov-lbl">Aktif</div></div>'+
-      '<div class="ov-stat"><div class="ov-num">'+_avg+'<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div><div class="ov-lbl">Avg done</div><div class="ov-bar-wrap"><div class="ov-bar-fill" style="width:'+_avg+'%"></div></div></div>'+
-      '<div class="ov-stat"><div class="ov-num">'+_pend+'</div><div class="ov-lbl">Actions pending</div></div>';
+    if(_aktif.length===0){
+      _ovEl.innerHTML='<div style="display:flex;align-items:center;gap:10px;width:100%">'+
+        '<span style="font-size:22px">👋</span>'+
+        '<div><div style="font-size:14px;font-weight:700;color:var(--ink)">Mulai kegiatan pertamamu</div>'+
+        '<div style="font-size:12px;color:var(--ink3);margin-top:2px">Catat kegiatan yang punya langkah-langkah dan akhirnya</div></div></div>';
+    } else {
+      const _avg=(D.projects||[]).filter(p=>p.status==='aktif').length?Math.round(_aktif.reduce((s,p)=>s+calcPct_c(p.id),0)/_aktif.length):0;
+      _ovEl.innerHTML='<div style="display:flex;align-items:center;gap:10px;width:100%">'+
+        '<span style="font-size:22px">📋</span>'+
+        '<div style="flex:1;min-width:0">'+
+        '<div style="font-size:14px;font-weight:700;color:var(--ink)">'+_aktif.length+' kegiatan berjalan</div>'+
+        '<div style="font-size:12px;color:var(--ink3);margin-top:2px">'+(_pend?_pend+' langkah perlu diselesaikan':'Semua langkah sudah beres 🎉')+'</div></div>'+
+        '<div style="text-align:right;flex-shrink:0"><div style="font-size:18px;font-weight:900;color:var(--ink);line-height:1">'+_avg+'<span style="font-size:11px;font-weight:700;color:var(--ink3)">%</span></div>'+
+        '<div style="font-size:10px;color:var(--ink3);font-weight:600">rata-rata</div></div></div>';
+    }
   }
   // Build filter pills
   buildFilterPills_c();
@@ -9717,101 +9770,73 @@ function renderProjects(){
 function renderProjectsContent(){
   const all=(D.projects||[]).filter(p=>mf_c(p));
   const aktif=all.filter(p=>p.status==='aktif');
-  const others=all.filter(p=>p.status!=='aktif');
+  const paused=all.filter(p=>p.status==='pause');
+  const rencana=all.filter(p=>p.status==='rencana');
 
-  // Focus Right Now
-  const focusWrap=document.getElementById('focus-now-wrap');
-  if(focusWrap){
-    if(aktif.length){
-      const focus=aktif.slice().sort((a,b)=>calcPct_c(b.id)-calcPct_c(a.id))[0];
-      const pct=calcPct_c(focus.id);
-      const circ=2*Math.PI*18;
-      focusWrap.innerHTML=
-        '<div class="proj-sec-lbl">Focus Right Now</div>'+
-        '<div class="hero-card" onclick="openProjDetail(\''+focus.id+'\')">'+
-        '<div class="hero-bg" style="background:linear-gradient(135deg,'+focus.color+'f0 0%,'+focus.color+'bb 100%)"></div>'+
-        '<div class="hero-noise"></div><div class="hero-grad"></div>'+
-        '<div class="hero-body">'+
-        '<div class="hero-label">🎯 Active Project</div>'+
-        '<div class="hero-name">'+(focus.emoji||'🚀')+' '+escHtml(focus.name)+'</div>'+
-        (focus.goal?'<div class="hero-goal">'+escHtml(focus.goal)+'</div>':'')+
-        '<div class="hero-foot"><span class="hero-status">'+sLbl_c(focus.status)+'</span>'+
-        '<div class="hero-pct-ring"><svg class="hero-ring-svg" viewBox="0 0 48 48">'+
-        '<circle class="hero-ring-bg" cx="24" cy="24" r="18"/>'+
-        '<circle class="hero-ring-fill" cx="24" cy="24" r="18" stroke-dasharray="'+(circ*pct/100).toFixed(1)+' '+circ.toFixed(1)+'" stroke-dashoffset="0"/>'+
-        '<text class="hero-pct-txt" x="24" y="24">'+pct+'%</text></svg></div>'+
-        '</div></div></div>';
-    } else {
-      focusWrap.innerHTML='';
-    }
+  const wrap=document.getElementById('kegiatan-list-wrap');
+  if(!wrap) return;
+
+  if(!all.length){
+    wrap.innerHTML='<div style="padding:32px 16px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line)">'+
+      '<span style="font-size:32px;display:block;margin-bottom:8px">📋</span>'+
+      '<div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada kegiatan</div>'+
+      '<div style="font-size:12px;color:var(--ink3);margin-top:4px;line-height:1.5">Tap "+ Tambah Kegiatan Baru" untuk mulai mencatat kegiatanmu</div></div>';
+    return;
   }
 
-  // Recently Active
-  const raWrap=document.getElementById('recently-active-wrap');
-  if(raWrap){
-    const focusId=aktif.length?aktif.slice().sort((a,b)=>calcPct_c(b.id)-calcPct_c(a.id))[0].id:null;
-    const recentProjs=aktif.filter(p=>p.id!==focusId).slice(0,4);
-    if(recentProjs.length){
-      let html='<div class="proj-sec-lbl">Recently Active</div><div class="ra-scroll">';
-      recentProjs.forEach(p=>{
-        const pct=calcPct_c(p.id);
-        html+='<div class="ra-card" onclick="openProjDetail(\''+p.id+'\')">'+
-          '<div class="ra-accent" style="background:'+p.color+'"></div>'+
-          '<div class="ra-body"><div class="ra-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
-          '<div class="ra-name">'+escHtml(p.name)+'</div>'+
-          '<div class="ra-pct">'+pct+'<span style="font-size:10px;font-weight:700;color:var(--ink3)">%</span></div>'+
-          '<div class="ra-pct-lbl">selesai</div></div>'+
-          '<div class="ra-bar"><div class="ra-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>';
-      });
-      html+='</div>';
-      raWrap.innerHTML=html;
-    } else { raWrap.innerHTML=''; }
+  // helper: build one keg-card HTML
+  function mkKegCard(p){
+    const pct=calcPct_c(p.id);
+    const tasks=(D.p_tasks||[]).filter(t=>t.parentId===p.id&&(!t.recurring||t.recurring.freq==='none'));
+    const total=tasks.length;
+    const done=tasks.filter(t=>t.done).length;
+    const dl=fmtDl_c(p);
+    // sub line
+    let sub='';
+    if(total>0) sub=done+'/'+total+' langkah';
+    else sub='Belum ada langkah';
+    if(dl) sub+=' · '+dl;
+    // badge
+    const badgeMap={
+      aktif:{bg:'#dbeafe',color:'#2563eb',txt:'Aktif'},
+      pause:{bg:'#fef3c7',color:'#d97706',txt:'Pause'},
+      rencana:{bg:'#f3f4f6',color:'#6b7280',txt:'Rencana'},
+      selesai:{bg:'#dcfce7',color:'#16a34a',txt:'Selesai'},
+    };
+    const badge=badgeMap[p.status]||{bg:'#f3f4f6',color:'#6b7280',txt:sLbl_c(p.status)};
+    return '<div class="keg-card'+(p.status==='pause'?' is-pause':'')+'" onclick="openProjDetail(\''+p.id+'\')">' +
+      '<div class="keg-card-hd">' +
+      '<div class="keg-card-icon" style="background:'+p.color+'18">'+(p.emoji||'📋')+'</div>'+
+      '<div class="keg-card-info">'+
+      '<div class="keg-card-name">'+escHtml(p.name)+'</div>'+
+      '<div class="keg-card-sub">'+sub+'</div>'+
+      '</div>'+
+      '<div class="keg-card-badge" style="background:'+badge.bg+';color:'+badge.color+'">'+badge.txt+'</div>'+
+      '</div>'+
+      '<div class="keg-card-prog"><div class="keg-card-progfill" style="width:'+pct+'%;background:'+p.color+'"></div></div>'+
+      '</div>';
   }
 
-  // All Projects
-  const allWrap=document.getElementById('all-projects-wrap');
-  if(allWrap){
-    if(others.length){
-      const paused=others.filter(p=>p.status==='pause');
-      const rencana=others.filter(p=>p.status==='rencana');
-      let html='<div class="pd-sec-lbl" style="margin-bottom:10px">All Projects</div><div class="all-proj-list">';
-      paused.forEach(p=>{
-        const pct=calcPct_c(p.id);const dl=fmtDl_c(p);
-        html+='<div class="apl-item" onclick="openProjDetail(\''+p.id+'\')">'+
-          '<div class="apl-accent" style="background:'+p.color+'"></div>'+
-          '<div class="apl-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
-          '<div class="apl-body"><div class="apl-name">'+escHtml(p.name)+'</div>'+
-          '<div class="apl-sub"><span class="pa-status-chip pa-status-'+p.status+'" style="font-size:9px">'+sLbl_c(p.status)+'</span>'+(dl?' · '+dl:'')+'</div></div>'+
-          '<div class="apl-right"><div class="apl-pct">'+pct+'%</div>'+
-          '<div class="apl-bar"><div class="apl-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>'+
-          '</div>';
-      });
-      html+='</div>';
-      if(rencana.length){
-        html+='<div id="rencana-reveal-row" style="margin-top:6px;padding:4px 2px">'+
-          '<span onclick="showRencana()" style="font-size:12px;font-weight:600;color:var(--ink3);cursor:pointer">+ Lihat yang direncanakan</span>'+
-          '</div><div id="rencana-list" style="display:none;margin-top:6px"><div class="all-proj-list">';
-        rencana.forEach(p=>{
-          const pct=calcPct_c(p.id);const dl=fmtDl_c(p);
-          html+='<div class="apl-item" onclick="openProjDetail(\''+p.id+'\')">'+
-            '<div class="apl-accent" style="background:'+p.color+'"></div>'+
-            '<div class="apl-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
-            '<div class="apl-body"><div class="apl-name">'+escHtml(p.name)+'</div>'+
-            '<div class="apl-sub"><span class="pa-status-chip pa-status-'+p.status+'" style="font-size:9px">'+sLbl_c(p.status)+'</span>'+(dl?' · '+dl:'')+'</div></div>'+
-            '<div class="apl-right"><div class="apl-pct">'+pct+'%</div>'+
-            '<div class="apl-bar"><div class="apl-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>'+
-            '</div>';
-        });
-        html+='</div></div>';
-      }
-      allWrap.innerHTML=html;
-    } else { allWrap.innerHTML=''; }
+  let html='<div class="keg-list">';
+  // aktif first, then paused
+  [...aktif,...paused].forEach(p=>{ html+=mkKegCard(p); });
+  html+='</div>';
+
+  // rencana: hidden by default
+  if(rencana.length){
+    html+='<span class="keg-rencana-btn" id="keg-rencana-btn" onclick="kegShowRencana()">+ Lihat kegiatan yang direncanakan ('+rencana.length+')</span>'+
+      '<div id="keg-rencana-list" style="display:none;margin-top:4px"><div class="keg-list">';
+    rencana.forEach(p=>{ html+=mkKegCard(p); });
+    html+='</div></div>';
   }
+
+  wrap.innerHTML=html;
 }
 
-function showRencana(){
-  const list=document.getElementById('rencana-list');const row=document.getElementById('rencana-reveal-row');
-  if(list)list.style.display='';if(row)row.style.display='none';
+function kegShowRencana(){
+  const list=document.getElementById('keg-rencana-list');
+  const btn=document.getElementById('keg-rencana-btn');
+  if(list){list.style.display='';} if(btn){btn.style.display='none';}
 }
 
 function renderAreas(){
@@ -9830,10 +9855,10 @@ function renderAreas(){
     const ritualsDoneToday=rituals.filter(t=>t.lastDone===tod()).length;
     const totalRituals=rituals.length;
     let stateLabel='',stateCls='';
-    if(totalRituals===0){stateLabel='No rituals';stateCls='state-off';}
-    else if(ritualsDoneToday===totalRituals){stateLabel='On track';stateCls='state-on';}
-    else if(ritualsDoneToday>0){stateLabel='In progress';stateCls='state-warn';}
-    else{stateLabel='Needs care';stateCls='state-warn';}
+    if(totalRituals===0){stateLabel='Belum ada ritual';stateCls='state-off';}
+    else if(ritualsDoneToday===totalRituals){stateLabel='On track ✓';stateCls='state-on';}
+    else if(ritualsDoneToday>0){stateLabel='Sedang berjalan';stateCls='state-warn';}
+    else{stateLabel='Perlu perhatian';stateCls='state-warn';}
     const c=a.color;
     const card=document.createElement('div');card.className='agc';
     card.innerHTML=
@@ -9842,7 +9867,7 @@ function renderAreas(){
       '<div class="agc-top-badge '+stateCls+'" style="background:rgba(0,0,0,.22);color:#fff">'+stateLabel+'</div>'+
       '<div class="agc-body"><div class="agc-icon">'+(a.emoji||'🌿')+'</div>'+
       '<div class="agc-name">'+escHtml(a.name)+'</div>'+
-      '<div class="agc-sub">'+projs.length+' project aktif'+(totalRituals?' · '+totalRituals+' ritual':'')+'</div>'+
+      '<div class="agc-sub">'+projs.length+' kegiatan aktif'+(totalRituals?' · '+totalRituals+' ritual':'')+'</div>'+
       (totalRituals?'<div class="agc-pip-row">'+Array.from({length:Math.min(5,totalRituals)},(_,i)=>'<div class="agc-pip'+(i<ritualsDoneToday?' on':'')+'"></div>').join('')+'</div>':'')+
       '</div>';
     card.onclick=()=>openAreaDetail(a.id);
@@ -9861,9 +9886,9 @@ function openProjDetail(id){
   document.getElementById('bn-focus')?.classList.add('active');
 
   document.getElementById('topbar').innerHTML=
-    '<button class="tb-back" onclick="navPopGoView(\'projects\')">‹ Projects</button>'+
-    '<div class="tb-title">'+(p.emoji||'🚀')+' '+p.name+'</div>'+
-    '<div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div>';
+    '<button class="tb-back" onclick="navPopGoView(\'projects\')">‹ Kegiatan</button>'+
+    '<div class="tb-title">'+(p.emoji||'📋')+' '+p.name+'</div>'+
+    '<button class="tb-action-btn" onclick="openEditProject(\''+id+'\')">✏️ Edit</button>';
   updatePomoPill();
 
   updateDesktopTopbar('proj-detail', p);
@@ -9871,43 +9896,43 @@ function openProjDetail(id){
   const dl=fmtDl_c(p);
   const ts=pTasks_c(id),done=ts.filter(t=>t.done).length,total=ts.length,pct=total?Math.round(done/total*100):0;
 
-  // Header
+  // Header — clean white, no color hero, progress inline
   const hw=document.getElementById('pd-header-wrap');
   if(hw) hw.innerHTML=
     '<div class="pd-header">'+
     '<div class="pd-accent" style="background:'+p.color+'"></div>'+
     '<div class="pd-body">'+
-    '<div class="pd-top">'+
-    '<div class="pd-icon" style="background:'+p.color+'18">'+(p.emoji||'🚀')+'</div>'+
-    '<div class="pd-info"><div class="pd-type">Project</div><div class="pd-name">'+escHtml(p.name)+'</div></div>'+
+    '<div class="pd-type">Kegiatan Singkat</div>'+
+    '<div class="pd-top" style="margin-top:6px">'+
+    '<div class="pd-icon" style="background:'+p.color+'18">'+(p.emoji||'📋')+'</div>'+
+    '<div class="pd-info">'+
+    '<div class="pd-name">'+escHtml(p.name)+'</div>'+
+    (p.goal?'<div class="pd-goal-sub">'+escHtml(p.goal)+'</div>':'')+
+    '</div>'+
     '</div>'+
     '<div class="pd-meta">'+
     '<span class="pa-status-chip pa-status-'+p.status+'">'+sLbl_c(p.status)+'</span>'+
-    (dl?'<span class="pd-dl">'+dl+'</span>':'')+
-    '</div></div></div>';
+    (dl?'<span class="pd-dl">⏰ '+dl+'</span>':'')+
+    '</div>'+
+    '<div class="pd-prog-row">'+
+    '<div class="pd-prog-bar" style="flex:1;margin-top:0"><div class="pd-prog-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div>'+
+    '<span class="pd-prog-label">'+done+'/'+total+' langkah</span>'+
+    '</div>'+
+    '</div></div>';
 
-  // Grid
+  // Grid — hide progress card, keep goal compact in why section instead
   const g2=document.getElementById('pd-grid2');
-  if(g2) g2.innerHTML=
-    '<div class="pd-grid2-card"><div class="pd-grid2-lbl">📈 Capaian</div>'+
-    '<div class="pd-prog-big">'+pct+'<span style="font-size:14px;font-weight:700;color:var(--ink3)">%</span></div>'+
-    '<div class="pd-prog-sub">'+done+'/'+total+' tasks done</div>'+
-    '<div class="pd-prog-bar"><div class="pd-prog-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div></div>'+
-    '<div class="pd-grid2-card"><div class="pd-grid2-lbl">🧭 Arah</div>'+
-    (p.goal?'<div class="pd-arah-text">'+escHtml(p.goal)+'</div>':'<div class="pd-arah-empty">Belum ada — tap ✏️ untuk isi</div>')+
-    '</div>';
+  if(g2) g2.style.display='none';
 
   // Why
   const ww=document.getElementById('pd-why-wrap');
   if(ww) ww.innerHTML=
-    '<div class="pd-why-hd"><span class="pd-why-lbl">💡 Why</span>'+
+    '<div class="pd-why-hd"><span class="pd-why-lbl">💡 Kenapa kegiatan ini?</span>'+
     '<button class="pd-why-edit" onclick="openEditWhy_c(\''+id+'\')">✏️ Edit</button></div>'+
     '<div class="pd-why-body">'+
-    (p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Kenapa project ini dimulai? Tap Edit untuk isi.</div>')+
+    (p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Apa alasan kamu memulai kegiatan ini? Tap Edit untuk isi.</div>')+
     '</div>';
 
-  // Current Focus
-  renderCurrentFocus_c(id, p.color);
   // Next Actions
   renderProjAp_c(id, p.color);
   // Resources
@@ -9946,31 +9971,8 @@ function saveWhy_c(){
   save();closeSheet('sh-editwhy');
   // refresh why section
   const ww=document.getElementById('pd-why-wrap');
-  if(ww) ww.querySelector('.pd-why-body').innerHTML=p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Kenapa project ini dimulai? Tap Edit untuk isi.</div>';
+  if(ww) ww.querySelector('.pd-why-body').innerHTML=p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Apa alasan kamu memulai kegiatan ini? Tap Edit untuk isi.</div>';
   toast('💡 Why disimpan!');
-}
-
-function renderCurrentFocus_c(pid,color){
-  const wrap=document.getElementById('pd-focus-wrap');if(!wrap)return;
-  const tasks=(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));
-  if(!tasks.length){wrap.innerHTML='';return;}
-  const sorted=[...tasks].sort((a,b)=>(a.createdAt||'').localeCompare(b.createdAt||''));
-  const pending=sorted.filter(t=>!t.done);
-  const focus=pending[0]||null;
-  const allDone=!pending.length&&tasks.length>0;
-  let inner='';
-  if(allDone){
-    inner='<div class="pd-focus-done"><div class="pd-focus-done-ic">🎉</div>'+
-      '<div class="pd-focus-done-txt">Semua selesai!</div>'+
-      '<div class="pd-focus-done-sub">Project ini siap untuk milestone berikutnya.</div></div>';
-  } else if(focus){
-    inner='<div class="pd-focus-label" style="color:'+color+'">⚡ CURRENT FOCUS</div>'+
-      '<div style="display:flex;align-items:center;gap:12px">'+
-      '<div style="flex:1;min-width:0"><div class="pd-focus-name">'+escHtml(focus.name)+'</div></div>'+
-      '<button class="pd-focus-btn" style="background:'+color+';flex-shrink:0" onclick="toggleApDone(\''+focus.id+'\')">▶ Tandai Selesai</button>'+
-      '</div>';
-  }
-  wrap.innerHTML='<div class="pd-focus-card"><div class="pd-focus-inner" style="background:'+color+'14;border-color:'+color+'30">'+inner+'</div></div>';
 }
 
 function renderProjAp_c(pid,color){
@@ -9978,35 +9980,62 @@ function renderProjAp_c(pid,color){
   el.innerHTML='';
   const allTasks=(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));
   if(!allTasks.length){
-    el.innerHTML='<div class="ap-drag-list"><div style="padding:24px 16px;text-align:center"><span style="font-size:24px;display:block;margin-bottom:6px">✅</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada next action</div></div></div>';
+    el.innerHTML='<div style="padding:24px 16px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line)"><span style="font-size:24px;display:block;margin-bottom:6px">📋</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada langkah</div><div style="font-size:12px;color:var(--ink3);margin-top:3px">Tap ＋ Tambah untuk mulai</div></div>';
     return;
   }
-  const undone=[...allTasks.filter(t=>!t.done)];
-  const doneItems=[...allTasks.filter(t=>t.done)];
-  const sorted=[...undone,...doneItems];
-  const list=document.createElement('div');list.className='ap-drag-list';
-  const card=document.createElement('div');card.className='card';
-  sorted.forEach(t=>{
-    const wrap=document.createElement('div');
-    wrap.className='ap-item-wrap'+(t.done?' is-done-wrap':'');
-    wrap.dataset.id=t.id;
-    const handle=document.createElement('div');handle.className='ap-drag-handle';handle.innerHTML='⠿';
-    if(t.done)handle.style.pointerEvents='none';
-    const item=mkApItem(t,color);
-    item.style.flex='1';item.style.borderBottom='none';item.style.paddingLeft='0';
-    wrap.appendChild(handle);wrap.appendChild(item);
-    list.appendChild(wrap);
+  const undone=allTasks.filter(t=>!t.done);
+  const done=allTasks.filter(t=>t.done);
+  const sorted=[...undone,...done];
+
+  const card=document.createElement('div');
+  card.style.cssText='background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;';
+
+  sorted.forEach((t,idx)=>{
+    const isDone=t.done;
+    const stepNum=idx+1;
+    // deadline sub-label
+    const dlDiff=t.deadline?diffD(t.deadline,tod()):null;
+    let dlLabel='';
+    if(!isDone&&dlDiff!==null){
+      if(dlDiff<0) dlLabel='<span style="color:var(--red);font-weight:600">Telat</span>';
+      else if(dlDiff===0) dlLabel='<span style="color:var(--amber);font-weight:600">Hari ini</span>';
+      else if(dlDiff<=3) dlLabel='<span style="color:var(--amber);font-weight:600">Sisa '+dlDiff+' hari</span>';
+    }
+    const metaParts=['Langkah '+stepNum];
+    if(isDone) metaParts.push('<span style="color:var(--green);font-weight:600">Selesai</span>');
+    else if(dlLabel) metaParts.push(dlLabel);
+
+    const row=document.createElement('div');
+    row.className='ap-item'+(isDone?' is-done':'');
+    row.innerHTML=
+      '<div class="ap-check'+(isDone?' done':'')+'" onclick="toggleApDone(\''+t.id+'\')">'+
+      (isDone?'✓':'')+
+      '</div>'+
+      '<div class="ap-body">'+
+      '<div class="ap-name'+(isDone?' done':'')+'">'+escHtml(t.name)+'</div>'+
+      '<div class="ap-meta"><span style="font-size:11px;color:var(--ink3)">'+metaParts.join(' · ')+'</span>'+
+      (t.notes?'<span class="ap-notes-btn" onclick="event.stopPropagation();openApNotes(\''+t.id+'\')">📝</span>':'')+
+      '</div>'+
+      '</div>'+
+      '<button class="ap-more" onclick="event.stopPropagation();openEditAp(\''+t.id+'\')">···</button>';
+    card.appendChild(row);
   });
-  const btn=document.createElement('button');btn.className='card-add';btn.textContent='＋ Tambah Action';btn.onclick=()=>openAddProjItem();
-  list.appendChild(btn);
-  el.appendChild(list);
+
+  // Add button at bottom
+  const addBtn=document.createElement('button');
+  addBtn.className='card-add';
+  addBtn.textContent='＋ Tambah Langkah';
+  addBtn.onclick=()=>openAddProjItem();
+  card.appendChild(addBtn);
+
+  el.appendChild(card);
 }
 
 function renderResources_c(pid,color){
   const p=gProj(pid);if(!p)return;
   const el=document.getElementById('proj-resources-list');if(!el)return;
   const items=p.resources||[];
-  if(!items.length){el.innerHTML='<div class="res-empty">Belum ada resources atau notes — tap ＋ Tambah</div>';return;}
+  if(!items.length){el.innerHTML='<div class="res-empty">Belum ada catatan atau file — tap ＋ Tambah</div>';return;}
   const typeIc={note:{ic:'📝',bg:'#f3f4f6'},link:{ic:'🔗',bg:'#eff6ff'},file:{ic:'📁',bg:'#fef3c7'}};
   el.innerHTML='<div class="res-feed">'+items.map(r=>{
     const t=typeIc[r.type]||typeIc.note;
@@ -10024,7 +10053,7 @@ function renderResources_c(pid,color){
 let editResId_c=null;
 function openAddResource(){
   editResId_c=null;
-  document.getElementById('sh-res-title').textContent='📎 Tambah Resource / Note';
+  document.getElementById('sh-res-title').textContent='📎 Tambah Catatan / File';
   document.getElementById('res-label').value='';document.getElementById('res-url').value='';document.getElementById('res-body').value='';document.getElementById('res-tags').value='';
   document.querySelectorAll('.res-type-btn').forEach(b=>b.classList.toggle('sel',b.dataset.type==='note'));
   document.getElementById('res-url-field').style.display='none';document.getElementById('res-body-field').style.display='';
@@ -10575,7 +10604,7 @@ function renderAreaProjects_c(areaId){
   el.innerHTML='';
   const projs=(D.projects||[]).filter(p=>p.areaId===areaId);
   if(!projs.length){
-    el.innerHTML='<div style="margin:0 12px 8px;padding:20px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada project terhubung</div></div>';
+    el.innerHTML='<div style="margin:0 12px 8px;padding:20px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada kegiatan terkait</div></div>';
     return;
   }
   projs.forEach(p=>{
@@ -10586,7 +10615,7 @@ function renderAreaProjects_c(areaId){
       `<div class="ad2-proj-accent" style="background:${p.color}"></div>`+
       `<div class="ad2-proj-info">`+
         `<div class="ad2-proj-name">${(p.emoji||'🚀')} ${escHtml(p.name)}</div>`+
-        `<div class="ad2-proj-sub">${sLbl_c(p.status)} · ${total?done+'/'+total+' selesai':'Belum ada action'}</div>`+
+        `<div class="ad2-proj-sub">${sLbl_c(p.status)} · ${total?done+'/'+total+' selesai':'Belum ada langkah'}</div>`+
       `</div>`+
       `<span class="ad2-proj-pct">${total?pct+'%':''}</span>`;
     card.onclick=()=>openProjDetail(p.id);
@@ -10914,7 +10943,7 @@ boot();
 
 <!-- Add Resource Sheet -->
 <div class="overlay" id="sh-addresource" onclick="bgc(event,&#39;sh-addresource&#39;)"><div class="sheet">
-  <div class="sh-handle"></div><div class="sh-title" id="sh-res-title">📎 Tambah Resource / Note</div>
+  <div class="sh-handle"></div><div class="sh-title" id="sh-res-title">📎 Tambah Catatan / File</div>
   <div class="sh-body">
     <div class="field">
       <label class="flbl">Tipe</label>
@@ -10937,9 +10966,10 @@ boot();
 
 <!-- Edit Why Sheet -->
 <div class="overlay" id="sh-editwhy" onclick="bgc(event,&#39;sh-editwhy&#39;)"><div class="sheet">
-  <div class="sh-handle"></div><div class="sh-title">💡 Kenapa Project Ini?</div>
+  <div class="sh-handle"></div><div class="sh-title">💡 Kenapa Kegiatan Ini?</div>
   <div class="sh-body">
-    <div class="field"><textarea id="why-text" rows="5" placeholder="e.g. Karena gue mau buktiin ke diri sendiri..."></textarea></div>
+    <div style="font-size:12px;color:var(--ink3);font-weight:500;margin-bottom:12px;line-height:1.6">Tulis alasan pribadimu — kenapa kegiatan ini penting buat kamu?</div>
+    <div class="field"><textarea id="why-text" rows="5" placeholder="e.g. Karena gue mau mulai karir di data, dan Python adalah pintunya..."></textarea></div>
   </div>
   <div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editwhy&#39;)">Batal</button><button class="sbtn sbtn-p" onclick="saveWhy_c()">Simpan ✓</button></div></div>
 </div></div>
