@@ -578,7 +578,13 @@ input,select,textarea { font-family:inherit; }
 }
 .mk-si-prog {
   height: 3px; background: var(--bg2); border-radius: 99px;
-  overflow: hidden; margin-bottom: 5px;
+  overflow: hidden; flex: 1;
+}
+.mk-si-prog-wrap {
+  display: flex; align-items: center; gap: 6px; margin-bottom: 5px;
+}
+.mk-si-prog-lbl {
+  font-size: 9px; color: var(--ink3); white-space: nowrap; flex-shrink: 0;
 }
 .mk-si-prog-fill {
   height: 100%; border-radius: 99px;
@@ -1812,13 +1818,17 @@ input,select,textarea { font-family:inherit; }
 
 /* desktop sidebar pomo item */
 .sb-pomo-pill {
-  display:none; margin:0 10px 8px;
+  display:flex; margin:0 10px 8px;
   padding:8px 12px; border-radius:var(--rsm);
   font-size:12px; font-weight:800;
   align-items:center; gap:8px;
+  cursor:pointer; user-select:none;
+  background:var(--bg2); color:var(--ink3);
+  border:1.5px solid var(--line2);
+  transition:all .2s;
 }
-.sb-pomo-pill.focus { background:var(--pomo-red-lt); color:#c2604a; display:flex; }
-.sb-pomo-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); display:flex; }
+.sb-pomo-pill.focus { background:var(--pomo-red-lt); color:#c2604a; border-color:var(--red-bd); animation:pomo-pulse 2.4s ease-in-out infinite; }
+.sb-pomo-pill.brk   { background:var(--pomo-break-lt); color:var(--pomo-break); border-color:var(--green-bd); }
 
 /* ══ REWARDING BANNER ══ */
 .sip-banner {
@@ -4756,7 +4766,7 @@ input,select,textarea { font-family:inherit; }
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
-    <div class="sb-pomo-pill" id="sb-pomo-pill">🍅 <span id="sb-pomo-label">Fokus aktif</span></div>
+    <div class="sb-pomo-pill" id="sb-pomo-pill" onclick="pillTap()">🍅 <span id="sb-pomo-label">Fokus</span></div>
     <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
@@ -6054,27 +6064,28 @@ async function boot(){
   window.addEventListener('resize', ()=>{
     updateDesktopTopbar(curView, curSid?gS(curSid):null);
   });
-
-  setTimeout(()=>hideSyncStatus(),2500);
 }
 
 function showSyncStatus(msg){
-  let el=document.getElementById('sync-status');
-  if(!el){
-    el=document.createElement('div');
-    el.id='sync-status';
-    el.style.cssText='position:fixed;top:10px;right:12px;z-index:999;font-size:11px;font-weight:700;background:var(--white);border:1.5px solid var(--line);border-radius:99px;padding:5px 12px;color:var(--ink2);box-shadow:var(--sh);transition:opacity .3s;';
-    document.body.appendChild(el);
-  }
-  el.style.opacity='1';
-  el.textContent=msg;
+  // Remove ALL existing sync-status elements (prevent duplicates from prior sessions)
+  document.querySelectorAll('#sync-status').forEach(e => e.remove());
+  const el = document.createElement('div');
+  el.id = 'sync-status';
+  el.style.cssText = 'position:fixed;top:10px;right:12px;z-index:999;font-size:11px;font-weight:700;background:var(--white);border:1.5px solid var(--line);border-radius:99px;padding:5px 12px;color:var(--ink2);box-shadow:var(--sh);transition:opacity .3s;opacity:1;pointer-events:none;';
+  el.textContent = msg;
+  document.body.appendChild(el);
   // mirror to sidebar footer
-  const sbSync=document.getElementById('sb-sync-status');
-  if(sbSync) sbSync.textContent=msg;
+  const sbSync = document.getElementById('sb-sync-status');
+  if(sbSync) sbSync.textContent = msg;
+  // Always auto-hide after 2.5s
+  clearTimeout(window._syncHideTimer);
+  window._syncHideTimer = setTimeout(() => hideSyncStatus(), 2500);
 }
 function hideSyncStatus(){
-  const el=document.getElementById('sync-status');
-  if(el) el.style.opacity='0';
+  document.querySelectorAll('#sync-status').forEach(el => {
+    el.style.opacity = '0';
+    setTimeout(() => el.remove(), 350);
+  });
 }
 
 // ════════ VIEW ════════════════════════════════
@@ -6135,7 +6146,8 @@ function openDetail(id){
   document.getElementById('topbar').innerHTML=
     `<button class="tb-back" onclick="goView('home',document.getElementById('bn-h'))">‹ Home</button>`+
     `<div class="tb-title">${s.emoji} ${s.name}</div>`+
-    `<button class="tb-action ghost" onclick="openEditSubj('${id}')" style="padding:6px 10px;font-size:16px">✏️</button>`;
+    `<div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  updatePomoPill();
 
   // desktop topbar
   updateDesktopTopbar('detail', s);
@@ -6591,10 +6603,11 @@ function _renderHomeMatkul(){
     // Urgency dot color
     const dotColor = allDone ? 'var(--green)' : urgency === 'urgent' ? 'var(--red)' : urgency === 'warn' ? 'var(--amber)' : 'var(--ink3)';
 
-    // Materi progress
-    const matTotal = D.materi.filter(m => m.sid === s.id).length;
-    const matDone = D.materi.filter(m => m.sid === s.id && m.ngerti).length;
-    const progPct = matTotal ? Math.round(matDone / matTotal * 100) : 0;
+    // Tugas progress (done vs total)
+    const tugasTotal = D.tugas.filter(t => t.sid === s.id).length;
+    const tugasDone  = D.tugas.filter(t => t.sid === s.id && t.done).length;
+    const progPct = tugasTotal ? Math.round(tugasDone / tugasTotal * 100) : 0;
+    const progLabel = tugasTotal ? `${tugasDone}/${tugasTotal} tugas selesai` : '';
 
     // Status pills
     const pills = [];
@@ -6604,7 +6617,7 @@ function _renderHomeMatkul(){
       const overdueT = tugas.filter(t => diffD(t.deadline, todayStr) < 0);
       if(overdueT.length) pills.push(`<span class="mk-pill urgent">${overdueT.length} tugas overdue</span>`);
       else if(tugas.length) pills.push(`<span class="mk-pill warn">${tugas.length} tugas</span>`);
-      if(materi.length) pills.push(`<span class="mk-pill neutral">${matTotal} materi</span>`);
+      if(materi.length) pills.push(`<span class="mk-pill neutral">${materi.length} materi</span>`);
       if(ujian.length) pills.push(`<span class="mk-pill ujian">${ujian.length} ujian</span>`);
     }
 
@@ -6613,7 +6626,9 @@ function _renderHomeMatkul(){
       `<div class="mk-si-icon" style="background:${s.color}18">${s.emoji}</div>`+
       `<div class="mk-si-body">`+
         `<div class="mk-si-name">${escHtml(s.name)}</div>`+
-        (matTotal > 0 ? `<div class="mk-si-prog"><div class="mk-si-prog-fill" style="width:${progPct}%;background:${s.color}"></div></div>` : '') +
+        (tugasTotal > 0
+          ? `<div class="mk-si-prog-wrap"><div class="mk-si-prog"><div class="mk-si-prog-fill" style="width:${progPct}%;background:${progPct===100?'var(--green)':s.color}"></div></div><span class="mk-si-prog-lbl">${progLabel}</span></div>`
+          : '')+
         `<div class="mk-si-pills">${pills.join('')}</div>`+
       `</div>`+
       `<div class="mk-si-chev">›</div>`;
@@ -7329,7 +7344,7 @@ function updatePomoPill(){
     if(sbPill){ sbPill.className='sb-pomo-pill '+cls; if(sbLbl) sbLbl.textContent=pomoPhase==='focus'?'Fokus aktif':'Break'; }
   } else {
     if(pill){ pill.className='pomo-topbar-pill idle'; if(pillLbl) pillLbl.textContent='Fokus'; }
-    if(sbPill) sbPill.className='sb-pomo-pill';
+    if(sbPill){ sbPill.className='sb-pomo-pill'; if(sbLbl) sbLbl.textContent='Fokus'; }
   }
   // update bottom sheet if open
   _updatePomoBsTimers();
@@ -9848,7 +9863,8 @@ function openProjDetail(id){
   document.getElementById('topbar').innerHTML=
     '<button class="tb-back" onclick="navPopGoView(\'projects\')">‹ Projects</button>'+
     '<div class="tb-title">'+(p.emoji||'🚀')+' '+p.name+'</div>'+
-    '<button style="padding:6px 10px;font-size:15px;font-weight:700;border:1.5px solid var(--line2);border-radius:var(--rxs);color:var(--ink2);" onclick="openEditProject(\''+id+'\')">✏️</button>';
+    '<div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div>';
+  updatePomoPill();
 
   updateDesktopTopbar('proj-detail', p);
 
@@ -10790,20 +10806,40 @@ function _updatePomoBsFocusDots(){
 function _buildPomoBsTaskOptions(){
   const sel = document.getElementById('pomo-bs-task-sel');
   if(!sel) return;
-  // Copy from pomo-task-sel if available
-  const src = document.getElementById('pomo-task-sel');
-  if(src) { sel.innerHTML = src.innerHTML; return; }
-  // Fallback: build ourselves
+  // Always build fresh from D so it's always in sync regardless of which tab is active
   sel.innerHTML = `<option value="">— Lagi ngerjain apa? (opsional) —</option>`;
   const active = D.subjects.filter(s => !s.archived);
   active.forEach(s => {
+    // Materi belum paham
+    const mat = D.materi.filter(m => m.sid === s.id && !m.ngerti);
+    if(mat.length){
+      const og = document.createElement('optgroup'); og.label = `📖 ${s.name} — Materi`;
+      mat.forEach(m => { og.appendChild(new Option(m.name, `m::${m.id}::${m.name}`)); });
+      sel.appendChild(og);
+    }
+    // Tugas belum selesai
     const tgs = D.tugas.filter(t => t.sid === s.id && !t.done);
     if(tgs.length){
-      const og = document.createElement('optgroup'); og.label = `📋 ${s.name}`;
+      const og = document.createElement('optgroup'); og.label = `📋 ${s.name} — Tugas`;
       tgs.forEach(t => { og.appendChild(new Option(t.name, `t::${t.id}::${t.name}`)); });
       sel.appendChild(og);
     }
+    // Ujian upcoming
+    const uji = D.ujian.filter(u => u.sid === s.id && diffD(u.date, tod()) >= 0);
+    if(uji.length){
+      const og = document.createElement('optgroup'); og.label = `📝 ${s.name} — Ujian`;
+      uji.forEach(u => {
+        const typeL = {quiz:'Quiz',uts:'UTS',uas:'UAS',presentasi:'Presentasi',demo:'Demo'}[u.type] || 'Ujian';
+        const label = `Persiapan ${typeL}${u.name ? ' – '+u.name : ''}`;
+        og.appendChild(new Option(label, `u::${u.id}::${label}`));
+      });
+      sel.appendChild(og);
+    }
   });
+  // If a task is currently in progress, pre-select it
+  if(pomoTask){
+    sel.value = pomoTask;
+  }
 }
 
 function pomoBsSelDur(el, min, label){
@@ -10818,10 +10854,19 @@ function pomoBsSelDur(el, min, label){
 }
 
 function pomoBsStart(){
-  // sync task
+  // sync task from bottom-sheet picker to both main sel and pomoTask variable
   const bsSel = document.getElementById('pomo-bs-task-sel');
-  const mainSel = document.getElementById('pomo-task-sel');
-  if(bsSel && mainSel) mainSel.value = bsSel.value;
+  if(bsSel){
+    const mainSel = document.getElementById('pomo-task-sel');
+    if(mainSel) mainSel.value = bsSel.value;
+    // parse label for pomoTask
+    if(bsSel.value){
+      const parts = bsSel.value.split('::');
+      pomoTask = parts[2] || bsSel.options[bsSel.selectedIndex]?.text || '';
+    } else {
+      pomoTask = '';
+    }
+  }
   closePomoBs();
   startPomo();
 }
@@ -10863,7 +10908,7 @@ function pomoBsResumeFocus(){
 }
 
 boot();
-</script><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 1;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">✅ Tersinkron</div><div id="sync-status" style="position: fixed; top: 10px; right: 12px; z-index: 999; font-size: 11px; font-weight: 700; background: var(--white); border: 1.5px solid var(--line); border-radius: 99px; padding: 5px 12px; color: var(--ink2); box-shadow: var(--sh); transition: opacity 0.3s; opacity: 0;">📱 Mode lokal</div>
+</script>
 
 
 
