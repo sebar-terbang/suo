@@ -5605,7 +5605,6 @@ input,select,textarea { font-family:inherit; }
         <div class="sh-status-row" id="ap-st-row">
           <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ap',this)">🟢 Aktif</div>
           <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ap',this)">🔵 Rencana</div>
-          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ap',this)">⚪ Ga Jadi</div>
         </div>
         <input type="hidden" id="ap-st" value="aktif">
       </div>
@@ -9936,11 +9935,9 @@ function pRec_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&t.recurri
 function calcPct_c(pid){const ts=pTasks_c(pid);return ts.length?Math.round(ts.filter(t=>t.done).length/ts.length*100):0;}
 function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',pause:'Ga Jadi',selesai:'Selesai'}[s]||s;}
 function mf_c(p){
-  if(curFilter_c==='aktif')   return p.status==='aktif';
-  if(curFilter_c==='rencana') return p.status==='rencana';
-  if(curFilter_c==='pause')   return p.status==='pause';
   if(curFilter_c==='singkat') return (p.type||'singkat')==='singkat';
   if(curFilter_c==='panjang') return p.type==='panjang';
+  if(curFilter_c==='rencana') return p.status==='rencana';
   return true;
 }
 function fmtDl_c(p){
@@ -9952,14 +9949,12 @@ function fmtDl_c(p){
   return null;
 }
 
-let curFilter_c='aktif';
+let curFilter_c='singkat';
 
 const FILTER_PILLS_C=[
-  {id:'aktif',   lbl:'🟢 Aktif'},
-  {id:'rencana', lbl:'🔵 Rencana'},
-  {id:'pause',   lbl:'⚪ Ga Jadi'},
   {id:'singkat', lbl:'⚡ Kegiatan Singkat'},
   {id:'panjang', lbl:'🏔️ Kegiatan Panjang'},
+  {id:'rencana', lbl:'🔵 Rencana'},
 ];
 
 function buildFilterPills_c(){
