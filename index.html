@@ -4459,46 +4459,38 @@ input,select,textarea { font-family:inherit; }
 .ks-cal-nav{display:flex;align-items:center;gap:4px;}
 .ks-cal-arr{width:26px;height:26px;border-radius:7px;background:var(--bg);border:1px solid var(--line);color:var(--ink2);font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .12s;}
 .ks-cal-arr:active{opacity:.6;}
-.ks-cal-today-btn{font-size:10px;font-weight:800;color:var(--purple);background:var(--purple-lt);padding:4px 9px;border-radius:7px;border:none;cursor:pointer;}
+.ks-cal-today-btn{font-size:10px;font-weight:800;padding:4px 9px;border-radius:7px;border:none;cursor:pointer;}
 .ks-cal-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);display:flex;align-items:center;gap:6px;}
 .ks-cal-month{font-size:12px;font-weight:700;color:var(--ink2);margin-left:2px;}
 .ks-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:8px 6px 10px;gap:1px;}
 .ks-cal-dl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);text-align:center;padding-bottom:5px;}
 .ks-cal-day{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 1px 4px;border-radius:9px;cursor:pointer;min-height:54px;-webkit-tap-highlight-color:transparent;transition:background .12s;}
 .ks-cal-day:active{background:var(--bg);}
-.ks-cal-day.kcd-sel{background:var(--purple-lt);}
-.ks-cal-day.kcd-today .ks-num-wrap{background:var(--purple);}
-.ks-cal-day.kcd-today .ks-num{color:#fff;}
+.ks-cal-day.kcd-sel{background:var(--bg2);}
 .ks-num-wrap{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .ks-num{font-size:12px;font-weight:700;color:var(--ink2);}
 .ks-cal-day.kcd-past .ks-num{color:var(--ink3);}
-.ks-cal-day.kcd-sel .ks-num{color:var(--purple);font-weight:800;}
-.ks-cal-day.kcd-today.kcd-sel .ks-num-wrap{background:var(--purple);box-shadow:0 0 0 3px var(--purple-lt);}
-.ks-cal-day.kcd-today.kcd-sel .ks-num{color:#fff;}
 .ks-task-pip{width:calc(100% - 4px);font-size:7px;font-weight:800;border-radius:3px;padding:2px 2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:center;margin-top:1px;letter-spacing:.01em;}
+.ks-add-pip{width:20px;height:18px;border-radius:4px;background:var(--bg2);border:1px dashed var(--line2);color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;font-weight:700;line-height:1;cursor:pointer;}
 .ksp-done{background:var(--green-lt);color:var(--green-dk);}
-.ksp-sched{background:var(--purple-lt);color:#5b21b6;}
 .ksp-late{background:var(--red-lt);color:var(--red);}
 .ksp-soon{background:var(--amber-lt);color:#854f0b;}
-.ks-add-pip{width:20px;height:18px;border-radius:4px;background:var(--bg2);border:1px dashed var(--line2);color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;font-weight:700;line-height:1;cursor:pointer;}
 
 /* Day panel */
-.ks-day-panel{border-top:1px solid var(--purple-lt);background:var(--white);}
-.ks-day-panel-head{display:flex;align-items:center;justify-content:space-between;padding:9px 13px 8px;background:#f8f5ff;}
-.ks-day-panel-lbl{font-size:12px;font-weight:800;color:#5b21b6;display:flex;align-items:center;gap:5px;}
-.ks-day-panel-add{font-size:11px;font-weight:700;color:var(--purple);background:var(--purple-lt);padding:5px 10px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;}
+.ks-day-panel{border-top:1px solid var(--line);background:var(--white);}
+.ks-day-panel-head{display:flex;align-items:center;justify-content:space-between;padding:9px 13px 8px;}
+.ks-day-panel-lbl{font-size:12px;font-weight:800;display:flex;align-items:center;gap:5px;}
+.ks-day-panel-add{font-size:11px;font-weight:700;padding:5px 10px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;}
 .ks-day-task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-top:1px solid var(--line);transition:background .1s;cursor:default;}
 .ks-day-task-item:first-child{border-top:none;}
 .ks-day-task-item:active{background:var(--bg);}
 .ks-dtask-check{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;cursor:pointer;font-size:11px;font-weight:800;transition:all .15s;}
-.ks-dtask-check.done{background:var(--purple);border-color:var(--purple);color:#fff;}
 .ks-dtask-body{flex:1;min-width:0;}
 .ks-dtask-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.35;}
 .ks-dtask-name.done{text-decoration:line-through;color:var(--ink3);}
 .ks-dtask-meta{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap;}
 .ks-dtask-step{font-size:10px;color:var(--ink3);font-weight:600;}
 .ks-dtask-badge{font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;}
-.ksdb-sched{background:var(--purple-lt);color:#5b21b6;}
 .ksdb-late{background:var(--red-lt);color:var(--red);}
 .ksdb-soon{background:var(--amber-lt);color:#854f0b;}
 .ksdb-done{background:var(--green-lt);color:var(--green-dk);}
@@ -4516,7 +4508,7 @@ input,select,textarea { font-family:inherit; }
 .ks-us-dot{width:6px;height:6px;border-radius:50%;background:var(--line2);flex-shrink:0;}
 .ks-us-name{flex:1;font-size:12px;font-weight:600;color:var(--ink2);min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 .ks-us-late{color:var(--red);}
-.ks-us-btn{width:30px;height:30px;border-radius:9px;background:var(--purple-lt);color:var(--purple);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;transition:opacity .12s;}
+.ks-us-btn{width:30px;height:30px;border-radius:9px;font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;transition:opacity .12s;}
 .ks-us-btn:active{opacity:.7;}
 
 .pd-why-wrap{background:#fffbeb;border-radius:var(--rsm);border:1px solid var(--amber-bd);margin-bottom:14px;overflow:hidden;}
@@ -10297,8 +10289,20 @@ function renderKsCal(pid) {
 
     let cls = 'ks-cal-day';
     if (isSel) cls += ' kcd-sel';
-    if (isToday) cls += ' kcd-today';
     if (isPast && !isToday) cls += ' kcd-past';
+
+    // Number circle style: today/selected use project color
+    let numWrapStyle = '';
+    let numStyle = '';
+    if (isToday && isSel) {
+      numWrapStyle = `background:${p.color};box-shadow:0 0 0 3px ${p.color}26;`;
+      numStyle = 'color:#fff;';
+    } else if (isToday) {
+      numWrapStyle = `background:${p.color};`;
+      numStyle = 'color:#fff;';
+    } else if (isSel) {
+      numStyle = `color:${p.color};font-weight:800;`;
+    }
 
     // Build pips (max 2 visible)
     let pipsHtml = '';
@@ -10306,12 +10310,14 @@ function renderKsCal(pid) {
       const shown = dayTasks.slice(0, 2);
       pipsHtml = shown.map(t => {
         const diff = diffD(t.deadline, todStr);
-        let pipcls = 'ks-task-pip ksp-sched';
-        if (t.done) pipcls = 'ks-task-pip ksp-done';
-        else if (diff < 0) pipcls = 'ks-task-pip ksp-late';
-        else if (diff <= 2) pipcls = 'ks-task-pip ksp-soon';
+        let pipcls = 'ks-task-pip';
+        let pipStyle = '';
+        if (t.done) pipcls += ' ksp-done';
+        else if (diff < 0) pipcls += ' ksp-late';
+        else if (diff <= 2) pipcls += ' ksp-soon';
+        else pipStyle = `background:${p.color}1c;color:${p.color};`;
         const shortName = t.name.length > 9 ? t.name.slice(0, 8) + '…' : t.name;
-        return `<div class="${pipcls}">${shortName}</div>`;
+        return `<div class="${pipcls}" style="${pipStyle}">${shortName}</div>`;
       }).join('');
       if (dayTasks.length > 2) pipsHtml += `<div class="ks-task-pip" style="background:var(--bg2);color:var(--ink3)">+${dayTasks.length - 2}</div>`;
     } else if (!isPast) {
@@ -10319,7 +10325,7 @@ function renderKsCal(pid) {
     }
 
     return `<div class="${cls}" onclick="ksSelectDay('${ds}','${pid}')" data-date="${ds}">
-      <div class="ks-num-wrap"><span class="ks-num">${d.getDate()}</span></div>
+      <div class="ks-num-wrap" style="${numWrapStyle}"><span class="ks-num" style="${numStyle}">${d.getDate()}</span></div>
       ${pipsHtml}
     </div>`;
   }).join('');
@@ -10329,7 +10335,7 @@ function renderKsCal(pid) {
       `<div class="ks-cal-head">` +
         `<span class="ks-cal-title">📅 Timeline <span class="ks-cal-month">${monthStr}</span></span>` +
         `<div class="ks-cal-nav">` +
-          (_ksWeekOffset !== 0 ? `<button class="ks-cal-today-btn" onclick="ksShiftWeek('${pid}',0)">Hari ini</button>` : '') +
+          (_ksWeekOffset !== 0 ? `<button class="ks-cal-today-btn" style="color:${p.color};background:${p.color}1c" onclick="ksShiftWeek('${pid}',0)">Hari ini</button>` : '') +
           `<button class="ks-cal-arr" onclick="ksShiftWeek('${pid}',-1)">‹</button>` +
           `<button class="ks-cal-arr" onclick="ksShiftWeek('${pid}',1)">›</button>` +
         `</div>` +
@@ -10369,16 +10375,14 @@ function ksShiftWeek(pid, dir) {
 
 function ksSelectDay(ds, pid) {
   ksSelDay = ds;
-  // Update selected class
-  document.querySelectorAll('.ks-cal-day').forEach(el => {
-    el.classList.toggle('kcd-sel', el.dataset.date === ds);
-  });
-  ksRenderDayPanel(pid, ds);
+  renderKsCal(pid);
 }
 
 function ksRenderDayPanel(pid, ds) {
   const panel = document.getElementById('ks-day-panel');
   if (!panel) return;
+  const p = gProj(pid);
+  const color = p ? p.color : 'var(--purple)';
   const tasks = pTasks_c(pid);
   const dayTasks = tasks.filter(t => t.deadline === ds);
   const todStr = tod();
@@ -10399,24 +10403,26 @@ function ksRenderDayPanel(pid, ds) {
     tasksHtml = dayTasks.map((t, idx) => {
       const isDone = t.done;
       const diff = diffD(ds, todStr);
-      let badgeCls = 'ks-dtask-badge ksdb-sched';
+      let badgeCls = 'ks-dtask-badge';
+      let badgeStyle = `background:${color}1c;color:${color};`;
       let badgeTxt = '📅 ' + d.getDate() + ' ' + monthNames[d.getMonth()];
-      if (isDone) { badgeCls = 'ks-dtask-badge ksdb-done'; badgeTxt = '✓ Selesai'; }
-      else if (diff < 0) { badgeCls = 'ks-dtask-badge ksdb-late'; badgeTxt = '⚠ Telat ' + Math.abs(diff) + ' hari'; }
-      else if (diff === 0) { badgeCls = 'ks-dtask-badge ksdb-soon'; badgeTxt = '⏰ Hari ini'; }
-      else if (diff <= 2) { badgeCls = 'ks-dtask-badge ksdb-soon'; badgeTxt = '⚡ ' + diff + ' hari lagi'; }
+      if (isDone) { badgeCls += ' ksdb-done'; badgeStyle=''; badgeTxt = '✓ Selesai'; }
+      else if (diff < 0) { badgeCls += ' ksdb-late'; badgeStyle=''; badgeTxt = '⚠ Telat ' + Math.abs(diff) + ' hari'; }
+      else if (diff === 0) { badgeCls += ' ksdb-soon'; badgeStyle=''; badgeTxt = '⏰ Hari ini'; }
+      else if (diff <= 2) { badgeCls += ' ksdb-soon'; badgeStyle=''; badgeTxt = '⚡ ' + diff + ' hari lagi'; }
 
       // Find step number among all tasks
       const allTasks = pTasks_c(pid);
       const stepNum = allTasks.findIndex(x => x.id === t.id) + 1;
+      const checkStyle = isDone ? `background:${color};border-color:${color};color:#fff;` : '';
 
       return `<div class="ks-day-task-item">
-        <div class="ks-dtask-check${isDone ? ' done' : ''}" onclick="toggleApDone('${t.id}')">${isDone ? '✓' : ''}</div>
+        <div class="ks-dtask-check${isDone ? ' done' : ''}" style="${checkStyle}" onclick="toggleApDone('${t.id}')">${isDone ? '✓' : ''}</div>
         <div class="ks-dtask-body">
           <div class="ks-dtask-name${isDone ? ' done' : ''}">${escHtml(t.name)}</div>
           <div class="ks-dtask-meta">
             <span class="ks-dtask-step">Langkah ${stepNum}</span>
-            <span class="${badgeCls}">${badgeTxt}</span>
+            <span class="${badgeCls}" style="${badgeStyle}">${badgeTxt}</span>
           </div>
         </div>
         <button class="ks-dtask-more" onclick="openEditAp('${t.id}')">···</button>
@@ -10425,9 +10431,9 @@ function ksRenderDayPanel(pid, ds) {
   }
 
   panel.innerHTML =
-    `<div class="ks-day-panel-head">` +
-      `<span class="ks-day-panel-lbl">📌 ${dateLbl}</span>` +
-      `<button class="ks-day-panel-add" onclick="ksAddTaskOnDay('${ds}')">＋ Tambah langkah</button>` +
+    `<div class="ks-day-panel-head" style="background:${color}10">` +
+      `<span class="ks-day-panel-lbl" style="color:${color}">📌 ${dateLbl}</span>` +
+      `<button class="ks-day-panel-add" style="color:${color};background:${color}1c" onclick="ksAddTaskOnDay('${ds}')">＋ Tambah langkah</button>` +
     `</div>` +
     tasksHtml;
 }
