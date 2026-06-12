@@ -1174,6 +1174,46 @@ input,select,textarea { font-family:inherit; }
 
 .sh-footer { padding:16px 20px 0; display:flex; flex-direction:column; gap:9px; }
 .sh-row { display:flex; gap:9px; }
+
+/* ── Redesigned sheet header: title left, Save top-right ── */
+.sh-header2{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 14px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--white);z-index:2;border-radius:var(--rxl) var(--rxl) 0 0;}
+.sh-header2-title{font-size:18px;font-weight:800;letter-spacing:-.4px;color:var(--ink);}
+.sh-header2-actions{display:flex;align-items:center;gap:8px;}
+.sh-close-btn{width:34px;height:34px;border-radius:50%;background:var(--bg);border:none;color:var(--ink3);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity .12s;}
+.sh-close-btn:active{opacity:.6;}
+.sh-save-btn{padding:9px 18px;border-radius:99px;font-size:14px;font-weight:800;border:none;cursor:pointer;color:#fff;transition:opacity .12s;letter-spacing:-.1px;}
+.sh-save-btn:active{opacity:.75;}
+
+/* Grouped section card inside sheet body */
+.sh-group{background:var(--bg);border-radius:var(--rsm);padding:14px;margin-bottom:14px;border:1px solid var(--line);}
+.sh-group-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.sh-group .field{margin-bottom:12px;}
+.sh-group .field:last-child{margin-bottom:0;}
+.sh-group .field input,.sh-group .field select,.sh-group .field textarea{background:var(--white);}
+
+/* Name + emoji row */
+.sh-name-row{display:flex;gap:10px;align-items:flex-start;}
+.sh-name-row .field{margin-bottom:0;}
+.sh-name-row .field-emoji{flex:0 0 64px;}
+.sh-name-row .field-name{flex:1;}
+.sh-emoji-input{width:64px !important;height:52px;font-size:24px;text-align:center;padding:0 !important;}
+
+/* Status pill picker */
+.sh-status-row{display:flex;gap:8px;flex-wrap:wrap;}
+.sh-status-pill{flex:1;min-width:80px;padding:10px 8px;border-radius:var(--rsm);border:1.5px solid var(--line);background:var(--white);font-size:12px;font-weight:700;text-align:center;cursor:pointer;transition:all .15s;color:var(--ink2);}
+.sh-status-pill.sel{border-color:currentColor;}
+.sh-status-pill[data-st="aktif"].sel{background:var(--green-lt);color:var(--green-dk);border-color:var(--green);}
+.sh-status-pill[data-st="rencana"].sel{background:var(--blue-lt);color:var(--blue);border-color:var(--blue);}
+.sh-status-pill[data-st="pause"].sel{background:var(--amber-lt);color:#854f0b;border-color:var(--amber);}
+.sh-status-pill[data-st="selesai"].sel{background:var(--bg2);color:var(--ink2);border-color:var(--ink3);}
+
+/* Date range row (mulai -> deadline) */
+.sh-daterange-row{display:flex;gap:10px;align-items:flex-start;}
+.sh-daterange-row .field{flex:1;margin-bottom:0;}
+.sh-daterange-arrow{padding-top:14px;color:var(--ink3);font-size:14px;flex-shrink:0;}
+.sh-dl-type-row{margin-bottom:10px;}
+.sh-del-link{width:100%;text-align:center;padding:13px;border:none;background:none;color:var(--red);font-size:13px;font-weight:700;cursor:pointer;margin-top:4px;border-radius:var(--rsm);transition:background .12s;}
+.sh-del-link:active{background:var(--red-lt);}
 .sbtn {
   flex:1; padding:15px; border-radius:var(--r);
   font-size:15px; font-weight:700; text-align:center;
@@ -4413,6 +4453,70 @@ input,select,textarea { font-family:inherit; }
 .ss-header{display:flex;align-items:center;justify-content:space-between;padding:13px 16px 11px;border-bottom:1px solid var(--line);}
 .ss-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
 .ss-edit{font-size:12px;font-weight:700;color:var(--blue);}
+/* ══ MINI WEEKLY CALENDAR — Kegiatan Detail ══ */
+.ks-cal-wrap{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;margin-bottom:14px;}
+.ks-cal-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px 9px;border-bottom:1px solid var(--line);}
+.ks-cal-nav{display:flex;align-items:center;gap:4px;}
+.ks-cal-arr{width:26px;height:26px;border-radius:7px;background:var(--bg);border:1px solid var(--line);color:var(--ink2);font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .12s;}
+.ks-cal-arr:active{opacity:.6;}
+.ks-cal-today-btn{font-size:10px;font-weight:800;color:var(--purple);background:var(--purple-lt);padding:4px 9px;border-radius:7px;border:none;cursor:pointer;}
+.ks-cal-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);display:flex;align-items:center;gap:6px;}
+.ks-cal-month{font-size:12px;font-weight:700;color:var(--ink2);margin-left:2px;}
+.ks-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);padding:8px 6px 10px;gap:1px;}
+.ks-cal-dl{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);text-align:center;padding-bottom:5px;}
+.ks-cal-day{display:flex;flex-direction:column;align-items:center;gap:1px;padding:3px 1px 4px;border-radius:9px;cursor:pointer;min-height:54px;-webkit-tap-highlight-color:transparent;transition:background .12s;}
+.ks-cal-day:active{background:var(--bg);}
+.ks-cal-day.kcd-sel{background:var(--purple-lt);}
+.ks-cal-day.kcd-today .ks-num-wrap{background:var(--purple);}
+.ks-cal-day.kcd-today .ks-num{color:#fff;}
+.ks-num-wrap{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.ks-num{font-size:12px;font-weight:700;color:var(--ink2);}
+.ks-cal-day.kcd-past .ks-num{color:var(--ink3);}
+.ks-cal-day.kcd-sel .ks-num{color:var(--purple);font-weight:800;}
+.ks-task-pip{width:calc(100% - 4px);font-size:7px;font-weight:800;border-radius:3px;padding:2px 2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:center;margin-top:1px;letter-spacing:.01em;}
+.ksp-done{background:var(--green-lt);color:var(--green-dk);}
+.ksp-sched{background:var(--purple-lt);color:#5b21b6;}
+.ksp-late{background:var(--red-lt);color:var(--red);}
+.ksp-soon{background:var(--amber-lt);color:#854f0b;}
+.ks-add-pip{width:20px;height:18px;border-radius:4px;background:var(--bg2);border:1px dashed var(--line2);color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;font-weight:700;line-height:1;cursor:pointer;}
+
+/* Day panel */
+.ks-day-panel{border-top:1px solid var(--purple-lt);background:var(--white);}
+.ks-day-panel-head{display:flex;align-items:center;justify-content:space-between;padding:9px 13px 8px;background:#f8f5ff;}
+.ks-day-panel-lbl{font-size:12px;font-weight:800;color:#5b21b6;display:flex;align-items:center;gap:5px;}
+.ks-day-panel-add{font-size:11px;font-weight:700;color:var(--purple);background:var(--purple-lt);padding:5px 10px;border-radius:8px;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;}
+.ks-day-task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border-top:1px solid var(--line);transition:background .1s;cursor:default;}
+.ks-day-task-item:first-child{border-top:none;}
+.ks-day-task-item:active{background:var(--bg);}
+.ks-dtask-check{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line2);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;cursor:pointer;font-size:11px;font-weight:800;transition:all .15s;}
+.ks-dtask-check.done{background:var(--purple);border-color:var(--purple);color:#fff;}
+.ks-dtask-body{flex:1;min-width:0;}
+.ks-dtask-name{font-size:13px;font-weight:600;color:var(--ink);line-height:1.35;}
+.ks-dtask-name.done{text-decoration:line-through;color:var(--ink3);}
+.ks-dtask-meta{display:flex;align-items:center;gap:5px;margin-top:3px;flex-wrap:wrap;}
+.ks-dtask-step{font-size:10px;color:var(--ink3);font-weight:600;}
+.ks-dtask-badge{font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;}
+.ksdb-sched{background:var(--purple-lt);color:#5b21b6;}
+.ksdb-late{background:var(--red-lt);color:var(--red);}
+.ksdb-soon{background:var(--amber-lt);color:#854f0b;}
+.ksdb-done{background:var(--green-lt);color:var(--green-dk);}
+.ks-dtask-more{color:var(--ink3);font-size:16px;background:none;border:none;cursor:pointer;padding:3px 5px;flex-shrink:0;align-self:flex-start;}
+.ks-day-empty{padding:14px 13px;text-align:center;}
+.ks-day-empty-t{font-size:12px;color:var(--ink3);font-weight:600;}
+.ks-day-empty-s{font-size:11px;color:var(--ink3);margin-top:2px;opacity:.7;}
+
+/* Unscheduled section */
+.ks-unsched-wrap{background:var(--white);border-radius:var(--r);border:1.5px dashed var(--line2);overflow:hidden;margin-bottom:14px;}
+.ks-unsched-head{display:flex;align-items:center;gap:7px;padding:10px 13px 9px;}
+.ks-unsched-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);flex:1;}
+.ks-unsched-ct{font-size:10px;font-weight:800;background:var(--amber-lt);color:#854f0b;padding:2px 8px;border-radius:99px;}
+.ks-unsched-item{display:flex;align-items:center;gap:9px;padding:9px 13px;border-top:1px solid var(--line);}
+.ks-us-dot{width:6px;height:6px;border-radius:50%;background:var(--line2);flex-shrink:0;}
+.ks-us-name{flex:1;font-size:12px;font-weight:600;color:var(--ink2);min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.ks-us-late{color:var(--red);}
+.ks-us-btn{width:30px;height:30px;border-radius:9px;background:var(--purple-lt);color:var(--purple);font-size:15px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;flex-shrink:0;transition:opacity .12s;}
+.ks-us-btn:active{opacity:.7;}
+
 .pd-why-wrap{background:#fffbeb;border-radius:var(--rsm);border:1px solid var(--amber-bd);margin-bottom:14px;overflow:hidden;}
 .pd-why-hd{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px;}
 .pd-why-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:#92400e;}
@@ -5014,8 +5118,12 @@ input,select,textarea { font-family:inherit; }
       <div class="pd-grid2" id="pd-grid2"></div>
       <div class="pad" style="padding-top:14px;padding-bottom:32px">
         <div class="pd-why-wrap" id="pd-why-wrap"></div>
+        <!-- Mini weekly calendar -->
+        <div id="ks-cal-container"></div>
+        <!-- Unscheduled tasks (only shown if any) -->
+        <div id="ks-unsched-container"></div>
         <div class="pd-section-hd">
-          <span class="pd-sec-lbl">📋 Langkah-langkah</span>
+          <span class="pd-sec-lbl">📋 Semua Langkah</span>
           <button class="pd-sec-btn" onclick="openAddProjItem()">＋ Tambah</button>
         </div>
         <div id="proj-ap-list"></div>
@@ -5453,92 +5561,131 @@ input,select,textarea { font-family:inherit; }
 
 <!-- Add Project -->
 <div class="overlay" id="sh-addproject" onclick="bgc(event,&#39;sh-addproject&#39;)">
-  <div class="sheet">
-    <div class="sh-handle"></div>
-    <div class="sh-title">📋 Tambah Kegiatan Singkat</div>
-    <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Kegiatan</label><input id="ap-n" type="text" placeholder="e.g. Sertifikasi Python, Baca Esensialisme"></div>
-      <div class="field"><label class="flbl">Emoji</label><input id="ap-e" type="text" placeholder="📋" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Tujuan Kegiatan</label><textarea id="ap-g" rows="2" placeholder="Apa yang ingin dicapai setelah kegiatan ini selesai?"></textarea></div>
-      <div class="field"><label class="flbl">Status</label>
-        <select id="ap-st">
-          <option value="aktif">🟢 Aktif — sedang dikerjakan</option>
-          <option value="rencana">🔵 Rencana — belum mulai</option>
-          <option value="pause">🟡 Pause — ditunda sementara</option>
-        </select>
-      </div>
-      <div class="field"><label class="flbl">Deadline (opsional)</label>
-        <select id="ap-dl-type">
-          <option value="none">Tidak ada / belum tau</option>
-          <option value="month">Sekitar bulan tertentu</option>
-          <option value="year">Sekitar tahun tertentu</option>
-          <option value="date">Tanggal spesifik</option>
-        </select>
-        <div id="ap-dl-month-wrap" style="display:none;margin-top:8px">
-          <input id="ap-dl-month" type="month" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
-        </div>
-        <div id="ap-dl-year-wrap" style="display:none;margin-top:8px">
-          <input id="ap-dl-year" type="number" placeholder="e.g. 2027" min="2024" max="2035" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
-        </div>
-        <div id="ap-dl-date-wrap" style="display:none;margin-top:8px">
-          <input id="ap-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
-        </div>
-      </div>
-      <div class="field"><label class="flbl">Link ke Area (opsional)</label><select id="ap-area"><option value="">— Tanpa Area —</option></select></div>
-      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"></div></div>
+  <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-addproject')">✕</button>
+      <span class="sh-header2-title">📋 Tambah Kegiatan</span>
+      <button class="sh-save-btn" style="background:var(--purple)" onclick="saveNewProject()">Simpan ✓</button>
     </div>
-    <div class="sh-footer"><div class="sh-row">
-      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addproject&#39;)">Batal</button>
-      <button class="sbtn sbtn-p" onclick="saveNewProject()">Simpan ✓</button>
-    </div></div>
+    <div class="sh-body" style="padding-top:16px">
+
+      <div class="sh-group">
+        <div class="sh-group-title">📝 Identitas</div>
+        <div class="sh-name-row">
+          <div class="field field-emoji"><label class="flbl">Emoji</label><input id="ap-e" type="text" class="sh-emoji-input" placeholder="📋" maxlength="4"></div>
+          <div class="field field-name"><label class="flbl">Nama Kegiatan</label><input id="ap-n" type="text" placeholder="e.g. Sertifikasi Python"></div>
+        </div>
+        <div class="field" style="margin-top:12px"><label class="flbl">Tujuan Kegiatan</label><textarea id="ap-g" rows="2" placeholder="Apa yang ingin dicapai setelah kegiatan ini selesai?"></textarea></div>
+      </div>
+
+      <div class="sh-group">
+        <div class="sh-group-title">🚦 Status</div>
+        <div class="sh-status-row" id="ap-st-row">
+          <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ap',this)">🟢 Aktif</div>
+          <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ap',this)">🔵 Rencana</div>
+          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ap',this)">🟡 Pause</div>
+        </div>
+        <input type="hidden" id="ap-st" value="aktif">
+      </div>
+
+      <div class="sh-group">
+        <div class="sh-group-title">🗓 Waktu Pelaksanaan</div>
+        <div class="sh-daterange-row">
+          <div class="field"><label class="flbl">Tanggal Mulai</label><input id="ap-start-date" type="date"></div>
+          <div class="sh-daterange-arrow">→</div>
+          <div class="field"><label class="flbl">Deadline</label><input id="ap-dl-date-inline" type="date"></div>
+        </div>
+        <div style="margin-top:10px">
+          <label class="flbl">Belum tau tanggal pasti?</label>
+          <select id="ap-dl-type">
+            <option value="none">Tidak usah, lewati deadline</option>
+            <option value="month">Sekitar bulan tertentu</option>
+            <option value="year">Sekitar tahun tertentu</option>
+            <option value="date">Pakai tanggal di atas</option>
+          </select>
+          <div id="ap-dl-month-wrap" style="display:none;margin-top:8px">
+            <input id="ap-dl-month" type="month">
+          </div>
+          <div id="ap-dl-year-wrap" style="display:none;margin-top:8px">
+            <input id="ap-dl-year" type="number" placeholder="e.g. 2027" min="2024" max="2035">
+          </div>
+        </div>
+        <input type="hidden" id="ap-dl-date">
+      </div>
+
+      <div class="sh-group">
+        <div class="sh-group-title">🎨 Tampilan &amp; Pengelompokan</div>
+        <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj"></div></div>
+        <div class="field" style="margin-top:12px;margin-bottom:0"><label class="flbl">Link ke Area (opsional)</label><select id="ap-area"><option value="">— Tanpa Area —</option></select></div>
+      </div>
+
+    </div>
   </div>
 </div>
 
 <!-- Edit Project -->
 <div class="overlay" id="sh-editproject" onclick="bgc(event,&#39;sh-editproject&#39;)">
-  <div class="sheet">
-    <div class="sh-handle"></div>
-    <div class="sh-title">✏️ Edit Kegiatan</div>
-    <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Kegiatan</label><input id="ep-n" type="text"></div>
-      <div class="field"><label class="flbl">Emoji</label><input id="ep-e" type="text" maxlength="4" style="font-size:22px;text-align:center;padding:10px;"></div>
-      <div class="field"><label class="flbl">Tujuan Kegiatan</label><textarea id="ep-g" rows="2"></textarea></div>
-      <div class="field"><label class="flbl">Status</label>
-        <select id="ep-st">
-          <option value="aktif">🟢 Aktif</option>
-          <option value="rencana">🔵 Rencana</option>
-          <option value="pause">🟡 Pause</option>
-          <option value="selesai">✅ Selesai</option>
-        </select>
-      </div>
-      <div class="field"><label class="flbl">Deadline</label>
-        <select id="ep-dl-type">
-          <option value="none">Tidak ada / belum tau</option>
-          <option value="month">Sekitar bulan tertentu</option>
-          <option value="year">Sekitar tahun tertentu</option>
-          <option value="date">Tanggal spesifik</option>
-        </select>
-        <div id="ep-dl-month-wrap" style="display:none;margin-top:8px">
-          <input id="ep-dl-month" type="month" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
-        </div>
-        <div id="ep-dl-year-wrap" style="display:none;margin-top:8px">
-          <input id="ep-dl-year" type="number" min="2024" max="2035" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
-        </div>
-        <div id="ep-dl-date-wrap" style="display:none;margin-top:8px">
-          <input id="ep-dl-date" type="date" style="width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--rsm);font-size:14px;background:var(--bg)">
-        </div>
-      </div>
-      <div class="field"><label class="flbl">Link ke Area</label><select id="ep-area"><option value="">— Tanpa Area —</option></select></div>
-      <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj-edit"></div></div>
+  <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-editproject')">✕</button>
+      <span class="sh-header2-title">✏️ Edit Kegiatan</span>
+      <button class="sh-save-btn" style="background:var(--purple)" onclick="saveEditProject()">Simpan ✓</button>
     </div>
-    <div class="sh-footer">
-      <div class="sh-row">
-        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editproject&#39;)">Batal</button>
-        <button class="sbtn sbtn-p" onclick="saveEditProject()">Simpan ✓</button>
+    <div class="sh-body" style="padding-top:16px">
+
+      <div class="sh-group">
+        <div class="sh-group-title">📝 Identitas</div>
+        <div class="sh-name-row">
+          <div class="field field-emoji"><label class="flbl">Emoji</label><input id="ep-e" type="text" class="sh-emoji-input" maxlength="4"></div>
+          <div class="field field-name"><label class="flbl">Nama Kegiatan</label><input id="ep-n" type="text"></div>
+        </div>
+        <div class="field" style="margin-top:12px"><label class="flbl">Tujuan Kegiatan</label><textarea id="ep-g" rows="2"></textarea></div>
       </div>
-      <div class="sh-row">
-        <button class="sbtn sbtn-d" onclick="delProject()">🗑 Hapus Kegiatan Ini</button>
+
+      <div class="sh-group">
+        <div class="sh-group-title">🚦 Status</div>
+        <div class="sh-status-row" id="ep-st-row">
+          <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ep',this)">🟢 Aktif</div>
+          <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ep',this)">🔵 Rencana</div>
+          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ep',this)">🟡 Pause</div>
+          <div class="sh-status-pill" data-st="selesai" onclick="setStPill('ep',this)">✅ Selesai</div>
+        </div>
+        <input type="hidden" id="ep-st" value="aktif">
       </div>
+
+      <div class="sh-group">
+        <div class="sh-group-title">🗓 Waktu Pelaksanaan</div>
+        <div class="sh-daterange-row">
+          <div class="field"><label class="flbl">Tanggal Mulai</label><input id="ep-start-date" type="date"></div>
+          <div class="sh-daterange-arrow">→</div>
+          <div class="field"><label class="flbl">Deadline</label><input id="ep-dl-date-inline" type="date"></div>
+        </div>
+        <div style="margin-top:10px">
+          <label class="flbl">Belum tau tanggal pasti?</label>
+          <select id="ep-dl-type">
+            <option value="none">Tidak usah, lewati deadline</option>
+            <option value="month">Sekitar bulan tertentu</option>
+            <option value="year">Sekitar tahun tertentu</option>
+            <option value="date">Pakai tanggal di atas</option>
+          </select>
+          <div id="ep-dl-month-wrap" style="display:none;margin-top:8px">
+            <input id="ep-dl-month" type="month">
+          </div>
+          <div id="ep-dl-year-wrap" style="display:none;margin-top:8px">
+            <input id="ep-dl-year" type="number" min="2024" max="2035">
+          </div>
+        </div>
+        <input type="hidden" id="ep-dl-date">
+      </div>
+
+      <div class="sh-group">
+        <div class="sh-group-title">🎨 Tampilan &amp; Pengelompokan</div>
+        <div class="field"><label class="flbl">Warna</label><div class="color-row" id="cpicker-proj-edit"></div></div>
+        <div class="field" style="margin-top:12px;margin-bottom:0"><label class="flbl">Link ke Area</label><select id="ep-area"><option value="">— Tanpa Area —</option></select></div>
+      </div>
+
+      <button class="sh-del-link" onclick="delProject()">🗑 Hapus Kegiatan Ini</button>
+
     </div>
   </div>
 </div>
@@ -5851,14 +5998,14 @@ const DEFAULT_DATA = { subjects:[
   {id:'proj_humas',   name:'Kepanitiaan Humas',         emoji:'👥', color:'#0891b2', status:'aktif',   goal:'Sukses menjalankan 2 proker Humas di Capstone & Ospek', why:'Ini kesempatan buat develop soft skill komunikasi dan kepemimpinan selain akademik.', lastMod: ago(2)},
   {id:'proj_buku',    name:'Baca: Esensialisme',        emoji:'📚', color:'#d97706', status:'aktif',   goal:'Selesai baca dan paham isi buku Esensialisme', why:'Buku ini relevan banget buat hidup gue sekarang — biar bisa fokus ke hal yang benar-benar penting.', lastMod: ago(3)},
 ], p_tasks:[
-  {id:'pt_py1', parentId:'proj_python', parentType:'project', name:'Pilih platform sertifikasi (Coursera/Dicoding)',  done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py2', parentId:'proj_python', parentType:'project', name:'Beli atau daftar paket belajar Python',           done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py3', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 1: Dasar-dasar Python',         done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py4', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 2: Struktur Data',               done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py5', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 3: OOP',                        done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py6', parentId:'proj_python', parentType:'project', name:'Latihan soal dan mock test',                      done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py7', parentId:'proj_python', parentType:'project', name:'Ikut ujian sertifikasi',                         done:false, deadline:'', notes:'', createdAt: ago(2)},
-  {id:'pt_py8', parentId:'proj_python', parentType:'project', name:'Download dan simpan sertifikat',                 done:false, deadline:'', notes:'', createdAt: ago(2)},
+  {id:'pt_py1', parentId:'proj_python', parentType:'project', name:'Pilih platform sertifikasi (Coursera/Dicoding)',  done:true,  deadline:ago(5), notes:'', createdAt: ago(7)},
+  {id:'pt_py2', parentId:'proj_python', parentType:'project', name:'Beli atau daftar paket belajar Python',           done:true,  deadline:ago(3), notes:'', createdAt: ago(7)},
+  {id:'pt_py3', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 1: Dasar-dasar Python',         done:true,  deadline:ago(1), notes:'', createdAt: ago(7)},
+  {id:'pt_py4', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 2: Struktur Data',               done:false, deadline:tod(),  notes:'', createdAt: ago(2)},
+  {id:'pt_py5', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 3: OOP',                        done:false, deadline:ago(-3),notes:'', createdAt: ago(2)},
+  {id:'pt_py6', parentId:'proj_python', parentType:'project', name:'Latihan soal dan mock test',                      done:false, deadline:ago(-5),notes:'', createdAt: ago(2)},
+  {id:'pt_py7', parentId:'proj_python', parentType:'project', name:'Ikut ujian sertifikasi',                         done:false, deadline:'',     notes:'', createdAt: ago(2)},
+  {id:'pt_py8', parentId:'proj_python', parentType:'project', name:'Download dan simpan sertifikat',                 done:false, deadline:'',     notes:'', createdAt: ago(2)},
   {id:'pt_hm1', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Rapat kick-off tim Humas', done:false, deadline:'', notes:'', createdAt: ago(3)},
   {id:'pt_hm2', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Buat konten publikasi',   done:false, deadline:'', notes:'', createdAt: ago(3)},
   {id:'pt_hm3', parentId:'proj_humas',  parentType:'project', name:'[Proker 1 · Capstone] Distribusi info ke peserta', done:false, deadline:'', notes:'', createdAt: ago(3)},
@@ -8987,7 +9134,7 @@ function delAgenda(){
 
 function refreshPAViews(){
   if(curView === 'projects')    renderProjects();
-  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderProjAp_c(curProjId,p.color); } }
+  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderKsAll(curProjId); renderProjAp_c(curProjId,p.color); } }
   if(curView === 'areas')       renderAreas();
   if(curView === 'area-detail'){ const a=gArea(curAreaId); if(a){ renderAreaRituals_c(curAreaId,a.color); renderCurrentState_c(curAreaId,a.color); } }
   // Always update Hari Ini on home if visible
@@ -9033,19 +9180,28 @@ function getDeadlineValue(typeId, monthId, yearId, dateId){
   return {type:'none', value:null};
 }
 
+function setStPill(prefix, el){
+  document.querySelectorAll('#'+prefix+'-st-row .sh-status-pill').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById(prefix+'-st').value = el.dataset.st;
+}
+
 function openAddProject(){
   selColorProj = COLORS[4];
   document.getElementById('ap-n').value = '';
   document.getElementById('ap-e').value = '🚀';
   document.getElementById('ap-g').value = '';
   document.getElementById('ap-st').value = 'aktif';
+  document.querySelectorAll('#ap-st-row .sh-status-pill').forEach(b=>b.classList.toggle('sel', b.dataset.st==='aktif'));
+  document.getElementById('ap-start-date').value = '';
+  document.getElementById('ap-dl-date-inline').value = '';
   buildCpickerProj('cpicker-proj', selColorProj, c => selColorProj = c);
   const apAreaSel=document.getElementById('ap-area');
   if(apAreaSel){apAreaSel.innerHTML='<option value="">— Tanpa Area —</option>';(D.areas||[]).forEach(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=(a.emoji||'')+' '+a.name;apAreaSel.appendChild(o);});}
   // bind deadline selects
-  bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap','ap-dl-date-wrap');
+  bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap',null);
   document.getElementById('ap-dl-type').value = 'none';
-  bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap','ap-dl-date-wrap');
+  bindDeadlineSelects('ap-dl-type','ap-dl-month-wrap','ap-dl-year-wrap',null);
   openSheet('sh-addproject');
 }
 
@@ -9054,10 +9210,16 @@ function saveNewProject(){
   const emoji = document.getElementById('ap-e').value.trim() || '📋';
   const goal  = document.getElementById('ap-g').value.trim();
   const status= document.getElementById('ap-st').value;
-  const deadline = getDeadlineValue('ap-dl-type','ap-dl-month','ap-dl-year','ap-dl-date');
+  const startDate = document.getElementById('ap-start-date').value || null;
+  const dlInline = document.getElementById('ap-dl-date-inline').value || null;
+  // sync hidden date field with inline date before reading deadline value
+  document.getElementById('ap-dl-date').value = dlInline || '';
+  let deadline = getDeadlineValue('ap-dl-type','ap-dl-month','ap-dl-year','ap-dl-date');
+  // If user filled the inline deadline date but left dropdown on "none", still count it as a date deadline
+  if(deadline.type==='none' && dlInline) deadline = {type:'date', value: dlInline};
   ensurePAData();
   const areaId_ap = document.getElementById('ap-area')?.value||null;
-  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, color:selColorProj, areaId:areaId_ap, createdAt:tod()});
+  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, startDate, color:selColorProj, areaId:areaId_ap, createdAt:tod()});
   save(); closeSheet('sh-addproject'); renderProjects();
   toast(`"${name}" ditambahkan ke Kegiatan Singkat! 📋`);
 }
@@ -9072,15 +9234,18 @@ function openEditProject(id){
   document.getElementById('ep-e').value = p.emoji || '📋';
   document.getElementById('ep-g').value = p.goal || '';
   document.getElementById('ep-st').value = p.status || 'aktif';
+  document.querySelectorAll('#ep-st-row .sh-status-pill').forEach(b=>b.classList.toggle('sel', b.dataset.st===(p.status||'aktif')));
+  document.getElementById('ep-start-date').value = p.startDate || '';
   buildCpickerProj('cpicker-proj-edit', selColorProjEdit, c => selColorProjEdit = c);
   // deadline
   const dl = p.deadline || {type:'none'};
-  document.getElementById('ep-dl-type').value = dl.type || 'none';
-  bindDeadlineSelects('ep-dl-type','ep-dl-month-wrap','ep-dl-year-wrap','ep-dl-date-wrap');
+  document.getElementById('ep-dl-type').value = (dl.type==='date') ? 'date' : (dl.type || 'none');
+  document.getElementById('ep-dl-date-inline').value = (dl.type==='date' && dl.value) ? dl.value : '';
+  bindDeadlineSelects('ep-dl-type','ep-dl-month-wrap','ep-dl-year-wrap',null);
   if(dl.type === 'month' && dl.value) document.getElementById('ep-dl-month').value = dl.value;
   if(dl.type === 'year'  && dl.value) document.getElementById('ep-dl-year').value  = dl.value;
   if(dl.type === 'date'  && dl.value) document.getElementById('ep-dl-date').value  = dl.value;
-  bindDeadlineSelects('ep-dl-type','ep-dl-month-wrap','ep-dl-year-wrap','ep-dl-date-wrap');
+  bindDeadlineSelects('ep-dl-type','ep-dl-month-wrap','ep-dl-year-wrap',null);
   openSheet('sh-editproject');
 }
 
@@ -9090,8 +9255,13 @@ function saveEditProject(){
   p.emoji  = document.getElementById('ep-e').value.trim() || p.emoji;
   p.goal   = document.getElementById('ep-g').value.trim();
   p.status = document.getElementById('ep-st').value;
+  p.startDate = document.getElementById('ep-start-date').value || null;
   p.color  = selColorProjEdit;
-  p.deadline = getDeadlineValue('ep-dl-type','ep-dl-month','ep-dl-year','ep-dl-date');
+  const dlInline = document.getElementById('ep-dl-date-inline').value || null;
+  document.getElementById('ep-dl-date').value = dlInline || '';
+  let deadline = getDeadlineValue('ep-dl-type','ep-dl-month','ep-dl-year','ep-dl-date');
+  if(deadline.type==='none' && dlInline) deadline = {type:'date', value: dlInline};
+  p.deadline = deadline;
   p.areaId = document.getElementById('ep-area')?.value||null;
   save(); closeSheet('sh-editproject');
   openProjDetail(editProjId);
@@ -9896,6 +10066,19 @@ function openProjDetail(id){
   const dl=fmtDl_c(p);
   const ts=pTasks_c(id),done=ts.filter(t=>t.done).length,total=ts.length,pct=total?Math.round(done/total*100):0;
 
+  // Build date range chip: "12 Jun → 18 Jun" or "Mulai 12 Jun" or fallback to deadline chip
+  let rangeChip='';
+  const startFmt=p.startDate?new Date(p.startDate+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}):null;
+  const dlIsDate=p.deadline&&p.deadline.type==='date'&&p.deadline.value;
+  const dlFmt=dlIsDate?new Date(p.deadline.value+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}):null;
+  if(startFmt&&dlFmt){
+    rangeChip='<span class="pd-dl">🗓 '+startFmt+' → '+dlFmt+'</span>';
+  } else if(startFmt){
+    rangeChip='<span class="pd-dl">🗓 Mulai '+startFmt+'</span>';
+  } else if(dl){
+    rangeChip='<span class="pd-dl">⏰ '+dl+'</span>';
+  }
+
   // Header — clean white, no color hero, progress inline
   const hw=document.getElementById('pd-header-wrap');
   if(hw) hw.innerHTML=
@@ -9912,7 +10095,8 @@ function openProjDetail(id){
     '</div>'+
     '<div class="pd-meta">'+
     '<span class="pa-status-chip pa-status-'+p.status+'">'+sLbl_c(p.status)+'</span>'+
-    (dl?'<span class="pd-dl">⏰ '+dl+'</span>':'')+
+    rangeChip+
+    (startFmt&&!dlFmt&&dl?'<span class="pd-dl">⏰ '+dl+'</span>':'')+
     '</div>'+
     '<div class="pd-prog-row">'+
     '<div class="pd-prog-bar" style="flex:1;margin-top:0"><div class="pd-prog-barfill" style="width:'+pct+'%;background:'+p.color+'"></div></div>'+
@@ -9933,6 +10117,21 @@ function openProjDetail(id){
     (p.why?'<div class="pd-why-text">'+escHtml(p.why).replace(/\n/g,'<br>')+'</div>':'<div class="pd-why-empty">Apa alasan kamu memulai kegiatan ini? Tap Edit untuk isi.</div>')+
     '</div>';
 
+  // Reset selected day to today when opening detail
+  ksSelDay = tod();
+  _ksWeekOffset = 0;
+  // If project has a future startDate not in current week, jump calendar there
+  if(p.startDate && p.startDate > tod()){
+    const today=new Date(), start=new Date(p.startDate+'T12:00:00');
+    const dow=today.getDay(); const monOff=dow===0?-6:1-dow;
+    const curMonday=new Date(today); curMonday.setDate(today.getDate()+monOff);
+    const startDow=start.getDay(); const startMonOff=startDow===0?-6:1-startDow;
+    const startMonday=new Date(start); startMonday.setDate(start.getDate()+startMonOff);
+    const weekDiff=Math.round((startMonday-curMonday)/(7*86400000));
+    if(weekDiff!==0){ _ksWeekOffset=weekDiff; ksSelDay=p.startDate; }
+  }
+  // Mini weekly calendar + unscheduled
+  renderKsAll(id);
   // Next Actions
   renderProjAp_c(id, p.color);
   // Resources
@@ -9986,34 +10185,41 @@ function renderProjAp_c(pid,color){
   const undone=allTasks.filter(t=>!t.done);
   const done=allTasks.filter(t=>t.done);
   const sorted=[...undone,...done];
+  const todStr=tod();
 
   const card=document.createElement('div');
   card.style.cssText='background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;';
 
-  sorted.forEach((t,idx)=>{
+  sorted.forEach((t)=>{
     const isDone=t.done;
-    const stepNum=idx+1;
-    // deadline sub-label
-    const dlDiff=t.deadline?diffD(t.deadline,tod()):null;
-    let dlLabel='';
-    if(!isDone&&dlDiff!==null){
-      if(dlDiff<0) dlLabel='<span style="color:var(--red);font-weight:600">Telat</span>';
-      else if(dlDiff===0) dlLabel='<span style="color:var(--amber);font-weight:600">Hari ini</span>';
-      else if(dlDiff<=3) dlLabel='<span style="color:var(--amber);font-weight:600">Sisa '+dlDiff+' hari</span>';
+    // Consistent step number = original order in allTasks
+    const stepNum=allTasks.findIndex(x=>x.id===t.id)+1;
+    const dlDiff=t.deadline?diffD(t.deadline,todStr):null;
+
+    // Build inline badge
+    let badge='';
+    if(isDone){
+      badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--green-lt);color:var(--green-dk)">✓ Selesai</span>';
+    } else if(t.deadline){
+      if(dlDiff<0) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--red-lt);color:var(--red)">⚠ Telat '+Math.abs(dlDiff)+'h</span>';
+      else if(dlDiff===0) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--amber-lt);color:#854f0b">⏰ Hari ini</span>';
+      else if(dlDiff<=3) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--amber-lt);color:#854f0b">⚡ '+dlDiff+' hari lagi</span>';
+      else badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--purple-lt);color:#5b21b6">📅 '+new Date(t.deadline+'T12:00').toLocaleDateString("id-ID",{day:"numeric",month:"short"})+'</span>';
+    } else {
+      badge='<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--bg2);color:var(--ink3)">Belum dijadwalkan</span>';
     }
-    const metaParts=['Langkah '+stepNum];
-    if(isDone) metaParts.push('<span style="color:var(--green);font-weight:600">Selesai</span>');
-    else if(dlLabel) metaParts.push(dlLabel);
 
     const row=document.createElement('div');
     row.className='ap-item'+(isDone?' is-done':'');
     row.innerHTML=
-      '<div class="ap-check'+(isDone?' done':'')+'" onclick="toggleApDone(\''+t.id+'\')">'+
+      '<div class="ap-check'+(isDone?' done':'')+'" onclick="toggleApDone(\''+t.id+'\')" style="'+(isDone?'background:'+color+';border-color:'+color+';':'')+'">' +
       (isDone?'✓':'')+
       '</div>'+
       '<div class="ap-body">'+
       '<div class="ap-name'+(isDone?' done':'')+'">'+escHtml(t.name)+'</div>'+
-      '<div class="ap-meta"><span style="font-size:11px;color:var(--ink3)">'+metaParts.join(' · ')+'</span>'+
+      '<div class="ap-meta">'+
+      '<span style="font-size:10px;color:var(--ink3);font-weight:600">Langkah '+stepNum+'</span>'+
+      badge+
       (t.notes?'<span class="ap-notes-btn" onclick="event.stopPropagation();openApNotes(\''+t.id+'\')">📝</span>':'')+
       '</div>'+
       '</div>'+
@@ -10029,6 +10235,247 @@ function renderProjAp_c(pid,color){
   card.appendChild(addBtn);
 
   el.appendChild(card);
+}
+
+// ════════ MINI WEEKLY CALENDAR — Kegiatan Singkat ════════
+let ksSelDay = null; // selected date string 'YYYY-MM-DD'
+let _ksWeekOffset = 0; // 0 = current week, +1 = next week, -1 = prev week
+
+function renderKsCal(pid) {
+  const calEl = document.getElementById('ks-cal-container');
+  if (!calEl) return;
+  const tasks = pTasks_c(pid);
+  const p = gProj(pid); if (!p) return;
+
+  // Build 7 days starting from Monday of current week
+  const today = new Date();
+  const dayOfWeek = today.getDay(); // 0=Sun
+  const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() + mondayOffset + (_ksWeekOffset * 7));
+
+  const days = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    days.push(d);
+  }
+
+  // Default selected day = today
+  if (!ksSelDay) ksSelDay = tod();
+
+  const todStr = tod();
+  const monthLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const dayLabels = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+
+  // Month label for header
+  const startMonth = monthLabels[monday.getMonth()];
+  const endDay = days[6];
+  const endMonth = monthLabels[endDay.getMonth()];
+  const monthStr = startMonth === endMonth
+    ? startMonth + ' ' + monday.getFullYear()
+    : startMonth + ' – ' + endMonth + ' ' + endDay.getFullYear();
+
+  // Build task map: dateStr -> [tasks]
+  const taskMap = {};
+  tasks.forEach(t => {
+    if (t.deadline) {
+      if (!taskMap[t.deadline]) taskMap[t.deadline] = [];
+      taskMap[t.deadline].push(t);
+    }
+  });
+
+  // Build day cells
+  const dayCells = days.map(d => {
+    const ds = d.toISOString().slice(0, 10);
+    const isToday = ds === todStr;
+    const isPast = ds < todStr;
+    const isSel = ds === ksSelDay;
+    const dayTasks = taskMap[ds] || [];
+
+    let cls = 'ks-cal-day';
+    if (isSel) cls += ' kcd-sel';
+    if (isToday) cls += ' kcd-today';
+    if (isPast && !isToday) cls += ' kcd-past';
+
+    // Build pips (max 2 visible)
+    let pipsHtml = '';
+    if (dayTasks.length) {
+      const shown = dayTasks.slice(0, 2);
+      pipsHtml = shown.map(t => {
+        const diff = diffD(t.deadline, todStr);
+        let pipcls = 'ks-task-pip ksp-sched';
+        if (t.done) pipcls = 'ks-task-pip ksp-done';
+        else if (diff < 0) pipcls = 'ks-task-pip ksp-late';
+        else if (diff <= 2) pipcls = 'ks-task-pip ksp-soon';
+        const shortName = t.name.length > 9 ? t.name.slice(0, 8) + '…' : t.name;
+        return `<div class="${pipcls}">${shortName}</div>`;
+      }).join('');
+      if (dayTasks.length > 2) pipsHtml += `<div class="ks-task-pip" style="background:var(--bg2);color:var(--ink3)">+${dayTasks.length - 2}</div>`;
+    } else if (!isPast) {
+      pipsHtml = `<div class="ks-add-pip" onclick="event.stopPropagation();ksAddTaskOnDay('${ds}')">+</div>`;
+    }
+
+    return `<div class="${cls}" onclick="ksSelectDay('${ds}','${pid}')" data-date="${ds}">
+      <div class="ks-num-wrap"><span class="ks-num">${d.getDate()}</span></div>
+      ${pipsHtml}
+    </div>`;
+  }).join('');
+
+  calEl.innerHTML =
+    `<div class="ks-cal-wrap">` +
+      `<div class="ks-cal-head">` +
+        `<span class="ks-cal-title">📅 Timeline <span class="ks-cal-month">${monthStr}</span></span>` +
+        `<div class="ks-cal-nav">` +
+          (_ksWeekOffset !== 0 ? `<button class="ks-cal-today-btn" onclick="ksShiftWeek('${pid}',0)">Hari ini</button>` : '') +
+          `<button class="ks-cal-arr" onclick="ksShiftWeek('${pid}',-1)">‹</button>` +
+          `<button class="ks-cal-arr" onclick="ksShiftWeek('${pid}',1)">›</button>` +
+        `</div>` +
+      `</div>` +
+      `<div class="ks-cal-grid">` +
+        `<div class="ks-cal-dl">Sen</div>` +
+        `<div class="ks-cal-dl">Sel</div>` +
+        `<div class="ks-cal-dl">Rab</div>` +
+        `<div class="ks-cal-dl">Kam</div>` +
+        `<div class="ks-cal-dl">Jum</div>` +
+        `<div class="ks-cal-dl">Sab</div>` +
+        `<div class="ks-cal-dl">Min</div>` +
+        dayCells +
+      `</div>` +
+      `<div class="ks-day-panel" id="ks-day-panel"></div>` +
+    `</div>`;
+
+  // Render selected day panel
+  ksRenderDayPanel(pid, ksSelDay);
+}
+
+function ksShiftWeek(pid, dir) {
+  if (dir === 0) {
+    _ksWeekOffset = 0;
+    ksSelDay = tod();
+  } else {
+    _ksWeekOffset += dir;
+    // Move selected day to same weekday in the new week
+    if (ksSelDay) {
+      const d = new Date(ksSelDay + 'T12:00:00');
+      d.setDate(d.getDate() + dir * 7);
+      ksSelDay = d.toISOString().slice(0, 10);
+    }
+  }
+  renderKsCal(pid);
+}
+
+function ksSelectDay(ds, pid) {
+  ksSelDay = ds;
+  // Update selected class
+  document.querySelectorAll('.ks-cal-day').forEach(el => {
+    el.classList.toggle('kcd-sel', el.dataset.date === ds);
+  });
+  ksRenderDayPanel(pid, ds);
+}
+
+function ksRenderDayPanel(pid, ds) {
+  const panel = document.getElementById('ks-day-panel');
+  if (!panel) return;
+  const tasks = pTasks_c(pid);
+  const dayTasks = tasks.filter(t => t.deadline === ds);
+  const todStr = tod();
+
+  const d = new Date(ds + 'T12:00:00');
+  const dayNames = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const monthNames = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const isToday = ds === todStr;
+  const dateLbl = dayNames[d.getDay()] + ', ' + d.getDate() + ' ' + monthNames[d.getMonth()] + (isToday ? ' · Hari ini' : '');
+
+  let tasksHtml = '';
+  if (!dayTasks.length) {
+    tasksHtml = `<div class="ks-day-empty">
+      <div class="ks-day-empty-t">Tidak ada langkah</div>
+      <div class="ks-day-empty-s">Tap "＋ Tambah" untuk jadwalkan langkah di hari ini</div>
+    </div>`;
+  } else {
+    tasksHtml = dayTasks.map((t, idx) => {
+      const isDone = t.done;
+      const diff = diffD(ds, todStr);
+      let badgeCls = 'ks-dtask-badge ksdb-sched';
+      let badgeTxt = '📅 ' + d.getDate() + ' ' + monthNames[d.getMonth()];
+      if (isDone) { badgeCls = 'ks-dtask-badge ksdb-done'; badgeTxt = '✓ Selesai'; }
+      else if (diff < 0) { badgeCls = 'ks-dtask-badge ksdb-late'; badgeTxt = '⚠ Telat ' + Math.abs(diff) + ' hari'; }
+      else if (diff === 0) { badgeCls = 'ks-dtask-badge ksdb-soon'; badgeTxt = '⏰ Hari ini'; }
+      else if (diff <= 2) { badgeCls = 'ks-dtask-badge ksdb-soon'; badgeTxt = '⚡ ' + diff + ' hari lagi'; }
+
+      // Find step number among all tasks
+      const allTasks = pTasks_c(pid);
+      const stepNum = allTasks.findIndex(x => x.id === t.id) + 1;
+
+      return `<div class="ks-day-task-item">
+        <div class="ks-dtask-check${isDone ? ' done' : ''}" onclick="toggleApDone('${t.id}')">${isDone ? '✓' : ''}</div>
+        <div class="ks-dtask-body">
+          <div class="ks-dtask-name${isDone ? ' done' : ''}">${escHtml(t.name)}</div>
+          <div class="ks-dtask-meta">
+            <span class="ks-dtask-step">Langkah ${stepNum}</span>
+            <span class="${badgeCls}">${badgeTxt}</span>
+          </div>
+        </div>
+        <button class="ks-dtask-more" onclick="openEditAp('${t.id}')">···</button>
+      </div>`;
+    }).join('');
+  }
+
+  panel.innerHTML =
+    `<div class="ks-day-panel-head">` +
+      `<span class="ks-day-panel-lbl">📌 ${dateLbl}</span>` +
+      `<button class="ks-day-panel-add" onclick="ksAddTaskOnDay('${ds}')">＋ Tambah langkah</button>` +
+    `</div>` +
+    tasksHtml;
+}
+
+function ksAddTaskOnDay(ds) {
+  // Open add sheet with deadline pre-filled
+  _apParentType = 'project'; _apParentId = curProjId;
+  openAddApSheet();
+  // Pre-fill deadline after sheet opens
+  setTimeout(() => {
+    const dlInput = document.getElementById('addap-dl');
+    if (dlInput) dlInput.value = ds;
+  }, 50);
+}
+
+function renderKsUnsched(pid) {
+  const el = document.getElementById('ks-unsched-container');
+  if (!el) return;
+  const tasks = pTasks_c(pid);
+  const todStr = tod();
+  // Unscheduled = no deadline AND not done
+  const unsched = tasks.filter(t => !t.done && !t.deadline);
+  // Also include overdue (deadline < today, not done) — they're also "need attention"
+  // But we only show truly unscheduled (no deadline) here
+  if (!unsched.length) { el.innerHTML = ''; return; }
+
+  const allTasks = pTasks_c(pid);
+  const items = unsched.map(t => {
+    const stepNum = allTasks.findIndex(x => x.id === t.id) + 1;
+    return `<div class="ks-unsched-item">
+      <div class="ks-us-dot"></div>
+      <span class="ks-us-name">Langkah ${stepNum} — ${escHtml(t.name)}</span>
+      <button class="ks-us-btn" onclick="openEditAp('${t.id}')" title="Atur jadwal">📅</button>
+    </div>`;
+  }).join('');
+
+  el.innerHTML =
+    `<div class="ks-unsched-wrap">` +
+      `<div class="ks-unsched-head">` +
+        `<span style="font-size:13px">🗓</span>` +
+        `<span class="ks-unsched-lbl">Belum dijadwalkan</span>` +
+        `<span class="ks-unsched-ct">${unsched.length}</span>` +
+      `</div>` +
+      items +
+    `</div>`;
+}
+
+function renderKsAll(pid) {
+  renderKsCal(pid);
+  renderKsUnsched(pid);
 }
 
 function renderResources_c(pid,color){
