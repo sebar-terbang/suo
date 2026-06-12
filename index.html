@@ -1206,6 +1206,12 @@ input,select,textarea { font-family:inherit; }
 .sh-status-pill[data-st="rencana"].sel{background:var(--blue-lt);color:var(--blue);border-color:var(--blue);}
 .sh-status-pill[data-st="pause"].sel{background:var(--amber-lt);color:#854f0b;border-color:var(--amber);}
 .sh-status-pill[data-st="selesai"].sel{background:var(--bg2);color:var(--ink2);border-color:var(--ink3);}
+.sh-type-row{display:flex;gap:8px;}
+.sh-type-pill{flex:1;padding:12px 10px;border-radius:var(--rsm);border:1.5px solid var(--line);background:var(--white);font-size:12px;font-weight:700;text-align:center;cursor:pointer;transition:all .15s;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:4px;}
+.sh-type-pill .sti{font-size:18px;}
+.sh-type-pill .stsub{font-size:10px;font-weight:600;color:var(--ink3);}
+.sh-type-pill.sel{border-color:var(--purple);background:var(--purple-lt);color:#5b21b6;}
+.sh-type-pill.sel .stsub{color:#5b21b6;opacity:.75;}
 
 /* Date range row (mulai -> deadline) */
 .sh-daterange-row{display:flex;gap:10px;align-items:flex-start;}
@@ -4280,6 +4286,7 @@ input,select,textarea { font-family:inherit; }
 }
 
 /* ── OVERVIEW BANNER ── */
+.ov-section-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .ov-banner{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);padding:13px 16px;margin-bottom:12px;display:flex;gap:0;border-left:3px solid var(--blue);}
 .ov-stat{flex:1;display:flex;flex-direction:column;gap:2px;padding:0 10px;}
 .ov-stat:first-child{padding-left:0;}
@@ -4470,6 +4477,7 @@ input,select,textarea { font-family:inherit; }
 .ks-num-wrap{width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 .ks-num{font-size:12px;font-weight:700;color:var(--ink2);}
 .ks-cal-day.kcd-past .ks-num{color:var(--ink3);}
+.ks-cal-day.kcd-outside{opacity:.5;}
 .ks-task-pip{width:calc(100% - 4px);font-size:7px;font-weight:800;border-radius:3px;padding:2px 2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:center;margin-top:1px;letter-spacing:.01em;}
 .ks-add-pip{width:20px;height:18px;border-radius:4px;background:var(--bg2);border:1px dashed var(--line2);color:var(--ink3);font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px;font-weight:700;line-height:1;cursor:pointer;}
 .ksp-done{background:var(--green-lt);color:var(--green-dk);}
@@ -4564,6 +4572,9 @@ input,select,textarea { font-family:inherit; }
 .pl-chev{font-size:16px;color:var(--ink3);padding-right:4px;}
 .proj-linked-foot{display:flex;align-items:center;gap:6px;padding:7px 12px 8px 52px;background:var(--bg);border-top:1px solid var(--line);flex-wrap:wrap;}
 .pd-section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.ks-view-toggle{display:flex;background:var(--bg2);border-radius:9px;padding:3px;gap:2px;}
+.ks-view-btn{font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:none;cursor:pointer;background:transparent;color:var(--ink3);display:flex;align-items:center;gap:4px;transition:all .15s;}
+.ks-view-btn.active{background:var(--white);color:var(--ink);box-shadow:var(--sh);}
 .pd-sec-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);}
 .pd-sec-btn{font-size:12px;font-weight:700;color:var(--blue);padding:3px 0;}
 
@@ -5090,8 +5101,9 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ PROJECTS ══ -->
     <div class="view" id="v-projects"><div class="pad">
+      <div class="ov-section-title">📊 Overview</div>
       <div class="ov-banner" id="ov-banner"><div style="display:flex;align-items:center;gap:10px;width:100%"><span style="font-size:22px">📋</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:var(--ink)">Memuat kegiatan...</div></div></div></div>
-      <div class="filter-bar" id="filter-bar"><button class="fpill on" onclick="setFilter_c(&#39;all&#39;,this)">Semua</button></div>
+      <div class="filter-bar" id="filter-bar"></div>
 
       <!-- Unified kegiatan list -->
       <div id="kegiatan-list-wrap"></div>
@@ -5112,14 +5124,21 @@ input,select,textarea { font-family:inherit; }
       <div class="pd-grid2" id="pd-grid2"></div>
       <div class="pad" style="padding-top:14px;padding-bottom:32px">
         <div class="pd-why-wrap" id="pd-why-wrap"></div>
-        <!-- Mini weekly calendar -->
-        <div id="ks-cal-container"></div>
-        <!-- Unscheduled tasks (only shown if any) -->
-        <div id="ks-unsched-container"></div>
         <div class="pd-section-hd">
-          <span class="pd-sec-lbl">📋 Semua Langkah</span>
-          <button class="pd-sec-btn" onclick="openAddProjItem()">＋ Tambah</button>
+          <span class="pd-sec-lbl">📋 Langkah-langkah</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div class="ks-view-toggle" id="ks-view-toggle">
+              <button class="ks-view-btn" data-view="list" onclick="ksSetView('list')"><i class="ti ti-list" style="font-size:13px"></i> List</button>
+              <button class="ks-view-btn" data-view="cal" onclick="ksSetView('cal')"><i class="ti ti-calendar" style="font-size:13px"></i> Kalender</button>
+            </div>
+            <button class="pd-sec-btn" onclick="openAddProjItem()">＋ Tambah</button>
+          </div>
         </div>
+        <!-- Calendar view (monthly) -->
+        <div id="ks-cal-container"></div>
+        <!-- Unscheduled tasks (only shown if any, calendar view) -->
+        <div id="ks-unsched-container"></div>
+        <!-- List view -->
         <div id="proj-ap-list"></div>
         <div class="pd-section-hd" style="margin-top:16px">
           <span class="pd-sec-lbl">📎 Catatan &amp; File</span>
@@ -5573,11 +5592,20 @@ input,select,textarea { font-family:inherit; }
       </div>
 
       <div class="sh-group">
+        <div class="sh-group-title">📦 Tipe Kegiatan</div>
+        <div class="sh-type-row" id="ap-type-row">
+          <div class="sh-type-pill" data-type="singkat" onclick="setTypePill('ap',this)"><span class="sti">⚡</span><span>Singkat</span><span class="stsub">Cepat, beberapa hari–minggu</span></div>
+          <div class="sh-type-pill" data-type="panjang" onclick="setTypePill('ap',this)"><span class="sti">🏔️</span><span>Panjang</span><span class="stsub">Berbulan-bulan, mis. nulis paper</span></div>
+        </div>
+        <input type="hidden" id="ap-type" value="singkat">
+      </div>
+
+      <div class="sh-group">
         <div class="sh-group-title">🚦 Status</div>
         <div class="sh-status-row" id="ap-st-row">
           <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ap',this)">🟢 Aktif</div>
           <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ap',this)">🔵 Rencana</div>
-          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ap',this)">🟡 Pause</div>
+          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ap',this)">⚪ Ga Jadi</div>
         </div>
         <input type="hidden" id="ap-st" value="aktif">
       </div>
@@ -5637,11 +5665,20 @@ input,select,textarea { font-family:inherit; }
       </div>
 
       <div class="sh-group">
+        <div class="sh-group-title">📦 Tipe Kegiatan</div>
+        <div class="sh-type-row" id="ep-type-row">
+          <div class="sh-type-pill" data-type="singkat" onclick="setTypePill('ep',this)"><span class="sti">⚡</span><span>Singkat</span><span class="stsub">Cepat, beberapa hari–minggu</span></div>
+          <div class="sh-type-pill" data-type="panjang" onclick="setTypePill('ep',this)"><span class="sti">🏔️</span><span>Panjang</span><span class="stsub">Berbulan-bulan, mis. nulis paper</span></div>
+        </div>
+        <input type="hidden" id="ep-type" value="singkat">
+      </div>
+
+      <div class="sh-group">
         <div class="sh-group-title">🚦 Status</div>
         <div class="sh-status-row" id="ep-st-row">
           <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ep',this)">🟢 Aktif</div>
           <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ep',this)">🔵 Rencana</div>
-          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ep',this)">🟡 Pause</div>
+          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ep',this)">⚪ Ga Jadi</div>
           <div class="sh-status-pill" data-st="selesai" onclick="setStPill('ep',this)">✅ Selesai</div>
         </div>
         <input type="hidden" id="ep-st" value="aktif">
@@ -5774,72 +5811,77 @@ input,select,textarea { font-family:inherit; }
 
 <!-- Add / Edit Action Plan -->
 <div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
-  <div class="sheet">
-    <div class="sh-handle"></div>
-    <div class="sh-title" id="sh-addap-title">📋 Langkah Kegiatan</div>
-    <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Langkah</label><input id="addap-n" type="text" placeholder="e.g. Daftar platform, Selesaikan modul 1, Beli buku"></div>
+  <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-addap')">✕</button>
+      <span class="sh-header2-title" id="sh-addap-title">📋 Langkah Kegiatan</span>
+      <button class="sh-save-btn" style="background:var(--purple)" onclick="saveActionPlan()">Simpan ✓</button>
+    </div>
+    <div class="sh-body" style="padding-top:16px">
 
-      <div class="field"><label class="flbl">Berulang?</label>
-        <select id="addap-recur" onchange="updateApRecurUI()">
-          <option value="none">Tidak berulang</option>
-          <option value="daily">Setiap hari</option>
-          <option value="weekly">Setiap minggu (pilih hari)</option>
-          <option value="monthly">Setiap bulan (tanggal sama)</option>
-        </select>
+      <div class="sh-group">
+        <div class="sh-group-title">📝 Langkah</div>
+        <div class="field" style="margin-bottom:0"><label class="flbl">Nama Langkah</label><input id="addap-n" type="text" placeholder="e.g. Daftar platform, Selesaikan modul 1, Beli buku"></div>
       </div>
 
-      <!-- Non-recurring: deadline biasa -->
-      <div class="field" id="addap-dl-field">
-        <label class="flbl">Deadline (opsional)</label>
-        <input id="addap-dl" type="date">
-      </div>
+      <div class="sh-group">
+        <div class="sh-group-title">🔁 Pengulangan</div>
+        <div class="field" style="margin-bottom:0">
+          <label class="flbl">Berulang?</label>
+          <select id="addap-recur" onchange="updateApRecurUI()">
+            <option value="none">Tidak berulang</option>
+            <option value="daily">Setiap hari</option>
+            <option value="weekly">Setiap minggu (pilih hari)</option>
+            <option value="monthly">Setiap bulan (tanggal sama)</option>
+          </select>
+        </div>
 
-      <!-- Recurring: tanggal mulai + hari + end date -->
-      <div id="addap-recur-fields" style="display:none">
-        <div class="field" id="addap-days-field" style="display:none">
-          <label class="flbl">Hari Pengulangan</label>
-          <div class="day-picker" id="addap-day-picker">
-            <button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button>
-            <button type="button" class="day-btn" data-day="2" onclick="toggleDayBtn(this)">Sel</button>
-            <button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button>
-            <button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button>
-            <button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button>
-            <button type="button" class="day-btn" data-day="6" onclick="toggleDayBtn(this)">Sab</button>
-            <button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button>
+        <!-- Non-recurring: deadline biasa -->
+        <div class="field" id="addap-dl-field" style="margin-top:12px;margin-bottom:0">
+          <label class="flbl">Deadline (opsional)</label>
+          <input id="addap-dl" type="date">
+        </div>
+
+        <!-- Recurring: tanggal mulai + hari + end date -->
+        <div id="addap-recur-fields" style="display:none;margin-top:12px">
+          <div class="field" id="addap-days-field" style="display:none">
+            <label class="flbl">Hari Pengulangan</label>
+            <div class="day-picker" id="addap-day-picker">
+              <button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button>
+              <button type="button" class="day-btn" data-day="2" onclick="toggleDayBtn(this)">Sel</button>
+              <button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button>
+              <button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button>
+              <button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button>
+              <button type="button" class="day-btn" data-day="6" onclick="toggleDayBtn(this)">Sab</button>
+              <button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button>
+            </div>
+          </div>
+          <div class="sh-daterange-row">
+            <div class="field"><label class="flbl">Mulai dari</label><input id="addap-recur-start" type="date"></div>
+            <div class="sh-daterange-arrow">→</div>
+            <div class="field"><label class="flbl">Berakhir <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="addap-recur-end" type="date"></div>
           </div>
         </div>
-        <div class="field">
-          <label class="flbl">Mulai dari</label>
-          <input id="addap-recur-start" type="date">
-        </div>
-        <div class="field">
-          <label class="flbl">Berakhir (opsional — kosong = selamanya)</label>
-          <input id="addap-recur-end" type="date">
+
+        <div class="field" style="margin-top:12px;margin-bottom:0">
+          <label class="flbl">Tampil di Kalender?</label>
+          <div class="toggle-row">
+            <label class="toggle-switch">
+              <input type="checkbox" id="addap-show-cal" checked="" onchange="updateApRecurUI()">
+              <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            </label>
+            <span class="toggle-label" id="addap-cal-lbl">Ya, tampilkan deadline di kalender</span>
+          </div>
         </div>
       </div>
 
-      <div class="field">
-        <label class="flbl">Tampil di Kalender?</label>
-        <div class="toggle-row">
-          <label class="toggle-switch">
-            <input type="checkbox" id="addap-show-cal" checked="" onchange="updateApRecurUI()">
-            <span class="toggle-track"><span class="toggle-thumb"></span></span>
-          </label>
-          <span class="toggle-label" id="addap-cal-lbl">Ya, tampilkan deadline di kalender</span>
-        </div>
+      <div class="sh-group">
+        <div class="sh-group-title">🗒 Catatan</div>
+        <div class="field" style="margin-bottom:0"><textarea id="addap-notes" rows="2" placeholder="Detail, catatan, atau context..."></textarea></div>
       </div>
 
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="addap-notes" rows="2" placeholder="Detail, catatan, atau context..."></textarea></div>
-    </div>
-    <div class="sh-footer">
-      <div class="sh-row">
-        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addap&#39;)">Batal</button>
-        <button class="sbtn sbtn-p" onclick="saveActionPlan()">Simpan ✓</button>
-      </div>
-      <div class="sh-row" id="sh-addap-del-row" style="display:none">
-        <button class="sbtn sbtn-d" onclick="delActionPlan()">🗑 Hapus</button>
-      </div>
+      <button class="sh-del-link" id="sh-addap-del-row" style="display:none" onclick="delActionPlan()">🗑 Hapus Langkah Ini</button>
+
     </div>
   </div>
 </div>
@@ -5988,9 +6030,9 @@ const DEFAULT_DATA = { subjects:[
    recurring:{days:[5], from:ago(-30), until:''}},
   {id:'ev4', title:'Seminar Research',     date:ago(-2),      startTime:'10:00', endTime:'12:00', color:'#059669', note:'Aula Utama'},
 ], projects:[
-  {id:'proj_python',  name:'Sertifikasi Python',       emoji:'🐍', color:'#7c3aed', status:'aktif',   goal:'Lulus sertifikasi Python dasar', why:'Python adalah pintu masuk ke dunia data science dan AI. Ini investasi skill jangka panjang gue.', lastMod: ago(1)},
-  {id:'proj_humas',   name:'Kepanitiaan Humas',         emoji:'👥', color:'#0891b2', status:'aktif',   goal:'Sukses menjalankan 2 proker Humas di Capstone & Ospek', why:'Ini kesempatan buat develop soft skill komunikasi dan kepemimpinan selain akademik.', lastMod: ago(2)},
-  {id:'proj_buku',    name:'Baca: Esensialisme',        emoji:'📚', color:'#d97706', status:'aktif',   goal:'Selesai baca dan paham isi buku Esensialisme', why:'Buku ini relevan banget buat hidup gue sekarang — biar bisa fokus ke hal yang benar-benar penting.', lastMod: ago(3)},
+  {id:'proj_python',  name:'Sertifikasi Python',       emoji:'🐍', color:'#7c3aed', status:'aktif', type:'singkat', goal:'Lulus sertifikasi Python dasar', why:'Python adalah pintu masuk ke dunia data science dan AI. Ini investasi skill jangka panjang gue.', lastMod: ago(1)},
+  {id:'proj_humas',   name:'Kepanitiaan Humas',         emoji:'👥', color:'#0891b2', status:'aktif', type:'panjang', goal:'Sukses menjalankan 2 proker Humas di Capstone & Ospek', why:'Ini kesempatan buat develop soft skill komunikasi dan kepemimpinan selain akademik.', lastMod: ago(2)},
+  {id:'proj_buku',    name:'Baca: Esensialisme',        emoji:'📚', color:'#d97706', status:'aktif', type:'singkat', goal:'Selesai baca dan paham isi buku Esensialisme', why:'Buku ini relevan banget buat hidup gue sekarang — biar bisa fokus ke hal yang benar-benar penting.', lastMod: ago(3)},
 ], p_tasks:[
   {id:'pt_py1', parentId:'proj_python', parentType:'project', name:'Pilih platform sertifikasi (Coursera/Dicoding)',  done:true,  deadline:ago(5), notes:'', createdAt: ago(7)},
   {id:'pt_py2', parentId:'proj_python', parentType:'project', name:'Beli atau daftar paket belajar Python',           done:true,  deadline:ago(3), notes:'', createdAt: ago(7)},
@@ -9128,7 +9170,7 @@ function delAgenda(){
 
 function refreshPAViews(){
   if(curView === 'projects')    renderProjects();
-  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderKsAll(curProjId); renderProjAp_c(curProjId,p.color); } }
+  if(curView === 'proj-detail'){ const p=gProj(curProjId); if(p){ renderKsAll(curProjId); } }
   if(curView === 'areas')       renderAreas();
   if(curView === 'area-detail'){ const a=gArea(curAreaId); if(a){ renderAreaRituals_c(curAreaId,a.color); renderCurrentState_c(curAreaId,a.color); } }
   // Always update Hari Ini on home if visible
@@ -9180,6 +9222,12 @@ function setStPill(prefix, el){
   document.getElementById(prefix+'-st').value = el.dataset.st;
 }
 
+function setTypePill(prefix, el){
+  document.querySelectorAll('#'+prefix+'-type-row .sh-type-pill').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById(prefix+'-type').value = el.dataset.type;
+}
+
 function openAddProject(){
   selColorProj = COLORS[4];
   document.getElementById('ap-n').value = '';
@@ -9187,6 +9235,8 @@ function openAddProject(){
   document.getElementById('ap-g').value = '';
   document.getElementById('ap-st').value = 'aktif';
   document.querySelectorAll('#ap-st-row .sh-status-pill').forEach(b=>b.classList.toggle('sel', b.dataset.st==='aktif'));
+  document.getElementById('ap-type').value = 'singkat';
+  document.querySelectorAll('#ap-type-row .sh-type-pill').forEach(b=>b.classList.toggle('sel', b.dataset.type==='singkat'));
   document.getElementById('ap-start-date').value = '';
   document.getElementById('ap-dl-date-inline').value = '';
   buildCpickerProj('cpicker-proj', selColorProj, c => selColorProj = c);
@@ -9204,6 +9254,7 @@ function saveNewProject(){
   const emoji = document.getElementById('ap-e').value.trim() || '📋';
   const goal  = document.getElementById('ap-g').value.trim();
   const status= document.getElementById('ap-st').value;
+  const type  = document.getElementById('ap-type').value || 'singkat';
   const startDate = document.getElementById('ap-start-date').value || null;
   const dlInline = document.getElementById('ap-dl-date-inline').value || null;
   // sync hidden date field with inline date before reading deadline value
@@ -9213,7 +9264,7 @@ function saveNewProject(){
   if(deadline.type==='none' && dlInline) deadline = {type:'date', value: dlInline};
   ensurePAData();
   const areaId_ap = document.getElementById('ap-area')?.value||null;
-  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, deadline, startDate, color:selColorProj, areaId:areaId_ap, createdAt:tod()});
+  D.projects.push({id:'proj'+Date.now(), name, emoji, goal, status, type, deadline, startDate, color:selColorProj, areaId:areaId_ap, createdAt:tod()});
   save(); closeSheet('sh-addproject'); renderProjects();
   toast(`"${name}" ditambahkan ke Kegiatan Singkat! 📋`);
 }
@@ -9229,6 +9280,8 @@ function openEditProject(id){
   document.getElementById('ep-g').value = p.goal || '';
   document.getElementById('ep-st').value = p.status || 'aktif';
   document.querySelectorAll('#ep-st-row .sh-status-pill').forEach(b=>b.classList.toggle('sel', b.dataset.st===(p.status||'aktif')));
+  document.getElementById('ep-type').value = p.type || 'singkat';
+  document.querySelectorAll('#ep-type-row .sh-type-pill').forEach(b=>b.classList.toggle('sel', b.dataset.type===(p.type||'singkat')));
   document.getElementById('ep-start-date').value = p.startDate || '';
   buildCpickerProj('cpicker-proj-edit', selColorProjEdit, c => selColorProjEdit = c);
   // deadline
@@ -9249,6 +9302,7 @@ function saveEditProject(){
   p.emoji  = document.getElementById('ep-e').value.trim() || p.emoji;
   p.goal   = document.getElementById('ep-g').value.trim();
   p.status = document.getElementById('ep-st').value;
+  p.type = document.getElementById('ep-type').value || 'singkat';
   p.startDate = document.getElementById('ep-start-date').value || null;
   p.color  = selColorProjEdit;
   const dlInline = document.getElementById('ep-dl-date-inline').value || null;
@@ -9880,8 +9934,15 @@ function fmtDs(ds){if(!ds)return'';return new Date(ds+'T12:00').toLocaleDateStri
 function pTasks_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));}
 function pRec_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&t.recurring&&t.recurring.freq&&t.recurring.freq!=='none');}
 function calcPct_c(pid){const ts=pTasks_c(pid);return ts.length?Math.round(ts.filter(t=>t.done).length/ts.length*100):0;}
-function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',pause:'Pause',selesai:'Selesai'}[s]||s;}
-function mf_c(p){return curFilter_c==='all'||p.areaId===curFilter_c;}
+function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',pause:'Ga Jadi',selesai:'Selesai'}[s]||s;}
+function mf_c(p){
+  if(curFilter_c==='aktif')   return p.status==='aktif';
+  if(curFilter_c==='rencana') return p.status==='rencana';
+  if(curFilter_c==='pause')   return p.status==='pause';
+  if(curFilter_c==='singkat') return (p.type||'singkat')==='singkat';
+  if(curFilter_c==='panjang') return p.type==='panjang';
+  return true;
+}
 function fmtDl_c(p){
   if(!p.deadline)return null;
   const d=p.deadline;
@@ -9891,37 +9952,80 @@ function fmtDl_c(p){
   return null;
 }
 
-let curFilter_c='all';
+let curFilter_c='aktif';
+
+const FILTER_PILLS_C=[
+  {id:'aktif',   lbl:'🟢 Aktif'},
+  {id:'rencana', lbl:'🔵 Rencana'},
+  {id:'pause',   lbl:'⚪ Ga Jadi'},
+  {id:'singkat', lbl:'⚡ Kegiatan Singkat'},
+  {id:'panjang', lbl:'🏔️ Kegiatan Panjang'},
+];
 
 function buildFilterPills_c(){
   const bar=document.getElementById('filter-bar');
   if(!bar)return;
-  bar.innerHTML='<button class="fpill on" onclick="setFilter_c(\'all\',this)">Semua</button>';
-  (D.areas||[]).forEach(a=>{const b=document.createElement('button');b.className='fpill';b.onclick=function(){setFilter_c(a.id,b);};b.textContent=(a.emoji||'')+' '+a.name;bar.appendChild(b);});
+  bar.innerHTML=FILTER_PILLS_C.map(f=>
+    '<button class="fpill'+(curFilter_c===f.id?' on':'')+'" onclick="setFilter_c(\''+f.id+'\',this)">'+f.lbl+'</button>'
+  ).join('');
 }
 function setFilter_c(f,btn){curFilter_c=f;document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('on'));if(btn)btn.classList.add('on');renderProjectsContent();}
 
 function renderProjects(){
   ensurePAData();
-  // Build overview banner
+  // Build overview banner — 2 stats: kegiatan paling mendekati deadline, langkah selesai minggu ini
   const _ovEl=document.getElementById('ov-banner');
   if(_ovEl){
     const _aktif=(D.projects||[]).filter(p=>p.status==='aktif');
-    const _pend=(D.p_tasks||[]).filter(t=>!t.done&&(!t.recurring||t.recurring.freq==='none')&&_aktif.find(p=>p.id===t.parentId)).length;
     if(_aktif.length===0){
       _ovEl.innerHTML='<div style="display:flex;align-items:center;gap:10px;width:100%">'+
         '<span style="font-size:22px">👋</span>'+
         '<div><div style="font-size:14px;font-weight:700;color:var(--ink)">Mulai kegiatan pertamamu</div>'+
         '<div style="font-size:12px;color:var(--ink3);margin-top:2px">Catat kegiatan yang punya langkah-langkah dan akhirnya</div></div></div>';
     } else {
-      const _avg=(D.projects||[]).filter(p=>p.status==='aktif').length?Math.round(_aktif.reduce((s,p)=>s+calcPct_c(p.id),0)/_aktif.length):0;
-      _ovEl.innerHTML='<div style="display:flex;align-items:center;gap:10px;width:100%">'+
-        '<span style="font-size:22px">📋</span>'+
-        '<div style="flex:1;min-width:0">'+
-        '<div style="font-size:14px;font-weight:700;color:var(--ink)">'+_aktif.length+' kegiatan berjalan</div>'+
-        '<div style="font-size:12px;color:var(--ink3);margin-top:2px">'+(_pend?_pend+' langkah perlu diselesaikan':'Semua langkah sudah beres 🎉')+'</div></div>'+
-        '<div style="text-align:right;flex-shrink:0"><div style="font-size:18px;font-weight:900;color:var(--ink);line-height:1">'+_avg+'<span style="font-size:11px;font-weight:700;color:var(--ink3)">%</span></div>'+
-        '<div style="font-size:10px;color:var(--ink3);font-weight:600">rata-rata</div></div></div>';
+      const todStr=tod();
+
+      // Stat 1: kegiatan paling mendekati deadline (project-level date deadline OR nearest task deadline)
+      let closest=null, closestDiff=null;
+      _aktif.forEach(p=>{
+        let pdiff=null;
+        if(p.deadline && p.deadline.type==='date' && p.deadline.value){
+          pdiff=diffD(p.deadline.value,todStr);
+        }
+        const ts=pTasks_c(p.id).filter(t=>!t.done&&t.deadline);
+        ts.forEach(t=>{
+          const td=diffD(t.deadline,todStr);
+          if(pdiff===null||td<pdiff) pdiff=td;
+        });
+        if(pdiff!==null && (closestDiff===null||pdiff<closestDiff)){ closestDiff=pdiff; closest=p; }
+      });
+
+      let stat1Html;
+      if(closest){
+        let diffLbl;
+        if(closestDiff<0) diffLbl='Telat '+Math.abs(closestDiff)+'h';
+        else if(closestDiff===0) diffLbl='Hari ini';
+        else diffLbl=closestDiff+' hari lagi';
+        stat1Html='<div class="ov-stat">'+
+          '<div class="ov-num" style="font-size:14px;display:flex;align-items:center;gap:5px"><span style="font-size:16px">'+(closest.emoji||'📋')+'</span>'+escHtml(closest.name)+'</div>'+
+          '<div class="ov-lbl" style="color:'+(closestDiff<0?'var(--red)':closestDiff<=2?'#d97706':'var(--ink3)')+';font-weight:700">🔥 '+diffLbl+'</div>'+
+          '</div>';
+      } else {
+        stat1Html='<div class="ov-stat"><div class="ov-num" style="font-size:14px">—</div><div class="ov-lbl">🔥 Belum ada deadline terdekat</div></div>';
+      }
+
+      // Stat 2: langkah selesai minggu ini (across all projects)
+      const monday=new Date(); const dow=monday.getDay(); const monOff=dow===0?-6:1-dow;
+      monday.setDate(monday.getDate()+monOff);
+      const mondayStr=monday.toISOString().slice(0,10);
+      const doneThisWeek=(D.p_tasks||[]).filter(t=>t.done && t.parentType==='project' && t.doneAt && t.doneAt>=mondayStr && t.doneAt<=todStr).length;
+
+      const stat2Html='<div class="ov-stat">'+
+        '<div class="ov-num">'+doneThisWeek+'</div>'+
+        '<div class="ov-lbl">✅ Langkah selesai minggu ini</div>'+
+        '</div>';
+
+      _ovEl.innerHTML=stat1Html+stat2Html;
     }
   }
   // Build filter pills
@@ -10113,21 +10217,15 @@ function openProjDetail(id){
 
   // Reset selected day to today when opening detail
   ksSelDay = tod();
-  _ksWeekOffset = 0;
-  // If project has a future startDate not in current week, jump calendar there
+  _ksMonthOffset = 0;
+  // If project has a future startDate not in current month, jump calendar there
   if(p.startDate && p.startDate > tod()){
     const today=new Date(), start=new Date(p.startDate+'T12:00:00');
-    const dow=today.getDay(); const monOff=dow===0?-6:1-dow;
-    const curMonday=new Date(today); curMonday.setDate(today.getDate()+monOff);
-    const startDow=start.getDay(); const startMonOff=startDow===0?-6:1-startDow;
-    const startMonday=new Date(start); startMonday.setDate(start.getDate()+startMonOff);
-    const weekDiff=Math.round((startMonday-curMonday)/(7*86400000));
-    if(weekDiff!==0){ _ksWeekOffset=weekDiff; ksSelDay=p.startDate; }
+    const monthDiff=(start.getFullYear()-today.getFullYear())*12 + (start.getMonth()-today.getMonth());
+    if(monthDiff!==0){ _ksMonthOffset=monthDiff; ksSelDay=p.startDate; }
   }
-  // Mini weekly calendar + unscheduled
+  // Langkah-langkah: List or Kalender view (remembered per project)
   renderKsAll(id);
-  // Next Actions
-  renderProjAp_c(id, p.color);
   // Resources
   renderResources_c(id, p.color);
   // Linked Area
@@ -10178,15 +10276,12 @@ function renderProjAp_c(pid,color){
   }
   const undone=allTasks.filter(t=>!t.done);
   const done=allTasks.filter(t=>t.done);
-  const sorted=[...undone,...done];
   const todStr=tod();
 
   const card=document.createElement('div');
   card.style.cssText='background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;';
 
-  sorted.forEach((t)=>{
-    const isDone=t.done;
-    // Consistent step number = original order in allTasks
+  function buildRow(t,isDone){
     const stepNum=allTasks.findIndex(x=>x.id===t.id)+1;
     const dlDiff=t.deadline?diffD(t.deadline,todStr):null;
 
@@ -10198,7 +10293,7 @@ function renderProjAp_c(pid,color){
       if(dlDiff<0) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--red-lt);color:var(--red)">⚠ Telat '+Math.abs(dlDiff)+'h</span>';
       else if(dlDiff===0) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--amber-lt);color:#854f0b">⏰ Hari ini</span>';
       else if(dlDiff<=3) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--amber-lt);color:#854f0b">⚡ '+dlDiff+' hari lagi</span>';
-      else badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--purple-lt);color:#5b21b6">📅 '+new Date(t.deadline+'T12:00').toLocaleDateString("id-ID",{day:"numeric",month:"short"})+'</span>';
+      else badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:'+color+'1c;color:'+color+'">📅 '+new Date(t.deadline+'T12:00').toLocaleDateString("id-ID",{day:"numeric",month:"short"})+'</span>';
     } else {
       badge='<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--bg2);color:var(--ink3)">Belum dijadwalkan</span>';
     }
@@ -10218,8 +10313,17 @@ function renderProjAp_c(pid,color){
       '</div>'+
       '</div>'+
       '<button class="ap-more" onclick="event.stopPropagation();openEditAp(\''+t.id+'\')">···</button>';
-    card.appendChild(row);
-  });
+    return row;
+  }
+
+  if(!undone.length){
+    const empty=document.createElement('div');
+    empty.style.cssText='padding:20px 16px;text-align:center;';
+    empty.innerHTML='<span style="font-size:22px;display:block;margin-bottom:4px">🎉</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Semua langkah selesai!</div>';
+    card.appendChild(empty);
+  } else {
+    undone.forEach(t=>card.appendChild(buildRow(t,false)));
+  }
 
   // Add button at bottom
   const addBtn=document.createElement('button');
@@ -10229,11 +10333,61 @@ function renderProjAp_c(pid,color){
   card.appendChild(addBtn);
 
   el.appendChild(card);
+
+  // Collapsible "Selesai" section
+  if(done.length){
+    const doneWrap=document.createElement('div');
+    doneWrap.style.cssText='margin-top:10px;background:var(--white);border-radius:14px;border:1px solid var(--line);overflow:hidden;';
+    const toggleBtn=document.createElement('button');
+    toggleBtn.style.cssText='width:100%;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;background:none;border:none;cursor:pointer;font-size:12px;font-weight:800;color:var(--ink3);';
+    toggleBtn.innerHTML='<span>✓ Selesai</span><span id="ks-done-chevron" style="transition:transform .2s">▾</span>';
+    const doneList=document.createElement('div');
+    doneList.style.display='none';
+    done.forEach(t=>doneList.appendChild(buildRow(t,true)));
+    toggleBtn.onclick=()=>{
+      const open=doneList.style.display!=='none';
+      doneList.style.display=open?'none':'block';
+      document.getElementById('ks-done-chevron').style.transform=open?'':'rotate(180deg)';
+    };
+    doneWrap.appendChild(toggleBtn);
+    doneWrap.appendChild(doneList);
+    el.appendChild(doneWrap);
+  }
 }
 
-// ════════ MINI WEEKLY CALENDAR — Kegiatan Singkat ════════
+// ════════ LANGKAH VIEW (List ↔ Kalender Bulanan) — Kegiatan Singkat ════════
 let ksSelDay = null; // selected date string 'YYYY-MM-DD'
-let _ksWeekOffset = 0; // 0 = current week, +1 = next week, -1 = prev week
+let _ksMonthOffset = 0; // 0 = current month, +1 = next month, -1 = prev month
+
+function ksSetView(view){
+  const p = gProj(curProjId);
+  if(p) p.lastView = view;
+  save();
+  ksApplyView(curProjId);
+}
+
+function ksApplyView(pid){
+  const p = gProj(pid); if(!p) return;
+  const view = p.lastView || 'list';
+  document.querySelectorAll('#ks-view-toggle .ks-view-btn').forEach(b=>{
+    b.classList.toggle('active', b.dataset.view===view);
+  });
+  const calC = document.getElementById('ks-cal-container');
+  const unschedC = document.getElementById('ks-unsched-container');
+  const listC = document.getElementById('proj-ap-list');
+  if(view==='cal'){
+    if(calC) calC.style.display='';
+    if(unschedC) unschedC.style.display='';
+    if(listC) listC.style.display='none';
+    renderKsCal(pid);
+    renderKsUnsched(pid);
+  } else {
+    if(calC) calC.style.display='none';
+    if(unschedC) unschedC.style.display='none';
+    if(listC) listC.style.display='';
+    renderProjAp_c(pid, p.color);
+  }
+}
 
 function renderKsCal(pid) {
   const calEl = document.getElementById('ks-cal-container');
@@ -10241,34 +10395,46 @@ function renderKsCal(pid) {
   const tasks = pTasks_c(pid);
   const p = gProj(pid); if (!p) return;
 
-  // Build 7 days starting from Monday of current week
-  const today = new Date();
-  const dayOfWeek = today.getDay(); // 0=Sun
-  const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-  const monday = new Date(today);
-  monday.setDate(today.getDate() + mondayOffset + (_ksWeekOffset * 7));
-
-  const days = [];
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    days.push(d);
-  }
-
-  // Default selected day = today
-  if (!ksSelDay) ksSelDay = tod();
-
   const todStr = tod();
-  const monthLabels = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-  const dayLabels = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  if (!ksSelDay) ksSelDay = todStr;
 
-  // Month label for header
-  const startMonth = monthLabels[monday.getMonth()];
-  const endDay = days[6];
-  const endMonth = monthLabels[endDay.getMonth()];
-  const monthStr = startMonth === endMonth
-    ? startMonth + ' ' + monday.getFullYear()
-    : startMonth + ' – ' + endMonth + ' ' + endDay.getFullYear();
+  const monthNames = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+  // Reference month/year based on offset from current month
+  const baseDate = new Date();
+  baseDate.setDate(1);
+  baseDate.setMonth(baseDate.getMonth() + _ksMonthOffset);
+  const refYear = baseDate.getFullYear();
+  const refMonth = baseDate.getMonth(); // 0-11
+
+  const monthStr = monthNames[refMonth] + ' ' + refYear;
+
+  // First day of month, and which weekday it falls on (Mon=0..Sun=6)
+  const firstOfMonth = new Date(refYear, refMonth, 1);
+  const firstDow = (firstOfMonth.getDay() + 6) % 7; // convert Sun=0 -> Mon=0 index
+  const daysInMonth = new Date(refYear, refMonth + 1, 0).getDate();
+  const daysInPrevMonth = new Date(refYear, refMonth, 0).getDate();
+
+  // Build full grid cells (6 rows x 7 = 42 cells)
+  const cells = [];
+  // Leading days from previous month
+  for (let i = 0; i < firstDow; i++) {
+    const dayNum = daysInPrevMonth - firstDow + 1 + i;
+    const m = refMonth === 0 ? 11 : refMonth - 1;
+    const y = refMonth === 0 ? refYear - 1 : refYear;
+    cells.push({ date: new Date(y, m, dayNum), inMonth: false });
+  }
+  // Days in current month
+  for (let d = 1; d <= daysInMonth; d++) {
+    cells.push({ date: new Date(refYear, refMonth, d), inMonth: true });
+  }
+  // Trailing days from next month to fill remaining cells (up to multiple of 7)
+  const remaining = (7 - (cells.length % 7)) % 7;
+  for (let i = 1; i <= remaining; i++) {
+    const m = refMonth === 11 ? 0 : refMonth + 1;
+    const y = refMonth === 11 ? refYear + 1 : refYear;
+    cells.push({ date: new Date(y, m, i), inMonth: false });
+  }
 
   // Build task map: dateStr -> [tasks]
   const taskMap = {};
@@ -10279,8 +10445,7 @@ function renderKsCal(pid) {
     }
   });
 
-  // Build day cells
-  const dayCells = days.map(d => {
+  const dayCells = cells.map(({date: d, inMonth}) => {
     const ds = d.toISOString().slice(0, 10);
     const isToday = ds === todStr;
     const isPast = ds < todStr;
@@ -10290,6 +10455,7 @@ function renderKsCal(pid) {
     let cls = 'ks-cal-day';
     if (isSel) cls += ' kcd-sel';
     if (isPast && !isToday) cls += ' kcd-past';
+    if (!inMonth) cls += ' kcd-outside';
 
     // Number circle style: today/selected use project color
     let numWrapStyle = '';
@@ -10303,6 +10469,7 @@ function renderKsCal(pid) {
     } else if (isSel) {
       numStyle = `color:${p.color};font-weight:800;`;
     }
+    if (!inMonth && !isSel && !isToday) numStyle += 'color:var(--ink3);opacity:.45;';
 
     // Build pips (max 2 visible)
     let pipsHtml = '';
@@ -10316,11 +10483,11 @@ function renderKsCal(pid) {
         else if (diff < 0) pipcls += ' ksp-late';
         else if (diff <= 2) pipcls += ' ksp-soon';
         else pipStyle = `background:${p.color}1c;color:${p.color};`;
-        const shortName = t.name.length > 9 ? t.name.slice(0, 8) + '…' : t.name;
+        const shortName = t.name.length > 8 ? t.name.slice(0, 7) + '…' : t.name;
         return `<div class="${pipcls}" style="${pipStyle}">${shortName}</div>`;
       }).join('');
       if (dayTasks.length > 2) pipsHtml += `<div class="ks-task-pip" style="background:var(--bg2);color:var(--ink3)">+${dayTasks.length - 2}</div>`;
-    } else if (!isPast) {
+    } else if (!isPast && inMonth) {
       pipsHtml = `<div class="ks-add-pip" onclick="event.stopPropagation();ksAddTaskOnDay('${ds}')">+</div>`;
     }
 
@@ -10333,11 +10500,11 @@ function renderKsCal(pid) {
   calEl.innerHTML =
     `<div class="ks-cal-wrap">` +
       `<div class="ks-cal-head">` +
-        `<span class="ks-cal-title">📅 Timeline <span class="ks-cal-month">${monthStr}</span></span>` +
+        `<span class="ks-cal-title">📅 <span class="ks-cal-month">${monthStr}</span></span>` +
         `<div class="ks-cal-nav">` +
-          (_ksWeekOffset !== 0 ? `<button class="ks-cal-today-btn" style="color:${p.color};background:${p.color}1c" onclick="ksShiftWeek('${pid}',0)">Hari ini</button>` : '') +
-          `<button class="ks-cal-arr" onclick="ksShiftWeek('${pid}',-1)">‹</button>` +
-          `<button class="ks-cal-arr" onclick="ksShiftWeek('${pid}',1)">›</button>` +
+          (_ksMonthOffset !== 0 ? `<button class="ks-cal-today-btn" style="color:${p.color};background:${p.color}1c" onclick="ksShiftMonth('${pid}',0)">Hari ini</button>` : '') +
+          `<button class="ks-cal-arr" onclick="ksShiftMonth('${pid}',-1)">‹</button>` +
+          `<button class="ks-cal-arr" onclick="ksShiftMonth('${pid}',1)">›</button>` +
         `</div>` +
       `</div>` +
       `<div class="ks-cal-grid">` +
@@ -10357,17 +10524,23 @@ function renderKsCal(pid) {
   ksRenderDayPanel(pid, ksSelDay);
 }
 
-function ksShiftWeek(pid, dir) {
+function ksShiftMonth(pid, dir) {
   if (dir === 0) {
-    _ksWeekOffset = 0;
+    _ksMonthOffset = 0;
     ksSelDay = tod();
   } else {
-    _ksWeekOffset += dir;
-    // Move selected day to same weekday in the new week
+    _ksMonthOffset += dir;
+    // Keep selected day's day-of-month, clamped to new month length, in the new month
     if (ksSelDay) {
-      const d = new Date(ksSelDay + 'T12:00:00');
-      d.setDate(d.getDate() + dir * 7);
-      ksSelDay = d.toISOString().slice(0, 10);
+      const cur = new Date(ksSelDay + 'T12:00:00');
+      const dom = cur.getDate();
+      const base = new Date();
+      base.setDate(1);
+      base.setMonth(base.getMonth() + _ksMonthOffset);
+      const y = base.getFullYear(), m = base.getMonth();
+      const lastDay = new Date(y, m + 1, 0).getDate();
+      const newDate = new Date(y, m, Math.min(dom, lastDay));
+      ksSelDay = newDate.toISOString().slice(0, 10);
     }
   }
   renderKsCal(pid);
@@ -10460,13 +10633,15 @@ function renderKsUnsched(pid) {
   // But we only show truly unscheduled (no deadline) here
   if (!unsched.length) { el.innerHTML = ''; return; }
 
+  const p = gProj(pid);
+  const color = p ? p.color : 'var(--purple)';
   const allTasks = pTasks_c(pid);
   const items = unsched.map(t => {
     const stepNum = allTasks.findIndex(x => x.id === t.id) + 1;
     return `<div class="ks-unsched-item">
       <div class="ks-us-dot"></div>
       <span class="ks-us-name">Langkah ${stepNum} — ${escHtml(t.name)}</span>
-      <button class="ks-us-btn" onclick="openEditAp('${t.id}')" title="Atur jadwal">📅</button>
+      <button class="ks-us-btn" style="background:${color}1c;color:${color}" onclick="openEditAp('${t.id}')" title="Atur jadwal">📅</button>
     </div>`;
   }).join('');
 
@@ -10482,8 +10657,7 @@ function renderKsUnsched(pid) {
 }
 
 function renderKsAll(pid) {
-  renderKsCal(pid);
-  renderKsUnsched(pid);
+  ksApplyView(pid);
 }
 
 function renderResources_c(pid,color){
