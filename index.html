@@ -1204,7 +1204,6 @@ input,select,textarea { font-family:inherit; }
 .sh-status-pill.sel{border-color:currentColor;}
 .sh-status-pill[data-st="aktif"].sel{background:var(--green-lt);color:var(--green-dk);border-color:var(--green);}
 .sh-status-pill[data-st="rencana"].sel{background:var(--blue-lt);color:var(--blue);border-color:var(--blue);}
-.sh-status-pill[data-st="pause"].sel{background:var(--amber-lt);color:#854f0b;border-color:var(--amber);}
 .sh-status-pill[data-st="selesai"].sel{background:var(--bg2);color:var(--ink2);border-color:var(--ink3);}
 .sh-type-row{display:flex;gap:8px;}
 .sh-type-pill{flex:1;padding:12px 10px;border-radius:var(--rsm);border:1.5px solid var(--line);background:var(--white);font-size:12px;font-weight:700;text-align:center;cursor:pointer;transition:all .15s;color:var(--ink2);display:flex;flex-direction:column;align-items:center;gap:4px;}
@@ -5677,7 +5676,6 @@ input,select,textarea { font-family:inherit; }
         <div class="sh-status-row" id="ep-st-row">
           <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ep',this)">🟢 Aktif</div>
           <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ep',this)">🔵 Rencana</div>
-          <div class="sh-status-pill" data-st="pause" onclick="setStPill('ep',this)">⚪ Ga Jadi</div>
           <div class="sh-status-pill" data-st="selesai" onclick="setStPill('ep',this)">✅ Selesai</div>
         </div>
         <input type="hidden" id="ep-st" value="aktif">
@@ -6033,9 +6031,9 @@ const DEFAULT_DATA = { subjects:[
   {id:'proj_humas',   name:'Kepanitiaan Humas',         emoji:'👥', color:'#0891b2', status:'aktif', type:'panjang', goal:'Sukses menjalankan 2 proker Humas di Capstone & Ospek', why:'Ini kesempatan buat develop soft skill komunikasi dan kepemimpinan selain akademik.', lastMod: ago(2)},
   {id:'proj_buku',    name:'Baca: Esensialisme',        emoji:'📚', color:'#d97706', status:'aktif', type:'singkat', goal:'Selesai baca dan paham isi buku Esensialisme', why:'Buku ini relevan banget buat hidup gue sekarang — biar bisa fokus ke hal yang benar-benar penting.', lastMod: ago(3)},
 ], p_tasks:[
-  {id:'pt_py1', parentId:'proj_python', parentType:'project', name:'Pilih platform sertifikasi (Coursera/Dicoding)',  done:true,  deadline:ago(5), notes:'', createdAt: ago(7)},
-  {id:'pt_py2', parentId:'proj_python', parentType:'project', name:'Beli atau daftar paket belajar Python',           done:true,  deadline:ago(3), notes:'', createdAt: ago(7)},
-  {id:'pt_py3', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 1: Dasar-dasar Python',         done:true,  deadline:ago(1), notes:'', createdAt: ago(7)},
+  {id:'pt_py1', parentId:'proj_python', parentType:'project', name:'Pilih platform sertifikasi (Coursera/Dicoding)',  done:true,  deadline:ago(5), doneAt:ago(5), notes:'', createdAt: ago(7)},
+  {id:'pt_py2', parentId:'proj_python', parentType:'project', name:'Beli atau daftar paket belajar Python',           done:true,  deadline:ago(3), doneAt:ago(3), notes:'', createdAt: ago(7)},
+  {id:'pt_py3', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 1: Dasar-dasar Python',         done:true,  deadline:ago(1), doneAt:ago(1), notes:'', createdAt: ago(7)},
   {id:'pt_py4', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 2: Struktur Data',               done:false, deadline:tod(),  notes:'', createdAt: ago(2)},
   {id:'pt_py5', parentId:'proj_python', parentType:'project', name:'Selesaikan Modul 3: OOP',                        done:false, deadline:ago(-3),notes:'', createdAt: ago(2)},
   {id:'pt_py6', parentId:'proj_python', parentType:'project', name:'Latihan soal dan mock test',                      done:false, deadline:ago(-5),notes:'', createdAt: ago(2)},
@@ -8706,7 +8704,7 @@ function fmtDeadline(p){
 }
 
 function statusLabel(st){
-  return {aktif:'Aktif', rencana:'Rencana', pause:'Pause', selesai:'Selesai'}[st] || st;
+  return {aktif:'Aktif', rencana:'Rencana', selesai:'Selesai'}[st] || st;
 }
 
 // ════════ PROJECTS LIST ══════════════════════════
@@ -8730,7 +8728,7 @@ function mkProjCard(p, isGrid){
   const dl = fmtDeadline(p);
 
   const card = document.createElement('div');
-  card.className = 'pa-card' + (isGrid ? ' is-grid' : '') + (p.status === 'pause' ? ' is-pause' : '') + (p.status === 'selesai' ? ' is-selesai' : '');
+  card.className = 'pa-card' + (isGrid ? ' is-grid' : '') + (p.status === 'selesai' ? ' is-selesai' : '');
   card.onclick = () => openProjDetail(p.id);
 
   if(isGrid){
@@ -9103,7 +9101,7 @@ function toggleApDone(id){
     save(); refreshPAViews(); renderMcal();
     toast(alreadyDone ? '↩️ Di-reset, belum selesai hari ini' : '✅ Done hari ini! Konsisten terus 💪');
   } else {
-    t.done = !t.done; save();
+    t.done = !t.done; t.doneAt = t.done ? tod() : null; save();
     refreshPAViews(); renderMcal();
     toast(t.done ? '✅ Selesai! Good job 💪' : '↩️ Oke, belum selesai');
   }
@@ -9933,7 +9931,7 @@ function fmtDs(ds){if(!ds)return'';return new Date(ds+'T12:00').toLocaleDateStri
 function pTasks_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));}
 function pRec_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&t.recurring&&t.recurring.freq&&t.recurring.freq!=='none');}
 function calcPct_c(pid){const ts=pTasks_c(pid);return ts.length?Math.round(ts.filter(t=>t.done).length/ts.length*100):0;}
-function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',pause:'Ga Jadi',selesai:'Selesai'}[s]||s;}
+function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',selesai:'Selesai'}[s]||s;}
 function mf_c(p){
   if(curFilter_c==='singkat') return (p.type||'singkat')==='singkat';
   if(curFilter_c==='panjang') return p.type==='panjang';
@@ -10032,8 +10030,7 @@ function renderProjects(){
 
 function renderProjectsContent(){
   const all=(D.projects||[]).filter(p=>mf_c(p));
-  const aktif=all.filter(p=>p.status==='aktif');
-  const paused=all.filter(p=>p.status==='pause');
+  const aktif=all.filter(p=>p.status==='aktif'||p.status==='selesai');
   const rencana=all.filter(p=>p.status==='rencana');
 
   const wrap=document.getElementById('kegiatan-list-wrap');
@@ -10062,12 +10059,11 @@ function renderProjectsContent(){
     // badge
     const badgeMap={
       aktif:{bg:'#dbeafe',color:'#2563eb',txt:'Aktif'},
-      pause:{bg:'#fef3c7',color:'#d97706',txt:'Pause'},
       rencana:{bg:'#f3f4f6',color:'#6b7280',txt:'Rencana'},
       selesai:{bg:'#dcfce7',color:'#16a34a',txt:'Selesai'},
     };
     const badge=badgeMap[p.status]||{bg:'#f3f4f6',color:'#6b7280',txt:sLbl_c(p.status)};
-    return '<div class="keg-card'+(p.status==='pause'?' is-pause':'')+'" onclick="openProjDetail(\''+p.id+'\')">' +
+    return '<div class="keg-card" onclick="openProjDetail(\''+p.id+'\')">' +
       '<div class="keg-card-hd">' +
       '<div class="keg-card-icon" style="background:'+p.color+'18">'+(p.emoji||'📋')+'</div>'+
       '<div class="keg-card-info">'+
@@ -10081,16 +10077,28 @@ function renderProjectsContent(){
   }
 
   let html='<div class="keg-list">';
-  // aktif first, then paused
-  [...aktif,...paused].forEach(p=>{ html+=mkKegCard(p); });
+  aktif.forEach(p=>{ html+=mkKegCard(p); });
   html+='</div>';
 
-  // rencana: hidden by default
+  // rencana: shown directly if filter is "rencana", otherwise collapsible
   if(rencana.length){
-    html+='<span class="keg-rencana-btn" id="keg-rencana-btn" onclick="kegShowRencana()">+ Lihat kegiatan yang direncanakan ('+rencana.length+')</span>'+
-      '<div id="keg-rencana-list" style="display:none;margin-top:4px"><div class="keg-list">';
-    rencana.forEach(p=>{ html+=mkKegCard(p); });
-    html+='</div></div>';
+    if(curFilter_c==='rencana'){
+      html+='<div class="keg-list" style="margin-top:'+(aktif.length?'10px':'0')+'">';
+      rencana.forEach(p=>{ html+=mkKegCard(p); });
+      html+='</div>';
+    } else {
+      html+='<span class="keg-rencana-btn" id="keg-rencana-btn" onclick="kegShowRencana()">+ Lihat kegiatan yang direncanakan ('+rencana.length+')</span>'+
+        '<div id="keg-rencana-list" style="display:none;margin-top:4px"><div class="keg-list">';
+      rencana.forEach(p=>{ html+=mkKegCard(p); });
+      html+='</div></div>';
+    }
+  }
+
+  if(!aktif.length && !rencana.length){
+    wrap.innerHTML='<div style="padding:32px 16px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line)">'+
+      '<span style="font-size:32px;display:block;margin-bottom:8px">📋</span>'+
+      '<div style="font-size:14px;font-weight:700;color:var(--ink2)">Tidak ada kegiatan di kategori ini</div></div>';
+    return;
   }
 
   wrap.innerHTML=html;
