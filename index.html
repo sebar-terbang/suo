@@ -2193,6 +2193,11 @@ input,select,textarea { font-family:inherit; }
 }
 .ap-more:active { background:var(--bg); }
 
+/* Reversed layout for Kegiatan Singkat langkah list: checkbox on the right */
+.ap-item-rev .ap-body{order:1;}
+.ap-item-rev .ap-more{order:2;}
+.ap-item-rev .ap-check{order:3;}
+
 /* agenda item */
 .ag-item {
   padding:14px 16px;
@@ -4286,6 +4291,16 @@ input,select,textarea { font-family:inherit; }
 
 /* ── OVERVIEW BANNER ── */
 .ov-section-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.pa-archive-link{display:block;text-align:center;padding:12px;font-size:12px;font-weight:700;color:var(--ink3);background:none;border:none;cursor:pointer;width:100%;}
+.pa-archive-link:active{opacity:.6;}
+.archive-item{display:flex;align-items:center;gap:10px;padding:11px 4px;border-bottom:1px solid var(--line);cursor:pointer;}
+.archive-item:last-child{border-bottom:none;}
+.archive-item:active{background:var(--bg);}
+.archive-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.archive-info{flex:1;min-width:0;}
+.archive-name{font-size:13px;font-weight:700;color:var(--ink);}
+.archive-sub{font-size:11px;color:var(--ink3);margin-top:1px;}
+.archive-empty{padding:32px 16px;text-align:center;color:var(--ink3);}
 .ov-banner{background:var(--white);border-radius:var(--rsm);box-shadow:var(--sh);padding:13px 16px;margin-bottom:12px;display:flex;gap:0;border-left:3px solid var(--blue);}
 .ov-stat{flex:1;display:flex;flex-direction:column;gap:2px;padding:0 10px;}
 .ov-stat:first-child{padding-left:0;}
@@ -5108,6 +5123,7 @@ input,select,textarea { font-family:inherit; }
       <div id="kegiatan-list-wrap"></div>
 
       <button class="pa-add-btn project" onclick="openAddProject()" style="margin-top:8px">📋 Tambah Kegiatan Baru</button>
+      <div id="pa-archive-link-wrap"></div>
     </div></div>
 
 
@@ -5613,12 +5629,12 @@ input,select,textarea { font-family:inherit; }
         <div class="sh-daterange-row">
           <div class="field"><label class="flbl">Tanggal Mulai</label><input id="ap-start-date" type="date"></div>
           <div class="sh-daterange-arrow">→</div>
-          <div class="field"><label class="flbl">Deadline</label><input id="ap-dl-date-inline" type="date"></div>
+          <div class="field"><label class="flbl">Tanggal Selesai</label><input id="ap-dl-date-inline" type="date"></div>
         </div>
         <div style="margin-top:10px">
           <label class="flbl">Belum tau tanggal pasti?</label>
           <select id="ap-dl-type">
-            <option value="none">Tidak usah, lewati deadline</option>
+            <option value="none">Tidak usah, lewati tanggal selesai</option>
             <option value="month">Sekitar bulan tertentu</option>
             <option value="year">Sekitar tahun tertentu</option>
             <option value="date">Pakai tanggal di atas</option>
@@ -5686,12 +5702,12 @@ input,select,textarea { font-family:inherit; }
         <div class="sh-daterange-row">
           <div class="field"><label class="flbl">Tanggal Mulai</label><input id="ep-start-date" type="date"></div>
           <div class="sh-daterange-arrow">→</div>
-          <div class="field"><label class="flbl">Deadline</label><input id="ep-dl-date-inline" type="date"></div>
+          <div class="field"><label class="flbl">Tanggal Selesai</label><input id="ep-dl-date-inline" type="date"></div>
         </div>
         <div style="margin-top:10px">
           <label class="flbl">Belum tau tanggal pasti?</label>
           <select id="ep-dl-type">
-            <option value="none">Tidak usah, lewati deadline</option>
+            <option value="none">Tidak usah, lewati tanggal selesai</option>
             <option value="month">Sekitar bulan tertentu</option>
             <option value="year">Sekitar tahun tertentu</option>
             <option value="date">Pakai tanggal di atas</option>
@@ -5714,6 +5730,20 @@ input,select,textarea { font-family:inherit; }
 
       <button class="sh-del-link" onclick="delProject()">🗑 Hapus Kegiatan Ini</button>
 
+    </div>
+  </div>
+</div>
+
+<!-- Arsip Kegiatan (selesai) -->
+<div class="overlay" id="sh-archive" onclick="bgc(event,&#39;sh-archive&#39;)">
+  <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-archive')">✕</button>
+      <span class="sh-header2-title">🗄 Arsip Kegiatan</span>
+      <span style="width:34px"></span>
+    </div>
+    <div class="sh-body" style="padding-top:14px">
+      <div id="archive-list"></div>
     </div>
   </div>
 </div>
@@ -9933,6 +9963,7 @@ function pRec_c(pid){return(D.p_tasks||[]).filter(t=>t.parentId===pid&&t.recurri
 function calcPct_c(pid){const ts=pTasks_c(pid);return ts.length?Math.round(ts.filter(t=>t.done).length/ts.length*100):0;}
 function sLbl_c(s){return{aktif:'Aktif',rencana:'Rencana',selesai:'Selesai'}[s]||s;}
 function mf_c(p){
+  if(p.status==='selesai') return false; // archived — only shown via Arsip sheet
   if(curFilter_c==='singkat') return (p.type||'singkat')==='singkat';
   if(curFilter_c==='panjang') return p.type==='panjang';
   if(curFilter_c==='rencana') return p.status==='rencana';
@@ -10024,6 +10055,36 @@ function renderProjects(){
   // Build filter pills
   buildFilterPills_c();
   renderProjectsContent();
+  renderArchiveLink();
+}
+
+function renderArchiveLink(){
+  const el=document.getElementById('pa-archive-link-wrap');
+  if(!el) return;
+  const archived=(D.projects||[]).filter(p=>p.status==='selesai');
+  if(!archived.length){ el.innerHTML=''; return; }
+  el.innerHTML='<button class="pa-archive-link" onclick="openArchive()">🗄 Arsip ('+archived.length+')</button>';
+}
+
+function openArchive(){
+  const archived=(D.projects||[]).filter(p=>p.status==='selesai');
+  const listEl=document.getElementById('archive-list');
+  if(!listEl) return;
+  if(!archived.length){
+    listEl.innerHTML='<div class="archive-empty">Belum ada kegiatan yang diarsipkan</div>';
+  } else {
+    listEl.innerHTML=archived.map(p=>{
+      const tasks=(D.p_tasks||[]).filter(t=>t.parentId===p.id&&(!t.recurring||t.recurring.freq==='none'));
+      const total=tasks.length, done=tasks.filter(t=>t.done).length;
+      return '<div class="archive-item" onclick="closeSheet(\'sh-archive\');openProjDetail(\''+p.id+'\')">'+
+        '<div class="archive-icon" style="background:'+p.color+'18">'+(p.emoji||'📋')+'</div>'+
+        '<div class="archive-info">'+
+        '<div class="archive-name">'+escHtml(p.name)+'</div>'+
+        '<div class="archive-sub">'+(p.type==='panjang'?'🏔️ Kegiatan Panjang':'⚡ Kegiatan Singkat')+' · '+done+'/'+total+' langkah</div>'+
+        '</div></div>';
+    }).join('');
+  }
+  openSheet('sh-archive');
 }
 
 
@@ -10055,7 +10116,17 @@ function renderProjectsContent(){
     let sub='';
     if(total>0) sub=done+'/'+total+' langkah';
     else sub='Belum ada langkah';
-    if(dl) sub+=' · '+dl;
+    // date range: tampilkan rentang kalau ada startDate + tanggal selesai (deadline type 'date')
+    const dlIsDate=p.deadline&&p.deadline.type==='date'&&p.deadline.value;
+    if(p.startDate&&dlIsDate){
+      const sFmt=new Date(p.startDate+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'});
+      const eFmt=new Date(p.deadline.value+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'});
+      sub+=' · 📅 '+sFmt+' - '+eFmt;
+    } else if(p.startDate&&!dlIsDate){
+      const sFmt=new Date(p.startDate+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short'});
+      sub+=' · 📅 Mulai '+sFmt;
+      if(dl) sub+=' · '+dl;
+    } else if(dl) sub+=' · '+dl;
     // badge
     const badgeMap={
       aktif:{bg:'#dbeafe',color:'#2563eb',txt:'Aktif'},
@@ -10173,9 +10244,9 @@ function openProjDetail(id){
   const dlIsDate=p.deadline&&p.deadline.type==='date'&&p.deadline.value;
   const dlFmt=dlIsDate?new Date(p.deadline.value+'T12:00').toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'numeric'}):null;
   if(startFmt&&dlFmt){
-    rangeChip='<span class="pd-dl">🗓 '+startFmt+' → '+dlFmt+'</span>';
+    rangeChip='<span class="pd-dl">📅 '+startFmt+' - '+dlFmt+'</span>';
   } else if(startFmt){
-    rangeChip='<span class="pd-dl">🗓 Mulai '+startFmt+'</span>';
+    rangeChip='<span class="pd-dl">📅 Mulai '+startFmt+'</span>';
   } else if(dl){
     rangeChip='<span class="pd-dl">⏰ '+dl+'</span>';
   }
@@ -10302,7 +10373,7 @@ function renderProjAp_c(pid,color){
     }
 
     const row=document.createElement('div');
-    row.className='ap-item'+(isDone?' is-done':'');
+    row.className='ap-item ap-item-rev'+(isDone?' is-done':'');
     row.innerHTML=
       '<div class="ap-check'+(isDone?' done':'')+'" onclick="toggleApDone(\''+t.id+'\')" style="'+(isDone?'background:'+color+';border-color:'+color+';':'')+'">' +
       (isDone?'✓':'')+
