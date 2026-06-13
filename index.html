@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -4882,6 +4882,212 @@ input,select,textarea { font-family:inherit; }
   font-size: 13px; color: var(--line2); font-style: italic;
 }
 
+/* ══════════════════════════════════
+   MOMENTS TAB — gallery journal (dark, own world)
+══════════════════════════════════ */
+#v-moments {
+  background: #0b0b12; color: #f1ecff;
+  min-height: 100%;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+}
+.mom-wrap { padding: 18px 16px calc(var(--nav-h) + var(--sb) + 28px); }
+.mom-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
+.mom-month { font-size:20px; font-weight:800; letter-spacing:.04em; cursor:pointer; display:flex; align-items:center; gap:6px; color:#fff; }
+.mom-tagline { font-size:12px; color:#facc8a; font-style:italic; margin-top:4px; font-weight:600; }
+.mom-search-btn {
+  width:38px; height:38px; border-radius:50%;
+  background:rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center;
+  color:#cfc6e6; font-size:16px; flex-shrink:0;
+}
+
+.mom-stats {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:6px;
+  margin-bottom:16px;
+}
+.mom-stat { display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 2px; }
+.mom-stat-ic { font-size:16px; }
+.mom-stat-num { font-size:15px; font-weight:800; color:#fff; }
+.mom-stat-lbl { font-size:10px; color:#9b93b5; font-weight:600; text-align:center; }
+
+.mom-memory {
+  position:relative; border-radius:18px; overflow:hidden;
+  min-height:200px; margin-bottom:14px; cursor:pointer;
+  display:flex; align-items:flex-end;
+  background-size:cover; background-position:center;
+  border:1px solid rgba(255,255,255,.06);
+}
+.mom-memory::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,.75) 100%);
+}
+.mom-memory-body { position:relative; padding:16px; z-index:1; width:100%; }
+.mom-memory-tag { font-size:11px; font-weight:800; letter-spacing:.08em; color:#fbbf6a; text-transform:uppercase; margin-bottom:6px; display:flex; align-items:center; gap:5px;}
+.mom-memory-title { font-size:19px; font-weight:800; color:#fff; line-height:1.25; margin-bottom:6px; }
+.mom-memory-meta { font-size:12px; color:rgba(255,255,255,.75); display:flex; align-items:center; gap:5px; }
+.mom-memory-refresh {
+  position:absolute; top:14px; right:14px; z-index:1;
+  width:34px; height:34px; border-radius:50%;
+  background:rgba(0,0,0,.4); display:flex; align-items:center; justify-content:center;
+  color:#fff; font-size:15px;
+}
+.mom-memory-empty { font-size:13px; color:#9b93b5; padding:30px 16px; text-align:center; }
+
+.mom-capture {
+  display:flex; align-items:center; gap:12px;
+  background:rgba(255,255,255,.05); border:1px dashed rgba(255,255,255,.18);
+  border-radius:16px; padding:14px 14px; margin-bottom:16px; cursor:pointer;
+}
+.mom-capture-plus {
+  width:38px; height:38px; border-radius:50%; border:1.5px dashed rgba(255,255,255,.3);
+  display:flex; align-items:center; justify-content:center; font-size:16px; color:#cfc6e6; flex-shrink:0;
+}
+.mom-capture-text { flex:1; }
+.mom-capture-title { font-size:14px; font-weight:700; color:#fff; }
+.mom-capture-sub { font-size:11.5px; color:#9b93b5; margin-top:2px; }
+.mom-capture-cam {
+  width:34px; height:34px; border-radius:10px; background:rgba(255,255,255,.07);
+  display:flex; align-items:center; justify-content:center; color:#cfc6e6; font-size:15px; flex-shrink:0;
+}
+
+.mom-grid {
+  display:flex; gap:8px; margin-bottom:18px; align-items:flex-start;
+}
+.mom-grid-col { display:flex; flex-direction:column; gap:8px; flex:1; min-width:0; }
+.mom-card {
+  position:relative; border-radius:14px; overflow:hidden; cursor:pointer;
+  background:#1c1830; border:1px solid rgba(255,255,255,.05);
+  width:100%; display:block;
+}
+.mom-card img { width:100%; height:auto; display:block; }
+.mom-card.text-only {
+  aspect-ratio:1; background:linear-gradient(135deg,#241a3d,#1c1830);
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:10px;
+  flex-direction:column;
+}
+.mom-card.milestone.text-only { background:linear-gradient(135deg,#3b2d6b,#241a3d); }
+.mom-card-milestone-badge {
+  position:absolute; top:8px; left:8px; z-index:1;
+  font-size:9px; font-weight:800; letter-spacing:.06em; color:#1a1029; text-transform:uppercase;
+  background:#fbbf6a; padding:3px 7px; border-radius:99px;
+}
+.mom-card-ic { font-size:22px; color:#cfc6e6; margin-bottom:6px; }
+.mom-card-empty-cap { font-size:12px; color:#cfc6e6; font-weight:600; }
+.mom-card-empty-date { font-size:10px; color:#6b6485; margin-top:4px; }
+
+.mom-grid-empty {
+  text-align:center; padding:40px 20px; color:#9b93b5; font-size:13px;
+  border:1px dashed rgba(255,255,255,.1); border-radius:16px; margin-bottom:18px;
+}
+
+.mom-story-section { margin-bottom:18px; }
+.mom-story-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.mom-story-title { font-size:14px; font-weight:800; color:#fff; display:flex; align-items:center; gap:7px; }
+.mom-story-more { font-size:12px; color:#a78bfa; font-weight:700; }
+.mom-story-row { display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; }
+.mom-story-row::-webkit-scrollbar { display:none; }
+.mom-story-card {
+  flex:0 0 130px; border-radius:14px; overflow:hidden; position:relative;
+  aspect-ratio:1; background:#241a3d center/cover no-repeat; cursor:pointer;
+  border:1px solid rgba(255,255,255,.06);
+}
+.mom-story-card::before { content:''; position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 35%, rgba(0,0,0,.7) 100%); }
+.mom-story-body { position:absolute; bottom:0; left:0; right:0; padding:9px; z-index:1; }
+.mom-story-cap { font-size:12px; font-weight:700; color:#fff; line-height:1.25; }
+.mom-story-date { font-size:10px; color:#fbbf6a; margin-top:3px; font-weight:700; }
+.mom-story-empty { font-size:12px; color:#9b93b5; padding:14px; border:1px dashed rgba(255,255,255,.1); border-radius:14px; text-align:center; }
+
+.mom-months { display:flex; flex-direction:column; gap:8px; }
+.mom-month-row {
+  display:flex; align-items:center; gap:12px;
+  background:rgba(255,255,255,.04); border-radius:14px; padding:10px 12px;
+  cursor:pointer;
+}
+.mom-month-thumb { width:42px; height:42px; border-radius:10px; background:#241a3d center/cover no-repeat; flex-shrink:0; }
+.mom-month-name { font-size:13px; font-weight:800; color:#fff; flex:1; letter-spacing:.03em; }
+.mom-month-count { font-size:12px; color:#a78bfa; font-weight:700; }
+.mom-month-chev { color:#6b6485; font-size:14px; }
+
+.mom-fab {
+  position:fixed; bottom:calc(var(--nav-h) + var(--sb) + 14px); right:18px;
+  width:54px; height:54px; border-radius:50%;
+  background:linear-gradient(135deg,#a78bfa,#f472b6,#fbbf6a);
+  color:#1a1029; font-size:22px; display:flex; align-items:center; justify-content:center;
+  box-shadow:0 8px 24px rgba(167,139,250,.4); z-index:50;
+}
+@media (min-width:768px){
+  .mom-fab { bottom:24px; }
+  .mom-wrap { max-width:640px; margin:0 auto; padding:28px 24px 60px; }
+}
+
+
+/* Capture sheet (dark) */
+.mom-sheet-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.55); z-index:300;
+  display:flex; align-items:flex-end; justify-content:center;
+  opacity:0; pointer-events:none; transition:opacity .2s;
+}
+.mom-sheet-overlay.show { opacity:1; pointer-events:auto; }
+.mom-sheet {
+  width:100%; max-width:480px; background:#171221; border-radius:22px 22px 0 0;
+  padding:18px 18px calc(var(--sb) + 18px); color:#f1ecff;
+  transform:translateY(100%); transition:transform .25s;
+  max-height:85vh; overflow-y:auto;
+}
+.mom-sheet-overlay.show .mom-sheet { transform:translateY(0); }
+.mom-sheet-handle { width:36px; height:4px; background:rgba(255,255,255,.2); border-radius:99px; margin:0 auto 14px; }
+.mom-sheet-title { font-size:16px; font-weight:800; margin-bottom:14px; color:#fff; }
+.mom-field { margin-bottom:12px; }
+.mom-field label { font-size:11px; font-weight:700; color:#9b93b5; text-transform:uppercase; letter-spacing:.06em; display:block; margin-bottom:6px; }
+.mom-field input, .mom-field textarea, .mom-field select {
+  width:100%; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  border-radius:10px; padding:10px 12px; color:#fff; font-size:14px; font-family:inherit;
+}
+.mom-field textarea { resize:vertical; min-height:70px; }
+.mom-photo-drop {
+  border:1.5px dashed rgba(255,255,255,.18); border-radius:14px; padding:18px;
+  text-align:center; color:#9b93b5; font-size:12.5px; cursor:pointer; margin-bottom:12px;
+  background-size:cover; background-position:center; min-height:90px;
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
+}
+.mom-photo-drop .ti { font-size:22px; }
+.mom-mood-row { display:flex; gap:10px; }
+.mom-mood-btn {
+  flex:1; padding:10px; border-radius:10px; background:rgba(255,255,255,.05);
+  border:1.5px solid transparent; font-size:20px; text-align:center;
+}
+.mom-mood-btn.sel { border-color:#a78bfa; background:rgba(167,139,250,.15); }
+.mom-milestone-toggle {
+  display:flex; align-items:center; gap:10px; padding:10px 12px;
+  background:rgba(255,255,255,.05); border-radius:10px; margin-bottom:12px; cursor:pointer;
+}
+.mom-milestone-toggle.on { background:rgba(251,191,106,.12); border:1px solid rgba(251,191,106,.3); }
+.mom-toggle-dot { width:18px; height:18px; border-radius:50%; border:2px solid rgba(255,255,255,.25); flex-shrink:0; }
+.mom-milestone-toggle.on .mom-toggle-dot { background:#fbbf6a; border-color:#fbbf6a; }
+.mom-sheet-actions { display:flex; gap:10px; margin-top:6px; }
+.mom-btn { flex:1; padding:12px; border-radius:12px; font-size:14px; font-weight:700; text-align:center; }
+.mom-btn-ghost { background:rgba(255,255,255,.06); color:#cfc6e6; }
+.mom-btn-primary { background:linear-gradient(135deg,#a78bfa,#f472b6); color:#1a1029; }
+
+/* Detail modal */
+.mom-detail-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:300;
+  display:flex; align-items:center; justify-content:center; padding:16px;
+  opacity:0; pointer-events:none; transition:opacity .2s;
+}
+.mom-detail-overlay.show { opacity:1; pointer-events:auto; }
+.mom-detail-card {
+  width:100%; max-width:380px; max-height:85vh; overflow-y:auto;
+  background:#171221; border-radius:20px; color:#f1ecff; overflow:hidden;
+}
+.mom-detail-photo { width:100%; aspect-ratio:1; background:#241a3d center/cover no-repeat; }
+.mom-detail-body { padding:16px; }
+.mom-detail-cap { font-size:15px; font-weight:700; margin-bottom:6px; }
+.mom-detail-meta { font-size:12px; color:#9b93b5; display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:10px;}
+.mom-detail-close { position:absolute; top:10px; right:10px; width:32px; height:32px; border-radius:50%; background:rgba(0,0,0,.45); color:#fff; display:flex; align-items:center; justify-content:center; font-size:16px; }
+.mom-detail-actions { display:flex; gap:8px; margin-top:10px; }
+.mom-detail-actions .mom-btn { padding:9px; font-size:12.5px; }
+
 </style>
 </head>
 <body>
@@ -4894,6 +5100,9 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
+      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById('bn-moments'))" style="background:linear-gradient(135deg,#1a1429,#241a3d);color:#e9d8ff;margin-bottom:4px;">
+        <span class="sb-item-ic">📸</span> Moments
+      </button>
       <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">2</span>
@@ -4928,6 +5137,40 @@ input,select,textarea { font-family:inherit; }
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
+
+    <!-- ══ MOMENTS (gallery journal) ══ -->
+    <div class="view" id="v-moments">
+      <div class="mom-wrap">
+        <div class="mom-top">
+          <div>
+            <div class="mom-month" id="mom-month-label" onclick="momMonthPicker()">JUNI 2026 <span style="font-size:11px">▾</span></div>
+            <div class="mom-tagline">Live the best of lives ✨</div>
+          </div>
+          <button class="mom-search-btn" onclick="momSearchToggle()"><i class="ti ti-search"></i></button>
+        </div>
+
+        <div class="mom-stats" id="mom-stats"></div>
+
+        <div class="mom-memory" id="mom-memory" onclick="momOpenMemory()"></div>
+
+        <div class="mom-capture" onclick="momOpenCapture()">
+          <div class="mom-capture-plus"><i class="ti ti-plus"></i></div>
+          <div class="mom-capture-text">
+            <div class="mom-capture-title">Capture the moment</div>
+            <div class="mom-capture-sub">Foto sesuatu yang berarti hari ini ✨</div>
+          </div>
+          <div class="mom-capture-cam"><i class="ti ti-camera"></i></div>
+        </div>
+
+        <div class="mom-grid" id="mom-grid"></div>
+
+        <div class="mom-story-section" id="mom-story-section"></div>
+
+        <div class="mom-months" id="mom-months"></div>
+      </div>
+
+      <button class="mom-fab" onclick="momOpenCapture()"><i class="ti ti-plus"></i></button>
+    </div>
 
     <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
     <div class="view active" id="v-home">
@@ -5204,8 +5447,11 @@ input,select,textarea { font-family:inherit; }
 
   </div><!-- /scroll -->
 
-  <!-- BOTTOM NAV — 2 tab -->
+  <!-- BOTTOM NAV -->
   <nav class="bnav">
+    <button class="bn" id="bn-moments" onclick="goView('moments', this)" style="color:#a78bfa">
+      <div class="bn-ic">📸</div><div>Moments</div>
+    </button>
     <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
     </button>
@@ -6345,7 +6591,7 @@ const isDesktop=()=>window.innerWidth>=768;
 function goView(name, btn){
   closeNavPopover();
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const vmap={home:'v-home',cal:'v-cal',pomo:'v-pomo',subjects:'v-subjects',detail:'v-detail',projects:'v-projects',areas:'v-areas'};
+  const vmap={home:'v-home',cal:'v-cal',pomo:'v-pomo',subjects:'v-subjects',detail:'v-detail',projects:'v-projects',areas:'v-areas',moments:'v-moments'};
   const vid=vmap[name]||('v-'+name);
   document.getElementById(vid)?.classList.add('active');
   document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
@@ -6363,6 +6609,7 @@ function goView(name, btn){
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
   if(name==='projects') tb.innerHTML=`<div class="tb-title">📋 Kegiatan Singkat</div><button class="tb-action-btn" onclick="openAddProject()">＋ Baru</button>`;
   if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='moments')  tb.innerHTML='';
   // Sync pill state after topbar rebuild
   updatePomoPill();
 
@@ -6382,6 +6629,15 @@ function goView(name, btn){
   }
   if(name==='projects'){ renderProjects(); }
   if(name==='areas'){    renderAreas(); }
+  if(name==='moments'){  renderMoments(); }
+  if(outerScroll){
+    if(name==='moments'){ outerScroll.style.background = '#0b0b12'; outerScroll.style.padding='0'; }
+    else { outerScroll.style.background=''; outerScroll.style.padding=''; }
+  }
+  const topbarEl = document.getElementById('topbar');
+  if(topbarEl) topbarEl.style.display = (name==='moments' && !isDesktop()) ? 'none' : '';
+  const dtopbar = document.getElementById('desktop-topbar');
+  if(dtopbar && name==='moments') dtopbar.style.display='none';
   document.getElementById('scroll').scrollTop=0;
 }
 
@@ -6456,6 +6712,7 @@ function updateSidebarActive(view, sid){
   // nav items
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
   if(view==='home')     document.getElementById('sbn-home')?.classList.add('active');
+  if(view==='moments')  document.getElementById('sbn-moments')?.classList.add('active');
   // cal tab removed from sidebar
   if(view==='pomo')     document.getElementById('sbn-pomo')?.classList.add('active');
   // subjects tab removed from sidebar
@@ -11638,7 +11895,393 @@ function pomoBsResumeFocus(){
   toast('🍅 Fokus dimulai!');
 }
 
+// ════════════════════════════════════════
+// MOMENTS TAB — gallery journal logic
+// ════════════════════════════════════════
+const MOM_KEY = 'moments_v1';
+const MOM_MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+
+function momLoad(){
+  try{ return JSON.parse(localStorage.getItem(MOM_KEY)||'null') || momSeed(); }catch{ return momSeed(); }
+}
+function momSave(){ localStorage.setItem(MOM_KEY, JSON.stringify(MOM)); }
+
+function momSeed(){
+  const now = new Date();
+  const iso = (d,h,m)=>{ const x=new Date(d); x.setHours(h||12,m||0); return x.toISOString(); };
+  const y=now.getFullYear(), mo=now.getMonth();
+  return [
+    {id:'mm1', img:'', cap:'Mulai ngulik OpenCV buat project visi komputer', date: new Date(y,mo,2,20,10).toISOString(), place:'', mood:'😊', milestone:true, milestoneLabel:'Mulai ngulik OpenCV'},
+    {id:'mm2', img:'', cap:'Sunset di sore yang tenang', date: new Date(y,mo,4,17,45).toISOString(), place:'Pantai dekat rumah', mood:'😌', milestone:false},
+    {id:'mm3', img:'', cap:'Pertama kali nyoba climbing, kaki masih gemeteran', date: new Date(y,mo,7,16,0).toISOString(), place:'Climbing Gym', mood:'🤩', milestone:true, milestoneLabel:'Pertama kali nyoba panjat'},
+    {id:'mm4', img:'', cap:'Selesai baca buku yang numpuk 3 bulan', date: new Date(y,mo,8,21,30).toISOString(), place:'', mood:'😄', milestone:false},
+    {id:'mm5', img:'', cap:'Hangout sama temen lama, ngobrol sampe malem', date: new Date(y,mo,10,19,0).toISOString(), place:'', mood:'🥰', milestone:false},
+    {id:'mm6', img:'', cap:'Nonton konser bareng teman', date: new Date(y,mo,12,22,0).toISOString(), place:'', mood:'🤩', milestone:true, milestoneLabel:'Nonton konser bareng teman'},
+    {id:'mm7', img:'', cap:'Cafe hopping weekend', date: new Date(y,mo,13,15,0).toISOString(), place:'', mood:'😊', milestone:true, milestoneLabel:'Cafe hopping weekend'},
+  ];
+}
+
+let MOM = momLoad();
+let _momViewMonth = new Date(); // current month being viewed
+let _momPendingImg = '';
+let _momEditId = null;
+
+function momKey(d){ const x=new Date(d); return x.getFullYear()+'-'+x.getMonth(); }
+function momInMonth(item, monthDate){ return momKey(item.date) === momKey(monthDate); }
+function momFmtDate(d){ const x=new Date(d); return x.getDate()+' '+MOM_MONTHS[x.getMonth()].slice(0,3); }
+function momFmtFull(d){ const x=new Date(d); return x.getDate()+' '+MOM_MONTHS[x.getMonth()]+' '+x.getFullYear(); }
+
+function renderMoments(){
+  const monthItems = MOM.filter(m=>momInMonth(m,_momViewMonth)).sort((a,b)=> new Date(b.date)-new Date(a.date));
+  const placesSet = new Set(monthItems.map(m=>m.place).filter(Boolean));
+  const firstTimes = monthItems.filter(m=>m.milestone).length;
+
+  // streak: consecutive days with at least one moment, counting back from today
+  let streak=0; let cur=new Date();
+  for(;;){ const has = MOM.some(m=> new Date(m.date).toDateString()===cur.toDateString()); if(!has) break; streak++; cur.setDate(cur.getDate()-1); if(streak>365) break; }
+
+  document.getElementById('mom-month-label').innerHTML = `${MOM_MONTHS[_momViewMonth.getMonth()].toUpperCase()} ${_momViewMonth.getFullYear()} <span style="font-size:11px">▾</span>`;
+
+  document.getElementById('mom-stats').innerHTML = `
+    <div class="mom-stat"><div class="mom-stat-ic">📷</div><div class="mom-stat-num">${monthItems.length}</div><div class="mom-stat-lbl">moments</div></div>
+    <div class="mom-stat"><div class="mom-stat-ic">📍</div><div class="mom-stat-num">${placesSet.size}</div><div class="mom-stat-lbl">places</div></div>
+    <div class="mom-stat"><div class="mom-stat-ic">⭐</div><div class="mom-stat-num">${firstTimes}</div><div class="mom-stat-lbl">first times</div></div>
+    <div class="mom-stat"><div class="mom-stat-ic">🔥</div><div class="mom-stat-num">${streak}</div><div class="mom-stat-lbl">days streak</div></div>
+  `;
+
+  // Memory of the day — pick something from a past year, same-ish day, deterministic by date
+  momRenderMemory();
+
+  // Grid (masonry, natural aspect ratio, click-to-reveal caption)
+  const grid = document.getElementById('mom-grid');
+  if(!monthItems.length){
+    grid.outerHTML = `<div class="mom-grid-empty" id="mom-grid">Belum ada momen bulan ini.<br>Yuk capture momen pertamamu! ✨</div>`;
+  } else {
+    if(!grid.classList.contains('mom-grid')){
+      grid.outerHTML = `<div class="mom-grid" id="mom-grid"></div>`;
+    }
+    momRenderMasonry(monthItems);
+  }
+
+  // Story (milestones)
+  const milestones = monthItems.filter(m=>m.milestone);
+  const storySec = document.getElementById('mom-story-section');
+  storySec.innerHTML = `
+    <div class="mom-story-head">
+      <div class="mom-story-title">📖 ${MOM_MONTHS[_momViewMonth.getMonth()]} Story</div>
+    </div>
+    ${milestones.length ? `<div class="mom-story-row">${milestones.map(m=>`
+      <div class="mom-story-card" style="${m.img?`background-image:url('${m.img}')`:''}" onclick="momOpenDetail('${m.id}')">
+        <div class="mom-story-body">
+          <div class="mom-story-cap">${m.milestoneLabel||m.cap}</div>
+          <div class="mom-story-date">${momFmtDate(m.date)}</div>
+        </div>
+      </div>`).join('')}</div>`
+      : `<div class="mom-story-empty">Belum ada momen "mulai sesuatu" bulan ini — tandai momen sebagai first time saat capture 🌱</div>`}
+  `;
+
+  // Other months list
+  const monthsList = document.getElementById('mom-months');
+  const byMonth = {};
+  MOM.forEach(m=>{ const k=momKey(m.date); (byMonth[k]=byMonth[k]||[]).push(m); });
+  const keys = Object.keys(byMonth).filter(k=>k!==momKey(_momViewMonth)).sort((a,b)=>{
+    const [ya,ma]=a.split('-').map(Number), [yb,mb]=b.split('-').map(Number);
+    return (yb*12+mb)-(ya*12+ma);
+  });
+  monthsList.innerHTML = keys.map(k=>{
+    const [yy,mm]=k.split('-').map(Number);
+    const items = byMonth[k];
+    const thumb = items.find(m=>m.img)?.img || '';
+    return `<div class="mom-month-row" onclick="momGotoMonth(${yy},${mm})">
+      <div class="mom-month-thumb" style="${thumb?`background-image:url('${thumb}')`:''}"></div>
+      <div class="mom-month-name">${MOM_MONTHS[mm].toUpperCase()} ${yy}</div>
+      <div class="mom-month-count">${items.length} moments</div>
+      <div class="mom-month-chev">›</div>
+    </div>`;
+  }).join('');
+}
+
+function momCardHtml(m){
+  if(!m.img){
+    return `<div class="mom-card text-only ${m.milestone?'milestone':''}" onclick="momOpenDetail('${m.id}')">
+      ${m.milestone?`<div class="mom-card-milestone-badge">⭐ first time</div>`:''}
+      <div class="mom-card-ic">${m.milestone?'🚀':'📝'}</div>
+      <div class="mom-card-empty-cap">${momTrunc(m.cap,38)}</div>
+      <div class="mom-card-empty-date">${momFmtDate(m.date)}</div>
+    </div>`;
+  }
+  return `<div class="mom-card" onclick="momOpenDetail('${m.id}')">
+    ${m.milestone?`<div class="mom-card-milestone-badge">⭐ first time</div>`:''}
+    <img src="${m.img}" loading="lazy" alt="">
+  </div>`;
+}
+function momTrunc(s,n){ return s.length>n ? s.slice(0,n-1)+'…' : s; }
+
+// Distribute items into N masonry columns (shortest-column-first)
+let _momResizeBound = false;
+function momCols(){
+  const w = document.getElementById('scroll')?.clientWidth || window.innerWidth;
+  if(w >= 900) return 4;
+  if(w >= 640) return 3;
+  return 2;
+}
+function momRenderMasonry(items){
+  const grid = document.getElementById('mom-grid');
+  const n = momCols();
+  grid.innerHTML = '';
+  const cols = [];
+  for(let i=0;i<n;i++){
+    const col = document.createElement('div');
+    col.className='mom-grid-col';
+    grid.appendChild(col);
+    cols.push({el:col, h:0});
+  }
+  items.forEach(m=>{
+    cols.sort((a,b)=>a.h-b.h);
+    const target = cols[0];
+    target.el.insertAdjacentHTML('beforeend', momCardHtml(m));
+    // approximate height: text-only cards are square (1), photo cards default to 1.2 until image loads
+    target.h += m.img ? 1.2 : 1;
+  });
+  // After images load, re-measure isn't necessary for correctness, just visual balance.
+  if(!_momResizeBound){
+    _momResizeBound = true;
+    let t;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(t);
+      t = setTimeout(()=>{
+        if(document.getElementById('v-moments')?.classList.contains('active')) renderMoments();
+      }, 250);
+    });
+  }
+}
+
+function momRenderMemory(){
+  const el = document.getElementById('mom-memory');
+  const today = new Date();
+
+  // Preferred: same month/day from a previous year
+  let mem = MOM.filter(m=>{
+    const d=new Date(m.date);
+    return d.getFullYear() < today.getFullYear() && d.getMonth()===today.getMonth() && d.getDate()===today.getDate();
+  }).sort((a,b)=> new Date(b.date)-new Date(a.date))[0];
+
+  // Fallback: oldest entry that's at least 30 days ago
+  if(!mem){
+    const cutoff = new Date(today); cutoff.setDate(cutoff.getDate()-30);
+    mem = MOM.filter(m=> new Date(m.date) <= cutoff)
+      .sort((a,b)=> new Date(a.date)-new Date(b.date))[0]; // oldest first
+  }
+
+  if(!mem){
+    el.style.background='rgba(255,255,255,.04)';
+    el.style.minHeight='auto';
+    el.innerHTML = `<div class="mom-memory-empty">✨ Belum ada kenangan lama. Terus capture momen, biar nanti ada flashback buat kamu!</div>`;
+    delete el.dataset.id;
+    return;
+  }
+  el.style.background = mem.img ? `url('${mem.img}') center/cover no-repeat, linear-gradient(135deg,#3b2d6b,#241a3d)` : 'linear-gradient(135deg,#3b2d6b,#241a3d)';
+  el.style.minHeight='200px';
+  el.dataset.id = mem.id;
+  el.innerHTML = `
+    <div class="mom-memory-refresh"><i class="ti ti-refresh"></i></div>
+    <div class="mom-memory-body">
+      <div class="mom-memory-tag">✨ Memory of the day</div>
+      <div class="mom-memory-title">${mem.cap}</div>
+      <div class="mom-memory-meta">${mem.place?`<i class="ti ti-map-pin" style="font-size:12px"></i> ${mem.place} · `:''}${momFmtFull(mem.date)}</div>
+    </div>
+  `;
+}
+
+function momOpenMemory(){
+  const el = document.getElementById('mom-memory');
+  const id = el.dataset.id;
+  if(id) momOpenDetail(id);
+}
+
+function momGotoMonth(y,m){
+  _momViewMonth = new Date(y,m,1);
+  renderMoments();
+  document.getElementById('scroll').scrollTop=0;
+}
+function momMonthPicker(){
+  // simple cycle: go to previous month with data, or just shift back one month
+  _momViewMonth.setMonth(_momViewMonth.getMonth()-1);
+  renderMoments();
+}
+function momSearchToggle(){
+  const q = prompt('Cari momen (kata kunci):');
+  if(q===null) return;
+  const ql=q.trim().toLowerCase();
+  if(!ql){ renderMoments(); return; }
+  const results = MOM.filter(m=>m.cap.toLowerCase().includes(ql) || (m.place||'').toLowerCase().includes(ql))
+    .sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const grid = document.getElementById('mom-grid');
+  if(results.length){
+    if(!grid.classList.contains('mom-grid')) grid.outerHTML = `<div class="mom-grid" id="mom-grid"></div>`;
+    momRenderMasonry(results);
+  } else {
+    grid.outerHTML = `<div class="mom-grid-empty" id="mom-grid">Gak ada momen yang cocok dengan "${q}" 🔍</div>`;
+  }
+  document.getElementById('mom-story-section').innerHTML='';
+  document.getElementById('mom-months').innerHTML='';
+}
+
+// ── Capture sheet ──
+function momOpenCapture(editId){
+  _momEditId = editId || null;
+  _momPendingImg='';
+  const editing = MOM.find(m=>m.id===editId);
+  if(editing) _momPendingImg = editing.img||'';
+
+  const overlay = document.createElement('div');
+  overlay.className='mom-sheet-overlay';
+  overlay.id='mom-capture-overlay';
+  overlay.onclick = (e)=>{ if(e.target===overlay) momCloseCapture(); };
+  overlay.innerHTML = `
+    <div class="mom-sheet">
+      <div class="mom-sheet-handle"></div>
+      <div class="mom-sheet-title">${editing?'✏️ Edit Momen':'📸 Capture the Moment'}</div>
+
+      <div class="mom-photo-drop" id="mom-photo-drop" style="${_momPendingImg?`background-image:url('${_momPendingImg}')`:''}" onclick="document.getElementById('mom-photo-input').click()">
+        ${_momPendingImg?'':'<i class="ti ti-camera"></i><div>Tap untuk tambah foto (opsional)</div>'}
+      </div>
+      <input type="file" id="mom-photo-input" accept="image/*" style="display:none" onchange="momPickPhoto(event)">
+
+      <div class="mom-field">
+        <label>Apa yang terjadi?</label>
+        <textarea id="mom-cap-input" placeholder="Ceritain momennya...">${editing?editing.cap:''}</textarea>
+      </div>
+
+      <div class="mom-field">
+        <label>Lokasi (opsional)</label>
+        <input id="mom-place-input" type="text" placeholder="e.g. Kuta Beach, Bali" value="${editing?(editing.place||''):''}">
+      </div>
+
+      <div class="mom-field">
+        <label>Mood</label>
+        <div class="mom-mood-row" id="mom-mood-row">
+          ${['😊','😌','🤩','🥰','😄','😢','😤'].map(e=>`<div class="mom-mood-btn ${editing&&editing.mood===e?'sel':''}" data-mood="${e}" onclick="momPickMood(this)">${e}</div>`).join('')}
+        </div>
+      </div>
+
+      <div class="mom-milestone-toggle ${editing&&editing.milestone?'on':''}" id="mom-milestone-toggle" onclick="momToggleMilestone()">
+        <div class="mom-toggle-dot"></div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:#fff">Ini momen "mulai sesuatu" ⭐</div>
+          <div style="font-size:11px;color:#9b93b5;margin-top:2px">Akan masuk ke Story bulan ini sebagai first time</div>
+        </div>
+      </div>
+
+      <div class="mom-sheet-actions">
+        <button class="mom-btn mom-btn-ghost" onclick="momCloseCapture()">Batal</button>
+        <button class="mom-btn mom-btn-primary" onclick="momSaveCapture()">Simpan ✓</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>overlay.classList.add('show'));
+}
+
+function momPickPhoto(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    _momPendingImg = reader.result;
+    const drop = document.getElementById('mom-photo-drop');
+    drop.style.backgroundImage = `url('${_momPendingImg}')`;
+    drop.style.backgroundSize='cover'; drop.style.backgroundPosition='center';
+    drop.innerHTML='';
+  };
+  reader.readAsDataURL(file);
+}
+function momPickMood(el){
+  document.querySelectorAll('#mom-mood-row .mom-mood-btn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function momToggleMilestone(){
+  document.getElementById('mom-milestone-toggle').classList.toggle('on');
+}
+function momCloseCapture(){
+  const ov = document.getElementById('mom-capture-overlay');
+  if(!ov) return;
+  ov.classList.remove('show');
+  setTimeout(()=>ov.remove(),200);
+}
+function momSaveCapture(){
+  const cap = document.getElementById('mom-cap-input').value.trim();
+  if(!cap){ toast('Tulis dulu ceritanya ya 📝'); return; }
+  const place = document.getElementById('mom-place-input').value.trim();
+  const moodEl = document.querySelector('#mom-mood-row .mom-mood-btn.sel');
+  const mood = moodEl ? moodEl.dataset.mood : '😊';
+  const milestone = document.getElementById('mom-milestone-toggle').classList.contains('on');
+
+  if(_momEditId){
+    const item = MOM.find(m=>m.id===_momEditId);
+    Object.assign(item, {cap, place, mood, milestone, img:_momPendingImg, milestoneLabel: milestone?(item.milestoneLabel||cap):undefined, date:item.date});
+  } else {
+    MOM.unshift({
+      id:'m'+Date.now(), cap, place, mood, milestone,
+      img:_momPendingImg, date:new Date().toISOString(),
+      milestoneLabel: milestone?cap:undefined
+    });
+  }
+  momSave();
+  momCloseCapture();
+  renderMoments();
+  toast(milestone?'⭐ Momen tersimpan ke Story bulan ini!':'✨ Momen tersimpan!');
+}
+
+// ── Detail modal ──
+function momOpenDetail(id){
+  const m = MOM.find(x=>x.id===id);
+  if(!m) return;
+  const overlay = document.createElement('div');
+  overlay.className='mom-detail-overlay';
+  overlay.id='mom-detail-overlay';
+  overlay.onclick=(e)=>{ if(e.target===overlay) momCloseDetail(); };
+  overlay.innerHTML = `
+    <div class="mom-detail-card">
+      <div style="position:relative">
+        ${m.img ? `<div class="mom-detail-photo" style="background-image:url('${m.img}')"></div>` : `<div class="mom-detail-photo" style="display:flex;align-items:center;justify-content:center;font-size:40px;background:linear-gradient(135deg,#3b2d6b,#241a3d)">${m.milestone?'🚀':'📝'}</div>`}
+        <div class="mom-detail-close" onclick="momCloseDetail()"><i class="ti ti-x"></i></div>
+      </div>
+      <div class="mom-detail-body">
+        ${m.milestone?`<div class="mom-card-tag" style="margin-bottom:6px">⭐ first time</div>`:''}
+        <div class="mom-detail-cap">${m.cap}</div>
+        <div class="mom-detail-meta">
+          <span>${momFmtFull(m.date)}</span>
+          ${m.place?`<span>· <i class="ti ti-map-pin" style="font-size:12px"></i> ${m.place}</span>`:''}
+          <span>· ${m.mood||'😊'}</span>
+        </div>
+        <div class="mom-detail-actions">
+          <button class="mom-btn mom-btn-ghost" onclick="momCloseDetail();momOpenCapture('${m.id}')"><i class="ti ti-edit"></i> Edit</button>
+          <button class="mom-btn mom-btn-ghost" onclick="momDeleteItem('${m.id}')"><i class="ti ti-trash"></i> Hapus</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>overlay.classList.add('show'));
+}
+function momCloseDetail(){
+  const ov = document.getElementById('mom-detail-overlay');
+  if(!ov) return;
+  ov.classList.remove('show');
+  setTimeout(()=>ov.remove(),200);
+}
+function momDeleteItem(id){
+  if(!confirm('Hapus momen ini?')) return;
+  MOM = MOM.filter(m=>m.id!==id);
+  momSave();
+  momCloseDetail();
+  renderMoments();
+  toast('🗑 Momen dihapus');
+}
+
 boot();
+
 </script>
 
 
