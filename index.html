@@ -2879,6 +2879,219 @@ input,select,textarea { font-family:inherit; }
 }
 .ujian-v2-more-btn:active { background: var(--bg2); }
 
+/* ══════════════════════════════════
+   BELAJAR ITEM v4 — status biner
+   (Masih Belum Belajar Lagi / Udah Paham)
+══════════════════════════════════ */
+.bitem-v4 {
+  display: flex; align-items: center; gap: 11px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  transition: background .1s; cursor: pointer;
+}
+.bitem-v4:last-child { border-bottom: none; }
+.bitem-v4:active { background: var(--bg); }
+.bitem-v4-accent {
+  width: 3px; align-self: stretch; min-height: 38px;
+  border-radius: 99px; flex-shrink: 0;
+}
+.bitem-v4-accent.belajar { background: var(--blue-bd); }
+.bitem-v4-accent.paham   { background: var(--green); }
+.bitem-v4-body { flex: 1; min-width: 0; }
+.bitem-v4-meta {
+  font-size: 11px; font-weight: 700; color: var(--ink3);
+  letter-spacing: .02em; margin-bottom: 2px;
+}
+.bitem-v4-name { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.35; }
+.bitem-v4-name.paham { color: var(--ink3); }
+.bitem-v4-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 700;
+  padding: 3px 9px; border-radius: 99px; margin-top: 5px;
+}
+.bitem-v4-pill.belajar { background: var(--blue-lt); color: var(--blue); }
+.bitem-v4-pill.paham   { background: var(--green-lt); color: var(--green); }
+.bitem-v4-more { font-size: 17px; color: var(--ink3); padding: 6px; flex-shrink: 0; }
+.bitem-v4-more:active { color: var(--ink); }
+
+/* ══ ABSEN RECAP — terpisah dari materi ══ */
+.absen-recap-card {
+  display: flex; align-items: center;
+  background: var(--white); border: 1px solid var(--line); border-radius: var(--r);
+  margin-bottom: 10px; padding: 12px 6px;
+  cursor: pointer; transition: background .1s;
+}
+.absen-recap-card:active { background: var(--bg); }
+.arc-item { flex: 1; text-align: center; display: flex; flex-direction: column; gap: 2px; }
+.arc-num { font-size: 18px; font-weight: 800; color: var(--ink); line-height: 1; }
+.arc-num.gn { color: var(--green); }
+.arc-num.rd { color: var(--red); }
+.arc-num.am { color: var(--amber); }
+.arc-lbl { font-size: 10px; font-weight: 700; color: var(--ink3); text-transform: uppercase; letter-spacing: .05em; }
+.arc-div { width: 1px; align-self: stretch; background: var(--line); margin: 2px 0; }
+.arc-chev { flex-shrink: 0; color: var(--ink3); font-size: 16px; padding: 0 10px; }
+.absen-recap-empty {
+  font-size: 12px; color: var(--ink3); font-weight: 600; text-align: center;
+  background: var(--white); border: 1.5px dashed var(--line2); border-radius: var(--r);
+  padding: 14px; margin-bottom: 10px; line-height: 1.5;
+}
+
+/* ══ SORT BAR — toggle urutan Belajar ══ */
+.sort-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px; }
+.sort-info { font-size: 11.5px; color: var(--ink3); font-weight: 600; }
+.sort-btn {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 11.5px; font-weight: 700; color: var(--blue);
+  cursor: pointer; padding: 4px 10px; border-radius: 99px;
+  border: 1px solid var(--blue-lt); background: var(--blue-lt); transition: opacity .12s;
+}
+.sort-btn:active { opacity: .7; }
+
+/* ══ KERJAIN — checkbox kanan ══ */
+.titem-v2-check2 {
+  width: 26px; height: 26px; border-radius: 8px;
+  border: 2px solid var(--line2); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; cursor: pointer; font-size: 13px; font-weight: 800;
+  margin-left: 10px; transition: all .2s cubic-bezier(.32,.72,0,1);
+}
+.titem-v2-check2.done { background: var(--green); border-color: var(--green); color: #fff; }
+.titem-v2-check2:active { transform: scale(.85); }
+
+/* ══ STEPPER (pertemuan ke-) ══ */
+.stepper-row {
+  display: flex; align-items: center;
+  background: var(--bg); border: 1.5px solid var(--line);
+  border-radius: var(--rsm); height: 46px; overflow: hidden;
+}
+.stepper-btn {
+  width: 42px; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 19px; font-weight: 700; color: var(--blue);
+  cursor: pointer; flex-shrink: 0; user-select: none;
+}
+.stepper-btn:active { background: var(--blue-lt); }
+.stepper-val { flex: 1; text-align: center; font-size: 15px; font-weight: 800; color: var(--ink); }
+.stepper-div { width: 1.5px; height: 24px; background: var(--line); flex-shrink: 0; }
+
+/* ══ STATUS CARD OPTIONS (sheet materi) ══ */
+.status-card-opts { display: flex; flex-direction: column; gap: 8px; }
+.status-card-opt {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 14px; border-radius: var(--r);
+  border: 1.5px solid var(--line); cursor: pointer;
+  transition: all .12s; background: var(--bg);
+}
+.status-card-opt.sel.blue-sel  { border-color: var(--blue);  background: var(--blue-lt); }
+.status-card-opt.sel.green-sel { border-color: var(--green); background: var(--green-lt); }
+.status-card-ic {
+  width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; background: var(--bg2); color: var(--ink3);
+}
+.status-card-opt.sel.blue-sel  .status-card-ic { background: var(--blue-lt);  color: var(--blue); }
+.status-card-opt.sel.green-sel .status-card-ic { background: var(--green-lt); color: var(--green); }
+.status-card-txt { flex: 1; }
+.status-card-lbl { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; margin-bottom: 2px; }
+.status-card-sub { font-size: 11.5px; color: var(--ink3); line-height: 1.4; }
+.status-card-chk {
+  width: 21px; height: 21px; border-radius: 50%;
+  border: 1.5px solid var(--line2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: transparent;
+}
+.status-card-opt.sel.blue-sel  .status-card-chk { background: var(--blue);  border-color: var(--blue);  color: #fff; }
+.status-card-opt.sel.green-sel .status-card-chk { background: var(--green); border-color: var(--green); color: #fff; }
+
+/* ══ CHIP SELECT (tipe tugas / ujian) ══ */
+.chip-select-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.chip-select {
+  font-size: 12.5px; font-weight: 700; padding: 8px 14px;
+  border-radius: 99px; border: 1.5px solid var(--line2);
+  color: var(--ink2); cursor: pointer; background: var(--white); transition: all .12s;
+}
+.chip-select.sel { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
+
+/* ══ ABSEN MINI CARD (di sheet materi) ══ */
+.absen-mini-card {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 14px; background: var(--bg);
+  border: 1.5px solid var(--line); border-radius: var(--r);
+  cursor: pointer; transition: background .1s;
+}
+.absen-mini-card:active { background: var(--bg2); }
+.absen-mini-ic { font-size: 20px; flex-shrink: 0; }
+.absen-mini-txt { flex: 1; min-width: 0; }
+.absen-mini-lbl { font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.absen-mini-sub { font-size: 11.5px; color: var(--ink3); margin-top: 1px; }
+.absen-mini-chev { color: var(--ink3); font-size: 17px; flex-shrink: 0; }
+
+/* ══ TOGGLE ROW (sudah selesai) ══ */
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 13px 14px; background: var(--bg);
+  border: 1.5px solid var(--line); border-radius: var(--r); margin-bottom: 15px;
+}
+.toggle-row-txt { flex: 1; padding-right: 10px; }
+.toggle-row-lbl { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 2px; }
+.toggle-row-sub { font-size: 11.5px; color: var(--ink3); line-height: 1.4; }
+.toggle-sw {
+  width: 46px; height: 27px; border-radius: 99px;
+  background: var(--line2); position: relative; cursor: pointer;
+  flex-shrink: 0; transition: background .18s;
+}
+.toggle-sw.on { background: var(--green); }
+.toggle-sw-knob {
+  width: 21px; height: 21px; border-radius: 50%; background: #fff;
+  position: absolute; top: 3px; left: 3px; transition: left .18s;
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+.toggle-sw.on .toggle-sw-knob { left: 22px; }
+
+/* ══ SIAPIN — status kesiapan ══ */
+.uv2-status {
+  display: flex; align-items: center; justify-content: center;
+  padding: 9px 12px; border-radius: var(--rsm);
+  font-size: 13px; font-weight: 700; flex: 1; text-align: center;
+}
+.uv2-status.notready { background: var(--bg2); color: var(--ink2); }
+.uv2-status.partial  { background: var(--amber-lt); color: #92400e; }
+.uv2-status.ready    { background: var(--green-lt); color: var(--green); }
+.ujian-v2-materi-pill.direview { background: var(--purple-lt); border-color: var(--purple); color: var(--purple); }
+
+/* ══ MATERI CHECKLIST v2 — di sheet Siapin ══ */
+.um-tip-v2 {
+  font-size: 11.5px; color: var(--blue); line-height: 1.55;
+  margin-bottom: 10px; padding: 10px 11px;
+  background: var(--blue-lt); border-radius: var(--rsm);
+}
+.um-list-v2 { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+.um-item-v2 {
+  display: flex; align-items: center; gap: 9px;
+  padding: 10px 11px; border-radius: var(--rsm);
+  background: var(--bg); border: 1.5px solid var(--line);
+  cursor: pointer; transition: all .12s;
+}
+.um-item-v2.linked { border-color: var(--blue-bd); background: var(--blue-lt); }
+.um-link-v2 {
+  width: 22px; height: 22px; border-radius: 6px;
+  border: 1.5px solid var(--line2); background: var(--white);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: transparent;
+}
+.um-item-v2.linked .um-link-v2 { background: var(--blue); border-color: var(--blue); color: #fff; }
+.um-name-v2 { font-size: 12.5px; font-weight: 600; color: var(--ink); flex: 1; min-width: 0; }
+.um-paham-v2 { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 99px; flex-shrink: 0; }
+.um-paham-v2.paham   { background: var(--green-lt); color: var(--green); }
+.um-paham-v2.belajar { background: var(--blue-lt);  color: var(--blue); }
+.um-review-v2 {
+  display: flex; align-items: center; gap: 4px; flex-shrink: 0;
+  font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 99px;
+  border: 1.5px solid var(--line2); color: var(--ink3); cursor: pointer;
+  background: var(--white); transition: all .12s;
+}
+.um-review-v2.on { border-color: var(--purple); color: var(--purple); background: var(--purple-lt); }
+
 /* ══ MATERI CARD WITH STATUS ══ */
 .mitem-status-row {
   display:flex; gap:6px; margin-top:6px; flex-wrap:wrap;
@@ -5175,24 +5388,27 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
     <div class="view active" id="v-home">
 
-      <!-- Stats strip (rendered by JS) — above weekly cal -->
-      <div id="home-stats-strip"><div class="home-stats-strip" style="grid-template-columns:1fr 1fr;"><div class="hstat hstat-neutral"><div class="hstat-num blue">2</div><div class="hstat-lbl">Tugas</div></div><div class="hstat hstat-neutral" style=""><div style="display:flex;align-items:baseline;gap:2px;justify-content:center"><span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--ink3)">—</span></div><div class="hstat-lbl">Focus</div></div></div></div>
-
-      <!-- Weekly Calendar Header -->
-      <div class="home-week-cal" id="home-week-cal">
-        <div class="hwc-header">
-          <div class="hwc-month" id="hwc-month-label">Jun 2026</div>
-          <div class="hwc-nav">
-            <button class="hwc-arr" onclick="shiftHomeWeek(-1)">‹</button>
-            <button class="hwc-arr" onclick="shiftHomeWeek(1)">›</button>
+      <!-- Weekly Calendar (ks-cal style) -->
+      <div class="ks-cal-wrap" id="home-week-cal" style="border-radius:0;border-left:none;border-right:none;border-top:none;box-shadow:none;margin-bottom:0;">
+        <div class="ks-cal-head">
+          <span class="ks-cal-title">📅 <span class="ks-cal-month" id="hwc-month-label">Jun 2026</span></span>
+          <div class="ks-cal-nav">
+            <button class="ks-cal-arr" onclick="shiftHomeWeek(-1)">‹</button>
+            <button class="ks-cal-arr" onclick="shiftHomeWeek(1)">›</button>
           </div>
         </div>
-        <div class="hwc-grid" id="hwc-grid"><div class="hwc-day past"><div class="hwc-day-name">Sen</div><div class="hwc-num-wrap"><div class="hwc-num">8</div></div><div class="hwc-dots"></div></div><div class="hwc-day past"><div class="hwc-day-name">Sel</div><div class="hwc-num-wrap"><div class="hwc-num">9</div></div><div class="hwc-dots"></div></div><div class="hwc-day past"><div class="hwc-day-name">Rab</div><div class="hwc-num-wrap"><div class="hwc-num">10</div></div><div class="hwc-dots"></div></div><div class="hwc-day is-today"><div class="hwc-day-name">Kam</div><div class="hwc-num-wrap"><div class="hwc-num">11</div></div><div class="hwc-dots"><div class="hwc-dot hwcd-red"></div></div></div><div class="hwc-day"><div class="hwc-day-name">Jum</div><div class="hwc-num-wrap"><div class="hwc-num">12</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Sab</div><div class="hwc-num-wrap"><div class="hwc-num">13</div></div><div class="hwc-dots"></div></div><div class="hwc-day"><div class="hwc-day-name">Min</div><div class="hwc-num-wrap"><div class="hwc-num">14</div></div><div class="hwc-dots"></div></div></div>
-        <!-- Selected day detail panel -->
-        <div class="hwc-day-detail" id="hwc-day-detail" style="display:none">
-          <div class="hwc-day-detail-title" id="hwc-detail-title">Rabu, 11 Jun</div>
-          <div id="hwc-detail-items"></div>
+        <div class="ks-cal-grid" style="grid-template-columns:repeat(7,1fr);padding:8px 6px 10px;">
+          <div class="ks-cal-dl">Sen</div>
+          <div class="ks-cal-dl">Sel</div>
+          <div class="ks-cal-dl">Rab</div>
+          <div class="ks-cal-dl">Kam</div>
+          <div class="ks-cal-dl">Jum</div>
+          <div class="ks-cal-dl">Sab</div>
+          <div class="ks-cal-dl">Min</div>
+          <div id="hwc-grid" style="display:contents"></div>
         </div>
+        <!-- Selected day detail panel -->
+        <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
       </div>
 
       <!-- Tanggungan per Matkul -->
@@ -5252,33 +5468,38 @@ input,select,textarea { font-family:inherit; }
 
       <!-- Detail Tab Nav -->
       <div class="detail-tab-nav" id="detail-tab-nav">
-        <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab(&#39;materi&#39;)">📖 Materi</button>
-        <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab(&#39;tugas&#39;)">📋 Tugas</button>
-        <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab(&#39;ujian&#39;)">📝 Ujian</button>
+        <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab(&#39;materi&#39;)">📖 Belajar</button>
+        <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab(&#39;tugas&#39;)">📋 Kerjain</button>
+        <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab(&#39;ujian&#39;)">📝 Siapin</button>
       </div>
 
-      <!-- Materi Tab — guide box removed -->
+      <!-- Belajar Tab -->
       <div class="detail-tab-content active" id="dtab-content-materi">
         <div class="pad" style="padding-top:14px">
-          <div class="sec" id="sec-m-label">📖 Materi <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
+          <div id="absen-recap-wrap"></div>
+          <div class="sec" id="sec-m-label">📖 Belajar <span class="sec-link" id="add-m-btn">+ Tambah</span></div>
+          <div class="sort-bar">
+            <div class="sort-info" id="m-sort-info"></div>
+            <div class="sort-btn" onclick="cycleMateriSort()">⇄ <span id="m-sort-txt">Pertemuan</span></div>
+          </div>
           <div class="card" id="d-materi"></div>
         </div>
       </div>
 
-      <!-- Tugas Tab -->
+      <!-- Kerjain Tab -->
       <div class="detail-tab-content" id="dtab-content-tugas">
         <div class="pad" style="padding-top:14px">
-          <div class="sec" id="sec-t-label">📋 Tugas <span class="sec-link" id="add-t-btn">+ Tambah</span></div>
+          <div class="sec" id="sec-t-label">📋 Kerjain <span class="sec-link" id="add-t-btn">+ Tambah</span></div>
           <div class="card" id="d-tugas"></div>
         </div>
       </div>
 
-      <!-- Ujian Tab -->
+      <!-- Siapin Tab -->
       <div class="detail-tab-content" id="dtab-content-ujian">
         <div class="pad" style="padding-top:14px">
-          <div class="sec" id="sec-u-label">📝 Ujian <span class="sec-link" id="add-u-btn">+ Tambah</span></div>
+          <div class="sec" id="sec-u-label">📝 Siapin <span class="sec-link" id="add-u-btn">+ Tambah</span></div>
           <div id="d-ujian"></div>
-          <div class="sec" id="sec-r-label" style="color:var(--ink3);display:none">🗂 Riwayat Ujian</div>
+          <div class="sec" id="sec-r-label" style="color:var(--ink3);display:none">🗂 Riwayat Siapin</div>
           <div id="d-riwayat-ujian"></div>
         </div>
       </div>
@@ -5603,16 +5824,30 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addmateri" onclick="bgc(event,&#39;sh-addmateri&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">📖 Tambah Materi</div>
-    <div class="sh-body">
-      <div class="field"><label class="flbl">Nama Materi / Pertemuan</label><input id="am-n" type="text" placeholder="e.g. Integral Parsial (Pertemuan 5)"></div>
-      <div class="field"><label class="flbl">Tanggal Dipelajari</label><input id="am-d" type="date"></div>
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="am-notes" rows="3" placeholder="Catatan, link, hal yang perlu diingat..."></textarea></div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addmateri&#39;)">✕</button>
+      <span class="sh-header2-title">📖 Tambah Materi</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveMateri()">Simpan</button>
     </div>
-    <div class="sh-footer"><div class="sh-row">
-      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addmateri&#39;)">Batal</button>
-      <button class="sbtn sbtn-p" onclick="saveMateri()">Simpan ✓</button>
-    </div></div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Nama Materi</label><input id="am-n" type="text" placeholder="e.g. Integral Parsial"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:0 0 130px">
+          <label class="flbl">Pertemuan ke-</label>
+          <div class="stepper-row">
+            <div class="stepper-btn" onclick="stepPertemuan(&#39;am&#39;,-1)">−</div>
+            <div class="stepper-div"></div>
+            <div class="stepper-val" id="am-pert-val">1</div>
+            <div class="stepper-div"></div>
+            <div class="stepper-btn" onclick="stepPertemuan(&#39;am&#39;,1)">+</div>
+          </div>
+          <input type="hidden" id="am-pert" value="1">
+        </div>
+        <div class="field" style="flex:1"><label class="flbl">Tanggal</label><input id="am-d" type="date"></div>
+      </div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="am-notes" rows="3" placeholder="Catatan, link, hal yang perlu diingat..."></textarea></div>
+    </div>
+    <div style="height:calc(20px + var(--sb))"></div>
   </div>
 </div>
 
@@ -5620,17 +5855,67 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-editm" onclick="bgc(event,&#39;sh-editm&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">✏️ Edit Materi</div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-editm&#39;)">✕</button>
+      <span class="sh-header2-title">✏️ Edit Materi</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveEditM()">Simpan</button>
+    </div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Materi</label><input id="em-n" type="text"></div>
-      <div class="field"><label class="flbl">Tanggal Dipelajari</label><input id="em-d" type="date"></div>
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="em-notes" rows="3" placeholder="Catatan, link, hal yang perlu diingat..."></textarea></div>
+      <div style="display:flex;gap:10px;" id="em-pert-date-manual">
+        <div class="field" style="flex:0 0 130px">
+          <label class="flbl">Pertemuan ke-</label>
+          <div class="stepper-row">
+            <div class="stepper-btn" onclick="stepPertemuan(&#39;em&#39;,-1)">−</div>
+            <div class="stepper-div"></div>
+            <div class="stepper-val" id="em-pert-val">1</div>
+            <div class="stepper-div"></div>
+            <div class="stepper-btn" onclick="stepPertemuan(&#39;em&#39;,1)">+</div>
+          </div>
+          <input type="hidden" id="em-pert" value="1">
+        </div>
+        <div class="field" style="flex:1"><label class="flbl">Tanggal</label><input id="em-d" type="date"></div>
+      </div>
+      <div class="field" id="em-pert-date-auto" style="display:none">
+        <label class="flbl">Pertemuan &amp; Tanggal</label>
+        <div class="absen-mini-card" style="cursor:default">
+          <div class="absen-mini-ic">🗓</div>
+          <div class="absen-mini-txt">
+            <div class="absen-mini-lbl" id="em-auto-pert-lbl">Pertemuan 1 · —</div>
+            <div class="absen-mini-sub">Otomatis dari pertemuan pertama yang tercatat di absensi</div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="flbl">Status Belajar</label>
+        <div class="status-card-opts" id="em-status-opts">
+          <div class="status-card-opt blue-sel" data-st="belajar" onclick="setStatusCardOpt(&#39;em&#39;,&#39;belajar&#39;)">
+            <div class="status-card-ic">📖</div>
+            <div class="status-card-txt"><div class="status-card-lbl">Masih Belum Belajar Lagi</div><div class="status-card-sub">Belum sempat lanjut atau belum mulai materi ini</div></div>
+            <div class="status-card-chk">✓</div>
+          </div>
+          <div class="status-card-opt green-sel" data-st="paham" onclick="setStatusCardOpt(&#39;em&#39;,&#39;paham&#39;)">
+            <div class="status-card-ic">💡</div>
+            <div class="status-card-txt"><div class="status-card-lbl">Udah Paham</div><div class="status-card-sub">Sudah dimengerti dengan baik</div></div>
+            <div class="status-card-chk">✓</div>
+          </div>
+        </div>
+        <input type="hidden" id="em-status" value="belajar">
+      </div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="em-notes" rows="3" placeholder="Catatan, link, hal yang perlu diingat..."></textarea></div>
+      <div class="field">
+        <label class="flbl">Absensi</label>
+        <div class="absen-mini-card" id="em-absen-btn">
+          <div class="absen-mini-ic">🗓</div>
+          <div class="absen-mini-txt">
+            <div class="absen-mini-lbl">Catat absen pertemuan</div>
+            <div class="absen-mini-sub" id="em-absen-sub">Belum ada catatan</div>
+          </div>
+          <div class="absen-mini-chev">›</div>
+        </div>
+      </div>
     </div>
     <div class="sh-footer">
-      <div class="sh-row">
-        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editm&#39;)">Batal</button>
-        <button class="sbtn sbtn-p" onclick="saveEditM()">Simpan</button>
-      </div>
       <div class="sh-row">
         <button class="sbtn sbtn-d" onclick="delMateri()">🗑 Hapus Materi Ini</button>
       </div>
@@ -5642,29 +5927,32 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addtugas" onclick="bgc(event,&#39;sh-addtugas&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">📋 Tambah Tugas</div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addtugas&#39;)">✕</button>
+      <span class="sh-header2-title">📋 Tambah Kerjain</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveTugas()">Simpan</button>
+    </div>
     <div class="sh-body">
       <div class="field"><label class="flbl">Nama Tugas</label><input id="at-n" type="text" placeholder="e.g. PR Kalkulus Bab 5"></div>
       <div class="field">
         <label class="flbl">Tipe Tugas</label>
-        <select id="at-type">
-          <option value="soal">📝 Soal / Latihan</option>
-          <option value="laporan">📄 Laporan</option>
-          <option value="video">🎥 Video</option>
-          <option value="lainnya">📌 Lainnya</option>
-        </select>
+        <div class="chip-select-row" id="at-type-row">
+          <div class="chip-select sel" data-v="soal" onclick="pickChipType(&#39;at&#39;,this)">📝 Soal</div>
+          <div class="chip-select" data-v="laporan" onclick="pickChipType(&#39;at&#39;,this)">📄 Laporan</div>
+          <div class="chip-select" data-v="video" onclick="pickChipType(&#39;at&#39;,this)">🎥 Video</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType(&#39;at&#39;,this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="lainnya" onclick="pickChipType(&#39;at&#39;,this)">📌 Lainnya</div>
+        </div>
+        <input type="hidden" id="at-type" value="soal">
       </div>
       <div class="field"><label class="flbl">Deadline</label><input id="at-dl" type="date"></div>
       <div style="display:flex;gap:10px;">
         <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="at-start" type="time" placeholder="--:--"></div>
         <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="at-end" type="time" placeholder="--:--"></div>
       </div>
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="at-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="at-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
     </div>
-    <div class="sh-footer"><div class="sh-row">
-      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addtugas&#39;)">Batal</button>
-      <button class="sbtn sbtn-p" onclick="saveTugas()">Simpan ✓</button>
-    </div></div>
+    <div style="height:calc(20px + var(--sb))"></div>
   </div>
 </div>
 
@@ -5672,30 +5960,39 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-editt" onclick="bgc(event,&#39;sh-editt&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">✏️ Edit Tugas</div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-editt&#39;)">✕</button>
+      <span class="sh-header2-title">✏️ Edit Kerjain</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveEditT()">Simpan</button>
+    </div>
     <div class="sh-body">
+      <div class="toggle-row">
+        <div class="toggle-row-txt">
+          <div class="toggle-row-lbl">Sudah selesai</div>
+          <div class="toggle-row-sub">Tandai kalau tugas ini sudah kamu kerjakan</div>
+        </div>
+        <div class="toggle-sw" id="et-done-sw" onclick="toggleSwitchEl(&#39;et-done-sw&#39;)"><div class="toggle-sw-knob"></div></div>
+      </div>
       <div class="field"><label class="flbl">Nama Tugas</label><input id="et-n" type="text"></div>
       <div class="field">
         <label class="flbl">Tipe Tugas</label>
-        <select id="et-type">
-          <option value="soal">📝 Soal / Latihan</option>
-          <option value="laporan">📄 Laporan</option>
-          <option value="video">🎥 Video</option>
-          <option value="lainnya">📌 Lainnya</option>
-        </select>
+        <div class="chip-select-row" id="et-type-row">
+          <div class="chip-select" data-v="soal" onclick="pickChipType(&#39;et&#39;,this)">📝 Soal</div>
+          <div class="chip-select" data-v="laporan" onclick="pickChipType(&#39;et&#39;,this)">📄 Laporan</div>
+          <div class="chip-select" data-v="video" onclick="pickChipType(&#39;et&#39;,this)">🎥 Video</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType(&#39;et&#39;,this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="lainnya" onclick="pickChipType(&#39;et&#39;,this)">📌 Lainnya</div>
+        </div>
+        <input type="hidden" id="et-type" value="soal">
       </div>
       <div class="field"><label class="flbl">Deadline</label><input id="et-dl" type="date"></div>
       <div style="display:flex;gap:10px;">
         <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="et-start" type="time" placeholder="--:--"></div>
         <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="et-end" type="time" placeholder="--:--"></div>
       </div>
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="et-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="et-notes" rows="3" placeholder="Detail tugas, instruksi dosen, link soal..."></textarea></div>
     </div>
     <div class="sh-footer">
-      <div class="sh-row">
-        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editt&#39;)">Batal</button>
-        <button class="sbtn sbtn-p" onclick="saveEditT()">Simpan</button>
-      </div>
       <div class="sh-row">
         <button class="sbtn sbtn-d" onclick="delTugas()">🗑 Hapus Tugas Ini</button>
       </div>
@@ -5707,17 +6004,22 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addujian" onclick="bgc(event,&#39;sh-addujian&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">📝 Tambah Ujian</div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addujian&#39;)">✕</button>
+      <span class="sh-header2-title">📝 Tambah Siapin</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveUjian()">Simpan</button>
+    </div>
     <div class="sh-body">
       <div class="field">
         <label class="flbl">Tipe Ujian</label>
-        <select id="au-type">
-          <option value="quiz">📝 Quiz</option>
-          <option value="uts">📖 UTS (Ujian Tengah Semester)</option>
-          <option value="uas">🎓 UAS (Ujian Akhir Semester)</option>
-          <option value="presentasi">🖥 Presentasi</option>
-          <option value="demo">🔬 Demo / Praktikum</option>
-        </select>
+        <div class="chip-select-row" id="au-type-row">
+          <div class="chip-select sel" data-v="quiz" onclick="pickChipType(&#39;au&#39;,this)">📝 Quiz</div>
+          <div class="chip-select" data-v="uts" onclick="pickChipType(&#39;au&#39;,this)">📖 UTS</div>
+          <div class="chip-select" data-v="uas" onclick="pickChipType(&#39;au&#39;,this)">🎓 UAS</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType(&#39;au&#39;,this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="demo" onclick="pickChipType(&#39;au&#39;,this)">🔬 Demo</div>
+        </div>
+        <input type="hidden" id="au-type" value="quiz">
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan (opsional)</label><input id="au-n" type="text" placeholder="e.g. Quiz 2, UTS Genap"></div>
       <div class="field"><label class="flbl">Tanggal Ujian</label><input id="au-d" type="date"></div>
@@ -5727,14 +6029,12 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field">
         <label class="flbl">Materi yang Diujikan</label>
-        <div class="materi-check-list" id="au-materi-list"></div>
+        <div class="um-tip-v2">💡 Tandai "Direview" kalau materi sudah dibaca ulang sebagai persiapan akhir — biasanya mulai H-2.</div>
+        <div class="um-list-v2" id="au-materi-list"></div>
       </div>
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="au-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="au-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
     </div>
-    <div class="sh-footer"><div class="sh-row">
-      <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-addujian&#39;)">Batal</button>
-      <button class="sbtn sbtn-p" onclick="saveUjian()">Simpan ✓</button>
-    </div></div>
+    <div style="height:calc(20px + var(--sb))"></div>
   </div>
 </div>
 
@@ -5742,17 +6042,22 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-editujian" onclick="bgc(event,&#39;sh-editujian&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
-    <div class="sh-title">✏️ Edit Ujian</div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-editujian&#39;)">✕</button>
+      <span class="sh-header2-title">✏️ Edit Siapin</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveEditUjian()">Simpan</button>
+    </div>
     <div class="sh-body">
       <div class="field">
         <label class="flbl">Tipe Ujian</label>
-        <select id="eu-type">
-          <option value="quiz">📝 Quiz</option>
-          <option value="uts">📖 UTS</option>
-          <option value="uas">🎓 UAS</option>
-          <option value="demo">🔬 Demo / Praktikum</option>
-          <option value="presentasi">🖥 Presentasi</option>
-        </select>
+        <div class="chip-select-row" id="eu-type-row">
+          <div class="chip-select" data-v="quiz" onclick="pickChipType(&#39;eu&#39;,this)">📝 Quiz</div>
+          <div class="chip-select" data-v="uts" onclick="pickChipType(&#39;eu&#39;,this)">📖 UTS</div>
+          <div class="chip-select" data-v="uas" onclick="pickChipType(&#39;eu&#39;,this)">🎓 UAS</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType(&#39;eu&#39;,this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="demo" onclick="pickChipType(&#39;eu&#39;,this)">🔬 Demo</div>
+        </div>
+        <input type="hidden" id="eu-type" value="quiz">
       </div>
       <div class="field"><label class="flbl">Nama / Keterangan</label><input id="eu-n" type="text"></div>
       <div class="field"><label class="flbl">Tanggal Ujian</label><input id="eu-d" type="date"></div>
@@ -5762,15 +6067,12 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field">
         <label class="flbl">Materi yang Diujikan</label>
-        <div class="materi-check-list" id="eu-materi-list"></div>
+        <div class="um-tip-v2">💡 Tandai "Direview" kalau materi sudah dibaca ulang sebagai persiapan akhir — biasanya mulai H-2.</div>
+        <div class="um-list-v2" id="eu-materi-list"></div>
       </div>
-      <div class="field"><label class="flbl">Notes (opsional)</label><textarea id="eu-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="eu-notes" rows="3" placeholder="Tips persiapan, topik penting, info dari dosen..."></textarea></div>
     </div>
     <div class="sh-footer">
-      <div class="sh-row">
-        <button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-editujian&#39;)">Batal</button>
-        <button class="sbtn sbtn-p" onclick="saveEditUjian()">Simpan</button>
-      </div>
       <div class="sh-row">
         <button class="sbtn sbtn-d" onclick="delUjian()">🗑 Hapus Ujian Ini</button>
       </div>
@@ -6507,6 +6809,8 @@ const gS=id=>D.subjects.find(s=>s.id===id);
 // ════════ UI STATE ════════════════════════════
 let curView='home', curSid=null, editMid=null, editTid=null, delSid=null, editSid=null, editUid=null, selColor=COLORS[0], selColorEdit=COLORS[0];
 let selUjianMat=new Set();
+let selUjianReview=new Set();
+let _materiSort=0; // 0=Pertemuan, 1=Status Belajar
 let weekOff=0;
 let mcalY=new Date().getFullYear(), mcalM=new Date().getMonth();
 let D = loadLocal() || DEFAULT_DATA;
@@ -6776,51 +7080,13 @@ let _hwcWeekOff = 0; // week offset from current
 let _hwcSelectedDay = null; // 'YYYY-MM-DD'
 
 function renderHome(){
-  _renderHomeStats();
   _renderHomeWeekCal();
   _renderHomeMatkul();
   updateBadge();
 }
 
 function _renderHomeStats(){
-  const el = document.getElementById('home-stats-strip');
-  if(!el) return;
-  const todayStr = tod();
-
-  // Stat 1: Tugas pending (belum selesai)
-  const tugasPending = D.tugas.filter(t => !t.done).length;
-
-  // Stat 2: Focus — total menit dari pomoSessions hari ini
-  const totalMins = pomoSessions.reduce((acc, s) => acc + (s.dur || 0), 0);
-  const focusHrs = Math.floor(totalMins / 60);
-  const focusMins = totalMins % 60;
-
-  let statsHtml = '<div class="home-stats-strip" style="grid-template-columns:1fr 1fr;">';
-
-  // Tugas stat
-  const tugasCls = tugasPending > 5 ? 'hstat-warn' : tugasPending === 0 ? 'hstat-neutral' : 'hstat-neutral';
-  const tugasNumCls = tugasPending > 5 ? 'amber' : tugasPending > 0 ? 'blue' : 'gray';
-  statsHtml +=
-    `<div class="hstat ${tugasCls}">`+
-    `<div class="hstat-num ${tugasNumCls}">${tugasPending}</div>`+
-    `<div class="hstat-lbl">Tugas</div>`+
-    `</div>`;
-
-  // Focus stat
-  const focusDisplay = focusHrs > 0
-    ? `<span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--pomo-red)">${focusHrs}</span><span style="font-size:12px;font-weight:700;color:var(--ink3);margin-right:3px">j</span><span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--pomo-red)">${focusMins}</span><span style="font-size:12px;font-weight:700;color:var(--ink3)">m</span>`
-    : totalMins > 0
-      ? `<span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--pomo-red)">${focusMins}</span><span style="font-size:12px;font-weight:700;color:var(--ink3)">m</span>`
-      : `<span style="font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;color:var(--ink3)">—</span>`;
-
-  statsHtml +=
-    `<div class="hstat ${totalMins > 0 ? 'hstat-neutral' : 'hstat-neutral'}" style="${totalMins > 0 ? 'background:var(--pomo-red-lt)' : ''}">`+
-    `<div style="display:flex;align-items:baseline;gap:2px;justify-content:center">${focusDisplay}</div>`+
-    `<div class="hstat-lbl">Focus</div>`+
-    `</div>`;
-
-  statsHtml += '</div>';
-  el.innerHTML = statsHtml;
+  // Stats strip removed — function kept as no-op to avoid errors from any lingering calls
 }
 
 function shiftHomeWeek(dir){
@@ -6864,40 +7130,61 @@ function _renderHomeWeekCal(){
   if(!grid) return;
   grid.innerHTML = '';
 
-  const dayNames = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
-
-  days.forEach((d, i) => {
+  days.forEach((d) => {
     const dStr = d.toISOString().slice(0, 10);
     const isToday = dStr === todayStr;
     const isPast = dStr < todayStr;
     const isSelected = dStr === _hwcSelectedDay;
 
-    // Compute dots: what's on this day
-    const dots = _getDayDots(dStr);
+    // Collect items for pips (tugas, ujian, materi)
+    const dayTugas = D.tugas.filter(t => t.deadline === dStr);
+    const dayUjian = D.ujian.filter(u => u.date === dStr);
+    const dayMateri = D.materi.filter(m => m.date === dStr);
+    const hasOverdue = D.tugas.some(t => !t.done && t.deadline < dStr && dStr === todayStr);
 
-    // Status ring: only for past + today
-    let statusClass = '';
-    if(isPast || isToday){
-      statusClass = _getDayStatus(dStr, dots, isPast);
+    // Build pips (max 2 visible, same style as ks-cal task pips)
+    const allItems = [];
+    dayTugas.forEach(t => allItems.push({name: t.name, done: t.done, late: !t.done && t.deadline < todayStr, soon: !t.done && diffD(t.deadline, todayStr) <= 2 && diffD(t.deadline, todayStr) >= 0, color:'var(--amber)'}));
+    dayUjian.forEach(u => allItems.push({name: u.name || 'Ujian', done: false, late: false, soon: diffD(u.date, todayStr) <= 2 && diffD(u.date, todayStr) >= 0, color:'var(--purple)'}));
+    dayMateri.forEach(m => allItems.push({name: m.name, done: m.done || m.ngerti, late: false, soon: false, color:'var(--blue)'}));
+    if(hasOverdue) allItems.unshift({name:'Tugas telat', done: false, late: true, soon: false, color:'var(--red)'});
+
+    let pipsHtml = '';
+    if(allItems.length){
+      const shown = allItems.slice(0, 2);
+      pipsHtml = shown.map(item => {
+        let pipcls = 'ks-task-pip';
+        let pipStyle = '';
+        if(item.done)       { pipcls += ' ksp-done'; }
+        else if(item.late)  { pipcls += ' ksp-late'; }
+        else if(item.soon)  { pipcls += ' ksp-soon'; }
+        else                { pipStyle = `background:var(--bg2);color:var(--ink3);`; }
+        const shortName = item.name.length > 8 ? item.name.slice(0, 7) + '…' : item.name;
+        return `<div class="${pipcls}" style="${pipStyle}">${shortName}</div>`;
+      }).join('');
+      if(allItems.length > 2) pipsHtml += `<div class="ks-task-pip" style="background:var(--bg2);color:var(--ink3)">+${allItems.length - 2}</div>`;
     }
 
+    // Number wrap style (today = blue circle, selected = colored text)
+    let numWrapStyle = '';
+    let numStyle = '';
+    if(isToday) {
+      numWrapStyle = 'background:var(--blue);';
+      numStyle = 'color:#fff;';
+    } else if(isSelected) {
+      numStyle = 'color:var(--blue);font-weight:800;';
+    }
+
+    let cls = 'ks-cal-day';
+    if(isSelected) cls += ' kcd-sel';
+    if(isPast && !isToday) cls += ' kcd-past';
+
     const dayEl = document.createElement('div');
-    let cls = 'hwc-day';
-    if(isToday) cls += ' is-today';
-    if(isPast) cls += ' past';
-    if(isSelected) cls += ' selected';
-    if(statusClass) cls += ' ' + statusClass;
     dayEl.className = cls;
     dayEl.onclick = () => _selectHwcDay(dStr, d);
-
-    const dotsHtml = dots.slice(0, 3).map(dot =>
-      `<div class="hwc-dot hwcd-${dot}"></div>`
-    ).join('');
-
     dayEl.innerHTML =
-      `<div class="hwc-day-name">${dayNames[i]}</div>`+
-      `<div class="hwc-num-wrap"><div class="hwc-num">${d.getDate()}</div></div>`+
-      `<div class="hwc-dots">${dotsHtml}</div>`;
+      `<div class="ks-num-wrap" style="${numWrapStyle}"><span class="ks-num" style="${numStyle}">${d.getDate()}</span></div>` +
+      pipsHtml;
 
     grid.appendChild(dayEl);
   });
@@ -6952,53 +7239,64 @@ function _selectHwcDay(dStr, dateObj){
 
 function _renderHwcDayDetail(dStr){
   const det = document.getElementById('hwc-day-detail');
-  const titleEl = document.getElementById('hwc-detail-title');
-  const itemsEl = document.getElementById('hwc-detail-items');
-  if(!det || !titleEl || !itemsEl) return;
+  if(!det) return;
 
   const d = new Date(dStr + 'T00:00:00');
   const dayNames = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
   const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
-  titleEl.textContent = dayNames[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()];
+  const isToday = dStr === tod();
+  const dateLbl = dayNames[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()] + (isToday ? ' · Hari ini' : '');
 
   // Collect items for this day
   const items = [];
   D.tugas.filter(t => t.deadline === dStr).forEach(t => {
     const s = gS(t.sid);
-    items.push({type:'tugas', name: t.name, subj: s ? s.emoji + ' ' + s.name : '', done: t.done, color: s ? s.color : 'var(--amber)', id: t.id});
+    const diff = diffD(t.deadline, tod());
+    let badgeTxt = '📋 Tugas';
+    let badgeStyle = 'background:var(--amber-lt);color:var(--amber);';
+    if(t.done){ badgeTxt = '✓ Selesai'; badgeStyle = 'background:var(--green-lt);color:var(--green-dk);'; }
+    else if(diff < 0){ badgeTxt = '⚠ Telat'; badgeStyle = 'background:var(--red-lt);color:var(--red);'; }
+    else if(diff === 0){ badgeTxt = '⏰ Hari ini'; badgeStyle = 'background:var(--amber-lt);color:#854f0b;'; }
+    else if(diff <= 2){ badgeTxt = `⚡ ${diff}h lagi`; badgeStyle = 'background:var(--amber-lt);color:#854f0b;'; }
+    items.push({type:'tugas', name: t.name, subj: s ? s.emoji + ' ' + s.name : '', done: t.done, color: s ? s.color : 'var(--amber)', id: t.id, badgeTxt, badgeStyle});
   });
   D.ujian.filter(u => u.date === dStr).forEach(u => {
     const s = gS(u.sid);
     const tl = {quiz:'Quiz',uts:'UTS',uas:'UAS'}[u.type] || 'Ujian';
-    items.push({type:'ujian', name: (u.name||tl), subj: s ? s.emoji + ' ' + s.name : '', done: false, color: 'var(--purple)', id: u.id});
+    items.push({type:'ujian', name: (u.name||tl), subj: s ? s.emoji + ' ' + s.name : '', done: false, color: 'var(--purple)', id: u.id, badgeTxt: '📝 ' + tl, badgeStyle: 'background:var(--purple-lt);color:var(--purple);'});
   });
   D.materi.filter(m => m.date === dStr).forEach(m => {
     const s = gS(m.sid);
-    items.push({type:'materi', name: m.name, subj: s ? s.emoji + ' ' + s.name : '', done: m.done || m.ngerti, color: s ? s.color : 'var(--blue)', id: m.id});
+    const isDone = m.done || m.ngerti;
+    items.push({type:'materi', name: m.name, subj: s ? s.emoji + ' ' + s.name : '', done: isDone, color: s ? s.color : 'var(--blue)', id: m.id, badgeTxt: isDone ? '💡 Paham' : '📖 Materi', badgeStyle: isDone ? 'background:var(--green-lt);color:var(--green-dk);' : 'background:var(--blue-lt);color:var(--blue);'});
   });
 
   det.style.display = 'block';
 
+  let panelHead = `<div class="ks-day-panel-head">
+    <span class="ks-day-panel-lbl" style="color:var(--ink2)">📅 ${dateLbl}</span>
+  </div>`;
+
+  let itemsHtml = '';
   if(!items.length){
-    itemsEl.innerHTML = `<div class="hwc-day-detail-empty">Tidak ada item di hari ini</div>`;
-    return;
+    itemsHtml = `<div class="ks-day-empty"><div class="ks-day-empty-t">Tidak ada item di hari ini</div></div>`;
+  } else {
+    itemsHtml = items.map((item, idx) => {
+      const checkStyle = item.done ? 'background:var(--green);border-color:var(--green);color:#fff;' : '';
+      return `<div class="ks-day-task-item" onclick="_hwcEventTap('${item.type}','${item.id}')">
+        <div class="ks-dtask-check" style="${checkStyle}" onclick="event.stopPropagation();_hwcEventTap('${item.type}','${item.id}')">${item.done ? '✓' : ''}</div>
+        <div class="ks-dtask-body">
+          <div class="ks-dtask-name${item.done ? ' done' : ''}">${escHtml(item.name)}</div>
+          <div class="ks-dtask-meta">
+            ${item.subj ? `<span class="ks-dtask-step">${escHtml(item.subj)}</span>` : ''}
+            <span class="ks-dtask-badge" style="${item.badgeStyle}">${item.badgeTxt}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
   }
 
-  const typeLabel = {tugas:'Tugas', ujian:'Ujian', materi:'Materi'};
-  const typeBg = {
-    tugas: 'var(--amber-lt)', ujian: 'var(--purple-lt)', materi: 'var(--blue-lt)'
-  };
-  const typeColor = {
-    tugas: 'var(--amber)', ujian: 'var(--purple)', materi: 'var(--blue)'
-  };
-
-  itemsEl.innerHTML = items.map(item =>
-    `<div class="hwc-event-chip" onclick="_hwcEventTap('${item.type}','${item.id}')">
-      <div class="hwc-event-dot" style="background:${item.color}"></div>
-      <div class="hwc-event-name">${item.done ? '✓ ' : ''}${escHtml(item.name)}</div>
-      <span class="hwc-event-badge" style="background:${typeBg[item.type]};color:${typeColor[item.type]}">${typeLabel[item.type]}</span>
-    </div>`
-  ).join('');
+  det.innerHTML = panelHead + itemsHtml;
 }
 
 function _hwcEventTap(type, id){
@@ -7281,25 +7579,39 @@ function renderDetail(id){
   const s=gS(id);
   const mat=D.materi.filter(m=>m.sid===id);
   const tgs=D.tugas.filter(t=>t.sid===id);
-  const doneNgerti=mat.filter(m=>m.ngerti).length;
 
   if(!s.absen) s.absen = [];
 
-  // ── Build new sdh-v2 header ──
-  const hadir = s.absen.filter(a=>a.status==='hadir').length;
-  const bolos = s.absen.filter(a=>a.status==='bolos').length;
-  const izin  = s.absen.filter(a=>a.status==='izin').length;
+  // ── Migration: pastikan setiap materi punya nomor pertemuan ──
+  let needSave=false;
+  const matByDate=[...mat].sort((a,b)=>a.date.localeCompare(b.date)||(a.id<b.id?-1:1));
+  matByDate.forEach((m,i)=>{ if(m.pertemuan==null){ m.pertemuan=i+1; needSave=true; } });
+  D.ujian.filter(u=>u.sid===id).forEach(u=>{ if(!u.reviewIds){ u.reviewIds=[]; needSave=true; } });
 
-  let absenHtml = '';
-  if(s.absen.length){
-    absenHtml =
-      `<div class="sdh-v2-absen">`+
-      `<div class="sdh-v2-absen-item hadir">✅ Hadir ${hadir}</div>`+
-      (bolos?`<div class="sdh-v2-absen-item bolos">❌ Bolos ${bolos}</div>`:'')+
-      (izin?`<div class="sdh-v2-absen-item izin">📝 Izin ${izin}</div>`:'')+
-      `</div>`;
+  // ── Sinkron pertemuan & tanggal dari absensi ──
+  mat.forEach(m=>{
+    const auto=_materiAutoPertemuan(id, m.id);
+    if(auto && (m.pertemuan!==auto.pertemuan || m.date!==auto.date)){
+      m.pertemuan=auto.pertemuan; m.date=auto.date; needSave=true;
+    }
+  });
+  if(needSave) save();
+
+  // Sort materi
+  if(_materiSort===1){
+    mat.sort((a,b)=>(a.ngerti?1:0)-(b.ngerti?1:0) || (a.pertemuan||0)-(b.pertemuan||0));
+  } else {
+    mat.sort((a,b)=>(a.pertemuan||0)-(b.pertemuan||0));
   }
 
+  const sortInfoEl=document.getElementById('m-sort-info');
+  if(sortInfoEl) sortInfoEl.textContent = `${mat.length} materi · ${_materiSort===1?'Status Belajar':'Urutan Pertemuan'}`;
+  const sortTxtEl=document.getElementById('m-sort-txt');
+  if(sortTxtEl) sortTxtEl.textContent = _materiSort===1?'Status Belajar':'Pertemuan';
+
+  const doneNgerti=mat.filter(m=>m.ngerti).length;
+
+  // ── Build sdh-v2 header ──
   document.getElementById('sdh').innerHTML=
     `<div class="sdh-v2">`+
       `<div class="sdh-v2-top">`+
@@ -7310,36 +7622,43 @@ function renderDetail(id){
           (mat.length?`<div style="font-size:12px;color:var(--ink3);margin-top:3px">${doneNgerti}/${mat.length} materi paham</div>`:'')+
         `</div>`+
       `</div>`+
-      absenHtml+
     `</div>`;
 
-  // Hide old absen bar (now integrated in header)
   const absenBar = document.getElementById('absen-summary-bar');
   if(absenBar) absenBar.style.display='none';
 
   setDetailTab(_detailTab);
 
-  // ─── MATERI TAB ────────────────────────────
+  // ─── BELAJAR TAB ────────────────────────────
   document.getElementById('add-m-btn').onclick=()=>{
     document.getElementById('am-n').value='';
     document.getElementById('am-d').value=tod();
     document.getElementById('am-notes').value='';
+    const nextPert = mat.length ? Math.max(...mat.map(m=>m.pertemuan||0))+1 : 1;
+    document.getElementById('am-pert').value=nextPert;
+    document.getElementById('am-pert-val').textContent=nextPert;
     openSheet('sh-addmateri');
   };
+
+  renderAbsenRecap(id);
+
   const dm=document.getElementById('d-materi');
   dm.innerHTML='';
   if(!mat.length){
     dm.innerHTML=`<div class="empty"><span class="empty-ic">📂</span><div class="empty-t">Belum ada materi</div><div class="empty-s">Tap "+ Tambah" di atas</div></div>`;
   } else {
-    // sort ascending: oldest first
-    mat.sort((a,b)=>a.date.localeCompare(b.date)).forEach(m=>dm.appendChild(mkM(m,false)));
+    mat.forEach(m=>dm.appendChild(mkM(m,false)));
   }
 
-  // ─── TUGAS TAB ──────────────────────────────
+  // ─── KERJAIN TAB ──────────────────────────────
   document.getElementById('add-t-btn').onclick=()=>{
     document.getElementById('at-n').value='';
     document.getElementById('at-dl').value='';
+    document.getElementById('at-start').value='';
+    document.getElementById('at-end').value='';
     document.getElementById('at-notes').value='';
+    document.getElementById('at-type').value='soal';
+    document.querySelectorAll('#at-type-row .chip-select').forEach(c=>c.classList.toggle('sel', c.dataset.v==='soal'));
     openSheet('sh-addtugas');
   };
   const dt=document.getElementById('d-tugas');
@@ -7350,13 +7669,18 @@ function renderDetail(id){
     tgs.sort((a,b)=>a.done-b.done||a.deadline.localeCompare(b.deadline)).forEach(t=>dt.appendChild(mkT(t,false)));
   }
 
-  // ─── UJIAN TAB ──────────────────────────────
+  // ─── SIAPIN TAB ──────────────────────────────
   document.getElementById('add-u-btn').onclick=()=>{
     document.getElementById('au-n').value='';
-    document.getElementById('au-type').value='quiz';
     document.getElementById('au-d').value='';
+    document.getElementById('au-start').value='';
+    document.getElementById('au-end').value='';
+    document.getElementById('au-notes').value='';
+    document.getElementById('au-type').value='quiz';
+    document.querySelectorAll('#au-type-row .chip-select').forEach(c=>c.classList.toggle('sel', c.dataset.v==='quiz'));
     selUjianMat=new Set();
-    buildUjianMateriList('au-materi-list', id, selUjianMat);
+    selUjianReview=new Set();
+    buildUjianMateriList('au-materi-list', id, selUjianMat, selUjianReview);
     openSheet('sh-addujian');
   };
   const du=document.getElementById('d-ujian');
@@ -7380,45 +7704,36 @@ function renderDetail(id){
   }
 }
 
-// ════════ MATERI ITEM v3 — dot status, no mandatory checkbox ════════
+// ════════ MATERI ITEM v4 — bitem-v4 (Belum Belajar / Udah Paham) ════════
 function mkM(m, showSubj){
   const s=gS(m.sid);
-
-  // status: 'paham' | 'belajar' | 'idle'
-  const status = m.ngerti ? 'paham' : (m.done ? 'belajar' : 'idle');
+  const status = m.ngerti ? 'paham' : 'belajar';
 
   const row=document.createElement('div');
-  row.className='mitem-v3';
+  row.className='bitem-v4';
   row.onclick = (e) => {
-    if(e.target.closest('.mitem-v3-more')) return;
-    openMateriStatusSheet(m.id);
+    if(e.target.closest('.bitem-v4-more')) return;
+    openEditM(m.id);
   };
 
-  // linked ujian info
-  const linkedU = D.ujian.filter(u => u.materiIds && u.materiIds.includes(m.id));
-  const nearestU = linkedU
-    .map(u => ({ diff: diffD(u.date, tod()), u }))
-    .filter(x => x.diff >= 0)
-    .sort((a,b) => a.diff - b.diff)[0];
-  const ujianSub = nearestU
-    ? `terhubung ke ${nearestU.u.name || {quiz:'Quiz',uts:'UTS',uas:'UAS'}[nearestU.u.type]} · H-${nearestU.diff}`
-    : (m.date ? fmtDate(m.date) : '');
+  const pillHtml = status === 'paham'
+    ? `<div class="bitem-v4-pill paham">✓ Udah Paham</div>`
+    : `<div class="bitem-v4-pill belajar">Masih Belum Belajar Lagi</div>`;
 
-  const chipHtml = status === 'paham'
-    ? `<div class="mitem-v3-chip paham">Paham ✓</div>`
-    : status === 'belajar'
-    ? `<div class="mitem-v3-chip belajar">Sedang dipelajari</div>`
-    : ''; // idle = no chip, no pressure
+  const metaParts=[];
+  if(m.pertemuan) metaParts.push(`Pertemuan ${m.pertemuan}`);
+  if(m.date) metaParts.push(fmtDate(m.date));
+  const metaLabel = metaParts.join(' · ');
 
   row.innerHTML=
-    `<div class="mitem-v3-dot ${status}"></div>`+
-    `<div class="mitem-v3-body">`+
+    `<div class="bitem-v4-accent ${status}"></div>`+
+    `<div class="bitem-v4-body">`+
       (showSubj?`<div style="font-size:11px;font-weight:700;color:${s.color};margin-bottom:2px">${s.emoji} ${s.name}</div>`:'')+
-      `<div class="mitem-v3-name${status==='paham'?' paham':''}">${escHtml(m.name)}</div>`+
-      `<div class="mitem-v3-sub">${ujianSub}</div>`+
-      chipHtml+
+      (metaLabel?`<div class="bitem-v4-meta">${metaLabel}</div>`:'')+
+      `<div class="bitem-v4-name${status==='paham'?' paham':''}">${escHtml(m.name)}</div>`+
+      pillHtml+
     `</div>`+
-    `<button class="mitem-v3-more" onclick="event.stopPropagation();openEditM('${m.id}')">···</button>`;
+    `<button class="bitem-v4-more" onclick="event.stopPropagation();openEditM('${m.id}')">›</button>`;
 
   return row;
 }
@@ -8071,26 +8386,44 @@ function mkUjianCard(u, isPastOverride=false){
 }
 
 // ════════ UJIAN CRUD ═════════════════════════
-function buildUjianMateriList(elId, sid, selectedSet){
+function buildUjianMateriList(elId, sid, selectedSet, reviewSet){
+  if(!reviewSet) reviewSet = new Set();
   const el=document.getElementById(elId); el.innerHTML='';
-  const mats=D.materi.filter(m=>m.sid===sid);
+  const mats=D.materi.filter(m=>m.sid===sid).sort((a,b)=>(a.pertemuan||0)-(b.pertemuan||0));
   if(!mats.length){
     el.innerHTML=`<div style="font-size:13px;color:var(--ink3);padding:8px 0">Belum ada materi di subjek ini.</div>`;
     return;
   }
   mats.forEach(m=>{
+    const linked=selectedSet.has(m.id);
+    const reviewed=reviewSet.has(m.id);
     const item=document.createElement('div');
-    item.className='materi-check-item'+(selectedSet.has(m.id)?' selected':'');
+    item.className='um-item-v2'+(linked?' linked':'');
+    const pahamBadge = m.ngerti
+      ? `<span class="um-paham-v2 paham">Udah Paham</span>`
+      : `<span class="um-paham-v2 belajar">Belum Belajar</span>`;
+    const reviewBtn = linked
+      ? `<div class="um-review-v2${reviewed?' on':''}" onclick="event.stopPropagation();toggleUjianMateriReview('${elId}','${sid}','${m.id}')">${reviewed?'✓ Direview':'Review'}</div>`
+      : '';
     item.innerHTML=
-      `<div class="materi-check-box">${selectedSet.has(m.id)?'✓':''}</div>`+
-      `<div class="materi-check-text">${m.name}</div>`;
-    item.onclick=()=>{
-      if(selectedSet.has(m.id)) selectedSet.delete(m.id);
+      `<div class="um-link-v2">${linked?'✓':''}</div>`+
+      `<div class="um-name-v2">${escHtml(m.name)}</div>`+
+      pahamBadge+
+      reviewBtn;
+    item.onclick=(e)=>{
+      if(e.target.closest('.um-review-v2')) return;
+      if(selectedSet.has(m.id)){ selectedSet.delete(m.id); reviewSet.delete(m.id); }
       else selectedSet.add(m.id);
-      buildUjianMateriList(elId, sid, selectedSet);
+      buildUjianMateriList(elId, sid, selectedSet, reviewSet);
     };
     el.appendChild(item);
   });
+}
+
+function toggleUjianMateriReview(elId, sid, mid){
+  if(selUjianReview.has(mid)) selUjianReview.delete(mid);
+  else selUjianReview.add(mid);
+  buildUjianMateriList(elId, sid, selUjianMat, selUjianReview);
 }
 
 function saveUjian(){
@@ -8101,25 +8434,27 @@ function saveUjian(){
   const notes=document.getElementById('au-notes').value.trim();
   const auStart=document.getElementById('au-start').value||'';
   const auEnd=document.getElementById('au-end').value||'';
-  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,startTime:auStart,endTime:auEnd,materiIds:[...selUjianMat],ready:false,notes,createdAt:tod()});
+  D.ujian.push({id:'u'+Date.now(),sid:curSid,type,name,date,startTime:auStart,endTime:auEnd,materiIds:[...selUjianMat],reviewIds:[...selUjianReview],notes,createdAt:tod()});
   save(); closeSheet('sh-addujian');
   document.getElementById('au-notes').value='';
   if(curView==='detail') renderDetail(curSid);
   renderCalUjian(); renderMcal(); refresh();
-  toast('📝 Ujian ditambahkan!');
+  toast('📝 Siapin ditambahkan!');
 }
 
 function openEditUjian(id){
   editUid=id;
   const u=D.ujian.find(x=>x.id===id);
-  document.getElementById('eu-type').value=u.type;
   document.getElementById('eu-n').value=u.name||'';
   document.getElementById('eu-d').value=u.date;
   document.getElementById('eu-start').value=u.startTime||'';
   document.getElementById('eu-end').value=u.endTime||'';
   document.getElementById('eu-notes').value=u.notes||'';
-  selUjianMat=new Set(u.materiIds);
-  buildUjianMateriList('eu-materi-list', u.sid, selUjianMat);
+  document.getElementById('eu-type').value=u.type;
+  document.querySelectorAll('#eu-type-row .chip-select').forEach(c=>c.classList.toggle('sel', c.dataset.v===u.type));
+  selUjianMat=new Set(u.materiIds||[]);
+  selUjianReview=new Set(u.reviewIds||[]);
+  buildUjianMateriList('eu-materi-list', u.sid, selUjianMat, selUjianReview);
   openSheet('sh-editujian');
 }
 
@@ -8131,11 +8466,12 @@ function saveEditUjian(){
   u.startTime=document.getElementById('eu-start').value||'';
   u.endTime=document.getElementById('eu-end').value||'';
   u.materiIds=[...selUjianMat];
+  u.reviewIds=[...selUjianReview];
   u.notes=document.getElementById('eu-notes').value.trim();
   save(); closeSheet('sh-editujian');
   if(curView==='detail') renderDetail(u.sid);
   renderCalUjian(); renderMcal(); refresh();
-  toast('✏️ Ujian diperbarui!');
+  toast('✏️ Siapin diperbarui!');
 }
 
 function delUjian(){
@@ -8736,13 +9072,47 @@ function openEditM(id){
   document.getElementById('em-n').value=m.name;
   document.getElementById('em-d').value=m.date;
   document.getElementById('em-notes').value=m.notes||'';
+  const pert=m.pertemuan||1;
+  document.getElementById('em-pert').value=pert;
+  document.getElementById('em-pert-val').textContent=pert;
+  setStatusCardOpt('em', m.ngerti ? 'paham' : 'belajar');
+
+  // info absen mini-card
+  const s=gS(m.sid);
+  const records=(s.absen||[]).filter(a=>a.mid===id);
+  const subEl=document.getElementById('em-absen-sub');
+  if(subEl) subEl.textContent = records.length ? `${records.length}x pertemuan tercatat` : 'Belum ada catatan';
+  const absenBtn=document.getElementById('em-absen-btn');
+  if(absenBtn) absenBtn.onclick=()=>openAbsenModal(m.sid, id);
+
+  // Pertemuan & tanggal: kalau sudah ada absensi, ambil otomatis
+  const auto=_materiAutoPertemuan(m.sid, id);
+  const manualEl=document.getElementById('em-pert-date-manual');
+  const autoEl=document.getElementById('em-pert-date-auto');
+  if(auto){
+    if(manualEl) manualEl.style.display='none';
+    if(autoEl) autoEl.style.display='';
+    const autoLbl=document.getElementById('em-auto-pert-lbl');
+    if(autoLbl) autoLbl.textContent = `Pertemuan ${auto.pertemuan} · ${fmtDate(auto.date)}`;
+  } else {
+    if(manualEl) manualEl.style.display='flex';
+    if(autoEl) autoEl.style.display='none';
+  }
+
   openSheet('sh-editm');
 }
 function saveEditM(){
   const m=D.materi.find(x=>x.id===editMid);
   m.name=document.getElementById('em-n').value.trim()||m.name;
-  m.date=document.getElementById('em-d').value||m.date;
   m.notes=document.getElementById('em-notes').value.trim();
+  const auto=_materiAutoPertemuan(m.sid, editMid);
+  if(!auto){
+    m.date=document.getElementById('em-d').value||m.date;
+    m.pertemuan=parseInt(document.getElementById('em-pert').value)||1;
+  }
+  const status=document.getElementById('em-status').value;
+  if(status==='paham'){ m.ngerti=true; m.done=true; }
+  else { m.ngerti=false; m.done=false; }
   save(); closeSheet('sh-editm'); refresh(); toast('✏️ Materi diperbarui!');
 }
 function delMateri(){
@@ -8760,8 +9130,11 @@ function openEditT(id){
   document.getElementById('et-start').value=t.startTime||'';
   document.getElementById('et-end').value=t.endTime||'';
   document.getElementById('et-notes').value=t.notes||'';
-  const etType=document.getElementById('et-type');
-  if(etType) etType.value=t.tugasType||'soal';
+  const tType=t.tugasType||'soal';
+  document.getElementById('et-type').value=tType;
+  document.querySelectorAll('#et-type-row .chip-select').forEach(c=>c.classList.toggle('sel', c.dataset.v===tType));
+  const sw=document.getElementById('et-done-sw');
+  if(sw) sw.classList.toggle('on', !!t.done);
   openSheet('sh-editt');
 }
 function saveEditT(){
@@ -8771,9 +9144,10 @@ function saveEditT(){
   t.startTime=document.getElementById('et-start').value||'';
   t.endTime=document.getElementById('et-end').value||'';
   t.notes=document.getElementById('et-notes').value.trim();
-  const etType=document.getElementById('et-type');
-  if(etType) t.tugasType=etType.value||'soal';
-  save(); closeSheet('sh-editt'); refresh(); toast('✏️ Tugas diperbarui!');
+  t.tugasType=document.getElementById('et-type').value||'soal';
+  const sw=document.getElementById('et-done-sw');
+  if(sw) t.done=sw.classList.contains('on');
+  save(); closeSheet('sh-editt'); refresh(); toast('✏️ Kerjain diperbarui!');
 }
 function delTugas(){
   if(!confirm('Hapus tugas ini?'))return;
@@ -8816,7 +9190,8 @@ function saveSubj(){
 function saveMateri(){
   const name=document.getElementById('am-n').value.trim(); if(!name||!curSid)return;
   const notes=document.getElementById('am-notes').value.trim();
-  D.materi.push({id:'m'+Date.now(),sid:curSid,name,date:document.getElementById('am-d').value||tod(),done:false,notes});
+  const pertemuan=parseInt(document.getElementById('am-pert').value)||1;
+  D.materi.push({id:'m'+Date.now(),sid:curSid,name,date:document.getElementById('am-d').value||tod(),pertemuan,done:false,ngerti:false,notes});
   save(); closeSheet('sh-addmateri');
   document.getElementById('am-notes').value='';
   renderDetail(curSid); refresh(); toast('📖 Materi ditambahkan!');
@@ -8826,11 +9201,11 @@ function saveTugas(){
   const notes=document.getElementById('at-notes').value.trim();
   const atStart=document.getElementById('at-start').value||'';
   const atEnd=document.getElementById('at-end').value||'';
-  const tugasType=document.getElementById('at-type')?.value||'soal';
+  const tugasType=document.getElementById('at-type').value||'soal';
   D.tugas.push({id:'t'+Date.now(),sid:curSid,name,inputDate:tod(),deadline:document.getElementById('at-dl').value||tod(),startTime:atStart,endTime:atEnd,done:false,notes,tugasType});
   save(); closeSheet('sh-addtugas');
   document.getElementById('at-notes').value='';
-  renderDetail(curSid); refresh(); toast('📋 Tugas ditambahkan!');
+  renderDetail(curSid); refresh(); toast('📋 Kerjain ditambahkan!');
 }
 function openDelSubj(id){
   delSid=id;
@@ -12280,10 +12655,177 @@ function momDeleteItem(id){
   toast('🗑 Momen dihapus');
 }
 
+// ════════════════════════════════════════════════════════════
+// FUNGSI BARU — dari detail-mata-kuliah (integrasi)
+// ════════════════════════════════════════════════════════════
+
+// Auto-pertemuan dari absensi pertama yang tercatat
+function _materiAutoPertemuan(sid, mid){
+  const s=gS(sid);
+  const recs=(s.absen||[]).filter(a=>a.mid===mid);
+  if(!recs.length) return null;
+  recs.sort((a,b)=>(a.pertemuan||0)-(b.pertemuan||0));
+  return { pertemuan: recs[0].pertemuan, date: recs[0].date };
+}
+
+// Toggle sort mode Belajar
+function cycleMateriSort(){
+  _materiSort = (_materiSort+1) % 2;
+  if(curSid) renderDetail(curSid);
+}
+
+// Stepper pertemuan (+ dan -)
+function stepPertemuan(prefix, delta){
+  const hidden=document.getElementById(prefix+'-pert');
+  const valEl=document.getElementById(prefix+'-pert-val');
+  if(!hidden||!valEl) return;
+  let v=(parseInt(hidden.value)||1)+delta;
+  if(v<1) v=1;
+  hidden.value=v;
+  valEl.textContent=v;
+}
+
+// Chip type selector
+function pickChipType(prefix, el){
+  const row=el.parentElement;
+  row.querySelectorAll('.chip-select').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  const hidden=document.getElementById(prefix+'-type');
+  if(hidden) hidden.value=el.dataset.v;
+}
+
+// Toggle switch (done toggle)
+function toggleSwitchEl(id){
+  const el=document.getElementById(id);
+  if(el) el.classList.toggle('on');
+}
+
+// Status card opts (Belajar / Paham)
+function setStatusCardOpt(prefix, status){
+  const hidden=document.getElementById(prefix+'-status');
+  if(hidden) hidden.value=status;
+  document.querySelectorAll('#'+prefix+'-status-opts .status-card-opt').forEach(o=>{
+    o.classList.toggle('sel', o.dataset.st===status);
+  });
+}
+
+// Render absen recap card di tab Belajar
+function renderAbsenRecap(sid){
+  const s=gS(sid);
+  const wrap=document.getElementById('absen-recap-wrap');
+  if(!wrap) return;
+  const absen=s.absen||[];
+  if(!absen.length){
+    wrap.innerHTML=`<div class="absen-recap-empty">🗓 Belum ada catatan absen.<br>Buka materi lalu tap "Catat absen pertemuan" untuk mulai mencatat kehadiran per pertemuan.</div>`;
+    return;
+  }
+  const hadir=absen.filter(a=>a.status==='hadir').length;
+  const bolos=absen.filter(a=>a.status==='bolos').length;
+  const izin=absen.filter(a=>a.status==='izin').length;
+  wrap.innerHTML=
+    `<div class="absen-recap-card" onclick="openAbsenRecapSheet('${sid}')">`+
+      `<div class="arc-item"><div class="arc-num gn">${hadir}</div><div class="arc-lbl">Hadir</div></div>`+
+      `<div class="arc-div"></div>`+
+      `<div class="arc-item"><div class="arc-num rd">${bolos}</div><div class="arc-lbl">Bolos</div></div>`+
+      `<div class="arc-div"></div>`+
+      `<div class="arc-item"><div class="arc-num am">${izin}</div><div class="arc-lbl">Izin</div></div>`+
+      `<div class="arc-chev">›</div>`+
+    `</div>`;
+}
+
+// Buka sheet rekap kehadiran lengkap
+function openAbsenRecapSheet(sid){
+  const s=gS(sid);
+  const absen=(s.absen||[]).slice().sort((a,b)=>(a.pertemuan||0)-(b.pertemuan||0));
+  const hadir=absen.filter(a=>a.status==='hadir').length;
+  const bolos=absen.filter(a=>a.status==='bolos').length;
+  const izin=absen.filter(a=>a.status==='izin').length;
+
+  let sh=document.getElementById('sh-absenrecap');
+  if(!sh){
+    sh=document.createElement('div');
+    sh.id='sh-absenrecap';
+    sh.className='overlay';
+    sh.onclick=e=>{ if(e.target===sh) closeSheet('sh-absenrecap'); };
+    sh.innerHTML=
+      `<div class="sheet">`+
+        `<div class="sh-handle"></div>`+
+        `<div class="sh-header2">`+
+          `<button class="sh-close-btn" onclick="closeSheet('sh-absenrecap')">✕</button>`+
+          `<span class="sh-header2-title">🗓 Rekap Kehadiran</span>`+
+          `<div style="width:34px"></div>`+
+        `</div>`+
+        `<div class="sh-body" id="absenrecap-body"></div>`+
+        `<div style="height:calc(20px + var(--sb))"></div>`+
+      `</div>`;
+    document.body.appendChild(sh);
+  }
+
+  const body=document.getElementById('absenrecap-body');
+  const statRow =
+    `<div class="absen-recap-card" style="cursor:default;margin-bottom:16px">`+
+      `<div class="arc-item"><div class="arc-num gn">${hadir}</div><div class="arc-lbl">Hadir</div></div>`+
+      `<div class="arc-div"></div>`+
+      `<div class="arc-item"><div class="arc-num rd">${bolos}</div><div class="arc-lbl">Bolos</div></div>`+
+      `<div class="arc-div"></div>`+
+      `<div class="arc-item"><div class="arc-num am">${izin}</div><div class="arc-lbl">Izin</div></div>`+
+    `</div>`;
+
+  const listHtml = absen.length
+    ? `<div style="font-size:11px;font-weight:800;color:var(--ink3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.07em">Riwayat per Pertemuan</div>`+
+      `<div class="absen-list">`+
+      absen.map(a=>{
+        const m=D.materi.find(x=>x.id===a.mid);
+        const stMap={hadir:'✅ Hadir',bolos:'❌ Bolos',izin:'📝 Izin'};
+        return `<div class="absen-list-item">`+
+          `<div class="absen-list-pertemuan">P${a.pertemuan}</div>`+
+          `<div class="absen-list-tanggal">${fmtDate(a.date)}<div style="font-size:11px;color:var(--ink3);font-weight:500;margin-top:1px">${m?escHtml(m.name):'—'}</div></div>`+
+          `<span class="absen-list-status absen-list-${a.status}">${stMap[a.status]||a.status}</span>`+
+          `<button class="absen-list-del" onclick="deleteAbsenRecap('${sid}','${a.id}')">🗑</button>`+
+          `</div>`;
+      }).join('')+
+      `</div>`
+    : `<div style="text-align:center;padding:16px;color:var(--ink3);font-size:13px;font-weight:600;">Belum ada catatan absen</div>`;
+
+  body.innerHTML = statRow + listHtml;
+  openSheet('sh-absenrecap');
+}
+
+function deleteAbsenRecap(sid, absenId){
+  const s=gS(sid);
+  if(!s||!s.absen) return;
+  s.absen=s.absen.filter(a=>a.id!==absenId);
+  save();
+  openAbsenRecapSheet(sid);
+  renderDetail(sid);
+  refresh();
+  toast('🗑 Data absen dihapus');
+}
+
+// Cycle materi pill di card Siapin: belum → paham → direview → reset
+function _cycleUjianPill(uid, mid){
+  const u=D.ujian.find(x=>x.id===uid);
+  const m=D.materi.find(x=>x.id===mid);
+  if(!u||!m) return;
+  if(!u.reviewIds) u.reviewIds=[];
+  const reviewed=u.reviewIds.includes(mid);
+  let msg;
+  if(!m.ngerti && !reviewed){
+    m.ngerti=true; m.done=true; msg='💡 Udah paham!';
+  } else if(m.ngerti && !reviewed){
+    u.reviewIds.push(mid); msg='✓✓ Direview!';
+  } else {
+    u.reviewIds=u.reviewIds.filter(x=>x!==mid);
+    m.ngerti=false; m.done=false; msg='📖 Masih belum belajar lagi';
+  }
+  save();
+  if(curSid) renderDetail(curSid);
+  toast(msg);
+}
+
 boot();
 
 </script>
-
 
 
 <!-- Add Resource Sheet -->
