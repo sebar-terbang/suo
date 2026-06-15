@@ -63,6 +63,11 @@ body {
 button { font-family:inherit; cursor:pointer; border:none; background:none; -webkit-tap-highlight-color:transparent; }
 input,select,textarea { font-family:inherit; }
 
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 1 · SHELL & LAYOUT                │
+   │  App shell, topbar, scroll, bottom nav,       │
+   │  desktop sidebar & override (~L10–L370)       │
+   └─────────────────────────────────────────────┘ */
 /* ══ DESKTOP LAYOUT VARS ══ */
 :root {
   --sb-w: 220px; /* sidebar width */
@@ -370,6 +375,12 @@ input,select,textarea { font-family:inherit; }
 }
 
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 2 · HOME VIEW                     │
+   │  Weekly calendar, matkul list, stats,         │
+   │  clean-state banner (~L373–L790)              │
+   └─────────────────────────────────────────────┘ */
 /* ══════════════════════════════════
    HOME REDESIGN — Weekly Calendar Header
 ══════════════════════════════════ */
@@ -788,6 +799,12 @@ input,select,textarea { font-family:inherit; }
   padding: 2px 8px; border-radius: 99px; flex-shrink: 0;
 }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 3 · SHARED COMPONENTS             │
+   │  Stat cards, cards, materi/tugas items,       │
+   │  bottom sheets, toast (~L791–L1234)           │
+   └─────────────────────────────────────────────┘ */
 /* ══════════════════════════════════
    WEEKLY CALENDAR
 ══════════════════════════════════ */
@@ -1256,6 +1273,12 @@ input,select,textarea { font-family:inherit; }
   .overlay.open .sheet { transform:none; }
 }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 4 · UJIAN & CALENDAR              │
+   │  Ujian cards, monthly calendar, events,       │
+   │  day detail overlay (~L1259–L1408)            │
+   └─────────────────────────────────────────────┘ */
 /* ══ UJIAN CARDS ══ */
 .ujian-card {
   background:var(--white); border-radius:var(--r);
@@ -1424,6 +1447,12 @@ input,select,textarea { font-family:inherit; }
 }
 .field textarea:focus { outline:none; border-color:var(--blue); }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 5 · SHEETS & OVERLAYS             │
+   │  Notes sheet, search, pomo bottom sheet,      │
+   │  pomo tab, absen modal (~L1427–L1888)         │
+   └─────────────────────────────────────────────┘ */
 /* ══ NOTES BOTTOM SHEET ══ */
 .notes-overlay {
   position:fixed; inset:0; z-index:600;
@@ -1887,6 +1916,12 @@ input,select,textarea { font-family:inherit; }
 .pending-header { font-size:13px; font-weight:700; color:var(--ink2); margin-bottom:10px; margin-top:4px; display:flex; align-items:center; justify-content:space-between; }
 .pending-count { font-size:11px; font-weight:700; background:var(--amber-lt); color:var(--amber); padding:2px 8px; border-radius:99px; }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 6 · PROJECTS & AREAS              │
+   │  Project/area cards, detail header,           │
+   │  sub-tabs, action plan, agenda (~L1890–L2438) │
+   └─────────────────────────────────────────────┘ */
 /* ══════════════════════════════════
    PROJECT & AREA — CARD LIST
    Grid 2-col layout for projects
@@ -2437,6 +2472,12 @@ input,select,textarea { font-family:inherit; }
 .mday-dot-proj { background:var(--purple); }
 .mday-dot-area { background:var(--amber); }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 7 · CALENDAR WEEK FEED            │
+   │  Sticky header, timeline, event blocks        │
+   │  (~L2440–L2508)                               │
+   └─────────────────────────────────────────────┘ */
 /* ══ CALENDAR WEEK FEED ══ */
 .cal-week-feed {
   margin-top:4px;
@@ -2586,6 +2627,12 @@ input,select,textarea { font-family:inherit; }
 .detail-tab-content.active { display:block; }
 
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 8 · DETAIL PAGE & SUBJECT         │
+   │  Subject detail, belajar v4, absen,           │
+   │  tugas, ujian v2 (~L2589–L3200)              │
+   └─────────────────────────────────────────────┘ */
 /* ══════════════════════════════════
    DETAIL PAGE REDESIGN
 ══════════════════════════════════ */
@@ -3239,6 +3286,13 @@ input,select,textarea { font-family:inherit; }
 }
 .nav-popover-bd.open { display:block; }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 9 · REDESIGN LAYERS               │
+   │  Day detail overlay, Apple-grade redesign,    │
+   │  Home/Calendar/Subjects/Timeline              │
+   │  Kegiatan Singkat (~L3242–L5097)             │
+   └─────────────────────────────────────────────┘ */
 /* ══════════════════════════════════
    DAY DETAIL OVERLAY (klik hari di kalender)
 ══════════════════════════════════ */
@@ -5095,6 +5149,12 @@ input,select,textarea { font-family:inherit; }
   font-size: 13px; color: var(--line2); font-style: italic;
 }
 
+
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 10 · MOMENTS TAB                  │
+   │  Dark journal, gallery, story cards,          │
+   │  capture sheet, detail modal (~L5098–L5303)   │
+   └─────────────────────────────────────────────┘ */
 /* ══════════════════════════════════
    MOMENTS TAB — gallery journal (dark, own world)
 ══════════════════════════════════ */
@@ -5578,7 +5638,32 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ PROJECTS ══ -->
-    <div class="view" id="v-projects"><div class="pad">
+    <div class="view" id="v-projects">
+
+      <!-- Weekly Calendar (same style as home) -->
+      <div class="ks-cal-wrap" id="proj-week-cal" style="border-radius:0;border-left:none;border-right:none;border-top:none;box-shadow:none;margin-bottom:0;">
+        <div class="ks-cal-head">
+          <span class="ks-cal-title">📅 <span class="ks-cal-month" id="pwc-month-label">Jun 2026</span></span>
+          <div class="ks-cal-nav">
+            <button class="ks-cal-arr" onclick="shiftProjWeek(-1)">‹</button>
+            <button class="ks-cal-arr" onclick="shiftProjWeek(1)">›</button>
+          </div>
+        </div>
+        <div class="ks-cal-grid" style="grid-template-columns:repeat(7,1fr);padding:8px 6px 10px;">
+          <div class="ks-cal-dl">Sen</div>
+          <div class="ks-cal-dl">Sel</div>
+          <div class="ks-cal-dl">Rab</div>
+          <div class="ks-cal-dl">Kam</div>
+          <div class="ks-cal-dl">Jum</div>
+          <div class="ks-cal-dl">Sab</div>
+          <div class="ks-cal-dl">Min</div>
+          <div id="pwc-grid" style="display:contents"></div>
+        </div>
+        <!-- Selected day detail panel -->
+        <div class="ks-day-panel" id="pwc-day-detail" style="display:none"></div>
+      </div>
+
+      <div class="pad">
       <div class="ov-section-title">📊 Overview</div>
       <div class="ov-banner" id="ov-banner"><div style="display:flex;align-items:center;gap:10px;width:100%"><span style="font-size:22px">📋</span><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:var(--ink)">Memuat kegiatan...</div></div></div></div>
       <div class="filter-bar" id="filter-bar"></div>
@@ -6553,6 +6638,98 @@ input,select,textarea { font-family:inherit; }
 <div class="toast" id="toast">✅ Done hari ini! Konsisten terus 💪</div>
 
 <script>
+// ╔══════════════════════════════════════════════════════════════════╗
+// ║              KULYEAH! — TABLE OF CONTENTS                       ║
+// ║  Ctrl+G (VS Code) = lompat ke baris · Ctrl+F = cari nama       ║
+// ╠══════════════════════════════════════════════════════════════════╣
+// ║                                                                  ║
+// ║  ── CSS (L9 – L5367) ─────────────────────────────────────────  ║
+// ║  GROUP 1  · Shell & Layout             L10   app,topbar,nav     ║
+// ║  GROUP 2  · Home View                  L386  calendar,matkul    ║
+// ║  GROUP 3  · Shared Components          L810  cards,items,sheet  ║
+// ║  GROUP 4  · Ujian & Calendar           L1284 ujian,mcal,events  ║
+// ║  GROUP 5  · Sheets & Overlays          L1458 notes,pomo,absen   ║
+// ║  GROUP 6  · Projects & Areas           L1927 cards,detail,ap    ║
+// ║  GROUP 7  · Calendar Week Feed         L2483 timeline,sticky    ║
+// ║  GROUP 8  · Detail Page & Subject      L2638 detail,belajar v4  ║
+// ║  GROUP 9  · Redesign Layers            L3297 apple redesign     ║
+// ║  GROUP 10 · Moments Tab                L5160 dark journal       ║
+// ║                                                                  ║
+// ║  ── HTML VIEWS (L5367 – L6638) ───────────────────────────────  ║
+// ║  App shell open                        L5367                    ║
+// ║  Sidebar (desktop only)                L5369                    ║
+// ║  Desktop main wrapper                  L5402                    ║
+// ║    VIEW: Moments                       L5414                    ║
+// ║    VIEW: Home                          L5448                    ║
+// ║    VIEW: Subjects                      L5490                    ║
+// ║    VIEW: Subject Detail                L5518                    ║
+// ║    VIEW: Pomodoro                      L5568                    ║
+// ║    VIEW: Calendar                      L5616                    ║
+// ║    VIEW: Projects (Kegiatan Singkat)   L5640                    ║
+// ║    VIEW: Areas                         L5678                    ║
+// ║    VIEW: Project Detail                L5684                    ║
+// ║    VIEW: Area Detail                   L5718                    ║
+// ║  Pomo Bottom Sheet                     L5794                    ║
+// ║  All Sheets (add/edit forms)           L5878                    ║
+// ║                                                                  ║
+// ║  ── JAVASCRIPT (L6638 – L13263) ──────────────────────────────  ║
+// ║  Supabase Config                       L6734                    ║
+// ║  Data & Default Data (D object)        L6745                    ║
+// ║  Pomo Supabase (cloud sync)            L6830                    ║
+// ║  Helpers & UI State                    L6984                    ║
+// ║  Boot                                  L6999                    ║
+// ║  View Router  →  goView()              L7070                    ║
+// ║  ─── HOME ────────────────────────────────────────────────────  ║
+// ║  Home Render & Week Calendar           L7256                    ║
+// ║  Project Weekly Calendar (Kegiatan)    L7486  ← TAMBAHAN BARU  ║
+// ║  ─── SUBJECTS ────────────────────────────────────────────────  ║
+// ║  Subject List Render                   L7650  renderSubjLists   ║
+// ║  Detail Tab State                      L7932                    ║
+// ║  Subject Detail Render                 L7945                    ║
+// ║  Materi Item Builder v4                L8075                    ║
+// ║  Tugas Item Builder v2                 L8190                    ║
+// ║  ─── POMODORO ────────────────────────────────────────────────  ║
+// ║  Pomodoro Engine                       L8250                    ║
+// ║  Pomo Bottom Sheet (topbar pill)       L12427                   ║
+// ║  ─── UJIAN / CALENDAR ────────────────────────────────────────  ║
+// ║  Notes Sheet                           L8651                    ║
+// ║  Ujian Card Builder                    L8672                    ║
+// ║  Ujian CRUD                            L8756                    ║
+// ║  Actions (sheet helpers)               L8863                    ║
+// ║  Monthly Calendar Render               L8886                    ║
+// ║  Calendar — Ujian Section              L9182                    ║
+// ║  Events (jadwal manual) CRUD           L9254                    ║
+// ║  ─── SUBJECTS CRUD ───────────────────────────────────────────  ║
+// ║  Edit Tugas                            L9493                    ║
+// ║  Semester Helpers                      L9527                    ║
+// ║  Subjek CRUD                           L9551                    ║
+// ║  Edit Subjek                           L9593                    ║
+// ║  Sheet Helpers & Toast                 L9655                    ║
+// ║  ─── PROJECTS & AREAS ────────────────────────────────────────  ║
+// ║  Project & Area — Data Defaults        L9691                    ║
+// ║  PA Helpers (color, format, etc.)      L9705                    ║
+// ║  Projects List Render                  L9738                    ║
+// ║  Project Detail Render                 L9798                    ║
+// ║  Areas List Render                     L9851                    ║
+// ║  Area Detail Render                    L9881                    ║
+// ║  Item Builders (keg-card, etc.)        L9931                    ║
+// ║  Action Plan CRUD                      L10010                   ║
+// ║  Agenda CRUD                           L10138                   ║
+// ║  Project CRUD                          L10205                   ║
+// ║  Area CRUD + Goals Compass             L10356                   ║
+// ║  Line Up Goals                         L10396                   ║
+// ║  Calendar — Day Detail                 L10648                   ║
+// ║  Calendar Week Feed                    L10740                   ║
+// ║  Recurring Helpers                     L10867                   ║
+// ║  Nav Popover                           L10926                   ║
+// ║  New PA Functions                      L10956                   ║
+// ║  Langkah View (List ↔ Kalender)        L11431                   ║
+// ║  ─── MISC ────────────────────────────────────────────────────  ║
+// ║  Absen                                 L12338                   ║
+// ║  Moments Tab Logic                     L12641                   ║
+// ║  Detail Matkul — Integrasi             L13024                   ║
+// ║                                                                  ║
+// ╚══════════════════════════════════════════════════════════════════╝
 // ════════ SUPABASE CONFIG ═════════════════════
 const SB_URL = 'https://wgskqcxfanwzkgraoizj.supabase.co';
 const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indnc2txY3hmYW53emtncmFvaXpqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyNjYzMDAsImV4cCI6MjA5NDg0MjMwMH0.RWyTRmmc5aFLeGdSDMb7kZHqowM9gFJQk-59c8ctLfY';
@@ -7303,6 +7480,196 @@ function _hwcEventTap(type, id){
   if(type === 'tugas') openEditT(id);
   else if(type === 'materi') openEditM(id);
   else if(type === 'ujian') openEditUjian(id);
+}
+
+// ════════ PROJECT WEEKLY CALENDAR ════════════════
+let _pwcWeekOff = 0;
+let _pwcSelectedDay = null;
+
+function shiftProjWeek(dir){
+  _pwcWeekOff += dir;
+  _renderProjWeekCal();
+}
+
+function _renderProjWeekCal(){
+  const days = _getWeekDays(_pwcWeekOff);
+  const todayStr = tod();
+
+  // Month label
+  const ml = document.getElementById('pwc-month-label');
+  if(ml){
+    const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+    const firstDay = days[0];
+    const lastDay = days[6];
+    if(firstDay.getMonth() === lastDay.getMonth()){
+      ml.textContent = months[firstDay.getMonth()] + ' ' + firstDay.getFullYear();
+    } else {
+      ml.textContent = months[firstDay.getMonth()] + ' – ' + months[lastDay.getMonth()] + ' ' + lastDay.getFullYear();
+    }
+  }
+
+  const grid = document.getElementById('pwc-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+
+  days.forEach((d) => {
+    const dStr = d.toISOString().slice(0, 10);
+    const isToday = dStr === todayStr;
+    const isPast = dStr < todayStr;
+    const isSelected = dStr === _pwcSelectedDay;
+
+    // Collect items for pips: p_tasks with deadline on this day + p_agendas on this day
+    const dayTasks = (D.p_tasks||[]).filter(t => t.deadline === dStr);
+    const dayAgendas = (D.p_agendas||[]).filter(a => a.date === dStr);
+
+    const allItems = [];
+    dayTasks.forEach(t => {
+      const p = (D.projects||[]).find(x => x.id === t.parentId);
+      allItems.push({
+        name: t.name, done: t.done,
+        late: !t.done && t.deadline < todayStr,
+        soon: !t.done && diffD(t.deadline, todayStr) <= 2 && diffD(t.deadline, todayStr) >= 0,
+        color: p ? p.color : 'var(--blue)'
+      });
+    });
+    dayAgendas.forEach(a => {
+      const p = (D.projects||[]).find(x => x.id === a.parentId);
+      allItems.push({name: a.name||'Agenda', done: !!a.done, late: false, soon: false, color: p ? p.color : 'var(--green)'});
+    });
+
+    let pipsHtml = '';
+    if(allItems.length){
+      const shown = allItems.slice(0, 2);
+      pipsHtml = shown.map(item => {
+        let pipcls = 'ks-task-pip';
+        let pipStyle = '';
+        if(item.done)       { pipcls += ' ksp-done'; }
+        else if(item.late)  { pipcls += ' ksp-late'; }
+        else if(item.soon)  { pipcls += ' ksp-soon'; }
+        else                { pipStyle = 'background:var(--bg2);color:var(--ink3);'; }
+        const shortName = item.name.length > 8 ? item.name.slice(0, 7) + '…' : item.name;
+        return `<div class="${pipcls}" style="${pipStyle}">${shortName}</div>`;
+      }).join('');
+      if(allItems.length > 2) pipsHtml += `<div class="ks-task-pip" style="background:var(--bg2);color:var(--ink3)">+${allItems.length - 2}</div>`;
+    }
+
+    let numWrapStyle = '';
+    let numStyle = '';
+    if(isToday) {
+      numWrapStyle = 'background:var(--blue);';
+      numStyle = 'color:#fff;';
+    } else if(isSelected) {
+      numStyle = 'color:var(--blue);font-weight:800;';
+    }
+
+    let cls = 'ks-cal-day';
+    if(isSelected) cls += ' kcd-sel';
+    if(isPast && !isToday) cls += ' kcd-past';
+
+    const dayEl = document.createElement('div');
+    dayEl.className = cls;
+    dayEl.onclick = () => _selectPwcDay(dStr, d);
+    dayEl.innerHTML =
+      `<div class="ks-num-wrap" style="${numWrapStyle}"><span class="ks-num" style="${numStyle}">${d.getDate()}</span></div>` +
+      pipsHtml;
+
+    grid.appendChild(dayEl);
+  });
+
+  if(_pwcSelectedDay) _renderPwcDayDetail(_pwcSelectedDay);
+}
+
+function _selectPwcDay(dStr, dateObj){
+  if(_pwcSelectedDay === dStr){
+    _pwcSelectedDay = null;
+    const det = document.getElementById('pwc-day-detail');
+    if(det) det.style.display = 'none';
+    _renderProjWeekCal();
+    return;
+  }
+  _pwcSelectedDay = dStr;
+  _renderProjWeekCal();
+  _renderPwcDayDetail(dStr);
+}
+
+function _renderPwcDayDetail(dStr){
+  const det = document.getElementById('pwc-day-detail');
+  if(!det) return;
+
+  const d = new Date(dStr + 'T00:00:00');
+  const dayNames = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const months = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const isToday = dStr === tod();
+  const dateLbl = dayNames[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()] + (isToday ? ' · Hari ini' : '');
+
+  const items = [];
+
+  // p_tasks with deadline this day
+  (D.p_tasks||[]).filter(t => t.deadline === dStr).forEach(t => {
+    const p = (D.projects||[]).find(x => x.id === t.parentId);
+    const diff = diffD(t.deadline, tod());
+    let badgeTxt = '📋 Langkah';
+    let badgeStyle = 'background:var(--blue-lt);color:var(--blue);';
+    if(t.done){ badgeTxt = '✓ Selesai'; badgeStyle = 'background:var(--green-lt);color:var(--green-dk);'; }
+    else if(diff < 0){ badgeTxt = '⚠ Telat'; badgeStyle = 'background:var(--red-lt);color:var(--red);'; }
+    else if(diff === 0){ badgeTxt = '⏰ Hari ini'; badgeStyle = 'background:var(--amber-lt);color:#854f0b;'; }
+    else if(diff <= 2){ badgeTxt = `⚡ ${diff}h lagi`; badgeStyle = 'background:var(--amber-lt);color:#854f0b;'; }
+    items.push({
+      type: 'ptask', id: t.id, name: t.name,
+      subj: p ? (p.emoji||'📋') + ' ' + p.name : '',
+      done: t.done, color: p ? p.color : 'var(--blue)',
+      badgeTxt, badgeStyle
+    });
+  });
+
+  // p_agendas this day
+  (D.p_agendas||[]).filter(a => a.date === dStr).forEach(a => {
+    const p = (D.projects||[]).find(x => x.id === a.parentId);
+    const timeStr = a.time ? a.time : '';
+    items.push({
+      type: 'pagenda', id: a.id, name: a.name||'Agenda',
+      subj: (p ? (p.emoji||'📋') + ' ' + p.name : '') + (timeStr ? ' · ' + timeStr : ''),
+      done: !!a.done, color: p ? p.color : 'var(--green)',
+      badgeTxt: '📅 Agenda', badgeStyle: 'background:var(--green-lt);color:var(--green);'
+    });
+  });
+
+  det.style.display = 'block';
+
+  let panelHead = `<div class="ks-day-panel-head">
+    <span class="ks-day-panel-lbl" style="color:var(--ink2)">📅 ${dateLbl}</span>
+  </div>`;
+
+  let itemsHtml = '';
+  if(!items.length){
+    itemsHtml = `<div class="ks-day-empty"><div class="ks-day-empty-t">Tidak ada langkah atau agenda di hari ini</div></div>`;
+  } else {
+    itemsHtml = items.map(item => {
+      const checkStyle = item.done ? 'background:var(--green);border-color:var(--green);color:#fff;' : '';
+      return `<div class="ks-day-task-item" onclick="_pwcEventTap('${item.type}','${item.id}')">
+        <div class="ks-dtask-check" style="${checkStyle}" onclick="event.stopPropagation();_pwcEventTap('${item.type}','${item.id}')">${item.done ? '✓' : ''}</div>
+        <div class="ks-dtask-body">
+          <div class="ks-dtask-name${item.done ? ' done' : ''}">${escHtml(item.name)}</div>
+          <div class="ks-dtask-meta">
+            ${item.subj ? `<span class="ks-dtask-step">${escHtml(item.subj)}</span>` : ''}
+            <span class="ks-dtask-badge" style="${item.badgeStyle}">${item.badgeTxt}</span>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  det.innerHTML = panelHead + itemsHtml;
+}
+
+function _pwcEventTap(type, id){
+  if(type === 'ptask'){
+    const t = (D.p_tasks||[]).find(x => x.id === id);
+    if(t) openProjDetail(t.parentId);
+  } else if(type === 'pagenda'){
+    const a = (D.p_agendas||[]).find(x => x.id === id);
+    if(a) openProjDetail(a.parentId);
+  }
 }
 
 function _renderHomeGreeting(){
@@ -8812,7 +9179,8 @@ function getEventsForDay(ds){
 }
 
 // ════════ CALENDAR UJIAN SECTION ══════════════
-function renderCalUjian(){
+// NOTE: placeholder below (empty body) superseded by renderCalUjian below
+function _renderCalUjianLegacy(){
   // Not shown in timeline view — exams appear inline in timeline
 }
 
@@ -9319,9 +9687,7 @@ function toast(msg){
 }
 
 
-// ════════════════════════════════════════════════
-// PROJECT & AREA — DATA DEFAULTS
-// ════════════════════════════════════════════════
+// ════════ PROJECT & AREA — DATA DEFAULTS ═══════
 function ensurePAData(){
   if(!D.projects)   D.projects   = [];
   if(!D.areas)      D.areas      = [];
@@ -10628,6 +10994,7 @@ function setFilter_c(f,btn){curFilter_c=f;document.querySelectorAll('.fpill').fo
 
 function renderProjects(){
   ensurePAData();
+  _renderProjWeekCal();
   // Build overview banner — 2 stats: kegiatan paling mendekati deadline, langkah selesai minggu ini
   const _ovEl=document.getElementById('ov-banner');
   if(_ovEl){
@@ -12270,9 +12637,7 @@ function pomoBsResumeFocus(){
   toast('🍅 Fokus dimulai!');
 }
 
-// ════════════════════════════════════════
-// MOMENTS TAB — gallery journal logic
-// ════════════════════════════════════════
+// ════════ MOMENTS TAB — LOGIC ══════════════════
 const MOM_KEY = 'moments_v1';
 const MOM_MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
 
@@ -12655,9 +13020,7 @@ function momDeleteItem(id){
   toast('🗑 Momen dihapus');
 }
 
-// ════════════════════════════════════════════════════════════
-// FUNGSI BARU — dari detail-mata-kuliah (integrasi)
-// ════════════════════════════════════════════════════════════
+// ════════ DETAIL MATKUL — INTEGRASI & HELPERS ══
 
 // Auto-pertemuan dari absensi pertama yang tercatat
 function _materiAutoPertemuan(sid, mid){
