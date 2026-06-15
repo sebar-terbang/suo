@@ -5127,6 +5127,31 @@ input,select,textarea { font-family:inherit; }
 }
 .ad2-id-hero-edit:active { background: rgba(255,255,255,.25); }
 
+/* why line */
+.ad2-id-hero-why {
+  margin-top: 7px;
+  font-size: 12px; font-weight: 500;
+  font-style: italic;
+  color: rgba(255,255,255,.5);
+  line-height: 1.55;
+  position: relative;
+}
+
+/* confirmed badge */
+.ad2-id-confirmed-badge {
+  display: inline-block;
+  margin-top: 12px;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 99px;
+  padding: 4px 12px;
+  font-size: 10px; font-weight: 800;
+  color: #fff;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  position: relative;
+}
+
 /* ── Reflection card ── */
 .ad2-refl-card {
   margin: 0 12px 8px;
@@ -9696,8 +9721,9 @@ function ensurePAData(){
   if(!D.events)     D.events     = [];
   if(!D.habits)     D.habits     = [];
   (D.areas||[]).forEach(a => {
-    if(a.identity   === undefined) a.identity   = '';
-    if(a.reflection === undefined) a.reflection = '';
+    if(a.identity    === undefined) a.identity    = '';
+    if(a.identityWhy === undefined) a.identityWhy = '';
+    if(a.reflection  === undefined) a.reflection  = '';
   });
 }
 
@@ -11831,11 +11857,41 @@ function renderAreaDetail2(id){
     const identityText = hasIdentity
       ? `"${escHtml(a.identity)}"`
       : `Tap untuk menambahkan pernyataan identitas →`;
+
+    // Vote counter: 14-hari window
+    // Setiap centang = +1 vote. State ditentukan dari konsistensi 14 hari terakhir.
+    const areaHabits = (D.habits||[]).filter(h => h.areaId === id);
+    let identityState = 'unclaimed'; // default
+    if(areaHabits.length > 0){
+      const today = new Date();
+      let doneDays = 0;
+      for(let i = 0; i < 14; i++){
+        const d = new Date(today);
+        d.setDate(today.getDate() - i);
+        const ds = d.toISOString().slice(0,10);
+        const anyDone = areaHabits.some(h => (h.logs||[]).some(l => l.date === ds));
+        if(anyDone) doneDays++;
+      }
+      if(doneDays >= 8)      identityState = 'confirmed';  // mayoritas (≥8/14 ≈ 57%)
+      else if(doneDays >= 1) identityState = 'forming';
+      else                   identityState = 'unclaimed';
+    }
+
+    const whyHtml = a.identityWhy
+      ? `<div class="ad2-id-hero-why">${escHtml(a.identityWhy)}</div>`
+      : '';
+
+    const confirmedBadgeHtml = (hasIdentity && identityState === 'confirmed')
+      ? `<div class="ad2-id-confirmed-badge">TERKONFIRMASI ✓</div>`
+      : '';
+
     iw.innerHTML =
       `<div class="ad2-id-hero" style="background:linear-gradient(145deg,${a.color}ee 0%,${a.color}99 100%)" onclick="openEditIdentity('${id}')">` +
       `<div class="ad2-id-hero-noise"></div>` +
       `<div class="ad2-id-hero-label">Identitas Saya</div>` +
       `<div class="ad2-id-hero-text${hasIdentity?'':' empty'}">${identityText}</div>` +
+      whyHtml +
+      confirmedBadgeHtml +
       `<button class="ad2-id-hero-edit" onclick="event.stopPropagation();openEditIdentity('${id}')">✏ Ubah</button>` +
       `</div>`;
   }
@@ -12040,7 +12096,12 @@ function openEditIdentity(areaId){
       `<div class="ad2-identity-field">` +
       `<label>Saya adalah orang yang…</label>` +
       `<textarea id="identity-input" rows="4" placeholder="menjaga tubuh saya dengan disiplin setiap hari"></textarea>` +
-      `</div></div>` +
+      `</div>` +
+      `<div class="ad2-identity-field" style="margin-top:12px">` +
+      `<label>Karena… <span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink3)">(opsional — tapi dianjurkan)</span></label>` +
+      `<textarea id="identity-why-input" rows="3" placeholder="ini satu-satunya hal yang bikin gue tenang beneran"></textarea>` +
+      `</div>` +
+      `</div>` +
       `<div class="sh-footer"><div class="sh-row">` +
       `<button class="sbtn sbtn-g" onclick="closeSheet('sh-area-identity')">Batal</button>` +
       `<button class="sbtn sbtn-p" id="identity-save-btn">Simpan ✓</button>` +
@@ -12050,6 +12111,8 @@ function openEditIdentity(areaId){
   // Always update the save button's onclick with the current areaId
   document.getElementById('identity-save-btn').onclick = () => saveIdentity(areaId);
   document.getElementById('identity-input').value = a.identity || '';
+  const whyEl = document.getElementById('identity-why-input');
+  if(whyEl) whyEl.value = a.identityWhy || '';
   openSheet('sh-area-identity');
 }
 
@@ -12057,6 +12120,8 @@ function saveIdentity(areaId){
   const a = gArea(areaId);
   if(!a) return;
   a.identity = document.getElementById('identity-input').value.trim();
+  const whyEl = document.getElementById('identity-why-input');
+  if(whyEl) a.identityWhy = whyEl.value.trim();
   save(); closeSheet('sh-area-identity');
   renderAreaDetail2(areaId);
   toast('Identitas disimpan ✓');
