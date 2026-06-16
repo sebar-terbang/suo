@@ -5184,12 +5184,11 @@ input,select,textarea { font-family:inherit; }
    MOMENTS TAB — gallery journal (dark, own world)
 ══════════════════════════════════ */
 #v-moments {
-  background: #0b0b12; color: #f1ecff;
+  background: var(--hj-cream, #fbf8f0);
   min-height: 100%;
-  font-family: 'Plus Jakarta Sans', sans-serif;
   position: relative;
 }
-.mom-wrap { padding: 18px 16px calc(var(--nav-h) + var(--sb) + 28px); }
+.hj-wrap { padding-bottom: calc(var(--nav-h) + var(--sb) + 20px); }
 .mom-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
 .mom-month { font-size:20px; font-weight:800; letter-spacing:.04em; cursor:pointer; display:flex; align-items:center; gap:6px; color:#fff; }
 .mom-tagline { font-size:12px; color:#facc8a; font-style:italic; margin-top:4px; font-weight:600; }
@@ -5386,6 +5385,197 @@ input,select,textarea { font-family:inherit; }
 .mom-detail-actions { display:flex; gap:8px; margin-top:10px; }
 .mom-detail-actions .mom-btn { padding:9px; font-size:12.5px; }
 
+/* ┌─────────────────────────────────────────────┐
+   │  HIJRI CALENDAR TAB                          │
+   └─────────────────────────────────────────────┘ */
+:root{
+  --hj-deep:   #0c3b2e;
+  --hj-deep2:  #145c46;
+  --hj-gold:   #d4af37;
+  --hj-gold-lt:#f6e8b8;
+  --hj-cream:  #fbf8f0;
+  --hj-line:   #e2dcc7;
+  --hj-ink:    #1f2a23;
+  --hj-ink2:   #5c6b5f;
+}
+.hj-wrap{ background:var(--hj-cream); min-height:100%; padding-bottom:30px; }
+.hj-hero{
+  background:linear-gradient(160deg,var(--hj-deep) 0%,var(--hj-deep2) 60%,#1a7a5c 100%);
+  padding:18px 18px 22px; position:relative; overflow:hidden;
+  border-radius:0 0 28px 28px;
+}
+.hj-hero::before{
+  content:''; position:absolute; inset:0; opacity:.08;
+  background-image:radial-gradient(circle at 20% 30%, #fff 0, transparent 2px),
+                    radial-gradient(circle at 70% 60%, #fff 0, transparent 2px),
+                    radial-gradient(circle at 90% 20%, #fff 0, transparent 1.5px),
+                    radial-gradient(circle at 40% 80%, #fff 0, transparent 1.5px);
+  background-size:60px 60px;
+}
+.hj-hero-top{ display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; margin-bottom:14px; }
+.hj-hero-backbtn{ color:rgba(255,255,255,.85); font-size:13px; font-weight:700; display:flex; align-items:center; gap:4px; }
+.hj-hero-set{ background:rgba(255,255,255,.14); color:#fff; font-size:11.5px; font-weight:700; padding:6px 11px; border-radius:99px; display:flex; align-items:center; gap:5px; }
+.hj-hero-main{ position:relative; z-index:1; text-align:center; padding:6px 0 4px; }
+.hj-hero-moon{ font-size:30px; margin-bottom:6px; }
+.hj-hero-date{ font-size:26px; font-weight:800; color:#fff; letter-spacing:-.3px; line-height:1.15; }
+.hj-hero-date span{ color:var(--hj-gold-lt); }
+.hj-hero-greg{ font-size:12.5px; color:rgba(255,255,255,.65); font-weight:600; margin-top:5px; }
+.hj-hero-badge{
+  display:inline-flex; align-items:center; gap:5px; margin-top:12px;
+  background:rgba(212,175,55,.18); border:1px solid rgba(212,175,55,.4);
+  color:var(--hj-gold-lt); font-size:11.5px; font-weight:700;
+  padding:6px 13px; border-radius:99px;
+}
+
+.hj-section{ padding:16px; }
+.hj-card-event{
+  background:linear-gradient(135deg,#fff,var(--hj-gold-lt) 180%);
+  border:1.5px solid var(--hj-gold); border-radius:16px;
+  padding:14px 14px; margin-bottom:14px; cursor:pointer;
+  display:flex; align-items:center; gap:12px;
+}
+.hj-card-event-ic{ font-size:26px; flex-shrink:0; }
+.hj-card-event-body{ flex:1; min-width:0; }
+.hj-card-event-lbl{ font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:#8a6d1f; margin-bottom:2px; }
+.hj-card-event-name{ font-size:14.5px; font-weight:800; color:var(--hj-ink); }
+.hj-card-event-sub{ font-size:11.5px; color:var(--hj-ink2); font-weight:600; margin-top:2px; }
+.hj-card-event-chev{ color:#8a6d1f; font-size:16px; flex-shrink:0; }
+
+.hj-cal-card{
+  background:var(--white); border-radius:18px; box-shadow:var(--sh);
+  border:1px solid var(--hj-line); overflow:hidden; margin-bottom:16px;
+}
+.hj-cal-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 14px 10px;
+}
+.hj-cal-month{ font-size:15px; font-weight:800; color:var(--hj-ink); letter-spacing:-.2px; }
+.hj-cal-month-sub{ font-size:11px; color:var(--hj-ink2); font-weight:600; margin-top:1px; }
+.hj-cal-nav{ display:flex; gap:5px; }
+.hj-cal-arr{
+  width:30px; height:30px; border-radius:9px; background:var(--bg);
+  border:1.5px solid var(--line); color:var(--ink2); font-size:15px;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.hj-cal-dows{ display:grid; grid-template-columns:repeat(7,1fr); padding:4px 8px; gap:2px; }
+.hj-cal-dow{ text-align:center; font-size:9.5px; font-weight:800; color:var(--ink3); text-transform:uppercase; padding:4px 0; }
+.hj-cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); padding:2px 8px 12px; gap:3px; }
+.hj-cal-day{
+  aspect-ratio:1; border-radius:10px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; position:relative; cursor:pointer;
+  font-size:12.5px; font-weight:700; color:var(--ink); transition:background .12s;
+}
+.hj-cal-day.outmonth{ color:var(--ink3); opacity:.4; }
+.hj-cal-day.today{ background:var(--hj-deep); color:#fff; }
+.hj-cal-day.selected:not(.today){ background:var(--hj-gold-lt); }
+.hj-cal-day.special::after{
+  content:''; position:absolute; bottom:3px; width:5px; height:5px;
+  border-radius:50%; background:var(--hj-gold);
+}
+.hj-cal-day.today.special::after{ background:#fff; }
+.hj-cal-day-greg{ font-size:8.5px; font-weight:600; color:var(--ink3); margin-top:1px; }
+.hj-cal-day.today .hj-cal-day-greg{ color:rgba(255,255,255,.65); }
+
+.hj-day-detail{
+  background:var(--white); border-radius:18px; box-shadow:var(--sh);
+  border:1px solid var(--hj-line); padding:16px; margin-bottom:16px;
+}
+.hj-day-detail-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:4px; }
+.hj-day-detail-date{ font-size:17px; font-weight:800; color:var(--hj-ink); }
+.hj-day-detail-greg{ font-size:11.5px; color:var(--ink3); font-weight:600; }
+.hj-day-detail-event{
+  margin-top:10px; padding:11px 12px; border-radius:12px;
+  background:var(--hj-gold-lt); border:1px solid var(--hj-gold);
+}
+.hj-day-detail-event-name{ font-size:13.5px; font-weight:800; color:#5c4717; display:flex; align-items:center; gap:6px; margin-bottom:5px; }
+.hj-day-detail-event-desc{ font-size:12.5px; color:#5c4717; line-height:1.55; }
+
+.hj-amalan-section{ margin-top:12px; }
+.hj-amalan-title{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--ink3); margin:14px 0 8px; }
+.hj-amalan-list{ display:flex; flex-direction:column; gap:8px; }
+.hj-amalan-item{
+  display:flex; align-items:center; gap:10px;
+  background:var(--bg); border:1px solid var(--line); border-radius:12px;
+  padding:11px 12px; cursor:pointer;
+}
+.hj-amalan-check{
+  width:24px; height:24px; border-radius:50%; border:2px solid var(--line2);
+  display:flex; align-items:center; justify-content:center; font-size:13px;
+  color:transparent; flex-shrink:0; transition:all .15s;
+}
+.hj-amalan-check.done{ background:var(--hj-deep); border-color:var(--hj-deep); color:#fff; }
+.hj-amalan-name{ flex:1; font-size:13px; font-weight:700; color:var(--ink); }
+.hj-amalan-name.done{ text-decoration:line-through; color:var(--ink3); }
+.hj-amalan-del{ font-size:13px; color:var(--ink3); padding:4px; flex-shrink:0; }
+.hj-amalan-add{
+  display:flex; align-items:center; gap:8px; margin-top:8px;
+}
+.hj-amalan-add input{
+  flex:1; padding:9px 12px; border-radius:10px; border:1.5px solid var(--line);
+  font-size:13px; background:var(--white);
+}
+.hj-amalan-add button{
+  padding:9px 14px; border-radius:10px; background:var(--hj-deep); color:#fff;
+  font-size:12.5px; font-weight:700; flex-shrink:0;
+}
+
+.hj-refl-box{ margin-top:12px; }
+.hj-refl-text{
+  font-size:12.5px; color:var(--ink2); line-height:1.6; background:var(--bg);
+  border-radius:10px; padding:10px 12px; border:1px solid var(--line); white-space:pre-wrap;
+}
+.hj-refl-empty{ font-size:12px; color:var(--ink3); font-style:italic; padding:8px 0; }
+.hj-refl-edit-btn{
+  font-size:11.5px; font-weight:700; color:var(--hj-deep2); margin-top:6px; display:inline-block;
+}
+
+.hj-upcoming-row{ display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; margin-bottom:6px; }
+.hj-upcoming-row::-webkit-scrollbar{ display:none; }
+.hj-upcoming-card{
+  flex:0 0 138px; background:var(--white); border:1px solid var(--hj-line);
+  border-radius:14px; padding:12px; cursor:pointer; box-shadow:var(--sh);
+}
+.hj-upcoming-ic{ font-size:20px; margin-bottom:6px; }
+.hj-upcoming-name{ font-size:12px; font-weight:800; color:var(--hj-ink); line-height:1.3; margin-bottom:3px; }
+.hj-upcoming-days{ font-size:10.5px; font-weight:700; color:var(--hj-deep2); }
+
+.hj-months-section{ margin-top:6px; }
+.hj-months-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
+.hj-month-pill{
+  background:var(--white); border:1px solid var(--hj-line); border-radius:12px;
+  padding:10px 12px; cursor:pointer; display:flex; align-items:center; justify-content:space-between;
+}
+.hj-month-pill.cur{ background:var(--hj-deep); border-color:var(--hj-deep); }
+.hj-month-pill-name{ font-size:12px; font-weight:700; color:var(--ink); }
+.hj-month-pill.cur .hj-month-pill-name{ color:#fff; }
+.hj-month-pill-num{ font-size:10px; color:var(--ink3); font-weight:700; }
+.hj-month-pill.cur .hj-month-pill-num{ color:rgba(255,255,255,.65); }
+
+.hj-setup-overlay{
+  position:fixed; inset:0; background:rgba(12,40,30,.75); z-index:400;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.hj-setup-card{
+  background:var(--white); border-radius:20px; padding:22px; max-width:380px; width:100%;
+}
+.hj-setup-title{ font-size:17px; font-weight:800; color:var(--hj-ink); margin-bottom:6px; }
+.hj-setup-sub{ font-size:12.5px; color:var(--ink2); line-height:1.6; margin-bottom:16px; }
+.hj-setup-row{ display:flex; gap:8px; margin-bottom:12px; }
+.hj-setup-field{ flex:1; }
+.hj-setup-field label{ font-size:10.5px; font-weight:800; text-transform:uppercase; color:var(--ink3); margin-bottom:5px; display:block; letter-spacing:.05em; }
+.hj-setup-field select, .hj-setup-field input{
+  width:100%; padding:10px 11px; border-radius:10px; border:1.5px solid var(--line); font-size:13.5px; font-family:inherit;
+}
+.hj-setup-btn{
+  width:100%; padding:13px; border-radius:12px; background:var(--hj-deep); color:#fff;
+  font-size:14px; font-weight:800; margin-top:6px;
+}
+.hj-setup-skip{ text-align:center; font-size:12px; color:var(--ink3); font-weight:700; margin-top:12px; }
+
+@media (min-width:768px){
+  .hj-wrap{ max-width:680px; margin:0 auto; }
+}
+
 </style>
 </head>
 <body>
@@ -5398,8 +5588,8 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById('bn-moments'))" style="background:linear-gradient(135deg,#1a1429,#241a3d);color:#e9d8ff;margin-bottom:4px;">
-        <span class="sb-item-ic">📸</span> Moments
+      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById('bn-moments'))" style="background:linear-gradient(135deg,#0c3b2e,#145c46);color:#f6e8b8;margin-bottom:4px;">
+        <span class="sb-item-ic">🌙</span> Kalender Hijriah
       </button>
       <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
@@ -5436,38 +5626,55 @@ input,select,textarea { font-family:inherit; }
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
 
-    <!-- ══ MOMENTS (gallery journal) ══ -->
+    <!-- ══ KALENDER HIJRIAH ══ -->
     <div class="view" id="v-moments">
-      <div class="mom-wrap">
-        <div class="mom-top">
-          <div>
-            <div class="mom-month" id="mom-month-label" onclick="momMonthPicker()">JUNI 2026 <span style="font-size:11px">▾</span></div>
-            <div class="mom-tagline">Live the best of lives ✨</div>
+      <div class="hj-wrap" id="hj-wrap">
+        <div class="hj-hero">
+          <div class="hj-hero-top">
+            <span></span>
+            <button class="hj-hero-set" onclick="hjOpenSetup()">⚙️ <span id="hj-hero-set-lbl">Atur tanggal</span></button>
           </div>
-          <button class="mom-search-btn" onclick="momSearchToggle()"><i class="ti ti-search"></i></button>
+          <div class="hj-hero-main">
+            <div class="hj-hero-moon">🌙</div>
+            <div class="hj-hero-date" id="hj-hero-date">—</div>
+            <div class="hj-hero-greg" id="hj-hero-greg">—</div>
+            <div id="hj-hero-badge-wrap"></div>
+          </div>
         </div>
 
-        <div class="mom-stats" id="mom-stats"></div>
-
-        <div class="mom-memory" id="mom-memory" onclick="momOpenMemory()"></div>
-
-        <div class="mom-capture" onclick="momOpenCapture()">
-          <div class="mom-capture-plus"><i class="ti ti-plus"></i></div>
-          <div class="mom-capture-text">
-            <div class="mom-capture-title">Capture the moment</div>
-            <div class="mom-capture-sub">Foto sesuatu yang berarti hari ini ✨</div>
-          </div>
-          <div class="mom-capture-cam"><i class="ti ti-camera"></i></div>
+        <div class="hj-section" id="hj-section-event" style="display:none">
+          <div class="hj-card-event" id="hj-card-event" onclick=""></div>
         </div>
 
-        <div class="mom-grid" id="mom-grid"></div>
+        <div class="hj-section" style="padding-top:0" id="hj-upcoming-wrap"></div>
 
-        <div class="mom-story-section" id="mom-story-section"></div>
+        <div class="hj-section" style="padding-top:0">
+          <div class="hj-cal-card">
+            <div class="hj-cal-head">
+              <div>
+                <div class="hj-cal-month" id="hj-cal-month">—</div>
+                <div class="hj-cal-month-sub" id="hj-cal-month-sub">—</div>
+              </div>
+              <div class="hj-cal-nav">
+                <div class="hj-cal-arr" onclick="hjMonthShift(-1)">‹</div>
+                <div class="hj-cal-arr" onclick="hjMonthShift(1)">›</div>
+              </div>
+            </div>
+            <div class="hj-cal-dows">
+              <div class="hj-cal-dow">Sen</div><div class="hj-cal-dow">Sel</div><div class="hj-cal-dow">Rab</div>
+              <div class="hj-cal-dow">Kam</div><div class="hj-cal-dow">Jum</div><div class="hj-cal-dow">Sab</div><div class="hj-cal-dow">Min</div>
+            </div>
+            <div class="hj-cal-grid" id="hj-cal-grid"></div>
+          </div>
+        </div>
 
-        <div class="mom-months" id="mom-months"></div>
+        <div class="hj-section" style="padding-top:0" id="hj-day-detail-wrap"></div>
+
+        <div class="hj-section hj-months-section" style="padding-top:0">
+          <div class="home-matkul-title" style="margin-bottom:10px">🗓️ 12 Bulan Hijriah</div>
+          <div class="hj-months-grid" id="hj-months-grid"></div>
+        </div>
       </div>
-
-      <button class="mom-fab" onclick="momOpenCapture()"><i class="ti ti-plus"></i></button>
     </div>
 
     <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
@@ -5780,8 +5987,8 @@ input,select,textarea { font-family:inherit; }
 
   <!-- BOTTOM NAV -->
   <nav class="bnav">
-    <button class="bn" id="bn-moments" onclick="goView('moments', this)" style="color:#a78bfa">
-      <div class="bn-ic">📸</div><div>Moments</div>
+    <button class="bn" id="bn-moments" onclick="goView('moments', this)" style="color:#145c46">
+      <div class="bn-ic">🌙</div><div>Hijriah</div>
     </button>
     <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
@@ -7115,7 +7322,7 @@ function goView(name, btn){
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
   if(name==='projects') tb.innerHTML=`<div class="tb-title">📋 Kegiatan Singkat</div><button class="tb-action-btn" onclick="openAddProject()">＋ Baru</button>`;
   if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
-  if(name==='moments')  tb.innerHTML='';
+  if(name==='moments')  tb.innerHTML=`<div class="tb-title">🌙 Kalender Hijriah</div>`;
   // Sync pill state after topbar rebuild
   updatePomoPill();
 
@@ -7137,13 +7344,12 @@ function goView(name, btn){
   if(name==='areas'){    renderAreas(); }
   if(name==='moments'){  renderMoments(); }
   if(outerScroll){
-    if(name==='moments'){ outerScroll.style.background = '#0b0b12'; outerScroll.style.padding='0'; }
+    if(name==='moments'){ outerScroll.style.background = 'var(--hj-cream)'; outerScroll.style.padding='0'; }
     else { outerScroll.style.background=''; outerScroll.style.padding=''; }
   }
   const topbarEl = document.getElementById('topbar');
-  if(topbarEl) topbarEl.style.display = (name==='moments' && !isDesktop()) ? 'none' : '';
+  if(topbarEl) topbarEl.style.display = '';
   const dtopbar = document.getElementById('desktop-topbar');
-  if(dtopbar && name==='moments') dtopbar.style.display='none';
   document.getElementById('scroll').scrollTop=0;
 }
 
@@ -7188,6 +7394,8 @@ function updateDesktopTopbar(view, subj){
   } else if(view==='cal'){
     dtb.innerHTML=`<div class="dtb-title">📅 Kalender</div>`+
       (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
+  } else if(view==='moments'){
+    dtb.innerHTML=`<div class="dtb-title">🌙 Kalender Hijriah</div>`;
   } else if(view==='pomo'){
     dtb.innerHTML=`<div class="dtb-title">🍅 Pomodoro</div>`;
   } else if(view==='projects'){
@@ -12747,388 +12955,404 @@ function pomoBsResumeFocus(){
   toast('🍅 Fokus dimulai!');
 }
 
-// ════════ MOMENTS TAB — LOGIC ══════════════════
-const MOM_KEY = 'moments_v1';
-const MOM_MONTHS = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+// ════════ KALENDER HIJRIAH TAB — LOGIC ══════════════════
+const HJ_KEY = 'hijri_v1';
 
-function momLoad(){
-  try{ return JSON.parse(localStorage.getItem(MOM_KEY)||'null') || momSeed(); }catch{ return momSeed(); }
+const HJ_MONTHS = [
+  'Muharram','Safar',"Rabi'ul Awal","Rabi'ul Akhir",
+  'Jumadil Awal','Jumadil Akhir','Rajab',"Sya'ban",
+  'Ramadhan','Syawal',"Dzulqa'dah",'Dzulhijjah'
+];
+// Panjang hari per bulan (pola tabular 30/29 berselang, Dzulhijjah disesuaikan kabisat)
+const HJ_MONTH_LEN = [30,29,30,29,30,29,30,29,30,29,30,29];
+
+// Database peristiwa & keutamaan penting (bulan 1-12, tanggal 1-30)
+const HJ_EVENTS = {
+  '1-1':  {ic:'🎉', name:'Tahun Baru Hijriah', desc:'Awal tahun baru dalam kalender Islam, memperingati hijrah Nabi Muhammad ﷺ dari Makkah ke Madinah. Momentum muhasabah dan niat baru.'},
+  '1-9':  {ic:'🌙', name:'Tasua', desc:'Hari kesembilan Muharram. Disunnahkan berpuasa bersama hari Asyura sebagai pembeda dari puasa kaum Yahudi (sesuai anjuran Nabi ﷺ).'},
+  '1-10': {ic:'🤲', name:'Hari Asyura', desc:'Salah satu hari paling istimewa di bulan Muharram. Puasa Asyura sangat dianjurkan, dengan keutamaan menghapus dosa setahun yang lalu.'},
+  '3-12': {ic:'🕊️', name:'Maulid Nabi Muhammad ﷺ', desc:'Memperingati hari kelahiran Rasulullah ﷺ. Momentum memperbanyak shalawat dan meneladani akhlak beliau.'},
+  '7-1':  {ic:'🌌', name:'Awal Bulan Rajab', desc:'Salah satu dari empat bulan haram (suci). Momentum memperbanyak istighfar dan mempersiapkan diri menyambut Ramadhan.'},
+  '7-27': {ic:'🌙', name:'Isra Miraj', desc:"Memperingati perjalanan malam Nabi Muhammad ﷺ dari Masjidil Haram ke Masjidil Aqsa lalu naik ke langit. Peristiwa diturunkannya perintah shalat 5 waktu."},
+  '8-15': {ic:'✨', name:'Nisfu Syaban', desc:'Pertengahan bulan Syaban. Banyak ulama menganjurkan perbanyak doa, istighfar, dan amalan baik sebagai persiapan menyambut Ramadhan.'},
+  '9-1':  {ic:'🌙', name:'Awal Ramadhan', desc:'Awal bulan puasa wajib bagi seluruh umat Islam. Bulan penuh berkah, diturunkannya Al-Quran, dan dilipatgandakannya pahala amal saleh.'},
+  '9-17': {ic:'📖', name:'Nuzulul Quran', desc:'Memperingati malam diturunkannya Al-Quran pertama kali kepada Nabi Muhammad ﷺ di Gua Hira.'},
+  '9-21': {ic:'🕯️', name:'Malam Ganjil (Lailatul Qadar)', desc:'Masuk 10 malam terakhir Ramadhan. Lailatul Qadar — malam yang lebih baik dari 1000 bulan — diperkirakan jatuh di salah satu malam ganjil ini.'},
+  '9-29': {ic:'🌙', name:'Akhir Ramadhan', desc:'Mendekati akhir bulan suci. Perbanyak doa dan amal di sisa waktu, serta siapkan zakat fitrah.'},
+  '10-1': {ic:'🎊', name:'Idul Fitri', desc:'Hari raya kemenangan setelah sebulan berpuasa. Disunnahkan shalat Id, saling memaafkan, dan bersilaturahmi.'},
+  '12-1': {ic:'🕋', name:'Awal Dzulhijjah', desc:'Bulan haji. Sepuluh hari pertamanya adalah hari-hari yang paling dicintai Allah untuk beramal saleh, lebih utama dari hari-hari lainnya dalam setahun.'},
+  '12-8': {ic:'🕋', name:'Hari Tarwiyah', desc:'Hari para jamaah haji bersiap dan menuju Mina sebagai permulaan rangkaian ibadah haji.'},
+  '12-9': {ic:'🌄', name:'Hari Arafah', desc:'Hari paling utama dalam setahun. Bagi yang tidak berhaji, disunnahkan puasa Arafah dengan keutamaan menghapus dosa 2 tahun (lalu & yang akan datang).'},
+  '12-10':{ic:'🐐', name:'Idul Adha', desc:'Hari raya kurban, memperingati ketaatan Nabi Ibrahim AS. Disunnahkan shalat Id dan berkurban bagi yang mampu.'},
+  '12-11':{ic:'🍖', name:'Hari Tasyrik (1)', desc:'Hari-hari tasyrik — diharamkan berpuasa, dianjurkan memperbanyak makan, dzikir, dan takbir.'},
+  '12-12':{ic:'🍖', name:'Hari Tasyrik (2)', desc:'Lanjutan hari tasyrik. Perbanyak takbir, tahmid, dan syukur.'},
+  '12-13':{ic:'🍖', name:'Hari Tasyrik (3)', desc:'Hari tasyrik terakhir, penutup rangkaian ibadah haji dan Idul Adha.'},
+};
+
+// Bulan-bulan haram (suci): Muharram(1), Rajab(7), Dzulqadah(11), Dzulhijjah(12)
+const HJ_HARAM_MONTHS = [1,7,11,12];
+
+function hjLoad(){
+  try{ return JSON.parse(localStorage.getItem(HJ_KEY)||'null'); }catch{ return null; }
 }
-function momSave(){ localStorage.setItem(MOM_KEY, JSON.stringify(MOM)); }
+function hjSave(){ localStorage.setItem(HJ_KEY, JSON.stringify(HJ)); }
 
-function momSeed(){
-  const now = new Date();
-  const iso = (d,h,m)=>{ const x=new Date(d); x.setHours(h||12,m||0); return x.toISOString(); };
-  const y=now.getFullYear(), mo=now.getMonth();
-  return [
-    {id:'mm1', img:'', cap:'Mulai ngulik OpenCV buat project visi komputer', date: new Date(y,mo,2,20,10).toISOString(), place:'', mood:'😊', milestone:true, milestoneLabel:'Mulai ngulik OpenCV'},
-    {id:'mm2', img:'', cap:'Sunset di sore yang tenang', date: new Date(y,mo,4,17,45).toISOString(), place:'Pantai dekat rumah', mood:'😌', milestone:false},
-    {id:'mm3', img:'', cap:'Pertama kali nyoba climbing, kaki masih gemeteran', date: new Date(y,mo,7,16,0).toISOString(), place:'Climbing Gym', mood:'🤩', milestone:true, milestoneLabel:'Pertama kali nyoba panjat'},
-    {id:'mm4', img:'', cap:'Selesai baca buku yang numpuk 3 bulan', date: new Date(y,mo,8,21,30).toISOString(), place:'', mood:'😄', milestone:false},
-    {id:'mm5', img:'', cap:'Hangout sama temen lama, ngobrol sampe malem', date: new Date(y,mo,10,19,0).toISOString(), place:'', mood:'🥰', milestone:false},
-    {id:'mm6', img:'', cap:'Nonton konser bareng teman', date: new Date(y,mo,12,22,0).toISOString(), place:'', mood:'🤩', milestone:true, milestoneLabel:'Nonton konser bareng teman'},
-    {id:'mm7', img:'', cap:'Cafe hopping weekend', date: new Date(y,mo,13,15,0).toISOString(), place:'', mood:'😊', milestone:true, milestoneLabel:'Cafe hopping weekend'},
-  ];
+// HJ.anchor = { gregDate: 'YYYY-MM-DD', hYear, hMonth(1-12), hDay(1-30) }
+// HJ.amalan = { 'YYYY-MM-DD': [{id,name,done}] }
+// HJ.refleksi = { 'm-d-y_key': text }  key = hMonth-hYear (per bulan haji/hari besar dicatat by date string h-y-m-d)
+let HJ = hjLoad() || { anchor:null, amalan:{}, refleksi:{} };
+if(!HJ.amalan) HJ.amalan = {};
+if(!HJ.refleksi) HJ.refleksi = {};
+
+let _hjViewOffsetMonths = 0; // bulan Hijriah yang sedang ditampilkan di grid, relatif ke bulan ini
+let _hjSelDay = null; // {y,m,d} terpilih untuk detail
+
+// Hitung tanggal Hijriah hari ini berdasarkan anchor + selisih hari dari tanggal Masehi
+function hjToday(){
+  if(!HJ.anchor) return null;
+  const anchorGreg = new Date(HJ.anchor.gregDate+'T12:00:00');
+  const today = new Date(tod()+'T12:00:00');
+  const diffDays = Math.round((today-anchorGreg)/86400000);
+  return hjAddDays(HJ.anchor.hYear, HJ.anchor.hMonth, HJ.anchor.hDay, diffDays);
 }
 
-let MOM = momLoad();
-let _momViewMonth = new Date(); // current month being viewed
-let _momPendingImg = '';
-let _momEditId = null;
-
-function momKey(d){ const x=new Date(d); return x.getFullYear()+'-'+x.getMonth(); }
-function momInMonth(item, monthDate){ return momKey(item.date) === momKey(monthDate); }
-function momFmtDate(d){ const x=new Date(d); return x.getDate()+' '+MOM_MONTHS[x.getMonth()].slice(0,3); }
-function momFmtFull(d){ const x=new Date(d); return x.getDate()+' '+MOM_MONTHS[x.getMonth()]+' '+x.getFullYear(); }
-
-function renderMoments(){
-  const monthItems = MOM.filter(m=>momInMonth(m,_momViewMonth)).sort((a,b)=> new Date(b.date)-new Date(a.date));
-  const placesSet = new Set(monthItems.map(m=>m.place).filter(Boolean));
-  const firstTimes = monthItems.filter(m=>m.milestone).length;
-
-  // streak: consecutive days with at least one moment, counting back from today
-  let streak=0; let cur=new Date();
-  for(;;){ const has = MOM.some(m=> new Date(m.date).toDateString()===cur.toDateString()); if(!has) break; streak++; cur.setDate(cur.getDate()-1); if(streak>365) break; }
-
-  document.getElementById('mom-month-label').innerHTML = `${MOM_MONTHS[_momViewMonth.getMonth()].toUpperCase()} ${_momViewMonth.getFullYear()} <span style="font-size:11px">▾</span>`;
-
-  document.getElementById('mom-stats').innerHTML = `
-    <div class="mom-stat"><div class="mom-stat-ic">📷</div><div class="mom-stat-num">${monthItems.length}</div><div class="mom-stat-lbl">moments</div></div>
-    <div class="mom-stat"><div class="mom-stat-ic">📍</div><div class="mom-stat-num">${placesSet.size}</div><div class="mom-stat-lbl">places</div></div>
-    <div class="mom-stat"><div class="mom-stat-ic">⭐</div><div class="mom-stat-num">${firstTimes}</div><div class="mom-stat-lbl">first times</div></div>
-    <div class="mom-stat"><div class="mom-stat-ic">🔥</div><div class="mom-stat-num">${streak}</div><div class="mom-stat-lbl">days streak</div></div>
-  `;
-
-  // Memory of the day — pick something from a past year, same-ish day, deterministic by date
-  momRenderMemory();
-
-  // Grid (masonry, natural aspect ratio, click-to-reveal caption)
-  const grid = document.getElementById('mom-grid');
-  if(!monthItems.length){
-    grid.outerHTML = `<div class="mom-grid-empty" id="mom-grid">Belum ada momen bulan ini.<br>Yuk capture momen pertamamu! ✨</div>`;
-  } else {
-    if(!grid.classList.contains('mom-grid')){
-      grid.outerHTML = `<div class="mom-grid" id="mom-grid"></div>`;
+// Tambah/kurang n hari dari tanggal hijriah tertentu, gulir otomatis lintas bulan/tahun
+function hjAddDays(y,m,d,n){
+  let day=d, month=m, year=y;
+  if(n>=0){
+    for(let i=0;i<n;i++){
+      day++;
+      if(day > HJ_MONTH_LEN[month-1]){ day=1; month++; if(month>12){month=1; year++;} }
     }
-    momRenderMasonry(monthItems);
+  } else {
+    for(let i=0;i<-n;i++){
+      day--;
+      if(day < 1){ month--; if(month<1){month=12; year--;} day=HJ_MONTH_LEN[month-1]; }
+    }
+  }
+  return {y:year,m:month,d:day};
+}
+
+// Konversi tanggal hijriah -> tanggal masehi (relatif ke anchor)
+function hjToGreg(y,m,d){
+  if(!HJ.anchor) return null;
+  // hitung selisih hari dari anchor ke (y,m,d)
+  let cy=HJ.anchor.hYear, cm=HJ.anchor.hMonth, cd=HJ.anchor.hDay, total=0;
+  if(cy===y && cm===m){ total = d-cd; }
+  else {
+    // jalan maju/mundur hari demi hari (cukup performant untuk rentang wajar)
+    let dir = (y>cy || (y===cy&&m>cm) || (y===cy&&m===cm&&d>cd)) ? 1 : -1;
+    let guard=0;
+    while(!(cy===y&&cm===m&&cd===d) && guard<40000){
+      const nx = hjAddDays(cy,cm,cd,dir);
+      cy=nx.y; cm=nx.m; cd=nx.d; total+=dir; guard++;
+    }
+  }
+  const anchorGreg = new Date(HJ.anchor.gregDate+'T12:00:00');
+  const g = new Date(anchorGreg); g.setDate(g.getDate()+total);
+  return g.toISOString().slice(0,10);
+}
+
+function hjDs(y,m,d){ return y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0'); }
+function hjEvent(m,d){ return HJ_EVENTS[m+'-'+d]; }
+
+function hjOpenSetup(){
+  const t = hjToday();
+  let sh = document.getElementById('hj-setup-overlay');
+  if(sh) sh.remove();
+  const overlay = document.createElement('div');
+  overlay.className='hj-setup-overlay'; overlay.id='hj-setup-overlay';
+  overlay.onclick=(e)=>{ if(e.target===overlay) hjCloseSetup(); };
+  const monthOpts = HJ_MONTHS.map((nm,i)=>`<option value="${i+1}" ${t&&t.m===i+1?'selected':''}>${i+1}. ${nm}</option>`).join('');
+  overlay.innerHTML = `
+    <div class="hj-setup-card">
+      <div class="hj-setup-title">🌙 Atur Tanggal Hijriah</div>
+      <div class="hj-setup-sub">Masukkan tanggal Hijriah hari ini sesuai penetapan yang kamu ikuti (NU/Muhammadiyah/Kemenag). App akan hitung otomatis tanggal-tanggal selanjutnya dari sini.</div>
+      <div class="hj-setup-row">
+        <div class="hj-setup-field">
+          <label>Tanggal</label>
+          <input type="number" id="hj-setup-day" min="1" max="30" value="${t?t.d:1}">
+        </div>
+        <div class="hj-setup-field" style="flex:2">
+          <label>Bulan</label>
+          <select id="hj-setup-month">${monthOpts}</select>
+        </div>
+      </div>
+      <div class="hj-setup-row">
+        <div class="hj-setup-field">
+          <label>Tahun Hijriah</label>
+          <input type="number" id="hj-setup-year" value="${t?t.y:1447}">
+        </div>
+      </div>
+      <button class="hj-setup-btn" onclick="hjSaveSetup()">Simpan ✓</button>
+      ${HJ.anchor?'<div class="hj-setup-skip" onclick="hjCloseSetup()">Batal</div>':''}
+    </div>
+  `;
+  document.body.appendChild(overlay);
+}
+function hjCloseSetup(){
+  const ov = document.getElementById('hj-setup-overlay');
+  if(ov) ov.remove();
+}
+function hjSaveSetup(){
+  const d = +document.getElementById('hj-setup-day').value || 1;
+  const m = +document.getElementById('hj-setup-month').value || 1;
+  const y = +document.getElementById('hj-setup-year').value || 1447;
+  HJ.anchor = { gregDate: tod(), hYear:y, hMonth:m, hDay:d };
+  hjSave();
+  hjCloseSetup();
+  renderMoments();
+  toast('🌙 Tanggal Hijriah disesuaikan!');
+}
+
+function hjMonthShift(n){
+  _hjViewOffsetMonths += n;
+  renderHjCalendar();
+}
+
+function hjGoToday(){
+  _hjViewOffsetMonths = 0;
+  const t = hjToday();
+  if(t) _hjSelDay = {y:t.y, m:t.m, d:t.d};
+  renderMoments();
+}
+
+function hjSelectDay(y,m,d){
+  _hjSelDay = {y,m,d};
+  renderHjDayDetail();
+  renderHjCalendar();
+}
+
+// ── Render utama ──
+function renderMoments(){
+  ensureHjFreshAnchorless();
+  const heroDateEl = document.getElementById('hj-hero-date');
+  const heroGregEl = document.getElementById('hj-hero-greg');
+  const heroBadgeWrap = document.getElementById('hj-hero-badge-wrap');
+  const setLbl = document.getElementById('hj-hero-set-lbl');
+
+  if(!HJ.anchor){
+    if(heroDateEl) heroDateEl.innerHTML = 'Belum diatur';
+    if(heroGregEl) heroGregEl.textContent = 'Tap "Atur tanggal" untuk mulai';
+    if(heroBadgeWrap) heroBadgeWrap.innerHTML='';
+    if(setLbl) setLbl.textContent='Atur tanggal';
+    document.getElementById('hj-section-event').style.display='none';
+    document.getElementById('hj-upcoming-wrap').innerHTML='';
+    document.getElementById('hj-day-detail-wrap').innerHTML='';
+    renderHjMonthsGrid(null);
+    // still render an empty-ish calendar grid using default current month guess
+    document.getElementById('hj-cal-month').textContent='—';
+    document.getElementById('hj-cal-month-sub').textContent='—';
+    document.getElementById('hj-cal-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px 10px;color:var(--ink3);font-size:12.5px;font-weight:600">Atur tanggal Hijriah dulu buat lihat kalender 🌙</div>';
+    if(!document.getElementById('hj-setup-overlay')) hjOpenSetup();
+    return;
+  }
+  if(setLbl) setLbl.textContent='Sesuaikan';
+
+  const t = hjToday();
+  if(!_hjSelDay) _hjSelDay = {y:t.y,m:t.m,d:t.d};
+
+  if(heroDateEl) heroDateEl.innerHTML = t.d+' '+HJ_MONTHS[t.m-1]+' <span>'+t.y+' H</span>';
+  if(heroGregEl) heroGregEl.textContent = new Date(tod()+'T12:00:00').toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  // badge bulan haram
+  if(heroBadgeWrap){
+    if(HJ_HARAM_MONTHS.includes(t.m)){
+      heroBadgeWrap.innerHTML = `<div class="hj-hero-badge">🕊️ Bulan Haram (Suci)</div>`;
+    } else heroBadgeWrap.innerHTML='';
   }
 
-  // Story (milestones)
-  const milestones = monthItems.filter(m=>m.milestone);
-  const storySec = document.getElementById('mom-story-section');
-  storySec.innerHTML = `
-    <div class="mom-story-head">
-      <div class="mom-story-title">📖 ${MOM_MONTHS[_momViewMonth.getMonth()]} Story</div>
-    </div>
-    ${milestones.length ? `<div class="mom-story-row">${milestones.map(m=>`
-      <div class="mom-story-card" style="${m.img?`background-image:url('${m.img}')`:''}" onclick="momOpenDetail('${m.id}')">
-        <div class="mom-story-body">
-          <div class="mom-story-cap">${m.milestoneLabel||m.cap}</div>
-          <div class="mom-story-date">${momFmtDate(m.date)}</div>
-        </div>
-      </div>`).join('')}</div>`
-      : `<div class="mom-story-empty">Belum ada momen "mulai sesuatu" bulan ini — tandai momen sebagai first time saat capture 🌱</div>`}
-  `;
+  // event hari ini
+  const todayEvent = hjEvent(t.m,t.d);
+  const evSection = document.getElementById('hj-section-event');
+  if(todayEvent){
+    evSection.style.display='';
+    document.getElementById('hj-card-event').innerHTML =
+      `<div class="hj-card-event-ic">${todayEvent.ic}</div>`+
+      `<div class="hj-card-event-body">`+
+      `<div class="hj-card-event-lbl">Hari ini</div>`+
+      `<div class="hj-card-event-name">${todayEvent.name}</div>`+
+      `<div class="hj-card-event-sub">${todayEvent.desc.slice(0,60)}...</div>`+
+      `</div><div class="hj-card-event-chev">›</div>`;
+    document.getElementById('hj-card-event').onclick=()=>{ _hjSelDay={y:t.y,m:t.m,d:t.d}; renderHjDayDetail(); document.getElementById('hj-day-detail-wrap').scrollIntoView({behavior:'smooth',block:'center'}); };
+  } else {
+    evSection.style.display='none';
+  }
 
-  // Other months list
-  const monthsList = document.getElementById('mom-months');
-  const byMonth = {};
-  MOM.forEach(m=>{ const k=momKey(m.date); (byMonth[k]=byMonth[k]||[]).push(m); });
-  const keys = Object.keys(byMonth).filter(k=>k!==momKey(_momViewMonth)).sort((a,b)=>{
-    const [ya,ma]=a.split('-').map(Number), [yb,mb]=b.split('-').map(Number);
-    return (yb*12+mb)-(ya*12+ma);
-  });
-  monthsList.innerHTML = keys.map(k=>{
-    const [yy,mm]=k.split('-').map(Number);
-    const items = byMonth[k];
-    const thumb = items.find(m=>m.img)?.img || '';
-    return `<div class="mom-month-row" onclick="momGotoMonth(${yy},${mm})">
-      <div class="mom-month-thumb" style="${thumb?`background-image:url('${thumb}')`:''}"></div>
-      <div class="mom-month-name">${MOM_MONTHS[mm].toUpperCase()} ${yy}</div>
-      <div class="mom-month-count">${items.length} moments</div>
-      <div class="mom-month-chev">›</div>
-    </div>`;
+  renderHjUpcoming(t);
+  renderHjCalendar();
+  renderHjDayDetail();
+  renderHjMonthsGrid(t);
+}
+
+function ensureHjFreshAnchorless(){ /* placeholder for future cloud sync hooks */ }
+
+function renderHjUpcoming(t){
+  const wrap = document.getElementById('hj-upcoming-wrap');
+  if(!wrap) return;
+  // cari event-event mendatang dalam 90 hari ke depan
+  const upcoming=[];
+  let cur={y:t.y,m:t.m,d:t.d};
+  for(let i=1;i<=90;i++){
+    cur = hjAddDays(cur.y,cur.m,cur.d,1);
+    const ev = hjEvent(cur.m,cur.d);
+    if(ev) upcoming.push({...ev, daysLeft:i, y:cur.y,m:cur.m,d:cur.d});
+    if(upcoming.length>=6) break;
+  }
+  if(!upcoming.length){ wrap.innerHTML=''; return; }
+  wrap.innerHTML =
+    `<div class="home-matkul-title" style="margin-bottom:10px">📅 Akan Datang</div>`+
+    `<div class="hj-upcoming-row">`+
+    upcoming.map(u=>
+      `<div class="hj-upcoming-card" onclick="hjSelectDay(${u.y},${u.m},${u.d});document.getElementById('hj-day-detail-wrap').scrollIntoView({behavior:'smooth',block:'center'})">`+
+      `<div class="hj-upcoming-ic">${u.ic}</div>`+
+      `<div class="hj-upcoming-name">${u.name}</div>`+
+      `<div class="hj-upcoming-days">${u.daysLeft} hari lagi</div>`+
+      `</div>`
+    ).join('')+
+    `</div>`;
+}
+
+function renderHjCalendar(){
+  const t = hjToday(); if(!t) return;
+  // bulan yang ditampilkan = bulan hari ini + offset
+  let viewM = t.m, viewY = t.y;
+  for(let i=0;i<Math.abs(_hjViewOffsetMonths);i++){
+    if(_hjViewOffsetMonths>0){ viewM++; if(viewM>12){viewM=1;viewY++;} }
+    else { viewM--; if(viewM<1){viewM=12;viewY--;} }
+  }
+  document.getElementById('hj-cal-month').textContent = HJ_MONTHS[viewM-1]+' '+viewY+' H';
+  const firstGreg = hjToGreg(viewY,viewM,1);
+  const lastGreg = hjToGreg(viewY,viewM,HJ_MONTH_LEN[viewM-1]);
+  document.getElementById('hj-cal-month-sub').textContent =
+    (firstGreg?fmtDate(firstGreg):'')+' – '+(lastGreg?fmtDate(lastGreg):'');
+
+  const daysInMonth = HJ_MONTH_LEN[viewM-1];
+  // tentukan hari dalam seminggu (Sen=0..Min=6) dari tanggal masehi hasil konversi tgl 1
+  const firstDate = new Date(firstGreg+'T12:00:00');
+  const firstDow = (firstDate.getDay()+6)%7;
+
+  const cells=[];
+  for(let i=0;i<firstDow;i++) cells.push(null);
+  for(let d=1;d<=daysInMonth;d++) cells.push(d);
+  const remainder = (7-(cells.length%7))%7;
+  for(let i=0;i<remainder;i++) cells.push(null);
+
+  const todStr=tod();
+  const grid = document.getElementById('hj-cal-grid');
+  grid.innerHTML = cells.map(d=>{
+    if(d===null) return `<div class="hj-cal-day outmonth"></div>`;
+    const greg = hjToGreg(viewY,viewM,d);
+    const isToday = greg===todStr;
+    const isSel = _hjSelDay && _hjSelDay.y===viewY && _hjSelDay.m===viewM && _hjSelDay.d===d;
+    const ev = hjEvent(viewM,d);
+    const gregDay = greg ? new Date(greg+'T12:00:00').getDate() : '';
+    return `<div class="hj-cal-day${isToday?' today':''}${isSel?' selected':''}${ev?' special':''}" onclick="hjSelectDay(${viewY},${viewM},${d})">`+
+      `<div>${d}</div><div class="hj-cal-day-greg">${gregDay}</div>`+
+      `</div>`;
   }).join('');
 }
 
-function momCardHtml(m){
-  if(!m.img){
-    return `<div class="mom-card text-only ${m.milestone?'milestone':''}" onclick="momOpenDetail('${m.id}')">
-      ${m.milestone?`<div class="mom-card-milestone-badge">⭐ first time</div>`:''}
-      <div class="mom-card-ic">${m.milestone?'🚀':'📝'}</div>
-      <div class="mom-card-empty-cap">${momTrunc(m.cap,38)}</div>
-      <div class="mom-card-empty-date">${momFmtDate(m.date)}</div>
-    </div>`;
-  }
-  return `<div class="mom-card" onclick="momOpenDetail('${m.id}')">
-    ${m.milestone?`<div class="mom-card-milestone-badge">⭐ first time</div>`:''}
-    <img src="${m.img}" loading="lazy" alt="">
-  </div>`;
-}
-function momTrunc(s,n){ return s.length>n ? s.slice(0,n-1)+'…' : s; }
+function renderHjDayDetail(){
+  const wrap = document.getElementById('hj-day-detail-wrap');
+  if(!wrap || !_hjSelDay) return;
+  const {y,m,d} = _hjSelDay;
+  const greg = hjToGreg(y,m,d);
+  const ev = hjEvent(m,d);
+  const ds = hjDs(y,m,d);
+  const amalanList = HJ.amalan[ds] || [];
 
-// Distribute items into N masonry columns (shortest-column-first)
-let _momResizeBound = false;
-function momCols(){
-  const w = document.getElementById('scroll')?.clientWidth || window.innerWidth;
-  if(w >= 900) return 4;
-  if(w >= 640) return 3;
-  return 2;
-}
-function momRenderMasonry(items){
-  const grid = document.getElementById('mom-grid');
-  const n = momCols();
-  grid.innerHTML = '';
-  const cols = [];
-  for(let i=0;i<n;i++){
-    const col = document.createElement('div');
-    col.className='mom-grid-col';
-    grid.appendChild(col);
-    cols.push({el:col, h:0});
-  }
-  items.forEach(m=>{
-    cols.sort((a,b)=>a.h-b.h);
-    const target = cols[0];
-    target.el.insertAdjacentHTML('beforeend', momCardHtml(m));
-    // approximate height: text-only cards are square (1), photo cards default to 1.2 until image loads
-    target.h += m.img ? 1.2 : 1;
-  });
-  // After images load, re-measure isn't necessary for correctness, just visual balance.
-  if(!_momResizeBound){
-    _momResizeBound = true;
-    let t;
-    window.addEventListener('resize', ()=>{
-      clearTimeout(t);
-      t = setTimeout(()=>{
-        if(document.getElementById('v-moments')?.classList.contains('active')) renderMoments();
-      }, 250);
-    });
-  }
-}
+  const eventHtml = ev
+    ? `<div class="hj-day-detail-event"><div class="hj-day-detail-event-name">${ev.ic} ${ev.name}</div><div class="hj-day-detail-event-desc">${ev.desc}</div></div>`
+    : '';
 
-function momRenderMemory(){
-  const el = document.getElementById('mom-memory');
-  const today = new Date();
+  const amalanHtml = amalanList.map(a=>
+    `<div class="hj-amalan-item">`+
+    `<div class="hj-amalan-check${a.done?' done':''}" onclick="hjToggleAmalan('${ds}','${a.id}')">${a.done?'✓':''}</div>`+
+    `<div class="hj-amalan-name${a.done?' done':''}" onclick="hjToggleAmalan('${ds}','${a.id}')">${escHtml(a.name)}</div>`+
+    `<div class="hj-amalan-del" onclick="hjDelAmalan('${ds}','${a.id}')">🗑</div>`+
+    `</div>`
+  ).join('');
 
-  // Preferred: same month/day from a previous year
-  let mem = MOM.filter(m=>{
-    const d=new Date(m.date);
-    return d.getFullYear() < today.getFullYear() && d.getMonth()===today.getMonth() && d.getDate()===today.getDate();
-  }).sort((a,b)=> new Date(b.date)-new Date(a.date))[0];
+  const isBigDay = !!ev;
+  const refl = HJ.refleksi[ds] || '';
+  const reflHtml = isBigDay ? `
+    <div class="hj-refl-box">
+      <div class="hj-amalan-title" style="margin-top:14px">💭 Niat / Refleksi Pribadi</div>
+      ${refl
+        ? `<div class="hj-refl-text">${escHtml(refl)}</div>`
+        : `<div class="hj-refl-empty">Belum ada catatan untuk hari ini.</div>`}
+      <span class="hj-refl-edit-btn" onclick="hjEditRefleksi('${ds}')">✏️ ${refl?'Edit':'Tulis'} catatan</span>
+    </div>` : '';
 
-  // Fallback: oldest entry that's at least 30 days ago
-  if(!mem){
-    const cutoff = new Date(today); cutoff.setDate(cutoff.getDate()-30);
-    mem = MOM.filter(m=> new Date(m.date) <= cutoff)
-      .sort((a,b)=> new Date(a.date)-new Date(b.date))[0]; // oldest first
-  }
-
-  if(!mem){
-    el.style.background='rgba(255,255,255,.04)';
-    el.style.minHeight='auto';
-    el.innerHTML = `<div class="mom-memory-empty">✨ Belum ada kenangan lama. Terus capture momen, biar nanti ada flashback buat kamu!</div>`;
-    delete el.dataset.id;
-    return;
-  }
-  el.style.background = mem.img ? `url('${mem.img}') center/cover no-repeat, linear-gradient(135deg,#3b2d6b,#241a3d)` : 'linear-gradient(135deg,#3b2d6b,#241a3d)';
-  el.style.minHeight='200px';
-  el.dataset.id = mem.id;
-  el.innerHTML = `
-    <div class="mom-memory-refresh"><i class="ti ti-refresh"></i></div>
-    <div class="mom-memory-body">
-      <div class="mom-memory-tag">✨ Memory of the day</div>
-      <div class="mom-memory-title">${mem.cap}</div>
-      <div class="mom-memory-meta">${mem.place?`<i class="ti ti-map-pin" style="font-size:12px"></i> ${mem.place} · `:''}${momFmtFull(mem.date)}</div>
+  wrap.innerHTML = `
+    <div class="hj-day-detail">
+      <div class="hj-day-detail-head">
+        <div class="hj-day-detail-date">${d} ${HJ_MONTHS[m-1]} ${y} H</div>
+        <div class="hj-day-detail-greg">${greg?fmtDate(greg):''}</div>
+      </div>
+      ${eventHtml}
+      <div class="hj-amalan-section">
+        <div class="hj-amalan-title">✅ Amalan Harian</div>
+        <div class="hj-amalan-list">${amalanHtml || '<div class="hj-refl-empty">Belum ada amalan ditambahkan.</div>'}</div>
+        <div class="hj-amalan-add">
+          <input type="text" id="hj-amalan-input" placeholder="e.g. Puasa, Dzikir pagi, Baca Quran..." onkeydown="if(event.key==='Enter')hjAddAmalan('${ds}')">
+          <button onclick="hjAddAmalan('${ds}')">+ Tambah</button>
+        </div>
+      </div>
+      ${reflHtml}
     </div>
   `;
 }
 
-function momOpenMemory(){
-  const el = document.getElementById('mom-memory');
-  const id = el.dataset.id;
-  if(id) momOpenDetail(id);
+function hjAddAmalan(ds){
+  const inp = document.getElementById('hj-amalan-input');
+  const name = inp.value.trim();
+  if(!name) return;
+  if(!HJ.amalan[ds]) HJ.amalan[ds]=[];
+  HJ.amalan[ds].push({id:'am'+Date.now(), name, done:false});
+  hjSave();
+  renderHjDayDetail();
+}
+function hjToggleAmalan(ds,id){
+  const item = (HJ.amalan[ds]||[]).find(a=>a.id===id);
+  if(!item) return;
+  item.done = !item.done;
+  hjSave();
+  renderHjDayDetail();
+}
+function hjDelAmalan(ds,id){
+  HJ.amalan[ds] = (HJ.amalan[ds]||[]).filter(a=>a.id!==id);
+  hjSave();
+  renderHjDayDetail();
+}
+function hjEditRefleksi(ds){
+  const cur = HJ.refleksi[ds] || '';
+  const txt = prompt('Tulis niat atau refleksi pribadimu untuk hari ini:', cur);
+  if(txt===null) return;
+  HJ.refleksi[ds] = txt.trim();
+  hjSave();
+  renderHjDayDetail();
 }
 
-function momGotoMonth(y,m){
-  _momViewMonth = new Date(y,m,1);
-  renderMoments();
-  document.getElementById('scroll').scrollTop=0;
+function renderHjMonthsGrid(t){
+  const grid = document.getElementById('hj-months-grid');
+  if(!grid) return;
+  grid.innerHTML = HJ_MONTHS.map((nm,i)=>{
+    const isCur = t && t.m===i+1;
+    return `<div class="hj-month-pill${isCur?' cur':''}" onclick="hjJumpToMonth(${i+1})">`+
+      `<span class="hj-month-pill-name">${nm}</span><span class="hj-month-pill-num">${i+1}/12</span>`+
+      `</div>`;
+  }).join('');
 }
-function momMonthPicker(){
-  // simple cycle: go to previous month with data, or just shift back one month
-  _momViewMonth.setMonth(_momViewMonth.getMonth()-1);
-  renderMoments();
-}
-function momSearchToggle(){
-  const q = prompt('Cari momen (kata kunci):');
-  if(q===null) return;
-  const ql=q.trim().toLowerCase();
-  if(!ql){ renderMoments(); return; }
-  const results = MOM.filter(m=>m.cap.toLowerCase().includes(ql) || (m.place||'').toLowerCase().includes(ql))
-    .sort((a,b)=>new Date(b.date)-new Date(a.date));
-  const grid = document.getElementById('mom-grid');
-  if(results.length){
-    if(!grid.classList.contains('mom-grid')) grid.outerHTML = `<div class="mom-grid" id="mom-grid"></div>`;
-    momRenderMasonry(results);
-  } else {
-    grid.outerHTML = `<div class="mom-grid-empty" id="mom-grid">Gak ada momen yang cocok dengan "${q}" 🔍</div>`;
-  }
-  document.getElementById('mom-story-section').innerHTML='';
-  document.getElementById('mom-months').innerHTML='';
+function hjJumpToMonth(m){
+  const t = hjToday(); if(!t) return;
+  let diff = m - t.m;
+  _hjViewOffsetMonths = diff;
+  renderHjCalendar();
+  document.getElementById('hj-cal-month')?.scrollIntoView({behavior:'smooth',block:'center'});
 }
 
-// ── Capture sheet ──
-function momOpenCapture(editId){
-  _momEditId = editId || null;
-  _momPendingImg='';
-  const editing = MOM.find(m=>m.id===editId);
-  if(editing) _momPendingImg = editing.img||'';
-
-  const overlay = document.createElement('div');
-  overlay.className='mom-sheet-overlay';
-  overlay.id='mom-capture-overlay';
-  overlay.onclick = (e)=>{ if(e.target===overlay) momCloseCapture(); };
-  overlay.innerHTML = `
-    <div class="mom-sheet">
-      <div class="mom-sheet-handle"></div>
-      <div class="mom-sheet-title">${editing?'✏️ Edit Momen':'📸 Capture the Moment'}</div>
-
-      <div class="mom-photo-drop" id="mom-photo-drop" style="${_momPendingImg?`background-image:url('${_momPendingImg}')`:''}" onclick="document.getElementById('mom-photo-input').click()">
-        ${_momPendingImg?'':'<i class="ti ti-camera"></i><div>Tap untuk tambah foto (opsional)</div>'}
-      </div>
-      <input type="file" id="mom-photo-input" accept="image/*" style="display:none" onchange="momPickPhoto(event)">
-
-      <div class="mom-field">
-        <label>Apa yang terjadi?</label>
-        <textarea id="mom-cap-input" placeholder="Ceritain momennya...">${editing?editing.cap:''}</textarea>
-      </div>
-
-      <div class="mom-field">
-        <label>Lokasi (opsional)</label>
-        <input id="mom-place-input" type="text" placeholder="e.g. Kuta Beach, Bali" value="${editing?(editing.place||''):''}">
-      </div>
-
-      <div class="mom-field">
-        <label>Mood</label>
-        <div class="mom-mood-row" id="mom-mood-row">
-          ${['😊','😌','🤩','🥰','😄','😢','😤'].map(e=>`<div class="mom-mood-btn ${editing&&editing.mood===e?'sel':''}" data-mood="${e}" onclick="momPickMood(this)">${e}</div>`).join('')}
-        </div>
-      </div>
-
-      <div class="mom-milestone-toggle ${editing&&editing.milestone?'on':''}" id="mom-milestone-toggle" onclick="momToggleMilestone()">
-        <div class="mom-toggle-dot"></div>
-        <div>
-          <div style="font-size:13px;font-weight:700;color:#fff">Ini momen "mulai sesuatu" ⭐</div>
-          <div style="font-size:11px;color:#9b93b5;margin-top:2px">Akan masuk ke Story bulan ini sebagai first time</div>
-        </div>
-      </div>
-
-      <div class="mom-sheet-actions">
-        <button class="mom-btn mom-btn-ghost" onclick="momCloseCapture()">Batal</button>
-        <button class="mom-btn mom-btn-primary" onclick="momSaveCapture()">Simpan ✓</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-  requestAnimationFrame(()=>overlay.classList.add('show'));
-}
-
-function momPickPhoto(ev){
-  const file = ev.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ()=>{
-    _momPendingImg = reader.result;
-    const drop = document.getElementById('mom-photo-drop');
-    drop.style.backgroundImage = `url('${_momPendingImg}')`;
-    drop.style.backgroundSize='cover'; drop.style.backgroundPosition='center';
-    drop.innerHTML='';
-  };
-  reader.readAsDataURL(file);
-}
-function momPickMood(el){
-  document.querySelectorAll('#mom-mood-row .mom-mood-btn').forEach(b=>b.classList.remove('sel'));
-  el.classList.add('sel');
-}
-function momToggleMilestone(){
-  document.getElementById('mom-milestone-toggle').classList.toggle('on');
-}
-function momCloseCapture(){
-  const ov = document.getElementById('mom-capture-overlay');
-  if(!ov) return;
-  ov.classList.remove('show');
-  setTimeout(()=>ov.remove(),200);
-}
-function momSaveCapture(){
-  const cap = document.getElementById('mom-cap-input').value.trim();
-  if(!cap){ toast('Tulis dulu ceritanya ya 📝'); return; }
-  const place = document.getElementById('mom-place-input').value.trim();
-  const moodEl = document.querySelector('#mom-mood-row .mom-mood-btn.sel');
-  const mood = moodEl ? moodEl.dataset.mood : '😊';
-  const milestone = document.getElementById('mom-milestone-toggle').classList.contains('on');
-
-  if(_momEditId){
-    const item = MOM.find(m=>m.id===_momEditId);
-    Object.assign(item, {cap, place, mood, milestone, img:_momPendingImg, milestoneLabel: milestone?(item.milestoneLabel||cap):undefined, date:item.date});
-  } else {
-    MOM.unshift({
-      id:'m'+Date.now(), cap, place, mood, milestone,
-      img:_momPendingImg, date:new Date().toISOString(),
-      milestoneLabel: milestone?cap:undefined
-    });
-  }
-  momSave();
-  momCloseCapture();
-  renderMoments();
-  toast(milestone?'⭐ Momen tersimpan ke Story bulan ini!':'✨ Momen tersimpan!');
-}
-
-// ── Detail modal ──
-function momOpenDetail(id){
-  const m = MOM.find(x=>x.id===id);
-  if(!m) return;
-  const overlay = document.createElement('div');
-  overlay.className='mom-detail-overlay';
-  overlay.id='mom-detail-overlay';
-  overlay.onclick=(e)=>{ if(e.target===overlay) momCloseDetail(); };
-  overlay.innerHTML = `
-    <div class="mom-detail-card">
-      <div style="position:relative">
-        ${m.img ? `<div class="mom-detail-photo" style="background-image:url('${m.img}')"></div>` : `<div class="mom-detail-photo" style="display:flex;align-items:center;justify-content:center;font-size:40px;background:linear-gradient(135deg,#3b2d6b,#241a3d)">${m.milestone?'🚀':'📝'}</div>`}
-        <div class="mom-detail-close" onclick="momCloseDetail()"><i class="ti ti-x"></i></div>
-      </div>
-      <div class="mom-detail-body">
-        ${m.milestone?`<div class="mom-card-tag" style="margin-bottom:6px">⭐ first time</div>`:''}
-        <div class="mom-detail-cap">${m.cap}</div>
-        <div class="mom-detail-meta">
-          <span>${momFmtFull(m.date)}</span>
-          ${m.place?`<span>· <i class="ti ti-map-pin" style="font-size:12px"></i> ${m.place}</span>`:''}
-          <span>· ${m.mood||'😊'}</span>
-        </div>
-        <div class="mom-detail-actions">
-          <button class="mom-btn mom-btn-ghost" onclick="momCloseDetail();momOpenCapture('${m.id}')"><i class="ti ti-edit"></i> Edit</button>
-          <button class="mom-btn mom-btn-ghost" onclick="momDeleteItem('${m.id}')"><i class="ti ti-trash"></i> Hapus</button>
-        </div>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(overlay);
-  requestAnimationFrame(()=>overlay.classList.add('show'));
-}
-function momCloseDetail(){
-  const ov = document.getElementById('mom-detail-overlay');
-  if(!ov) return;
-  ov.classList.remove('show');
-  setTimeout(()=>ov.remove(),200);
-}
-function momDeleteItem(id){
-  if(!confirm('Hapus momen ini?')) return;
-  MOM = MOM.filter(m=>m.id!==id);
-  momSave();
-  momCloseDetail();
-  renderMoments();
-  toast('🗑 Momen dihapus');
-}
 
 // ════════ DETAIL MATKUL — INTEGRASI & HELPERS ══
 
