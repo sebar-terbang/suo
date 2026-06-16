@@ -11367,24 +11367,62 @@ function saveWhy_c(){
 function renderProjAp_c(pid,color){
   const el=document.getElementById('proj-ap-list');if(!el)return;
   el.innerHTML='';
-  const allTasks=(D.p_tasks||[]).filter(t=>t.parentId===pid&&(!t.recurring||t.recurring.freq==='none'));
+  const allTasks=(D.p_tasks||[]).filter(t=>t.parentId===pid);
   if(!allTasks.length){
     el.innerHTML='<div style="padding:24px 16px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line)"><span style="font-size:24px;display:block;margin-bottom:6px">📋</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada langkah</div><div style="font-size:12px;color:var(--ink3);margin-top:3px">Tap ＋ Tambah untuk mulai</div></div>';
     return;
   }
-  const undone=allTasks.filter(t=>!t.done);
-  const done=allTasks.filter(t=>t.done);
   const todStr=tod();
+
+  // Separate recurring and non-recurring
+  const recurTasks=allTasks.filter(t=>t.recurring&&t.recurring.freq&&t.recurring.freq!=='none');
+  const nonRecurTasks=allTasks.filter(t=>!t.recurring||t.recurring.freq==='none');
+  const undone=nonRecurTasks.filter(t=>!t.done);
+  const done=nonRecurTasks.filter(t=>t.done);
 
   const card=document.createElement('div');
   card.style.cssText='background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh);overflow:hidden;';
 
   function buildRow(t,isDone){
+    const isRecur=t.recurring&&t.recurring.freq&&t.recurring.freq!=='none';
     const stepNum=allTasks.findIndex(x=>x.id===t.id)+1;
     const dlDiff=t.deadline?diffD(t.deadline,todStr):null;
 
     // Build inline badge
     let badge='';
+    if(isRecur){
+      const rec=t.recurring;
+      const freqMap={daily:'Setiap hari',monthly:'Setiap bulan'};
+      let recurLabel='';
+      if(rec.freq==='weekly'&&rec.days&&rec.days.length){
+        const dayNames={0:'Min',1:'Sen',2:'Sel',3:'Rab',4:'Kam',5:'Jum',6:'Sab'};
+        recurLabel='Tiap '+rec.days.map(d=>dayNames[d]).join(', ');
+      } else {
+        recurLabel=freqMap[rec.freq]||'Berulang';
+      }
+      if(rec.endDate) recurLabel+=' · s/d '+fmtDate(rec.endDate);
+      const doneToday=t.lastDone===todStr;
+      badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--purple-lt);color:var(--purple)">🔁 '+recurLabel+'</span>';
+      if(doneToday) badge+='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--green-lt);color:var(--green-dk)">✓ Hari ini</span>';
+      const doneFlag=doneToday;
+      const row=document.createElement('div');
+      row.className='ap-item ap-item-rev'+(doneFlag?' is-done':'');
+      row.innerHTML=
+        '<div class="ap-check'+(doneFlag?' done':'')+'" onclick="toggleApDone(\''+t.id+'\')" style="'+(doneFlag?'background:'+color+';border-color:'+color+';':'')+'">' +
+        (doneFlag?'✓':'')+
+        '</div>'+
+        '<div class="ap-body">'+
+        '<div class="ap-name'+(doneFlag?' done':'')+'">'+escHtml(t.name)+'</div>'+
+        '<div class="ap-meta">'+
+        '<span style="font-size:10px;color:var(--ink3);font-weight:600">Langkah '+stepNum+'</span>'+
+        badge+
+        (t.notes?'<span class="ap-notes-btn" onclick="event.stopPropagation();openApNotes(\''+t.id+'\')">📝</span>':'')+
+        '</div>'+
+        '</div>'+
+        '<button class="ap-more" onclick="event.stopPropagation();openEditAp(\''+t.id+'\')">···</button>';
+      return row;
+    }
+
     if(isDone){
       badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--green-lt);color:var(--green-dk)">✓ Selesai</span>';
     } else if(t.deadline){
@@ -11414,11 +11452,18 @@ function renderProjAp_c(pid,color){
     return row;
   }
 
-  if(!undone.length){
+  // Render recurring tasks first (always at top, never in "done" collapse)
+  if(recurTasks.length){
+    recurTasks.forEach(t=>card.appendChild(buildRow(t,false)));
+  }
+
+  if(!undone.length&&!recurTasks.length){
     const empty=document.createElement('div');
     empty.style.cssText='padding:20px 16px;text-align:center;';
     empty.innerHTML='<span style="font-size:22px;display:block;margin-bottom:4px">🎉</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Semua langkah selesai!</div>';
     card.appendChild(empty);
+  } else if(!undone.length&&recurTasks.length){
+    // has recurring but no pending one-time — still show add button (do nothing extra)
   } else {
     undone.forEach(t=>card.appendChild(buildRow(t,false)));
   }
