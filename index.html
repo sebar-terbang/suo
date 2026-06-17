@@ -4680,24 +4680,12 @@ input,select,textarea { font-family:inherit; }
 
 /* ── SISTEM TAB · "HABIT HARI INI" TODAY WIDGET ── */
 .atd-wrap{margin-bottom:18px;}
-.atd-hero{
-  position:relative; overflow:hidden;
-  background:linear-gradient(150deg,#1c2a20 0%,#2f4334 55%,#3c5240 100%);
-  border-radius:var(--rxl); padding:20px 18px 18px; margin-bottom:14px;
-  box-shadow:0 10px 28px rgba(28,42,32,.28);
-}
-.atd-hero::before{
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(130px 100px at 90% -10%, rgba(255,255,255,.16), transparent 70%);
-  pointer-events:none;
-}
-.atd-hero-date{font-size:10.5px;font-weight:800;letter-spacing:.12em;color:rgba(255,255,255,.6);position:relative;z-index:1;}
-.atd-hero-top{display:flex;align-items:flex-end;justify-content:space-between;margin-top:4px;position:relative;z-index:1;gap:10px;}
-.atd-hero-title{font-size:20px;font-weight:800;letter-spacing:-.3px;color:#fff;}
-.atd-hero-count{font-size:13px;font-weight:800;color:rgba(255,255,255,.92);background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;flex-shrink:0;}
-.atd-hero-prog-track{height:7px;background:rgba(255,255,255,.16);border-radius:99px;overflow:hidden;margin-top:13px;position:relative;z-index:1;}
-.atd-hero-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#a3e635,#65a30d);transition:width .35s ease;}
-.atd-caption{font-size:11.5px;font-weight:600;color:var(--ink3);margin:0 3px 8px;}
+.atd-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px;gap:10px;}
+.atd-head-title{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.2px;}
+.atd-head-sub{font-size:11.5px;font-weight:600;color:var(--ink3);margin-top:2px;}
+.atd-head-count{font-size:12px;font-weight:800;padding:4px 11px;border-radius:99px;background:var(--bg2);color:var(--ink3);flex-shrink:0;}
+.atd-head-count.full{background:var(--green-lt);color:var(--green-dk);}
+.atd-head-count.partial{background:var(--amber-lt);color:#854f0b;}
 .atd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;}
 .atd-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px 12px 17px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;position:relative;}
 .atd-item:last-child{border-bottom:none;}
@@ -11685,7 +11673,6 @@ function renderAreaToday(){
   rows.sort((a,b)=>(a.doneToday?1:0)-(b.doneToday?1:0));
   const done  = rows.filter(r=>r.doneToday).length;
   const total = rows.length;
-  const pct   = total ? Math.round(done/total*100) : 0;
 
   let listHtml;
   if(!total){
@@ -11707,16 +11694,16 @@ function renderAreaToday(){
     }).join('');
   }
 
+  const countCls = !total ? '' : (done===total ? ' full' : ' partial');
+
   wrap.innerHTML =
-    '<div class="atd-hero">'+
-      '<div class="atd-hero-date">'+fmtDate(todayStr).toUpperCase()+'</div>'+
-      '<div class="atd-hero-top">'+
-        '<div class="atd-hero-title">Habit Hari Ini 🔥</div>'+
-        (total?('<div class="atd-hero-count">'+done+'/'+total+'</div>'):'')+
+    '<div class="atd-head">'+
+      '<div>'+
+        '<div class="atd-head-title">🔥 Habit Hari Ini</div>'+
+        '<div class="atd-head-sub">'+fmtDate(todayStr)+' · gabungan dari semua area</div>'+
       '</div>'+
-      (total?('<div class="atd-hero-prog-track"><div class="atd-hero-prog-fill" style="width:'+pct+'%"></div></div>'):'')+
+      (total?('<div class="atd-head-count'+countCls+'">'+done+'/'+total+'</div>'):'')+
     '</div>'+
-    '<div class="atd-caption">Gabungan habit dari semua area lo 🌿</div>'+
     '<div class="atd-card">'+listHtml+'</div>';
 }
 
