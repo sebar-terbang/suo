@@ -4678,6 +4678,40 @@ input,select,textarea { font-family:inherit; }
 .agc-pip.on{background:#fff;box-shadow:0 0 4px rgba(255,255,255,.6);}
 .agc-top-badge{position:absolute;top:11px;right:11px;z-index:3;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);letter-spacing:.03em;}
 
+/* ── SISTEM TAB · "HABIT HARI INI" TODAY WIDGET ── */
+.atd-wrap{margin-bottom:18px;}
+.atd-hero{
+  position:relative; overflow:hidden;
+  background:linear-gradient(150deg,#1c2a20 0%,#2f4334 55%,#3c5240 100%);
+  border-radius:var(--rxl); padding:20px 18px 18px; margin-bottom:14px;
+  box-shadow:0 10px 28px rgba(28,42,32,.28);
+}
+.atd-hero::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(130px 100px at 90% -10%, rgba(255,255,255,.16), transparent 70%);
+  pointer-events:none;
+}
+.atd-hero-date{font-size:10.5px;font-weight:800;letter-spacing:.12em;color:rgba(255,255,255,.6);position:relative;z-index:1;}
+.atd-hero-top{display:flex;align-items:flex-end;justify-content:space-between;margin-top:4px;position:relative;z-index:1;gap:10px;}
+.atd-hero-title{font-size:20px;font-weight:800;letter-spacing:-.3px;color:#fff;}
+.atd-hero-count{font-size:13px;font-weight:800;color:rgba(255,255,255,.92);background:rgba(255,255,255,.16);padding:4px 12px;border-radius:99px;flex-shrink:0;}
+.atd-hero-prog-track{height:7px;background:rgba(255,255,255,.16);border-radius:99px;overflow:hidden;margin-top:13px;position:relative;z-index:1;}
+.atd-hero-prog-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#a3e635,#65a30d);transition:width .35s ease;}
+.atd-caption{font-size:11.5px;font-weight:600;color:var(--ink3);margin:0 3px 8px;}
+.atd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;}
+.atd-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px 12px 17px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;position:relative;}
+.atd-item:last-child{border-bottom:none;}
+.atd-item:active{background:var(--bg);}
+.atd-item-accent{position:absolute;left:0;top:0;bottom:0;width:3px;}
+.atd-check{width:23px;height:23px;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;margin-top:1px;transition:.15s;}
+.atd-body{flex:1;min-width:0;}
+.atd-name{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35;}
+.atd-name.done{color:var(--ink3);text-decoration:line-through;}
+.atd-meta{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap;}
+.atd-tag{font-size:10.5px;font-weight:700;padding:2.5px 8px;border-radius:6px;}
+.atd-freq{font-size:10.5px;font-weight:600;color:var(--ink3);}
+.atd-empty{padding:26px 16px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink3);line-height:1.5;}
+
 /* ── PROJECT DETAIL NEW STYLE ── */
 .pd-goal-sub{font-size:12px;font-weight:500;color:var(--ink3);margin-top:3px;line-height:1.4;font-style:italic;}
 .pd-prog-row{display:flex;align-items:center;gap:10px;margin-top:12px;}
@@ -5638,7 +5672,7 @@ input,select,textarea { font-family:inherit; }
         <span class="sb-item-ic">📋</span> Kegiatan
       </button>
       <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
-        <span class="sb-item-ic">🌿</span> Areas
+        <span class="sb-item-ic">🌿</span> Sistem
       </button>
     </div>
     <div class="sb-section-label">Subjek lo</div>
@@ -6081,8 +6115,9 @@ input,select,textarea { font-family:inherit; }
     </div></div>
 
 
-    <!-- ══ AREAS ══ -->
+    <!-- ══ AREAS / SISTEM ══ -->
     <div class="view" id="v-areas"><div class="pad">
+      <div class="atd-wrap" id="area-today-wrap"></div>
       <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-warn" style="background:rgba(0,0,0,.22);color:#fff">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-sub">0 kegiatan aktif · 1 ritual</div><div class="agc-pip-row"><div class="agc-pip"></div></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off" style="background:rgba(0,0,0,.22);color:#fff">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-sub">0 kegiatan aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
@@ -6186,7 +6221,7 @@ input,select,textarea { font-family:inherit; }
     <button class="nav-pop-item" id="nav-pop-area" onclick="navPopGoView(&#39;areas&#39;)">
       <span class="nav-pop-ic">🌿</span>
       <span class="nav-pop-label">
-        <div>Areas</div>
+        <div>Sistem</div>
         <div class="nav-pop-sub">Hal yang dijaga selamanya</div>
       </span>
       <span class="nav-pop-arrow">›</span>
@@ -7495,7 +7530,7 @@ function goView(name, btn){
   if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
   if(name==='projects') tb.innerHTML=`<div class="tb-title">📋 Kegiatan Singkat</div><button class="tb-action-btn" onclick="openAddProject()">＋ Baru</button>`;
-  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Sistem</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='moments')  tb.innerHTML='';
   // Sync pill state after topbar rebuild
   updatePomoPill();
@@ -7575,7 +7610,7 @@ function updateDesktopTopbar(view, subj){
   } else if(view==='projects'){
     dtb.innerHTML=`<div class="dtb-title">📋 Kegiatan Singkat</div>`;
   } else if(view==='areas'){
-    dtb.innerHTML=`<div class="dtb-title">🌿 Areas</div>`;
+    dtb.innerHTML=`<div class="dtb-title">🌿 Sistem</div>`;
   } else if(view==='proj-detail' && subj){
     dtb.innerHTML=
       `<button class="dtb-back" onclick="navPopGoView('projects')">‹ Kegiatan</button>`+
@@ -7583,7 +7618,7 @@ function updateDesktopTopbar(view, subj){
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditProject('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='area-detail' && subj){
     dtb.innerHTML=
-      `<button class="dtb-back" onclick="navPopGoView('areas')">‹ Areas</button>`+
+      `<button class="dtb-back" onclick="navPopGoView('areas')">‹ Sistem</button>`+
       `<div class="dtb-title">${subj.emoji||'🌿'} ${subj.name}</div>`+
       `<div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea('${subj.id}')">✏️ Edit</button></div>`;
   } else if(view==='detail' && subj){
@@ -11017,7 +11052,7 @@ function saveNewArea(){
   ensurePAData();
   D.areas.push({id:'area'+Date.now(), name, emoji, color:selColorArea, want:'', dont:'', lineupGoals:{}, createdAt:tod()});
   save(); closeSheet('sh-addarea'); renderAreas();
-  toast(`"${name}" ditambahkan ke Areas!`);
+  toast(`"${name}" ditambahkan ke Sistem!`);
 }
 
 function openEditArea(id){
@@ -11589,6 +11624,7 @@ function kegShowRencana(){
 
 function renderAreas(){
   ensurePAData();
+  renderAreaToday();
   const el=document.getElementById('areas-list');if(!el)return;
   el.innerHTML='';
   if(!D.areas.length){
@@ -11621,6 +11657,67 @@ function renderAreas(){
     card.onclick=()=>openAreaDetail(a.id);
     el.appendChild(card);
   });
+}
+
+// ════════ SISTEM TAB · "HABIT HARI INI" TODAY WIDGET ════════════════
+// Gabungin semua habit dari semua area jadi satu list, lalu filter
+// biar cuma yang relevan buat HARI INI yang muncul:
+//  - habit yang sudah dicatat hari ini (tetep tampil, dicentang)
+//  - ATAU habit yang target minggu ini belum tercapai (masih perlu dikerjain)
+// Habit yang target mingguannya udah kelar & belum disentuh hari ini
+// otomatis ke-hide karena emang gak butuh aksi lagi hari ini.
+function renderAreaToday(){
+  ensurePAData();
+  const wrap = document.getElementById('area-today-wrap');
+  if(!wrap) return;
+  const todayStr = tod();
+  const monday   = _getWeekMonday();
+
+  const rows = (D.habits||[]).map(h=>{
+    const area = gArea(h.areaId);
+    const logs = h.logs || [];
+    const doneToday  = logs.some(l=>l.date===todayStr);
+    const target     = h.freqDays || 7;
+    const weekCount  = logs.filter(l=>l.date>=monday && l.date<=todayStr).length;
+    return {h, area, doneToday, relevant: doneToday || weekCount < target};
+  }).filter(r=>r.relevant);
+
+  rows.sort((a,b)=>(a.doneToday?1:0)-(b.doneToday?1:0));
+  const done  = rows.filter(r=>r.doneToday).length;
+  const total = rows.length;
+  const pct   = total ? Math.round(done/total*100) : 0;
+
+  let listHtml;
+  if(!total){
+    listHtml = '<div class="atd-empty">🌱 Gak ada habit yang perlu dikerjain hari ini.<br>Tambah habit baru lewat salah satu area, atau santai dulu 😌</div>';
+  } else {
+    listHtml = rows.map(({h,area,doneToday})=>{
+      const c = area ? area.color : '#16a34a';
+      return '<div class="atd-item" onclick="toggleHabitLog(\''+h.id+'\')">'+
+        '<div class="atd-item-accent" style="background:'+c+'"></div>'+
+        '<div class="atd-check'+(doneToday?' done':'')+'" style="'+(doneToday?('background:'+c+';border-color:'+c+';'):'')+'">'+(doneToday?'✓':'')+'</div>'+
+        '<div class="atd-body">'+
+          '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
+          '<div class="atd-meta">'+
+            (area?('<span class="atd-tag" style="background:'+area.color+'1a;color:'+area.color+'">'+(area.emoji||'🌿')+' '+escHtml(area.name)+'</span>'):'')+
+            '<span class="atd-freq">'+_habitFreqLabel(h)+'</span>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+  }
+
+  wrap.innerHTML =
+    '<div class="atd-hero">'+
+      '<div class="atd-hero-date">'+fmtDate(todayStr).toUpperCase()+'</div>'+
+      '<div class="atd-hero-top">'+
+        '<div class="atd-hero-title">Habit Hari Ini 🔥</div>'+
+        (total?('<div class="atd-hero-count">'+done+'/'+total+'</div>'):'')+
+      '</div>'+
+      (total?('<div class="atd-hero-prog-track"><div class="atd-hero-prog-fill" style="width:'+pct+'%"></div></div>'):'')+
+    '</div>'+
+    '<div class="atd-caption">Gabungan habit dari semua area lo 🌿</div>'+
+    '<div class="atd-card">'+listHtml+'</div>';
 }
 
 // New openProjDetail using pd-header pattern
@@ -12263,7 +12360,7 @@ function openAreaDetail(id){
   document.getElementById('bn-focus')?.classList.add('active');
 
   document.getElementById('topbar').innerHTML=
-    '<button class="tb-back" onclick="navPopGoView(\'areas\')">‹ Areas</button>'+
+    '<button class="tb-back" onclick="navPopGoView(\'areas\')">‹ Sistem</button>'+
     '<div class="tb-title">'+(a.emoji||'🌿')+' '+escHtml(a.name)+'</div>'+
     '<div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div>';
   updatePomoPill();
@@ -12446,6 +12543,7 @@ function toggleHabitLog(hid){
   }
   save();
   renderAreaDetail2(curAreaId);
+  if(curView === 'areas') renderAreaToday();
 }
 
 function _renderAreaScoreboard(areaId, color){
