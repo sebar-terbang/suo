@@ -5184,11 +5184,9 @@ input,select,textarea { font-family:inherit; }
    MOMENTS TAB — gallery journal (dark, own world)
 ══════════════════════════════════ */
 #v-moments {
-  background: var(--hj-cream, #fbf8f0);
   min-height: 100%;
   position: relative;
 }
-.hj-wrap { padding-bottom: calc(var(--nav-h) + var(--sb) + 20px); }
 .mom-top { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; }
 .mom-month { font-size:20px; font-weight:800; letter-spacing:.04em; cursor:pointer; display:flex; align-items:center; gap:6px; color:#fff; }
 .mom-tagline { font-size:12px; color:#facc8a; font-style:italic; margin-top:4px; font-weight:600; }
@@ -5386,191 +5384,229 @@ input,select,textarea { font-family:inherit; }
 .mom-detail-actions .mom-btn { padding:9px; font-size:12.5px; }
 
 /* ┌─────────────────────────────────────────────┐
-   │  HIJRI CALENDAR TAB                          │
+   │  HIJRI CALENDAR TAB — night/day auto theme   │
    └─────────────────────────────────────────────┘ */
 :root{
-  --hj-deep:   #0c3b2e;
-  --hj-deep2:  #145c46;
-  --hj-gold:   #d4af37;
-  --hj-gold-lt:#f6e8b8;
-  --hj-cream:  #fbf8f0;
-  --hj-line:   #e2dcc7;
-  --hj-ink:    #1f2a23;
-  --hj-ink2:   #5c6b5f;
+  --hj-amber:    #caa05a;
+  --hj-amber-lt: #f3dca6;
+  --hj-coral:    #e0916a;
+  --hj-sage:     #97c459;
+  --hj-sky:      #85b7eb;
 }
-.hj-wrap{ background:var(--hj-cream); min-height:100%; padding-bottom:30px; }
+/* NIGHT (default) */
+.hj-wrap{
+  --hjbg:        #0d1420;
+  --hjbg2:       #070b11;
+  --hjcard:      rgba(255,255,255,.045);
+  --hjcard-bd:   rgba(255,255,255,.08);
+  --hjtxt:       #f3ede1;
+  --hjtxt2:      rgba(243,237,225,.58);
+  --hjtxt3:      rgba(243,237,225,.38);
+  --hjtrack:     rgba(255,255,255,.1);
+  --hj-accent-bg:rgba(243,220,166,.12);
+  --hj-accent-bd:rgba(243,220,166,.4);
+  background:var(--hjbg); min-height:100%; padding-bottom:calc(var(--nav-h) + var(--sb) + 20px);
+  transition:background .4s;
+}
+.hj-wrap.hj-day{
+  --hjbg:        #f7f3ea;
+  --hjbg2:       #eee7d8;
+  --hjcard:      rgba(255,255,255,.65);
+  --hjcard-bd:   rgba(44,36,23,.12);
+  --hjtxt:       #2c2417;
+  --hjtxt2:      rgba(44,36,23,.58);
+  --hjtxt3:      rgba(44,36,23,.4);
+  --hjtrack:     rgba(44,36,23,.12);
+  --hj-accent-bg:rgba(202,160,90,.18);
+  --hj-accent-bd:rgba(202,160,90,.5);
+}
+
+.hj-topbar{ display:flex; align-items:center; gap:10px; padding:14px 18px 0; }
+.hj-topbar-back{ font-size:18px; color:var(--hjtxt2); cursor:pointer; flex-shrink:0; }
+.hj-topbar-title{ font-size:15px; font-weight:600; color:var(--hjtxt); flex:1; text-align:center; }
+.hj-topbar-action{ font-size:16px; color:var(--hjtxt2); cursor:pointer; flex-shrink:0; width:18px; text-align:right; }
+
+.hj-pad{ padding:14px 18px 18px; }
+
+/* Hero / header card */
 .hj-hero{
-  background:linear-gradient(160deg,var(--hj-deep) 0%,var(--hj-deep2) 60%,#1a7a5c 100%);
-  padding:18px 18px 22px; position:relative; overflow:hidden;
-  border-radius:0 0 28px 28px;
+  position:relative; border-radius:18px; overflow:hidden; margin-bottom:14px;
+  padding:20px 18px; border:.5px solid var(--hjcard-bd);
+  background:linear-gradient(160deg,rgba(255,255,255,.07) 0%, transparent 60%), var(--hjcard);
 }
-.hj-hero::before{
-  content:''; position:absolute; inset:0; opacity:.08;
-  background-image:radial-gradient(circle at 20% 30%, #fff 0, transparent 2px),
-                    radial-gradient(circle at 70% 60%, #fff 0, transparent 2px),
-                    radial-gradient(circle at 90% 20%, #fff 0, transparent 1.5px),
-                    radial-gradient(circle at 40% 80%, #fff 0, transparent 1.5px);
-  background-size:60px 60px;
-}
-.hj-hero-top{ display:flex; align-items:center; justify-content:space-between; position:relative; z-index:1; margin-bottom:14px; }
-.hj-hero-backbtn{ color:rgba(255,255,255,.85); font-size:13px; font-weight:700; display:flex; align-items:center; gap:4px; }
-.hj-hero-set{ background:rgba(255,255,255,.14); color:#fff; font-size:11.5px; font-weight:700; padding:6px 11px; border-radius:99px; display:flex; align-items:center; gap:5px; }
-.hj-hero-main{ position:relative; z-index:1; text-align:center; padding:6px 0 4px; }
-.hj-hero-moon{ font-size:30px; margin-bottom:6px; }
-.hj-hero-date{ font-size:26px; font-weight:800; color:#fff; letter-spacing:-.3px; line-height:1.15; }
-.hj-hero-date span{ color:var(--hj-gold-lt); }
-.hj-hero-greg{ font-size:12.5px; color:rgba(255,255,255,.65); font-weight:600; margin-top:5px; }
+.hj-hero-kalig{ position:relative; text-align:center; margin-bottom:14px; }
+.hj-hero-kalig-allah{ font-size:34px; font-family:'Times New Roman',serif; color:var(--hj-amber-lt); display:block; line-height:1; filter:drop-shadow(0 0 14px rgba(243,220,166,.3)); }
+.hj-wrap.hj-day .hj-hero-kalig-allah{ color:#8a661f; filter:none; }
+.hj-hero-kalig-sub{ font-size:10.5px; color:var(--hjtxt3); margin-top:4px; letter-spacing:.04em; }
+.hj-hero-kalig-rasul-row{ display:flex; align-items:center; justify-content:center; gap:8px; margin-top:8px; }
+.hj-hero-kalig-line{ height:.5px; width:32px; background:var(--hj-accent-bd); opacity:.6; }
+.hj-hero-kalig-rasul{ font-size:15px; font-family:'Times New Roman',serif; color:var(--hjtxt2); }
+.hj-hero-kalig-saw{ font-size:9.5px; color:var(--hjtxt3); margin-top:2px; letter-spacing:.03em; }
+.hj-hero-divider{ border-top:.5px solid var(--hjcard-bd); padding-top:14px; }
+.hj-hero-greg{ font-size:12.5px; color:var(--hjtxt2); margin:0 0 3px; }
+.hj-hero-date{ font-size:21px; font-weight:600; margin:0 0 13px; color:var(--hjtxt); }
+.hj-hero-date .hj-y{ color:var(--hj-amber); }
+.hj-hero-prog-row{ display:flex; justify-content:space-between; font-size:11px; color:var(--hjtxt2); margin-bottom:5px; }
+.hj-hero-prog-track{ height:6px; background:var(--hjtrack); border-radius:4px; overflow:hidden; }
+.hj-hero-prog-fill{ height:100%; background:linear-gradient(90deg,var(--hj-amber),var(--hj-amber-lt)); }
 .hj-hero-badge{
   display:inline-flex; align-items:center; gap:5px; margin-top:12px;
-  background:rgba(212,175,55,.18); border:1px solid rgba(212,175,55,.4);
-  color:var(--hj-gold-lt); font-size:11.5px; font-weight:700;
-  padding:6px 13px; border-radius:99px;
+  background:var(--hj-accent-bg); border:1px solid var(--hj-accent-bd);
+  color:var(--hj-amber-lt); font-size:11px; font-weight:700; padding:6px 13px; border-radius:99px;
 }
+.hj-wrap.hj-day .hj-hero-badge{ color:#7a5a1c; }
+.hj-hero-setbtn{ position:absolute; top:14px; right:14px; font-size:11px; font-weight:600; color:var(--hjtxt3); background:var(--hjcard); border:.5px solid var(--hjcard-bd); padding:5px 10px; border-radius:99px; cursor:pointer; z-index:2; }
 
-.hj-section{ padding:16px; }
-.hj-card-event{
-  background:linear-gradient(135deg,#fff,var(--hj-gold-lt) 180%);
-  border:1.5px solid var(--hj-gold); border-radius:16px;
-  padding:14px 14px; margin-bottom:14px; cursor:pointer;
-  display:flex; align-items:center; gap:12px;
+/* Makna bulan card */
+.hj-meaning-card{ border-radius:16px; padding:16px 18px; margin-bottom:14px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); }
+.hj-meaning-label{ font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--hjtxt3); margin:0 0 5px; }
+.hj-meaning-name{ font-size:17px; font-weight:600; color:var(--hjtxt); margin:0 0 5px; }
+.hj-meaning-desc{ font-size:12.5px; line-height:1.6; color:var(--hjtxt2); margin:0 0 12px; }
+.hj-btn-amber{
+  width:100%; font-size:12.5px; font-weight:600; padding:9px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center; gap:6px; cursor:pointer;
+  background:var(--hj-accent-bg); border:.5px solid var(--hj-accent-bd); color:var(--hj-amber-lt);
 }
-.hj-card-event-ic{ font-size:26px; flex-shrink:0; }
-.hj-card-event-body{ flex:1; min-width:0; }
-.hj-card-event-lbl{ font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:#8a6d1f; margin-bottom:2px; }
-.hj-card-event-name{ font-size:14.5px; font-weight:800; color:var(--hj-ink); }
-.hj-card-event-sub{ font-size:11.5px; color:var(--hj-ink2); font-weight:600; margin-top:2px; }
-.hj-card-event-chev{ color:#8a6d1f; font-size:16px; flex-shrink:0; }
+.hj-wrap.hj-day .hj-btn-amber{ color:#7a5a1c; }
+.hj-btn-amber:active{ opacity:.7; }
 
-.hj-cal-card{
-  background:var(--white); border-radius:18px; box-shadow:var(--sh);
-  border:1px solid var(--hj-line); overflow:hidden; margin-bottom:16px;
-}
-.hj-cal-head{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 14px 10px;
-}
-.hj-cal-month{ font-size:15px; font-weight:800; color:var(--hj-ink); letter-spacing:-.2px; }
-.hj-cal-month-sub{ font-size:11px; color:var(--hj-ink2); font-weight:600; margin-top:1px; }
-.hj-cal-nav{ display:flex; gap:5px; }
-.hj-cal-arr{
-  width:30px; height:30px; border-radius:9px; background:var(--bg);
-  border:1.5px solid var(--line); color:var(--ink2); font-size:15px;
-  display:flex; align-items:center; justify-content:center; cursor:pointer;
-}
-.hj-cal-dows{ display:grid; grid-template-columns:repeat(7,1fr); padding:4px 8px; gap:2px; }
-.hj-cal-dow{ text-align:center; font-size:9.5px; font-weight:800; color:var(--ink3); text-transform:uppercase; padding:4px 0; }
-.hj-cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); padding:2px 8px 12px; gap:3px; }
-.hj-cal-day{
-  aspect-ratio:1; border-radius:10px; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; position:relative; cursor:pointer;
-  font-size:12.5px; font-weight:700; color:var(--ink); transition:background .12s;
-}
-.hj-cal-day.outmonth{ color:var(--ink3); opacity:.4; }
-.hj-cal-day.today{ background:var(--hj-deep); color:#fff; }
-.hj-cal-day.selected:not(.today){ background:var(--hj-gold-lt); }
-.hj-cal-day.special::after{
-  content:''; position:absolute; bottom:3px; width:5px; height:5px;
-  border-radius:50%; background:var(--hj-gold);
-}
-.hj-cal-day.today.special::after{ background:#fff; }
-.hj-cal-day-greg{ font-size:8.5px; font-weight:600; color:var(--ink3); margin-top:1px; }
-.hj-cal-day.today .hj-cal-day-greg{ color:rgba(255,255,255,.65); }
+/* Orbit strip */
+.hj-orbit-label-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.hj-section-label{ font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--hjtxt3); margin:0; }
+.hj-link-amber{ font-size:11.5px; color:var(--hj-amber); cursor:pointer; font-weight:600; }
+.hj-orbit-row{ display:flex; gap:8px; overflow-x:auto; margin-bottom:14px; -webkit-overflow-scrolling:touch; }
+.hj-orbit-row::-webkit-scrollbar{ display:none; }
+.hj-orbit-item{ text-align:center; width:46px; flex-shrink:0; cursor:pointer; }
+.hj-orbit-circle{ width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 4px; font-size:14px; background:var(--hjcard); border:.5px solid var(--hjcard-bd); }
+.hj-orbit-circle.cur{ background:var(--hj-accent-bg); border:2px solid var(--hj-amber); }
+.hj-orbit-name{ font-size:9px; margin:0; color:var(--hjtxt3); }
+.hj-orbit-name.cur{ color:var(--hjtxt); font-weight:600; }
 
-.hj-day-detail{
-  background:var(--white); border-radius:18px; box-shadow:var(--sh);
-  border:1px solid var(--hj-line); padding:16px; margin-bottom:16px;
-}
-.hj-day-detail-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom:4px; }
-.hj-day-detail-date{ font-size:17px; font-weight:800; color:var(--hj-ink); }
-.hj-day-detail-greg{ font-size:11.5px; color:var(--ink3); font-weight:600; }
-.hj-day-detail-event{
-  margin-top:10px; padding:11px 12px; border-radius:12px;
-  background:var(--hj-gold-lt); border:1px solid var(--hj-gold);
-}
-.hj-day-detail-event-name{ font-size:13.5px; font-weight:800; color:#5c4717; display:flex; align-items:center; gap:6px; margin-bottom:5px; }
-.hj-day-detail-event-desc{ font-size:12.5px; color:#5c4717; line-height:1.55; }
+/* Kalender grid bulanan */
+.hj-calgrid-card{ border-radius:16px; padding:14px 14px 16px; margin-bottom:14px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); }
+.hj-calgrid-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding:0 2px; gap:8px; }
+.hj-calgrid-month{ font-size:14px; font-weight:600; color:var(--hjtxt); }
+.hj-calgrid-month .hj-amberish{ color:var(--hj-amber); }
+.hj-calgrid-nav{ display:flex; align-items:center; gap:6px; flex-shrink:0; }
+.hj-calgrid-arr{ width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--hjtxt2); background:var(--hjtrack); cursor:pointer; flex-shrink:0; }
+.hj-calgrid-arr:active{ opacity:.6; }
+.hj-calgrid-today-link{ font-size:10.5px; font-weight:700; color:var(--hj-amber); cursor:pointer; padding:0 2px; white-space:nowrap; }
+.hj-calgrid-dow-row{ display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:6px; }
+.hj-calgrid-dow{ text-align:center; font-size:9.5px; font-weight:700; color:var(--hjtxt3); text-transform:uppercase; }
+.hj-calgrid-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+.hj-calgrid-cell{ aspect-ratio:1; border-radius:9px; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; cursor:pointer; }
+.hj-calgrid-cell.empty{ cursor:default; }
+.hj-calgrid-num{ font-size:12.5px; font-weight:600; color:var(--hjtxt); }
+.hj-calgrid-cell.today{ background:var(--hj-accent-bg); border:1.5px solid var(--hj-amber); }
+.hj-calgrid-cell.today .hj-calgrid-num{ color:var(--hj-amber-lt); }
+.hj-wrap.hj-day .hj-calgrid-cell.today .hj-calgrid-num{ color:#7a5a1c; }
+.hj-calgrid-cell.selected:not(.today){ background:var(--hjtrack); }
+.hj-calgrid-dot{ position:absolute; bottom:4px; width:4.5px; height:4.5px; border-radius:50%; background:var(--hj-coral); }
+.hj-calgrid-cell.today .hj-calgrid-dot{ background:var(--hj-amber-lt); }
+.hj-calgrid-daydetail{ margin-top:12px; padding-top:12px; border-top:.5px solid var(--hjcard-bd); }
+.hj-calgrid-dd-date{ font-size:13px; font-weight:600; color:var(--hjtxt); margin:0 0 2px; }
+.hj-calgrid-dd-greg{ font-size:11px; color:var(--hjtxt3); margin:0 0 8px; }
+.hj-calgrid-dd-event{ display:flex; gap:9px; padding:10px 11px; border-radius:11px; background:var(--hj-accent-bg); border:.5px solid var(--hj-accent-bd); }
+.hj-calgrid-dd-event-ic{ font-size:15px; flex-shrink:0; }
+.hj-calgrid-dd-event-name{ font-size:12px; font-weight:700; color:var(--hj-amber-lt); margin:0 0 3px; }
+.hj-wrap.hj-day .hj-calgrid-dd-event-name{ color:#7a5a1c; }
+.hj-calgrid-dd-event-desc{ font-size:11.5px; line-height:1.5; color:var(--hjtxt2); margin:0; }
+.hj-calgrid-dd-empty{ font-size:11.5px; color:var(--hjtxt3); font-style:italic; margin:0; }
 
-.hj-amalan-section{ margin-top:12px; }
-.hj-amalan-title{ font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--ink3); margin:14px 0 8px; }
-.hj-amalan-list{ display:flex; flex-direction:column; gap:8px; }
-.hj-amalan-item{
-  display:flex; align-items:center; gap:10px;
-  background:var(--bg); border:1px solid var(--line); border-radius:12px;
-  padding:11px 12px; cursor:pointer;
-}
-.hj-amalan-check{
-  width:24px; height:24px; border-radius:50%; border:2px solid var(--line2);
-  display:flex; align-items:center; justify-content:center; font-size:13px;
-  color:transparent; flex-shrink:0; transition:all .15s;
-}
-.hj-amalan-check.done{ background:var(--hj-deep); border-color:var(--hj-deep); color:#fff; }
-.hj-amalan-name{ flex:1; font-size:13px; font-weight:700; color:var(--ink); }
-.hj-amalan-name.done{ text-decoration:line-through; color:var(--ink3); }
-.hj-amalan-del{ font-size:13px; color:var(--ink3); padding:4px; flex-shrink:0; }
-.hj-amalan-add{
-  display:flex; align-items:center; gap:8px; margin-top:8px;
-}
-.hj-amalan-add input{
-  flex:1; padding:9px 12px; border-radius:10px; border:1.5px solid var(--line);
-  font-size:13px; background:var(--white);
-}
-.hj-amalan-add button{
-  padding:9px 14px; border-radius:10px; background:var(--hj-deep); color:#fff;
-  font-size:12.5px; font-weight:700; flex-shrink:0;
-}
+/* Accordion sections */
+.hj-acc{ margin-bottom:10px; border-radius:14px; overflow:hidden; }
+.hj-acc-head{ cursor:pointer; list-style:none; display:flex; justify-content:space-between; align-items:center; padding:11px 14px; background:var(--hjcard); border:.5px solid var(--hjcard-bd); border-radius:14px; }
+.hj-acc[open] .hj-acc-head{ border-radius:14px 14px 0 0; }
+.hj-acc-head-lbl{ font-size:13px; font-weight:600; color:var(--hjtxt); display:flex; align-items:center; gap:7px; }
+.hj-acc-head-meta{ font-size:11px; color:var(--hjtxt3); }
+.hj-acc-chev{ font-size:11px; color:var(--hjtxt3); transition:transform .15s; }
+.hj-acc[open] .hj-acc-chev{ transform:rotate(180deg); }
+.hj-acc-body{ padding:12px 14px 14px; background:var(--hjcard); border:.5px solid var(--hjcard-bd); border-top:none; border-radius:0 0 14px 14px; font-size:12.5px; line-height:1.65; color:var(--hjtxt2); }
+.hj-acc summary::-webkit-details-marker{ display:none; }
 
-.hj-refl-box{ margin-top:12px; }
-.hj-refl-text{
-  font-size:12.5px; color:var(--ink2); line-height:1.6; background:var(--bg);
-  border-radius:10px; padding:10px 12px; border:1px solid var(--line); white-space:pre-wrap;
-}
-.hj-refl-empty{ font-size:12px; color:var(--ink3); font-style:italic; padding:8px 0; }
-.hj-refl-edit-btn{
-  font-size:11.5px; font-weight:700; color:var(--hj-deep2); margin-top:6px; display:inline-block;
-}
+.hj-keutamaan-row{ display:flex; gap:9px; margin-bottom:9px; }
+.hj-keutamaan-row:last-child{ margin-bottom:0; }
+.hj-keutamaan-dot{ color:var(--hj-amber); font-size:13px; margin-top:2px; flex-shrink:0; }
+.hj-keutamaan-text{ font-size:12.5px; line-height:1.55; color:var(--hjtxt); margin:0; }
 
-.hj-upcoming-row{ display:flex; gap:10px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch; margin-bottom:6px; }
-.hj-upcoming-row::-webkit-scrollbar{ display:none; }
-.hj-upcoming-card{
-  flex:0 0 138px; background:var(--white); border:1px solid var(--hj-line);
-  border-radius:14px; padding:12px; cursor:pointer; box-shadow:var(--sh);
-}
-.hj-upcoming-ic{ font-size:20px; margin-bottom:6px; }
-.hj-upcoming-name{ font-size:12px; font-weight:800; color:var(--hj-ink); line-height:1.3; margin-bottom:3px; }
-.hj-upcoming-days{ font-size:10.5px; font-weight:700; color:var(--hj-deep2); }
+.hj-ev-row{ display:flex; gap:10px; margin-bottom:11px; }
+.hj-ev-row:last-child{ margin-bottom:0; }
+.hj-ev-ic{ width:30px; height:30px; border-radius:9px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:14px; }
+.hj-ev-title{ font-size:12.5px; font-weight:600; color:var(--hjtxt); margin:0; }
+.hj-ev-sub{ font-size:11px; color:var(--hjtxt3); margin:1px 0 0; }
 
-.hj-months-section{ margin-top:6px; }
-.hj-months-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
-.hj-month-pill{
-  background:var(--white); border:1px solid var(--hj-line); border-radius:12px;
-  padding:10px 12px; cursor:pointer; display:flex; align-items:center; justify-content:space-between;
-}
-.hj-month-pill.cur{ background:var(--hj-deep); border-color:var(--hj-deep); }
-.hj-month-pill-name{ font-size:12px; font-weight:700; color:var(--ink); }
-.hj-month-pill.cur .hj-month-pill-name{ color:#fff; }
-.hj-month-pill-num{ font-size:10px; color:var(--ink3); font-weight:700; }
-.hj-month-pill.cur .hj-month-pill-num{ color:rgba(255,255,255,.65); }
+.hj-chk-row{ display:flex; align-items:center; gap:8px; margin-bottom:9px; font-size:12.5px; cursor:pointer; }
+.hj-chk-row:last-of-type{ margin-bottom:12px; }
+.hj-chk-box{ width:18px; height:18px; border-radius:50%; border:1.5px solid var(--hjcard-bd); display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; color:transparent; }
+.hj-chk-box.done{ background:var(--hj-sage); border-color:var(--hj-sage); color:#0d1420; }
+.hj-chk-name{ flex:1; color:var(--hjtxt); }
+.hj-chk-name.done{ text-decoration:line-through; color:var(--hjtxt3); }
+.hj-chk-del{ font-size:12px; color:var(--hjtxt3); padding:3px; flex-shrink:0; }
+.hj-chk-add{ display:flex; gap:7px; margin-top:4px; }
+.hj-chk-add input{ flex:1; padding:8px 11px; border-radius:9px; border:.5px solid var(--hjcard-bd); font-size:12.5px; background:transparent; color:var(--hjtxt); }
+.hj-chk-add input::placeholder{ color:var(--hjtxt3); }
+.hj-chk-add button{ padding:8px 13px; border-radius:9px; background:var(--hj-accent-bg); border:.5px solid var(--hj-accent-bd); color:var(--hj-amber-lt); font-size:12px; font-weight:600; flex-shrink:0; }
+.hj-wrap.hj-day .hj-chk-add button{ color:#7a5a1c; }
+
+/* Refleksi card on home */
+.hj-refl-card{ border-radius:14px; padding:16px 18px; margin-bottom:6px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); }
+.hj-refl-quote{ font-family:Georgia,serif; font-size:13px; line-height:1.55; color:var(--hjtxt); font-style:italic; margin:0 0 12px; }
+.hj-refl-quote-src{ font-size:10.5px; color:var(--hjtxt3); margin-top:-8px; margin-bottom:12px; }
+
+/* Detail bulan header illustration */
+.hj-dm-header{ position:relative; border-radius:16px; overflow:hidden; margin-bottom:14px; padding:20px 18px; min-height:90px; background:linear-gradient(160deg,rgba(255,255,255,.08) 0%, transparent 65%), var(--hjcard); border:.5px solid var(--hjcard-bd); }
+.hj-dm-name{ font-size:25px; font-weight:600; margin:0 0 4px; color:var(--hjtxt); }
+.hj-dm-tag{ font-size:12.5px; margin:0; color:var(--hjtxt2); }
+.hj-dm-theme-label{ font-size:11px; letter-spacing:.04em; text-transform:uppercase; color:var(--hjtxt3); margin:0 0 6px; }
+.hj-dm-theme{ font-size:16.5px; font-weight:600; color:var(--hjtxt); margin:0 0 14px; }
+.hj-quote-card{ border-radius:14px; padding:13px 15px; margin-bottom:14px; border-left:3px solid var(--hj-amber); background:var(--hjcard); }
+.hj-quote-text{ font-family:Georgia,serif; font-size:12.5px; line-height:1.6; font-style:italic; color:var(--hjtxt); margin:0 0 5px; }
+.hj-quote-src{ font-size:10.5px; color:var(--hjtxt3); margin:0; }
+
+/* Refleksi page */
+.hj-write-card{ border-radius:14px; padding:16px; margin-bottom:18px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); }
+.hj-write-prompt{ font-size:13.5px; font-weight:600; line-height:1.5; color:var(--hjtxt); margin:0 0 3px; }
+.hj-write-sub{ font-size:11px; color:var(--hjtxt3); margin:0 0 11px; }
+.hj-write-textarea{ width:100%; min-height:90px; font-size:13px; padding:10px 12px; border-radius:10px; resize:vertical; box-sizing:border-box; border:.5px solid var(--hjcard-bd); background:transparent; color:var(--hjtxt); font-family:inherit; }
+.hj-write-textarea::placeholder{ color:var(--hjtxt3); }
+.hj-write-counter{ font-size:10.5px; color:var(--hjtxt3); display:block; text-align:right; margin-top:5px; }
+.hj-hist-card{ border-radius:14px; padding:13px 15px; margin-bottom:9px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); }
+.hj-hist-date{ font-size:12px; font-weight:600; color:var(--hjtxt); margin:0 0 5px; }
+.hj-hist-text{ font-size:11.5px; line-height:1.6; color:var(--hjtxt2); margin:0; white-space:pre-wrap; }
+.hj-hist-empty{ font-size:12px; color:var(--hjtxt3); font-style:italic; text-align:center; padding:18px 0; }
+
+/* Perjalanan tahun (orbit detail page) */
+.hj-orbit-svg-wrap{ margin-bottom:16px; }
+.hj-orbityear-list-item{ border-radius:12px; padding:11px 14px; margin-bottom:8px; display:flex; align-items:center; gap:11px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); cursor:pointer; }
+.hj-orbityear-list-item.cur{ border:1.5px solid var(--hj-amber); }
+.hj-oy-icon{ width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:13px; background:var(--hjtrack); color:var(--hjtxt2); }
+.hj-oy-icon.cur{ background:var(--hj-accent-bg); color:var(--hj-amber-lt); }
+.hj-wrap.hj-day .hj-oy-icon.cur{ color:#8a661f; }
+.hj-oy-name{ font-size:13px; font-weight:600; color:var(--hjtxt); margin:0; }
+.hj-oy-status{ font-size:11px; color:var(--hjtxt3); margin:1px 0 0; }
+.hj-oy-prog{ font-size:11px; color:var(--hjtxt3); margin:0; flex-shrink:0; }
+.hj-oy-chev{ font-size:14px; color:var(--hjtxt3); flex-shrink:0; }
+.hj-status-banner{ border-radius:14px; padding:13px 16px; margin-bottom:16px; border:.5px solid var(--hjcard-bd); background:var(--hjcard); display:flex; gap:10px; align-items:center; font-size:12px; line-height:1.5; color:var(--hjtxt2); }
 
 .hj-setup-overlay{
-  position:fixed; inset:0; background:rgba(12,40,30,.75); z-index:400;
+  position:fixed; inset:0; background:rgba(7,11,17,.78); z-index:400;
   display:flex; align-items:center; justify-content:center; padding:20px;
 }
-.hj-setup-card{
-  background:var(--white); border-radius:20px; padding:22px; max-width:380px; width:100%;
-}
-.hj-setup-title{ font-size:17px; font-weight:800; color:var(--hj-ink); margin-bottom:6px; }
-.hj-setup-sub{ font-size:12.5px; color:var(--ink2); line-height:1.6; margin-bottom:16px; }
+.hj-setup-card{ background:var(--hjbg); border:.5px solid var(--hjcard-bd); border-radius:20px; padding:22px; max-width:380px; width:100%; }
+.hj-setup-title{ font-size:17px; font-weight:700; color:var(--hjtxt); margin-bottom:6px; }
+.hj-setup-sub{ font-size:12.5px; color:var(--hjtxt2); line-height:1.6; margin-bottom:16px; }
 .hj-setup-row{ display:flex; gap:8px; margin-bottom:12px; }
 .hj-setup-field{ flex:1; }
-.hj-setup-field label{ font-size:10.5px; font-weight:800; text-transform:uppercase; color:var(--ink3); margin-bottom:5px; display:block; letter-spacing:.05em; }
+.hj-setup-field label{ font-size:10.5px; font-weight:700; text-transform:uppercase; color:var(--hjtxt3); margin-bottom:5px; display:block; letter-spacing:.05em; }
 .hj-setup-field select, .hj-setup-field input{
-  width:100%; padding:10px 11px; border-radius:10px; border:1.5px solid var(--line); font-size:13.5px; font-family:inherit;
+  width:100%; padding:10px 11px; border-radius:10px; border:.5px solid var(--hjcard-bd); font-size:13.5px; font-family:inherit; background:var(--hjcard); color:var(--hjtxt);
 }
 .hj-setup-btn{
-  width:100%; padding:13px; border-radius:12px; background:var(--hj-deep); color:#fff;
-  font-size:14px; font-weight:800; margin-top:6px;
+  width:100%; padding:13px; border-radius:12px; background:var(--hj-accent-bg); border:.5px solid var(--hj-accent-bd); color:var(--hj-amber-lt);
+  font-size:14px; font-weight:700; margin-top:6px; cursor:pointer;
 }
-.hj-setup-skip{ text-align:center; font-size:12px; color:var(--ink3); font-weight:700; margin-top:12px; }
+.hj-wrap.hj-day .hj-setup-btn{ color:#7a5a1c; }
+.hj-setup-skip{ text-align:center; font-size:12px; color:var(--hjtxt3); font-weight:600; margin-top:12px; cursor:pointer; }
 
 @media (min-width:768px){
   .hj-wrap{ max-width:680px; margin:0 auto; }
@@ -5629,53 +5665,191 @@ input,select,textarea { font-family:inherit; }
     <!-- ══ KALENDER HIJRIAH ══ -->
     <div class="view" id="v-moments">
       <div class="hj-wrap" id="hj-wrap">
-        <div class="hj-hero">
-          <div class="hj-hero-top">
-            <span></span>
-            <button class="hj-hero-set" onclick="hjOpenSetup()">⚙️ <span id="hj-hero-set-lbl">Atur tanggal</span></button>
-          </div>
-          <div class="hj-hero-main">
-            <div class="hj-hero-moon">🌙</div>
-            <div class="hj-hero-date" id="hj-hero-date">—</div>
-            <div class="hj-hero-greg" id="hj-hero-greg">—</div>
-            <div id="hj-hero-badge-wrap"></div>
-          </div>
-        </div>
 
-        <div class="hj-section" id="hj-section-event" style="display:none">
-          <div class="hj-card-event" id="hj-card-event" onclick=""></div>
-        </div>
+        <!-- ═══ SUB-VIEW: HOME ═══ -->
+        <div id="hj-sub-home">
+          <div class="hj-pad" style="padding-bottom:6px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+              <div style="font-size:18px;font-weight:700;color:var(--hjtxt)">Kalender Hijriah</div>
+              <span id="hj-hero-setbtn-inline" onclick="hjOpenSetup()" style="font-size:18px;color:var(--hjtxt2);cursor:pointer">⚙️</span>
+            </div>
 
-        <div class="hj-section" style="padding-top:0" id="hj-upcoming-wrap"></div>
-
-        <div class="hj-section" style="padding-top:0">
-          <div class="hj-cal-card">
-            <div class="hj-cal-head">
-              <div>
-                <div class="hj-cal-month" id="hj-cal-month">—</div>
-                <div class="hj-cal-month-sub" id="hj-cal-month-sub">—</div>
+            <div class="hj-hero">
+              <div class="hj-hero-kalig">
+                <span class="hj-hero-kalig-allah">الله</span>
+                <div class="hj-hero-kalig-sub">Maha Pencipta waktu &amp; ruang</div>
+                <div class="hj-hero-kalig-rasul-row">
+                  <span class="hj-hero-kalig-line"></span>
+                  <span class="hj-hero-kalig-rasul">محمد</span>
+                  <span class="hj-hero-kalig-line"></span>
+                </div>
+                <div class="hj-hero-kalig-saw">shallallahu 'alaihi wasallam</div>
               </div>
-              <div class="hj-cal-nav">
-                <div class="hj-cal-arr" onclick="hjMonthShift(-1)">‹</div>
-                <div class="hj-cal-arr" onclick="hjMonthShift(1)">›</div>
+              <div class="hj-hero-divider">
+                <div class="hj-hero-greg" id="hj-hero-greg">—</div>
+                <div class="hj-hero-date" id="hj-hero-date">—</div>
+                <div class="hj-hero-prog-row"><span id="hj-hero-prog-lbl">—</span><span id="hj-hero-prog-pct">—</span></div>
+                <div class="hj-hero-prog-track"><div class="hj-hero-prog-fill" id="hj-hero-prog-fill" style="width:0%"></div></div>
+                <div id="hj-hero-badge-wrap"></div>
               </div>
             </div>
-            <div class="hj-cal-dows">
-              <div class="hj-cal-dow">Sen</div><div class="hj-cal-dow">Sel</div><div class="hj-cal-dow">Rab</div>
-              <div class="hj-cal-dow">Kam</div><div class="hj-cal-dow">Jum</div><div class="hj-cal-dow">Sab</div><div class="hj-cal-dow">Min</div>
+
+            <div class="hj-calgrid-card">
+              <div class="hj-calgrid-head">
+                <div class="hj-calgrid-month" id="hj-calgrid-month">—</div>
+                <div class="hj-calgrid-nav">
+                  <span class="hj-calgrid-today-link" id="hj-calgrid-today-link" onclick="hjCalGridGoToday()" style="display:none">Hari ini</span>
+                  <div class="hj-calgrid-arr" onclick="hjCalGridShiftMonth(-1)">‹</div>
+                  <div class="hj-calgrid-arr" onclick="hjCalGridShiftMonth(1)">›</div>
+                </div>
+              </div>
+              <div class="hj-calgrid-dow-row">
+                <div class="hj-calgrid-dow">Min</div><div class="hj-calgrid-dow">Sen</div><div class="hj-calgrid-dow">Sel</div>
+                <div class="hj-calgrid-dow">Rab</div><div class="hj-calgrid-dow">Kam</div><div class="hj-calgrid-dow">Jum</div><div class="hj-calgrid-dow">Sab</div>
+              </div>
+              <div class="hj-calgrid-grid" id="hj-calgrid-grid"></div>
+              <div class="hj-calgrid-daydetail" id="hj-calgrid-daydetail"></div>
             </div>
-            <div class="hj-cal-grid" id="hj-cal-grid"></div>
+
+            <div class="hj-meaning-card">
+              <div class="hj-meaning-label">Bulan ini</div>
+              <div class="hj-meaning-name" id="hj-meaning-name">—</div>
+              <div class="hj-meaning-desc" id="hj-meaning-desc">—</div>
+              <button class="hj-btn-amber" onclick="hjOpenDetailBulan()">Baca makna bulan <span>→</span></button>
+            </div>
+
+            <div class="hj-orbit-label-row">
+              <div class="hj-section-label">Orbit 12 bulan</div>
+              <span class="hj-link-amber" onclick="hjOpenOrbit()">lihat semua</span>
+            </div>
+            <div class="hj-orbit-row" id="hj-orbit-row"></div>
+
+            <details class="hj-acc" open>
+              <summary class="hj-acc-head">
+                <span class="hj-acc-head-lbl">✨ Keutamaan bulan ini</span>
+                <span class="hj-acc-chev">▾</span>
+              </summary>
+              <div class="hj-acc-body" id="hj-keutamaan-body"></div>
+            </details>
+
+            <details class="hj-acc">
+              <summary class="hj-acc-head">
+                <span class="hj-acc-head-lbl">🚩 Peristiwa &amp; momentum</span>
+                <span class="hj-acc-chev">▾</span>
+              </summary>
+              <div class="hj-acc-body" id="hj-peristiwa-body"></div>
+            </details>
+
+            <details class="hj-acc">
+              <summary class="hj-acc-head">
+                <span class="hj-acc-head-lbl">✅ Checklist amal bulan ini</span>
+                <span class="hj-acc-head-meta" id="hj-chk-count">0/0</span>
+              </summary>
+              <div class="hj-acc-body" id="hj-chk-body"></div>
+            </details>
+
+            <div class="hj-refl-card" style="margin-top:14px">
+              <div class="hj-meaning-label">Refleksi <span id="hj-refl-month-lbl">—</span></div>
+              <div class="hj-refl-quote" id="hj-refl-quote">—</div>
+              <button class="hj-btn-amber" onclick="hjOpenRefleksi()">✏️ Tulis refleksi</button>
+            </div>
           </div>
         </div>
 
-        <div class="hj-section" style="padding-top:0" id="hj-day-detail-wrap"></div>
+        <!-- ═══ SUB-VIEW: DETAIL BULAN ═══ -->
+        <div id="hj-sub-detailbulan" style="display:none">
+          <div class="hj-topbar">
+            <span class="hj-topbar-back" onclick="hjBackHome()">‹</span>
+            <span class="hj-topbar-title" id="hj-dm-topbar-title">—</span>
+            <span class="hj-topbar-action">⋯</span>
+          </div>
+          <div class="hj-pad">
+            <div class="hj-dm-header">
+              <div class="hj-dm-name" id="hj-dm-name">—</div>
+              <div class="hj-dm-tag" id="hj-dm-tag">—</div>
+            </div>
 
-        <div class="hj-section hj-months-section" style="padding-top:0">
-          <div class="home-matkul-title" style="margin-bottom:10px">🗓️ 12 Bulan Hijriah</div>
-          <div class="hj-months-grid" id="hj-months-grid"></div>
+            <div class="hj-dm-theme-label">Tema bulan</div>
+            <div class="hj-dm-theme" id="hj-dm-theme">—</div>
+
+            <div class="hj-quote-card">
+              <div class="hj-quote-text" id="hj-dm-quote">—</div>
+              <div class="hj-quote-src" id="hj-dm-quote-src">—</div>
+            </div>
+
+            <details class="hj-acc" open>
+              <summary class="hj-acc-head">
+                <span class="hj-acc-head-lbl">✨ Keutamaan</span>
+                <span class="hj-acc-chev">▾</span>
+              </summary>
+              <div class="hj-acc-body" id="hj-dm-keutamaan-body"></div>
+            </details>
+
+            <details class="hj-acc">
+              <summary class="hj-acc-head">
+                <span class="hj-acc-head-lbl">🚩 Peristiwa penting</span>
+                <span class="hj-acc-chev">▾</span>
+              </summary>
+              <div class="hj-acc-body" id="hj-dm-peristiwa-body"></div>
+            </details>
+
+            <details class="hj-acc" open>
+              <summary class="hj-acc-head">
+                <span class="hj-acc-head-lbl">✅ Checklist bulan ini</span>
+                <span class="hj-acc-head-meta" id="hj-dm-chk-count">0/0</span>
+              </summary>
+              <div class="hj-acc-body" id="hj-dm-chk-body"></div>
+            </details>
+          </div>
         </div>
+
+        <!-- ═══ SUB-VIEW: PERJALANAN TAHUN (ORBIT) ═══ -->
+        <div id="hj-sub-orbit" style="display:none">
+          <div class="hj-topbar">
+            <span class="hj-topbar-back" onclick="hjBackHome()">‹</span>
+            <span class="hj-topbar-title" id="hj-orbit-topbar-title">Perjalanan tahun</span>
+            <span class="hj-topbar-action">📅</span>
+          </div>
+          <div class="hj-pad">
+            <div class="hj-orbit-svg-wrap" id="hj-orbit-svg-wrap"></div>
+            <div class="hj-status-banner">
+              <span style="font-size:18px">🌙</span>
+              <span id="hj-orbit-status-text">—</span>
+            </div>
+            <div class="hj-section-label" style="margin-bottom:8px">Urutan bulan Hijriah</div>
+            <div id="hj-orbit-list"></div>
+          </div>
+        </div>
+
+        <!-- ═══ SUB-VIEW: REFLEKSI & RIWAYAT ═══ -->
+        <div id="hj-sub-refleksi" style="display:none">
+          <div class="hj-topbar">
+            <span class="hj-topbar-back" onclick="hjBackHome()">‹</span>
+            <span class="hj-topbar-title" id="hj-refl-topbar-title">Refleksi</span>
+            <span class="hj-topbar-action">⋯</span>
+          </div>
+          <div class="hj-pad">
+            <div class="hj-quote-card">
+              <div class="hj-quote-text" id="hj-refl-page-quote">—</div>
+              <div class="hj-quote-src" id="hj-refl-page-quote-src">—</div>
+            </div>
+
+            <div class="hj-write-card">
+              <div class="hj-write-prompt" id="hj-refl-page-prompt">—</div>
+              <div class="hj-write-sub" id="hj-refl-page-sub">—</div>
+              <textarea class="hj-write-textarea" id="hj-refl-textarea" placeholder="Tulis refleksimu di sini..." maxlength="1000" oninput="hjReflCounter()"></textarea>
+              <span class="hj-write-counter" id="hj-refl-counter">0/1000</span>
+              <button class="hj-btn-amber" style="margin-top:10px" onclick="hjSaveRefleksi()">Simpan refleksi</button>
+            </div>
+
+            <div class="hj-section-label" style="margin-bottom:10px">Riwayat refleksi <span id="hj-refl-hist-month">—</span></div>
+            <div id="hj-refl-hist-list"></div>
+          </div>
+        </div>
+
       </div>
     </div>
+
 
     <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
     <div class="view active" id="v-home">
@@ -7322,7 +7496,7 @@ function goView(name, btn){
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
   if(name==='projects') tb.innerHTML=`<div class="tb-title">📋 Kegiatan Singkat</div><button class="tb-action-btn" onclick="openAddProject()">＋ Baru</button>`;
   if(name==='areas')    tb.innerHTML=`<div class="tb-title">🌿 Areas</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
-  if(name==='moments')  tb.innerHTML=`<div class="tb-title">🌙 Kalender Hijriah</div>`;
+  if(name==='moments')  tb.innerHTML='';
   // Sync pill state after topbar rebuild
   updatePomoPill();
 
@@ -7344,11 +7518,11 @@ function goView(name, btn){
   if(name==='areas'){    renderAreas(); }
   if(name==='moments'){  renderMoments(); }
   if(outerScroll){
-    if(name==='moments'){ outerScroll.style.background = 'var(--hj-cream)'; outerScroll.style.padding='0'; }
+    if(name==='moments'){ outerScroll.style.background=''; outerScroll.style.padding='0'; }
     else { outerScroll.style.background=''; outerScroll.style.padding=''; }
   }
   const topbarEl = document.getElementById('topbar');
-  if(topbarEl) topbarEl.style.display = '';
+  if(topbarEl) topbarEl.style.display = (name==='moments') ? 'none' : '';
   const dtopbar = document.getElementById('desktop-topbar');
   document.getElementById('scroll').scrollTop=0;
 }
@@ -12992,20 +13166,202 @@ const HJ_EVENTS = {
 // Bulan-bulan haram (suci): Muharram(1), Rajab(7), Dzulqadah(11), Dzulhijjah(12)
 const HJ_HARAM_MONTHS = [1,7,11,12];
 
+// Makna, tema, dalil, keutamaan per bulan (1-12) — konten devotional inti tab Hijriah
+const HJ_MONTH_INFO = {
+  1: {
+    tag:'Bulan Awal & Hijrah',
+    theme:'Hijrah. Menata ulang arah hidup.',
+    desc:'Bulan pertama dalam kalender Islam. Awal yang baru, hijrah, memperbaiki arah.',
+    quote:'Sesungguhnya Allah tidak akan mengubah keadaan suatu kaum sebelum mereka mengubah keadaan diri mereka sendiri.',
+    quoteSrc:'QS. Ar-Ra\u2019d: 11',
+    keutamaan:[
+      'Salah satu bulan haram yang dimuliakan Allah.',
+      'Amal saleh dilipatgandakan pahalanya.',
+      'Puasa Asyura (10 Muharram) dianjurkan.',
+      'Momentum terbaik untuk hijrah dan memperbaiki diri.'
+    ],
+    reflPrompt:'Apa hijrah terbesar yang perlu kulakukan tahun ini?'
+  },
+  2: {
+    tag:'Bulan Kesabaran',
+    theme:'Tabah menghadapi anggapan yang keliru.',
+    desc:'Dahulu dianggap bulan sial oleh masyarakat Arab pra-Islam. Islam meluruskan: tidak ada bulan yang membawa nasib buruk.',
+    quote:'Tidak ada penyakit menular, tidak ada (kesialan bulan) Shafar...',
+    quoteSrc:'HR. Bukhari',
+    keutamaan:[
+      'Meluruskan keyakinan keliru tentang kesialan bulan.',
+      'Mengajarkan tawakal penuh kepada Allah, bukan mitos.',
+      'Waktu yang baik untuk memperkuat akidah dan ilmu.'
+    ],
+    reflPrompt:'Keyakinan keliru apa yang perlu aku luruskan bulan ini?'
+  },
+  3: {
+    tag:'Bulan Kelahiran Nabi',
+    theme:'Cinta dan teladan kepada Rasulullah.',
+    desc:'Bulan kelahiran Nabi Muhammad ﷺ. Momentum memperbanyak shalawat dan meneladani akhlak beliau.',
+    quote:'Sungguh telah ada pada diri Rasulullah itu suri teladan yang baik bagimu.',
+    quoteSrc:'QS. Al-Ahzab: 21',
+    keutamaan:[
+      'Momentum memperbanyak shalawat kepada Nabi ﷺ.',
+      'Waktu yang baik untuk mempelajari sirah Nabawiyah.',
+      'Mengingat dan meneladani akhlak Rasulullah ﷺ.'
+    ],
+    reflPrompt:'Akhlak Rasulullah ﷺ mana yang ingin aku teladani lebih sungguh-sungguh?'
+  },
+  4: {
+    tag:"Bulan Pertengahan",
+    theme:'Konsistensi di tengah kesunyian waktu.',
+    desc:'Tidak banyak peristiwa besar tercatat di bulan ini — justru kesempatan baik untuk istiqamah tanpa menunggu momentum besar.',
+    quote:'Amalan yang paling dicintai Allah adalah yang dikerjakan terus-menerus walau sedikit.',
+    quoteSrc:'HR. Bukhari & Muslim',
+    keutamaan:[
+      'Waktu yang baik untuk melatih istiqamah dalam amal kecil.',
+      'Kesempatan muhasabah pertengahan tahun.',
+      'Memperkuat amalan harian yang konsisten.'
+    ],
+    reflPrompt:'Amalan kecil apa yang ingin aku jaga konsistensinya bulan ini?'
+  },
+  5: {
+    tag:'Bulan Persiapan',
+    theme:'Menyiapkan bekal sebelum bulan-bulan mulia.',
+    desc:'Bulan yang menjembatani sebelum memasuki bulan-bulan haram berikutnya seperti Rajab.',
+    quote:'Sebaik-baik bekal adalah takwa.',
+    quoteSrc:'QS. Al-Baqarah: 197',
+    keutamaan:[
+      'Momentum mempersiapkan diri menyambut bulan-bulan mulia.',
+      'Waktu yang baik untuk evaluasi target tahunan.',
+      'Memperbanyak doa dan dzikir harian.'
+    ],
+    reflPrompt:'Bekal apa yang sedang aku siapkan untuk masa depan?'
+  },
+  6: {
+    tag:'Bulan Penutup Pertengahan',
+    theme:'Menyongsong bulan haram dengan hati yang siap.',
+    desc:'Bulan terakhir sebelum Rajab — waktu yang baik untuk menata niat menjelang bulan-bulan mulia.',
+    quote:'Barangsiapa yang hari ini lebih baik dari kemarin, maka dia termasuk orang yang beruntung.',
+    quoteSrc:'HR. Muslim',
+    keutamaan:[
+      'Penyempurnaan niat sebelum memasuki bulan haram Rajab.',
+      'Waktu yang baik untuk introspeksi paruh tahun.',
+      'Memperbanyak istighfar dan dzikir.'
+    ],
+    reflPrompt:'Niat apa yang ingin aku perbarui menjelang bulan-bulan mulia?'
+  },
+  7: {
+    tag:'Bulan Haram',
+    theme:'Memuliakan waktu, menjaga diri dari dosa.',
+    desc:'Salah satu dari empat bulan haram (suci). Momentum memperbanyak istighfar dan mempersiapkan diri menyambut Ramadhan.',
+    quote:'Sesungguhnya bilangan bulan pada sisi Allah adalah dua belas bulan... empat di antaranya adalah bulan haram.',
+    quoteSrc:'QS. At-Taubah: 36',
+    keutamaan:[
+      'Salah satu bulan haram yang dimuliakan Allah.',
+      'Peristiwa Isra Miraj terjadi di bulan ini (27 Rajab).',
+      'Momentum memperbanyak istighfar dan doa.',
+      'Awal persiapan menyambut Ramadhan.'
+    ],
+    reflPrompt:'Bagaimana aku ingin mempersiapkan diri menyambut Ramadhan dari sekarang?'
+  },
+  8: {
+    tag:'Bulan Persiapan Ramadhan',
+    theme:'Pemanasan hati sebelum bulan suci.',
+    desc:'Bulan persiapan menjelang Ramadhan. Nabi ﷺ memperbanyak puasa sunnah di bulan ini.',
+    quote:'Itu adalah bulan yang dilalaikan banyak orang, antara Rajab dan Ramadhan.',
+    quoteSrc:'HR. Abu Dawud (tentang keutamaan Sya\u2019ban)',
+    keutamaan:[
+      'Bulan yang sering dilalaikan, padahal penuh keberkahan.',
+      'Nisfu Syaban (15 Syaban) — momentum perbanyak doa & istighfar.',
+      'Waktu terbaik mempersiapkan fisik & hati untuk Ramadhan.'
+    ],
+    reflPrompt:'Persiapan apa yang ingin aku lakukan sebelum Ramadhan tiba?'
+  },
+  9: {
+    tag:'Bulan Suci Ramadhan',
+    theme:'Bulan Al-Quran, puasa, dan pengampunan.',
+    desc:'Bulan puasa wajib bagi seluruh umat Islam. Bulan penuh berkah, diturunkannya Al-Quran, dan dilipatgandakannya pahala amal saleh.',
+    quote:'Bulan Ramadhan, bulan yang di dalamnya diturunkan Al-Quran sebagai petunjuk bagi manusia.',
+    quoteSrc:'QS. Al-Baqarah: 185',
+    keutamaan:[
+      'Bulan diturunkannya Al-Quran.',
+      'Pahala amal saleh dilipatgandakan.',
+      'Terdapat malam Lailatul Qadar yang lebih baik dari 1000 bulan.',
+      'Pintu langit dibuka, pintu neraka ditutup.'
+    ],
+    reflPrompt:'Apa yang ingin aku capai secara ruhani di bulan suci ini?'
+  },
+  10: {
+    tag:'Bulan Kemenangan',
+    theme:'Merayakan kemenangan dengan kerendahan hati.',
+    desc:'Bulan setelah Ramadhan, dimulai dengan Idul Fitri — hari raya kemenangan setelah sebulan berpuasa.',
+    quote:'Dan hendaklah kamu mengagungkan Allah atas petunjuk-Nya yang diberikan kepadamu, supaya kamu bersyukur.',
+    quoteSrc:'QS. Al-Baqarah: 185',
+    keutamaan:[
+      'Idul Fitri — hari raya kemenangan dan silaturahmi.',
+      'Disunnahkan puasa 6 hari Syawal setelah Idul Fitri.',
+      'Momentum menjaga amal yang sudah dibangun selama Ramadhan.'
+    ],
+    reflPrompt:'Bagaimana aku menjaga semangat ibadah Ramadhan agar tidak luntur bulan ini?'
+  },
+  11: {
+    tag:'Bulan Haram',
+    theme:'Menjaga kesucian waktu menjelang haji.',
+    desc:'Salah satu dari empat bulan haram (suci), dan menjadi awal masuknya bulan-bulan haji.',
+    quote:'Maka janganlah kamu menganiaya diri kamu dalam bulan haram itu.',
+    quoteSrc:'QS. At-Taubah: 36',
+    keutamaan:[
+      'Salah satu bulan haram yang dimuliakan Allah.',
+      'Awal dari rangkaian bulan-bulan haji.',
+      'Momentum memperbanyak amal saleh dan menjauhi dosa.'
+    ],
+    reflPrompt:'Kesucian apa dalam diriku yang ingin aku jaga bulan ini?'
+  },
+  12: {
+    tag:'Bulan Haji & Kurban',
+    theme:'Ketaatan, pengorbanan, dan kepatuhan total.',
+    desc:'Bulan haji. Sepuluh hari pertamanya adalah hari-hari yang paling dicintai Allah untuk beramal saleh, lebih utama dari hari-hari lainnya dalam setahun.',
+    quote:'Tidak ada hari-hari yang lebih dicintai Allah untuk diisi dengan amal saleh selain sepuluh hari ini (Dzulhijjah).',
+    quoteSrc:'HR. Bukhari',
+    keutamaan:[
+      'Sepuluh hari pertama paling dicintai Allah untuk beramal.',
+      'Hari Arafah — keutamaan puasa menghapus dosa 2 tahun.',
+      'Idul Adha — hari raya kurban, meneladani ketaatan Nabi Ibrahim AS.',
+      'Disunnahkan memperbanyak takbir dan dzikir.'
+    ],
+    reflPrompt:'Pengorbanan apa yang Allah minta dariku untuk tunjukkan ketaatanku?'
+  }
+};
+
+// Template checklist amal default per bulan (bisa ditambah manual oleh user)
+const HJ_CHECKLIST_DEFAULT = {
+  1: ['Muhasabah dan evaluasi diri','Tulis rencana hijrah pribadi','Puasa Asyura (10 Muharram)',"Puasa Tasu'a (9 Muharram)",'Sedekah dan berbagi'],
+  2: ['Perkuat akidah & tauhid','Perbanyak dzikir pagi-petang','Sedekah rutin'],
+  3: ['Perbanyak shalawat','Baca sirah Nabawiyah','Sedekah dan berbagi'],
+  4: ['Jaga amalan harian','Muhasabah pertengahan tahun','Perbanyak istighfar'],
+  5: ['Evaluasi target tahunan','Perbanyak doa','Sedekah dan berbagi'],
+  6: ['Perbanyak istighfar','Niat menyambut bulan haram','Jaga shalat 5 waktu tepat waktu'],
+  7: ['Perbanyak istighfar','Persiapan menyambut Ramadhan','Perbanyak doa'],
+  8: ['Puasa sunnah Syaban','Rencana ibadah Ramadhan','Perbanyak doa & istighfar (Nisfu Syaban)'],
+  9: ['Tadarus Al-Quran harian','Jaga shalat tarawih','I\u2019tikaf di 10 malam terakhir','Perbanyak sedekah'],
+  10: ['Shalat Idul Fitri','Puasa 6 hari Syawal','Silaturahmi'],
+  11: ['Jaga amal saleh','Perbanyak doa','Persiapan menuju bulan haji'],
+  12: ['Puasa Arafah (bagi yang tidak haji)','Perbanyak takbir & dzikir','Kurban (bagi yang mampu)','I\u2019tikaf 10 hari pertama']
+};
+
+
 function hjLoad(){
   try{ return JSON.parse(localStorage.getItem(HJ_KEY)||'null'); }catch{ return null; }
 }
 function hjSave(){ localStorage.setItem(HJ_KEY, JSON.stringify(HJ)); }
 
 // HJ.anchor = { gregDate: 'YYYY-MM-DD', hYear, hMonth(1-12), hDay(1-30) }
-// HJ.amalan = { 'YYYY-MM-DD': [{id,name,done}] }
-// HJ.refleksi = { 'm-d-y_key': text }  key = hMonth-hYear (per bulan haji/hari besar dicatat by date string h-y-m-d)
-let HJ = hjLoad() || { anchor:null, amalan:{}, refleksi:{} };
-if(!HJ.amalan) HJ.amalan = {};
-if(!HJ.refleksi) HJ.refleksi = {};
+// HJ.checklist = { 'm-y': [{id,name,done}] }              -- checklist amal per bulan Hijriah
+// HJ.reflBulan = { 'm-y': text }                           -- refleksi per bulan Hijriah (1 entri per bulan-tahun)
+let HJ = hjLoad() || { anchor:null, checklist:{}, reflBulan:{} };
+if(!HJ.checklist) HJ.checklist = {};
+if(!HJ.reflBulan) HJ.reflBulan = {};
+// migrasi ringan: buang field lama jika masih ada dari versi sebelumnya
+delete HJ.amalan; delete HJ.refleksi;
 
-let _hjViewOffsetMonths = 0; // bulan Hijriah yang sedang ditampilkan di grid, relatif ke bulan ini
-let _hjSelDay = null; // {y,m,d} terpilih untuk detail
+let _hjActiveSub = 'home'; // 'home' | 'detailbulan' | 'orbit' | 'refleksi'
 
 // Hitung tanggal Hijriah hari ini berdasarkan anchor + selisih hari dari tanggal Masehi
 function hjToday(){
@@ -13055,7 +13411,115 @@ function hjToGreg(y,m,d){
 
 function hjDs(y,m,d){ return y+'-'+String(m).padStart(2,'0')+'-'+String(d).padStart(2,'0'); }
 function hjEvent(m,d){ return HJ_EVENTS[m+'-'+d]; }
+function hjMy(m,y){ return m+'-'+y; } // key bulan-tahun untuk checklist & refleksi
 
+// ── Kalender grid bulanan (di home) ──
+// State browsing grid: independen dari hjToday() — geser bulan di grid TIDAK mengubah
+// bulan aktif untuk checklist/keutamaan/refleksi (itu selalu ikut tanggal hari ini sungguhan).
+let _hjCalGridViewY = null;
+let _hjCalGridViewM = null;
+let _hjCalGridSelDay = null; // hari yang ditap user untuk lihat detail (relatif ke bulan yang sedang di-browse)
+
+function renderHjCalGrid(t){
+  // inisialisasi state browsing ke bulan aktif saat pertama kali render (atau setelah anchor diatur ulang)
+  if(_hjCalGridViewY===null || _hjCalGridViewM===null){
+    _hjCalGridViewY = t.y; _hjCalGridViewM = t.m;
+  }
+  const vy = _hjCalGridViewY, vm = _hjCalGridViewM;
+  const isCurrentMonth = (vy===t.y && vm===t.m);
+  const monthLen = HJ_MONTH_LEN[vm-1];
+
+  document.getElementById('hj-calgrid-month').innerHTML =
+    HJ_MONTHS[vm-1]+' <span class="hj-amberish">'+vy+' H</span>';
+  document.getElementById('hj-calgrid-today-link').style.display = isCurrentMonth ? 'none' : '';
+
+  // cari hari-dalam-minggu (0=Minggu) untuk tanggal 1 bulan yang di-browse, via tanggal Masehinya
+  const greg1 = hjToGreg(vy, vm, 1);
+  const dow1 = new Date(greg1+'T12:00:00').getDay();
+
+  let cells = '';
+  for(let i=0; i<dow1; i++) cells += `<div class="hj-calgrid-cell empty"></div>`;
+  for(let d=1; d<=monthLen; d++){
+    const isToday = isCurrentMonth && d===t.d;
+    const hasEvent = !!hjEvent(vm,d);
+    const isSel = _hjCalGridSelDay===d;
+    cells += `<div class="hj-calgrid-cell${isToday?' today':''}${isSel?' selected':''}" onclick="hjCalGridTapDay(${d})">`+
+      `<span class="hj-calgrid-num">${d}</span>`+
+      (hasEvent?'<span class="hj-calgrid-dot"></span>':'')+
+      `</div>`;
+  }
+  document.getElementById('hj-calgrid-grid').innerHTML = cells;
+
+  // default: tampilkan detail hari ini kalau lagi di bulan aktif & belum ada yang ditap;
+  // kalau di bulan lain, default ke tanggal 1 bulan itu.
+  if(_hjCalGridSelDay===null || _hjCalGridSelDay>monthLen){
+    _hjCalGridSelDay = isCurrentMonth ? t.d : 1;
+  }
+  renderHjCalGridDetail(vy, vm, _hjCalGridSelDay);
+}
+function hjCalGridTapDay(d){
+  _hjCalGridSelDay = d;
+  const t = hjToday(); if(!t) return;
+  renderHjCalGrid(t);
+}
+function hjCalGridShiftMonth(dir){
+  let m = _hjCalGridViewM + dir, y = _hjCalGridViewY;
+  if(m>12){ m=1; y++; } else if(m<1){ m=12; y--; }
+  _hjCalGridViewY = y; _hjCalGridViewM = m;
+  _hjCalGridSelDay = null; // reset pilihan hari saat ganti bulan
+  const t = hjToday(); if(!t) return;
+  renderHjCalGrid(t);
+}
+function hjCalGridGoToday(){
+  const t = hjToday(); if(!t) return;
+  _hjCalGridViewY = t.y; _hjCalGridViewM = t.m;
+  _hjCalGridSelDay = t.d;
+  renderHjCalGrid(t);
+}
+function renderHjCalGridDetail(y,m,d){
+  const wrap = document.getElementById('hj-calgrid-daydetail');
+  if(!wrap) return;
+  const greg = hjToGreg(y,m,d);
+  const gregLbl = greg ? new Date(greg+'T12:00:00').toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) : '—';
+  const ev = hjEvent(m,d);
+  wrap.innerHTML =
+    `<p class="hj-calgrid-dd-date">${d} ${HJ_MONTHS[m-1]} ${y} H</p>`+
+    `<p class="hj-calgrid-dd-greg">${gregLbl}</p>`+
+    (ev
+      ? `<div class="hj-calgrid-dd-event"><span class="hj-calgrid-dd-event-ic">${ev.ic}</span>`+
+        `<div><p class="hj-calgrid-dd-event-name">${escHtml(ev.name)}</p><p class="hj-calgrid-dd-event-desc">${escHtml(ev.desc)}</p></div></div>`
+      : `<p class="hj-calgrid-dd-empty">Tidak ada peristiwa khusus tercatat pada hari ini.</p>`);
+}
+
+// ── Mode siang/malam (otomatis berdasarkan jam device) ──
+function hjApplyMode(){
+  const wrap = document.getElementById('hj-wrap');
+  if(!wrap) return;
+  const hr = new Date().getHours();
+  const isDay = (hr>=5 && hr<18);
+  wrap.classList.toggle('hj-day', isDay);
+}
+let _hjModeInterval = null;
+function hjStartModeWatcher(){
+  if(_hjModeInterval) return;
+  _hjModeInterval = setInterval(hjApplyMode, 60000); // cek tiap menit, biar transisi siang/malam otomatis tanpa reload
+}
+
+// ── Navigasi sub-view di dalam tab Hijriah (tanpa keluar dari tab) ──
+function hjShowSub(name){
+  _hjActiveSub = name;
+  ['home','detailbulan','orbit','refleksi'].forEach(s=>{
+    const el = document.getElementById('hj-sub-'+s);
+    if(el) el.style.display = (s===name) ? '' : 'none';
+  });
+  document.getElementById('scroll').scrollTop = 0;
+}
+function hjBackHome(){ hjShowSub('home'); }
+function hjOpenDetailBulan(){ renderHjDetailBulan(); hjShowSub('detailbulan'); }
+function hjOpenOrbit(){ renderHjOrbitPage(); hjShowSub('orbit'); }
+function hjOpenRefleksi(){ renderHjRefleksiPage(); hjShowSub('refleksi'); }
+
+// ── Setup tanggal awal ──
 function hjOpenSetup(){
   const t = hjToday();
   let sh = document.getElementById('hj-setup-overlay');
@@ -13101,258 +13565,313 @@ function hjSaveSetup(){
   HJ.anchor = { gregDate: tod(), hYear:y, hMonth:m, hDay:d };
   hjSave();
   hjCloseSetup();
+  _hjCalGridViewY = null; _hjCalGridViewM = null; _hjCalGridSelDay = null; // reset browsing grid ke bulan aktif baru
   renderMoments();
   toast('🌙 Tanggal Hijriah disesuaikan!');
 }
 
-function hjMonthShift(n){
-  _hjViewOffsetMonths += n;
-  renderHjCalendar();
-}
-
-function hjGoToday(){
-  _hjViewOffsetMonths = 0;
-  const t = hjToday();
-  if(t) _hjSelDay = {y:t.y, m:t.m, d:t.d};
-  renderMoments();
-}
-
-function hjSelectDay(y,m,d){
-  _hjSelDay = {y,m,d};
-  renderHjDayDetail();
-  renderHjCalendar();
-}
-
-// ── Render utama ──
+// ── Render utama: dipanggil saat tab Hijriah dibuka ──
 function renderMoments(){
-  ensureHjFreshAnchorless();
-  const heroDateEl = document.getElementById('hj-hero-date');
-  const heroGregEl = document.getElementById('hj-hero-greg');
-  const heroBadgeWrap = document.getElementById('hj-hero-badge-wrap');
-  const setLbl = document.getElementById('hj-hero-set-lbl');
-
+  hjApplyMode();
+  hjStartModeWatcher();
+  _hjActiveSub = 'home';
   if(!HJ.anchor){
-    if(heroDateEl) heroDateEl.innerHTML = 'Belum diatur';
-    if(heroGregEl) heroGregEl.textContent = 'Tap "Atur tanggal" untuk mulai';
-    if(heroBadgeWrap) heroBadgeWrap.innerHTML='';
-    if(setLbl) setLbl.textContent='Atur tanggal';
-    document.getElementById('hj-section-event').style.display='none';
-    document.getElementById('hj-upcoming-wrap').innerHTML='';
-    document.getElementById('hj-day-detail-wrap').innerHTML='';
-    renderHjMonthsGrid(null);
-    // still render an empty-ish calendar grid using default current month guess
-    document.getElementById('hj-cal-month').textContent='—';
-    document.getElementById('hj-cal-month-sub').textContent='—';
-    document.getElementById('hj-cal-grid').innerHTML='<div style="grid-column:1/-1;text-align:center;padding:30px 10px;color:var(--ink3);font-size:12.5px;font-weight:600">Atur tanggal Hijriah dulu buat lihat kalender 🌙</div>';
+    hjShowSub('home');
+    document.getElementById('hj-hero-greg').textContent = 'Tap ⚙️ untuk mulai';
+    document.getElementById('hj-hero-date').innerHTML = 'Belum diatur';
+    document.getElementById('hj-hero-prog-lbl').textContent='—';
+    document.getElementById('hj-hero-prog-pct').textContent='—';
+    document.getElementById('hj-hero-prog-fill').style.width='0%';
+    document.getElementById('hj-hero-badge-wrap').innerHTML='';
+    document.getElementById('hj-calgrid-month').textContent='—';
+    document.getElementById('hj-calgrid-grid').innerHTML='';
+    document.getElementById('hj-calgrid-daydetail').innerHTML='';
+    document.getElementById('hj-meaning-name').textContent='—';
+    document.getElementById('hj-meaning-desc').textContent='Atur tanggal Hijriah dulu untuk melihat makna bulan ini.';
+    document.getElementById('hj-orbit-row').innerHTML='';
+    document.getElementById('hj-keutamaan-body').innerHTML='';
+    document.getElementById('hj-peristiwa-body').innerHTML='';
+    document.getElementById('hj-chk-body').innerHTML='';
+    document.getElementById('hj-chk-count').textContent='0/0';
+    document.getElementById('hj-refl-quote').textContent='—';
     if(!document.getElementById('hj-setup-overlay')) hjOpenSetup();
     return;
   }
-  if(setLbl) setLbl.textContent='Sesuaikan';
+  hjShowSub('home');
 
   const t = hjToday();
-  if(!_hjSelDay) _hjSelDay = {y:t.y,m:t.m,d:t.d};
+  const info = HJ_MONTH_INFO[t.m];
 
-  if(heroDateEl) heroDateEl.innerHTML = t.d+' '+HJ_MONTHS[t.m-1]+' <span>'+t.y+' H</span>';
-  if(heroGregEl) heroGregEl.textContent = new Date(tod()+'T12:00:00').toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  // hero
+  document.getElementById('hj-hero-greg').textContent = new Date(tod()+'T12:00:00').toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('hj-hero-date').innerHTML = t.d+' '+HJ_MONTHS[t.m-1]+' <span class="hj-y">'+t.y+' H</span>';
+  document.getElementById('hj-hero-prog-lbl').textContent = HJ_MONTHS[t.m-1];
+  document.getElementById('hj-hero-prog-pct').textContent = t.d+' / '+HJ_MONTH_LEN[t.m-1]+' hari';
+  document.getElementById('hj-hero-prog-fill').style.width = Math.round(t.d/HJ_MONTH_LEN[t.m-1]*100)+'%';
+  document.getElementById('hj-hero-badge-wrap').innerHTML = HJ_HARAM_MONTHS.includes(t.m)
+    ? `<div class="hj-hero-badge">🕊️ Bulan Haram (Suci)</div>` : '';
 
-  // badge bulan haram
-  if(heroBadgeWrap){
-    if(HJ_HARAM_MONTHS.includes(t.m)){
-      heroBadgeWrap.innerHTML = `<div class="hj-hero-badge">🕊️ Bulan Haram (Suci)</div>`;
-    } else heroBadgeWrap.innerHTML='';
-  }
+  // kalender grid bulanan
+  renderHjCalGrid(t);
 
-  // event hari ini
-  const todayEvent = hjEvent(t.m,t.d);
-  const evSection = document.getElementById('hj-section-event');
-  if(todayEvent){
-    evSection.style.display='';
-    document.getElementById('hj-card-event').innerHTML =
-      `<div class="hj-card-event-ic">${todayEvent.ic}</div>`+
-      `<div class="hj-card-event-body">`+
-      `<div class="hj-card-event-lbl">Hari ini</div>`+
-      `<div class="hj-card-event-name">${todayEvent.name}</div>`+
-      `<div class="hj-card-event-sub">${todayEvent.desc.slice(0,60)}...</div>`+
-      `</div><div class="hj-card-event-chev">›</div>`;
-    document.getElementById('hj-card-event').onclick=()=>{ _hjSelDay={y:t.y,m:t.m,d:t.d}; renderHjDayDetail(); document.getElementById('hj-day-detail-wrap').scrollIntoView({behavior:'smooth',block:'center'}); };
-  } else {
-    evSection.style.display='none';
-  }
+  // makna bulan ringkas
+  document.getElementById('hj-meaning-name').textContent = HJ_MONTHS[t.m-1];
+  document.getElementById('hj-meaning-desc').textContent = info.desc;
 
-  renderHjUpcoming(t);
-  renderHjCalendar();
-  renderHjDayDetail();
-  renderHjMonthsGrid(t);
+  // orbit strip (semua 12 bulan, scroll horizontal, current di-highlight)
+  document.getElementById('hj-orbit-row').innerHTML = HJ_MONTHS.map((nm,i)=>{
+    const isCur = (i+1)===t.m;
+    return `<div class="hj-orbit-item" onclick="hjJumpOrbit(${i+1})">`+
+      `<div class="hj-orbit-circle${isCur?' cur':''}">${isCur?'🌙':'🌑'}</div>`+
+      `<div class="hj-orbit-name${isCur?' cur':''}">${nm}</div>`+
+      `</div>`;
+  }).join('');
+
+  // keutamaan
+  document.getElementById('hj-keutamaan-body').innerHTML =
+    info.keutamaan.map(k=>`<div class="hj-keutamaan-row"><span class="hj-keutamaan-dot">●</span><p class="hj-keutamaan-text">${escHtml(k)}</p></div>`).join('');
+
+  // peristiwa & momentum (event di bulan ini + upcoming 90 hari)
+  renderHjPeristiwaHome(t);
+
+  // checklist amal bulan ini
+  renderHjChecklist(t.m, t.y, 'hj-chk-body', 'hj-chk-count');
+
+  // refleksi ringkas di home
+  document.getElementById('hj-refl-month-lbl').textContent = HJ_MONTHS[t.m-1];
+  document.getElementById('hj-refl-quote').textContent = '"'+info.reflPrompt+'"';
 }
 
-function ensureHjFreshAnchorless(){ /* placeholder for future cloud sync hooks */ }
+function hjJumpOrbit(m){
+  hjOpenOrbit();
+}
 
-function renderHjUpcoming(t){
-  const wrap = document.getElementById('hj-upcoming-wrap');
+function renderHjPeristiwaHome(t){
+  const wrap = document.getElementById('hj-peristiwa-body');
   if(!wrap) return;
-  // cari event-event mendatang dalam 90 hari ke depan
+  // event-event di bulan ini
+  const thisMonthEvents = [];
+  for(let d=1; d<=HJ_MONTH_LEN[t.m-1]; d++){
+    const ev = hjEvent(t.m,d);
+    if(ev) thisMonthEvents.push({...ev, d});
+  }
+  // upcoming 90 hari ke depan (lewati yang sudah masuk thisMonthEvents kalau hari ini sebelum tanggalnya)
   const upcoming=[];
   let cur={y:t.y,m:t.m,d:t.d};
   for(let i=1;i<=90;i++){
     cur = hjAddDays(cur.y,cur.m,cur.d,1);
     const ev = hjEvent(cur.m,cur.d);
-    if(ev) upcoming.push({...ev, daysLeft:i, y:cur.y,m:cur.m,d:cur.d});
-    if(upcoming.length>=6) break;
+    if(ev) upcoming.push({...ev, daysLeft:i});
+    if(upcoming.length>=4) break;
   }
-  if(!upcoming.length){ wrap.innerHTML=''; return; }
-  wrap.innerHTML =
-    `<div class="home-matkul-title" style="margin-bottom:10px">📅 Akan Datang</div>`+
-    `<div class="hj-upcoming-row">`+
-    upcoming.map(u=>
-      `<div class="hj-upcoming-card" onclick="hjSelectDay(${u.y},${u.m},${u.d});document.getElementById('hj-day-detail-wrap').scrollIntoView({behavior:'smooth',block:'center'})">`+
-      `<div class="hj-upcoming-ic">${u.ic}</div>`+
-      `<div class="hj-upcoming-name">${u.name}</div>`+
-      `<div class="hj-upcoming-days">${u.daysLeft} hari lagi</div>`+
+  let html='';
+  if(thisMonthEvents.length){
+    html += thisMonthEvents.map(ev=>
+      `<div class="hj-ev-row"><div class="hj-ev-ic" style="background:var(--hj-accent-bg)">${ev.ic}</div>`+
+      `<div><p class="hj-ev-title">${ev.d} ${HJ_MONTHS[t.m-1]} — ${escHtml(ev.name)}</p><p class="hj-ev-sub">${escHtml(ev.desc.slice(0,70))}…</p></div></div>`
+    ).join('');
+  }
+  if(upcoming.length){
+    html += upcoming.map(ev=>
+      `<div class="hj-ev-row"><div class="hj-ev-ic" style="background:var(--hjtrack)">${ev.ic}</div>`+
+      `<div><p class="hj-ev-title">${escHtml(ev.name)}</p><p class="hj-ev-sub">${ev.daysLeft} hari lagi</p></div></div>`
+    ).join('');
+  }
+  wrap.innerHTML = html || `<p style="font-size:12px;color:var(--hjtxt3);font-style:italic;margin:0">Tidak ada peristiwa khusus tercatat dalam waktu dekat.</p>`;
+}
+
+// ── Checklist amal (per bulan-tahun Hijriah) ──
+function renderHjChecklist(m,y,bodyId,countId){
+  const key = hjMy(m,y);
+  if(!HJ.checklist[key]){
+    HJ.checklist[key] = HJ_CHECKLIST_DEFAULT[m].map((nm,i)=>({id:'c'+m+'_'+y+'_'+i, name:nm, done:false}));
+    hjSave();
+  }
+  const list = HJ.checklist[key];
+  const done = list.filter(c=>c.done).length;
+  const countEl = document.getElementById(countId);
+  if(countEl) countEl.textContent = done+'/'+list.length;
+  const body = document.getElementById(bodyId);
+  if(!body) return;
+  body.innerHTML =
+    list.map(c=>
+      `<div class="hj-chk-row">`+
+      `<div class="hj-chk-box${c.done?' done':''}" onclick="hjToggleChk('${key}','${c.id}')">${c.done?'✓':''}</div>`+
+      `<span class="hj-chk-name${c.done?' done':''}" onclick="hjToggleChk('${key}','${c.id}')">${escHtml(c.name)}</span>`+
+      `<span class="hj-chk-del" onclick="hjDelChk('${key}','${c.id}')">🗑</span>`+
       `</div>`
-    ).join('')+
+    ).join('') +
+    `<div class="hj-chk-add">`+
+    `<input type="text" id="hj-chk-input-${key.replace(/[^a-zA-Z0-9]/g,'')}" placeholder="Tambah amal baru..." onkeydown="if(event.key==='Enter')hjAddChk('${key}')">`+
+    `<button onclick="hjAddChk('${key}')">+ Tambah</button>`+
     `</div>`;
 }
-
-function renderHjCalendar(){
-  const t = hjToday(); if(!t) return;
-  // bulan yang ditampilkan = bulan hari ini + offset
-  let viewM = t.m, viewY = t.y;
-  for(let i=0;i<Math.abs(_hjViewOffsetMonths);i++){
-    if(_hjViewOffsetMonths>0){ viewM++; if(viewM>12){viewM=1;viewY++;} }
-    else { viewM--; if(viewM<1){viewM=12;viewY--;} }
-  }
-  document.getElementById('hj-cal-month').textContent = HJ_MONTHS[viewM-1]+' '+viewY+' H';
-  const firstGreg = hjToGreg(viewY,viewM,1);
-  const lastGreg = hjToGreg(viewY,viewM,HJ_MONTH_LEN[viewM-1]);
-  document.getElementById('hj-cal-month-sub').textContent =
-    (firstGreg?fmtDate(firstGreg):'')+' – '+(lastGreg?fmtDate(lastGreg):'');
-
-  const daysInMonth = HJ_MONTH_LEN[viewM-1];
-  // tentukan hari dalam seminggu (Sen=0..Min=6) dari tanggal masehi hasil konversi tgl 1
-  const firstDate = new Date(firstGreg+'T12:00:00');
-  const firstDow = (firstDate.getDay()+6)%7;
-
-  const cells=[];
-  for(let i=0;i<firstDow;i++) cells.push(null);
-  for(let d=1;d<=daysInMonth;d++) cells.push(d);
-  const remainder = (7-(cells.length%7))%7;
-  for(let i=0;i<remainder;i++) cells.push(null);
-
-  const todStr=tod();
-  const grid = document.getElementById('hj-cal-grid');
-  grid.innerHTML = cells.map(d=>{
-    if(d===null) return `<div class="hj-cal-day outmonth"></div>`;
-    const greg = hjToGreg(viewY,viewM,d);
-    const isToday = greg===todStr;
-    const isSel = _hjSelDay && _hjSelDay.y===viewY && _hjSelDay.m===viewM && _hjSelDay.d===d;
-    const ev = hjEvent(viewM,d);
-    const gregDay = greg ? new Date(greg+'T12:00:00').getDate() : '';
-    return `<div class="hj-cal-day${isToday?' today':''}${isSel?' selected':''}${ev?' special':''}" onclick="hjSelectDay(${viewY},${viewM},${d})">`+
-      `<div>${d}</div><div class="hj-cal-day-greg">${gregDay}</div>`+
-      `</div>`;
-  }).join('');
-}
-
-function renderHjDayDetail(){
-  const wrap = document.getElementById('hj-day-detail-wrap');
-  if(!wrap || !_hjSelDay) return;
-  const {y,m,d} = _hjSelDay;
-  const greg = hjToGreg(y,m,d);
-  const ev = hjEvent(m,d);
-  const ds = hjDs(y,m,d);
-  const amalanList = HJ.amalan[ds] || [];
-
-  const eventHtml = ev
-    ? `<div class="hj-day-detail-event"><div class="hj-day-detail-event-name">${ev.ic} ${ev.name}</div><div class="hj-day-detail-event-desc">${ev.desc}</div></div>`
-    : '';
-
-  const amalanHtml = amalanList.map(a=>
-    `<div class="hj-amalan-item">`+
-    `<div class="hj-amalan-check${a.done?' done':''}" onclick="hjToggleAmalan('${ds}','${a.id}')">${a.done?'✓':''}</div>`+
-    `<div class="hj-amalan-name${a.done?' done':''}" onclick="hjToggleAmalan('${ds}','${a.id}')">${escHtml(a.name)}</div>`+
-    `<div class="hj-amalan-del" onclick="hjDelAmalan('${ds}','${a.id}')">🗑</div>`+
-    `</div>`
-  ).join('');
-
-  const isBigDay = !!ev;
-  const refl = HJ.refleksi[ds] || '';
-  const reflHtml = isBigDay ? `
-    <div class="hj-refl-box">
-      <div class="hj-amalan-title" style="margin-top:14px">💭 Niat / Refleksi Pribadi</div>
-      ${refl
-        ? `<div class="hj-refl-text">${escHtml(refl)}</div>`
-        : `<div class="hj-refl-empty">Belum ada catatan untuk hari ini.</div>`}
-      <span class="hj-refl-edit-btn" onclick="hjEditRefleksi('${ds}')">✏️ ${refl?'Edit':'Tulis'} catatan</span>
-    </div>` : '';
-
-  wrap.innerHTML = `
-    <div class="hj-day-detail">
-      <div class="hj-day-detail-head">
-        <div class="hj-day-detail-date">${d} ${HJ_MONTHS[m-1]} ${y} H</div>
-        <div class="hj-day-detail-greg">${greg?fmtDate(greg):''}</div>
-      </div>
-      ${eventHtml}
-      <div class="hj-amalan-section">
-        <div class="hj-amalan-title">✅ Amalan Harian</div>
-        <div class="hj-amalan-list">${amalanHtml || '<div class="hj-refl-empty">Belum ada amalan ditambahkan.</div>'}</div>
-        <div class="hj-amalan-add">
-          <input type="text" id="hj-amalan-input" placeholder="e.g. Puasa, Dzikir pagi, Baca Quran..." onkeydown="if(event.key==='Enter')hjAddAmalan('${ds}')">
-          <button onclick="hjAddAmalan('${ds}')">+ Tambah</button>
-        </div>
-      </div>
-      ${reflHtml}
-    </div>
-  `;
-}
-
-function hjAddAmalan(ds){
-  const inp = document.getElementById('hj-amalan-input');
-  const name = inp.value.trim();
-  if(!name) return;
-  if(!HJ.amalan[ds]) HJ.amalan[ds]=[];
-  HJ.amalan[ds].push({id:'am'+Date.now(), name, done:false});
-  hjSave();
-  renderHjDayDetail();
-}
-function hjToggleAmalan(ds,id){
-  const item = (HJ.amalan[ds]||[]).find(a=>a.id===id);
+function hjToggleChk(key,id){
+  const item = (HJ.checklist[key]||[]).find(c=>c.id===id);
   if(!item) return;
   item.done = !item.done;
   hjSave();
-  renderHjDayDetail();
+  hjRefreshChecklistViews();
 }
-function hjDelAmalan(ds,id){
-  HJ.amalan[ds] = (HJ.amalan[ds]||[]).filter(a=>a.id!==id);
+function hjDelChk(key,id){
+  HJ.checklist[key] = (HJ.checklist[key]||[]).filter(c=>c.id!==id);
   hjSave();
-  renderHjDayDetail();
+  hjRefreshChecklistViews();
 }
-function hjEditRefleksi(ds){
-  const cur = HJ.refleksi[ds] || '';
-  const txt = prompt('Tulis niat atau refleksi pribadimu untuk hari ini:', cur);
-  if(txt===null) return;
-  HJ.refleksi[ds] = txt.trim();
+function hjAddChk(key){
+  const safeId = key.replace(/[^a-zA-Z0-9]/g,'');
+  const inp = document.getElementById('hj-chk-input-'+safeId);
+  if(!inp) return;
+  const name = inp.value.trim();
+  if(!name) return;
+  if(!HJ.checklist[key]) HJ.checklist[key]=[];
+  HJ.checklist[key].push({id:'c'+Date.now(), name, done:false});
   hjSave();
-  renderHjDayDetail();
+  hjRefreshChecklistViews();
+}
+function hjRefreshChecklistViews(){
+  const t = hjToday(); if(!t) return;
+  if(document.getElementById('hj-chk-body')) renderHjChecklist(t.m,t.y,'hj-chk-body','hj-chk-count');
+  if(document.getElementById('hj-dm-chk-body') && _hjActiveSub==='detailbulan') renderHjChecklist(t.m,t.y,'hj-dm-chk-body','hj-dm-chk-count');
 }
 
-function renderHjMonthsGrid(t){
-  const grid = document.getElementById('hj-months-grid');
-  if(!grid) return;
-  grid.innerHTML = HJ_MONTHS.map((nm,i)=>{
-    const isCur = t && t.m===i+1;
-    return `<div class="hj-month-pill${isCur?' cur':''}" onclick="hjJumpToMonth(${i+1})">`+
-      `<span class="hj-month-pill-name">${nm}</span><span class="hj-month-pill-num">${i+1}/12</span>`+
+// ── Detail Bulan (sub-page) ──
+function renderHjDetailBulan(){
+  const t = hjToday(); if(!t) return;
+  const info = HJ_MONTH_INFO[t.m];
+  document.getElementById('hj-dm-topbar-title').textContent = HJ_MONTHS[t.m-1]+' '+t.y+' H';
+  document.getElementById('hj-dm-name').textContent = HJ_MONTHS[t.m-1];
+  document.getElementById('hj-dm-tag').textContent = info.tag;
+  document.getElementById('hj-dm-theme').textContent = info.theme;
+  document.getElementById('hj-dm-quote').textContent = '"'+info.quote+'"';
+  document.getElementById('hj-dm-quote-src').textContent = '('+info.quoteSrc+')';
+  document.getElementById('hj-dm-keutamaan-body').innerHTML =
+    info.keutamaan.map(k=>`<div class="hj-keutamaan-row"><span class="hj-keutamaan-dot">●</span><p class="hj-keutamaan-text">${escHtml(k)}</p></div>`).join('');
+
+  // peristiwa penting khusus bulan ini (scoped, bukan upcoming)
+  const evWrap = document.getElementById('hj-dm-peristiwa-body');
+  const monthEvents=[];
+  for(let d=1; d<=HJ_MONTH_LEN[t.m-1]; d++){
+    const ev = hjEvent(t.m,d);
+    if(ev) monthEvents.push({...ev,d});
+  }
+  evWrap.innerHTML = monthEvents.length
+    ? monthEvents.map(ev=>
+        `<div class="hj-ev-row"><div class="hj-ev-ic" style="background:var(--hj-accent-bg)">${ev.ic}</div>`+
+        `<div><p class="hj-ev-title">${ev.d} ${HJ_MONTHS[t.m-1]} — ${escHtml(ev.name)}</p><p class="hj-ev-sub">${escHtml(ev.desc)}</p></div></div>`
+      ).join('')
+    : `<p style="font-size:12px;color:var(--hjtxt3);font-style:italic;margin:0">Tidak ada peristiwa khusus tercatat di bulan ini.</p>`;
+
+  renderHjChecklist(t.m, t.y, 'hj-dm-chk-body', 'hj-dm-chk-count');
+}
+
+// ── Perjalanan Tahun / Orbit (sub-page) ──
+function renderHjOrbitPage(){
+  const t = hjToday(); if(!t) return;
+  document.getElementById('hj-orbit-topbar-title').textContent = 'Perjalanan '+t.y+' H';
+  document.getElementById('hj-orbit-status-text').textContent =
+    'Kamu berada di bulan ke-'+t.m+' dari 12 bulan perjalanan '+t.y+' H.';
+
+  // SVG orbit — 8 node ditampilkan melingkar, posisi current selalu disorot
+  const positions = [
+    {x:160,y:48},{x:89,y:73},{x:231,y:73},{x:50,y:160},
+    {x:270,y:160},{x:89,y:247},{x:231,y:247},{x:160,y:272}
+  ];
+  // pilih 8 bulan untuk ditampilkan di orbit: bulan ini + 7 berikutnya berurutan (wrap)
+  const order=[]; for(let i=0;i<8;i++){ let mm=((t.m-1+i)%12)+1; order.push(mm); }
+  let svgNodes='';
+  order.forEach((mm,i)=>{
+    const pos = positions[i];
+    const isCur = mm===t.m;
+    const r = isCur?24:20;
+    svgNodes += `<g onclick="hjOpenDetailBulanFor(${mm})" style="cursor:pointer">`+
+      `<circle cx="${pos.x}" cy="${pos.y}" r="${r}" class="${isCur?'hj-orbit-svg-cur':'hj-orbit-svg-idle'}" stroke-width="${isCur?2.5:0}"/>`+
+      `<text x="${pos.x}" y="${pos.y+5}" text-anchor="middle" font-size="14">${isCur?'🌙':'🌑'}</text>`+
+      `</g>`+
+      `<text x="${pos.x}" y="${pos.y+r+13}" text-anchor="middle" font-size="${isCur?'11':'10'}" font-weight="${isCur?'700':'400'}" class="${isCur?'hj-orbit-svg-lblcur':'hj-orbit-svg-lbl'}">${HJ_MONTHS[mm-1]}</text>`;
+  });
+  document.getElementById('hj-orbit-svg-wrap').innerHTML = `
+    <svg viewBox="0 0 320 320" style="width:100%;display:block">
+      <circle cx="160" cy="160" r="95" fill="none" class="hj-orbit-svg-ring" stroke-width="1" stroke-dasharray="3,5"/>
+      <text x="160" y="156" text-anchor="middle" font-size="19" font-weight="700" class="hj-orbit-svg-year">${t.y} H</text>
+      <text x="160" y="174" text-anchor="middle" font-size="10" class="hj-orbit-svg-sub">12 bulan perjalanan</text>
+      ${svgNodes}
+    </svg>
+    <style>
+      .hj-orbit-svg-cur{ fill:var(--hj-accent-bg); stroke:var(--hj-amber); }
+      .hj-orbit-svg-idle{ fill:var(--hjtrack); }
+      .hj-orbit-svg-ring{ stroke:var(--hjcard-bd); }
+      .hj-orbit-svg-year{ fill:var(--hjtxt); }
+      .hj-orbit-svg-sub{ fill:var(--hjtxt3); }
+      .hj-orbit-svg-lbl{ fill:var(--hjtxt3); }
+      .hj-orbit-svg-lblcur{ fill:var(--hj-amber); }
+    </style>
+  `;
+
+  // List lengkap 12 bulan dengan status
+  document.getElementById('hj-orbit-list').innerHTML = HJ_MONTHS.map((nm,i)=>{
+    const mm=i+1, isCur = mm===t.m;
+    let status, meta='';
+    if(isCur){ status='Bulan ini'; meta=`<span class="hj-oy-prog">${t.d}/${HJ_MONTH_LEN[mm-1]} hari</span>`; }
+    else if(mm<t.m) status='Telah berlalu';
+    else status='Akan datang';
+    return `<div class="hj-orbityear-list-item${isCur?' cur':''}" onclick="hjOpenDetailBulanFor(${mm})">`+
+      `<div class="hj-oy-icon${isCur?' cur':''}">${isCur?'🌙':'🌑'}</div>`+
+      `<div style="flex:1"><p class="hj-oy-name">${i+1}. ${nm}</p><p class="hj-oy-status">${status}</p></div>`+
+      meta+
+      `<span class="hj-oy-chev">›</span>`+
       `</div>`;
   }).join('');
 }
-function hjJumpToMonth(m){
-  const t = hjToday(); if(!t) return;
-  let diff = m - t.m;
-  _hjViewOffsetMonths = diff;
-  renderHjCalendar();
-  document.getElementById('hj-cal-month')?.scrollIntoView({behavior:'smooth',block:'center'});
+function hjOpenDetailBulanFor(m){
+  // catatan: detail bulan saat ini hanya scoped ke bulan berjalan (sesuai anchor real-time).
+  // Tap bulan lain di orbit membawa ke detail bulan ini juga, dengan info notice jika bukan bulan aktif.
+  const t = hjToday();
+  if(m!==t.m){ toast('📖 Makna & checklist bulan '+HJ_MONTHS[m-1]+' bisa dilihat saat bulan itu tiba'); }
+  hjOpenDetailBulan();
 }
 
+// ── Refleksi & Riwayat (sub-page, per bulan-tahun) ──
+function renderHjRefleksiPage(){
+  const t = hjToday(); if(!t) return;
+  const info = HJ_MONTH_INFO[t.m];
+  const key = hjMy(t.m,t.y);
+  document.getElementById('hj-refl-topbar-title').textContent = 'Refleksi '+HJ_MONTHS[t.m-1];
+  document.getElementById('hj-refl-page-quote').textContent = '"'+info.quote+'"';
+  document.getElementById('hj-refl-page-quote-src').textContent = '('+info.quoteSrc+')';
+  document.getElementById('hj-refl-page-prompt').textContent = info.reflPrompt;
+  document.getElementById('hj-refl-page-sub').textContent = 'Refleksi untuk '+t.d+' '+HJ_MONTHS[t.m-1]+' '+t.y+' H';
+  const ta = document.getElementById('hj-refl-textarea');
+  ta.value = HJ.reflBulan[key] || '';
+  hjReflCounter();
+  document.getElementById('hj-refl-hist-month').textContent = HJ_MONTHS[t.m-1];
+
+  // riwayat: semua entri reflBulan dengan bulan yang sama, tahun berbeda, urut terbaru dulu
+  const histEntries = Object.keys(HJ.reflBulan)
+    .filter(k=>{ const [mm,yy]=k.split('-').map(Number); return mm===t.m && yy!==t.y && HJ.reflBulan[k]; })
+    .map(k=>{ const [mm,yy]=k.split('-').map(Number); return {y:yy, text:HJ.reflBulan[k]}; })
+    .sort((a,b)=>b.y-a.y);
+
+  document.getElementById('hj-refl-hist-list').innerHTML = histEntries.length
+    ? histEntries.map(h=>
+        `<div class="hj-hist-card"><p class="hj-hist-date">${HJ_MONTHS[t.m-1]} ${h.y} H</p><p class="hj-hist-text">${escHtml(h.text)}</p></div>`
+      ).join('')
+    : `<div class="hj-hist-empty">Belum ada riwayat refleksi ${HJ_MONTHS[t.m-1]} dari tahun-tahun sebelumnya.</div>`;
+}
+function hjReflCounter(){
+  const ta = document.getElementById('hj-refl-textarea');
+  const ctr = document.getElementById('hj-refl-counter');
+  if(ta && ctr) ctr.textContent = ta.value.length+'/1000';
+}
+function hjSaveRefleksi(){
+  const t = hjToday(); if(!t) return;
+  const key = hjMy(t.m,t.y);
+  const val = document.getElementById('hj-refl-textarea').value.trim();
+  HJ.reflBulan[key] = val;
+  hjSave();
+  toast('💭 Refleksi tersimpan');
+  renderHjRefleksiPage();
+}
 
 // ════════ DETAIL MATKUL — INTEGRASI & HELPERS ══
 
