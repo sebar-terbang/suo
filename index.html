@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_61.html -->
+<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_65.html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="./index_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -4687,18 +4687,28 @@ input,select,textarea { font-family:inherit; }
 .atd-head-count.full{background:var(--green-lt);color:var(--green-dk);}
 .atd-head-count.partial{background:var(--amber-lt);color:#854f0b;}
 .atd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;}
-.atd-item{display:flex;align-items:flex-start;gap:11px;padding:12px 14px 12px 17px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;position:relative;}
+.atd-list{max-height:230px;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.atd-list::-webkit-scrollbar{display:none;}
+.atd-card.scrollable{position:relative;}
+.atd-card.scrollable::after{content:'';position:absolute;left:0;right:0;bottom:0;height:22px;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--white));pointer-events:none;}
+.atd-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;position:relative;}
 .atd-item:last-child{border-bottom:none;}
 .atd-item:active{background:var(--bg);}
-.atd-item-accent{position:absolute;left:0;top:0;bottom:0;width:3px;}
-.atd-check{width:23px;height:23px;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;margin-top:1px;transition:.15s;}
+.atd-item.done{background:linear-gradient(to right,var(--bg) 0%,var(--white) 40%);}
+.atd-item-accent{position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;}
+.atd-item.done .atd-item-accent{opacity:.35;}
+.atd-check{width:21px;height:21px;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;transition:transform .15s,background .15s,border-color .15s;}
+.atd-check.done{transform:scale(1.04);}
 .atd-body{flex:1;min-width:0;}
-.atd-name{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.35;}
-.atd-name.done{color:var(--ink3);text-decoration:line-through;}
-.atd-meta{display:flex;align-items:center;gap:6px;margin-top:5px;flex-wrap:wrap;}
-.atd-tag{font-size:10.5px;font-weight:700;padding:2.5px 8px;border-radius:6px;}
-.atd-freq{font-size:10.5px;font-weight:600;color:var(--ink3);}
-.atd-empty{padding:26px 16px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink3);line-height:1.5;}
+.atd-body-txt{min-width:0;flex:1;}
+.atd-name{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.atd-name.done{color:var(--ink3);text-decoration:line-through;font-weight:600;}
+.atd-meta{display:flex;align-items:center;gap:5px;margin-top:2px;font-size:10.5px;font-weight:600;color:var(--ink3);white-space:nowrap;overflow:hidden;}
+.atd-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.atd-area-name{overflow:hidden;text-overflow:ellipsis;}
+.atd-meta-sep{flex-shrink:0;opacity:.6;}
+.atd-freq{flex-shrink:0;}
+.atd-empty{padding:22px 16px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink3);line-height:1.5;}
 
 /* ── PROJECT DETAIL NEW STYLE ── */
 .pd-goal-sub{font-size:12px;font-weight:500;color:var(--ink3);margin-top:3px;line-height:1.4;font-style:italic;}
@@ -5646,10 +5656,10 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById('bn-moments'))" style="background:linear-gradient(135deg,#0c3b2e,#145c46);color:#f6e8b8;margin-bottom:4px;">
+      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById(&#39;bn-moments&#39;))" style="background:linear-gradient(135deg,#0c3b2e,#145c46);color:#f6e8b8;margin-bottom:4px;">
         <span class="sb-item-ic">🌙</span> Kalender Hijriah
       </button>
-      <button class="sb-item active" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🏠</span> Home
         <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">2</span>
       </button>
@@ -5659,7 +5669,7 @@ input,select,textarea { font-family:inherit; }
       <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
         <span class="sb-item-ic">📋</span> Kegiatan
       </button>
-      <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
+      <button class="sb-item active" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
         <span class="sb-item-ic">🌿</span> Sistem
       </button>
     </div>
@@ -5676,10 +5686,10 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🌿 Sistem</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><div class="tb-title">🌿 Sistem</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
@@ -5746,7 +5756,7 @@ input,select,textarea { font-family:inherit; }
             </div>
             <div class="hj-orbit-row" id="hj-orbit-row"></div>
 
-            <details class="hj-acc" open>
+            <details class="hj-acc" open="">
               <summary class="hj-acc-head">
                 <span class="hj-acc-head-lbl">✨ Keutamaan bulan ini</span>
                 <span class="hj-acc-chev">▾</span>
@@ -5799,7 +5809,7 @@ input,select,textarea { font-family:inherit; }
               <div class="hj-quote-src" id="hj-dm-quote-src">—</div>
             </div>
 
-            <details class="hj-acc" open>
+            <details class="hj-acc" open="">
               <summary class="hj-acc-head">
                 <span class="hj-acc-head-lbl">✨ Keutamaan</span>
                 <span class="hj-acc-chev">▾</span>
@@ -5815,7 +5825,7 @@ input,select,textarea { font-family:inherit; }
               <div class="hj-acc-body" id="hj-dm-peristiwa-body"></div>
             </details>
 
-            <details class="hj-acc" open>
+            <details class="hj-acc" open="">
               <summary class="hj-acc-head">
                 <span class="hj-acc-head-lbl">✅ Checklist bulan ini</span>
                 <span class="hj-acc-head-meta" id="hj-dm-chk-count">0/0</span>
@@ -5874,7 +5884,7 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ HOME (redesign: weekly cal + tanggungan per matkul) ══ -->
-    <div class="view active" id="v-home">
+    <div class="view" id="v-home">
 
       <!-- Weekly Calendar (ks-cal style) -->
       <div class="ks-cal-wrap" id="home-week-cal" style="border-radius:0;border-left:none;border-right:none;border-top:none;box-shadow:none;margin-bottom:0;">
@@ -5893,7 +5903,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ks-cal-dl">Jum</div>
           <div class="ks-cal-dl">Sab</div>
           <div class="ks-cal-dl">Min</div>
-          <div id="hwc-grid" style="display:contents"></div>
+          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">15</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">16</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">17</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">18</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">19</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">20</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">21</span></div></div></div>
         </div>
         <!-- Selected day detail panel -->
         <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
@@ -6104,8 +6114,8 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ AREAS / SISTEM ══ -->
-    <div class="view" id="v-areas"><div class="pad">
-      <div class="atd-wrap" id="area-today-wrap"></div>
+    <div class="view active" id="v-areas"><div class="pad">
+      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Rab, 17 Jun · gabungan dari semua area</div></div><div class="atd-head-count partial">0/2</div></div><div class="atd-card"><div class="atd-list"><div class="atd-item" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-body-txt"><div class="atd-name">⭐ tes</div><div class="atd-meta"><span class="atd-dot" style="background:#be185d"></span><span class="atd-area-name">B</span><span class="atd-meta-sep">·</span><span class="atd-freq">Harian</span></div></div></div></div><div class="atd-item" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-body-txt"><div class="atd-name">⭐ kato</div><div class="atd-meta"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-area-name">C</span><span class="atd-meta-sep">·</span><span class="atd-freq">Harian</span></div></div></div></div></div></div></div>
       <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-warn" style="background:rgba(0,0,0,.22);color:#fff">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-sub">0 kegiatan aktif · 1 ritual</div><div class="agc-pip-row"><div class="agc-pip"></div></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off" style="background:rgba(0,0,0,.22);color:#fff">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-sub">0 kegiatan aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
@@ -6120,8 +6130,8 @@ input,select,textarea { font-family:inherit; }
           <span class="pd-sec-lbl">📋 Langkah-langkah</span>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="ks-view-toggle" id="ks-view-toggle">
-              <button class="ks-view-btn" data-view="list" onclick="ksSetView('list')"><i class="ti ti-list" style="font-size:13px"></i> List</button>
-              <button class="ks-view-btn" data-view="cal" onclick="ksSetView('cal')"><i class="ti ti-calendar" style="font-size:13px"></i> Kalender</button>
+              <button class="ks-view-btn" data-view="list" onclick="ksSetView(&#39;list&#39;)"><i class="ti ti-list" style="font-size:13px"></i> List</button>
+              <button class="ks-view-btn" data-view="cal" onclick="ksSetView(&#39;cal&#39;)"><i class="ti ti-calendar" style="font-size:13px"></i> Kalender</button>
             </div>
             <button class="pd-sec-btn" onclick="openAddProjItem()">＋ Tambah</button>
           </div>
@@ -6184,13 +6194,13 @@ input,select,textarea { font-family:inherit; }
 
   <!-- BOTTOM NAV -->
   <nav class="bnav">
-    <button class="bn" id="bn-moments" onclick="goView('moments', this)" style="color:#145c46">
+    <button class="bn" id="bn-moments" onclick="goView(&#39;moments&#39;, this)" style="color:#145c46">
       <div class="bn-ic">🌙</div><div>Hijriah</div>
     </button>
-    <button class="bn active" id="bn-h" onclick="goView(&#39;home&#39;, this)">
+    <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
       <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
     </button>
-    <button class="bn" id="bn-focus" onclick="toggleNavPopover(this)">
+    <button class="bn active" id="bn-focus" onclick="toggleNavPopover(this)">
       <div class="bn-ic">⚡</div><div>Lainnya</div>
     </button>
   </nav>
@@ -6652,7 +6662,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addproject" onclick="bgc(event,&#39;sh-addproject&#39;)">
   <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-addproject')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addproject&#39;)">✕</button>
       <span class="sh-header2-title">📋 Tambah Kegiatan</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveNewProject()">Simpan ✓</button>
     </div>
@@ -6670,8 +6680,8 @@ input,select,textarea { font-family:inherit; }
       <div class="sh-group">
         <div class="sh-group-title">📦 Tipe Kegiatan</div>
         <div class="sh-type-row" id="ap-type-row">
-          <div class="sh-type-pill" data-type="singkat" onclick="setTypePill('ap',this)"><span class="sti">⚡</span><span>Singkat</span><span class="stsub">Cepat, beberapa hari–minggu</span></div>
-          <div class="sh-type-pill" data-type="panjang" onclick="setTypePill('ap',this)"><span class="sti">🏔️</span><span>Panjang</span><span class="stsub">Berbulan-bulan, mis. nulis paper</span></div>
+          <div class="sh-type-pill" data-type="singkat" onclick="setTypePill(&#39;ap&#39;,this)"><span class="sti">⚡</span><span>Singkat</span><span class="stsub">Cepat, beberapa hari–minggu</span></div>
+          <div class="sh-type-pill" data-type="panjang" onclick="setTypePill(&#39;ap&#39;,this)"><span class="sti">🏔️</span><span>Panjang</span><span class="stsub">Berbulan-bulan, mis. nulis paper</span></div>
         </div>
         <input type="hidden" id="ap-type" value="singkat">
       </div>
@@ -6679,8 +6689,8 @@ input,select,textarea { font-family:inherit; }
       <div class="sh-group">
         <div class="sh-group-title">🚦 Status</div>
         <div class="sh-status-row" id="ap-st-row">
-          <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ap',this)">🟢 Aktif</div>
-          <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ap',this)">🔵 Rencana</div>
+          <div class="sh-status-pill" data-st="aktif" onclick="setStPill(&#39;ap&#39;,this)">🟢 Aktif</div>
+          <div class="sh-status-pill" data-st="rencana" onclick="setStPill(&#39;ap&#39;,this)">🔵 Rencana</div>
         </div>
         <input type="hidden" id="ap-st" value="aktif">
       </div>
@@ -6724,7 +6734,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-editproject" onclick="bgc(event,&#39;sh-editproject&#39;)">
   <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-editproject')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-editproject&#39;)">✕</button>
       <span class="sh-header2-title">✏️ Edit Kegiatan</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveEditProject()">Simpan ✓</button>
     </div>
@@ -6742,8 +6752,8 @@ input,select,textarea { font-family:inherit; }
       <div class="sh-group">
         <div class="sh-group-title">📦 Tipe Kegiatan</div>
         <div class="sh-type-row" id="ep-type-row">
-          <div class="sh-type-pill" data-type="singkat" onclick="setTypePill('ep',this)"><span class="sti">⚡</span><span>Singkat</span><span class="stsub">Cepat, beberapa hari–minggu</span></div>
-          <div class="sh-type-pill" data-type="panjang" onclick="setTypePill('ep',this)"><span class="sti">🏔️</span><span>Panjang</span><span class="stsub">Berbulan-bulan, mis. nulis paper</span></div>
+          <div class="sh-type-pill" data-type="singkat" onclick="setTypePill(&#39;ep&#39;,this)"><span class="sti">⚡</span><span>Singkat</span><span class="stsub">Cepat, beberapa hari–minggu</span></div>
+          <div class="sh-type-pill" data-type="panjang" onclick="setTypePill(&#39;ep&#39;,this)"><span class="sti">🏔️</span><span>Panjang</span><span class="stsub">Berbulan-bulan, mis. nulis paper</span></div>
         </div>
         <input type="hidden" id="ep-type" value="singkat">
       </div>
@@ -6751,9 +6761,9 @@ input,select,textarea { font-family:inherit; }
       <div class="sh-group">
         <div class="sh-group-title">🚦 Status</div>
         <div class="sh-status-row" id="ep-st-row">
-          <div class="sh-status-pill" data-st="aktif" onclick="setStPill('ep',this)">🟢 Aktif</div>
-          <div class="sh-status-pill" data-st="rencana" onclick="setStPill('ep',this)">🔵 Rencana</div>
-          <div class="sh-status-pill" data-st="selesai" onclick="setStPill('ep',this)">✅ Selesai</div>
+          <div class="sh-status-pill" data-st="aktif" onclick="setStPill(&#39;ep&#39;,this)">🟢 Aktif</div>
+          <div class="sh-status-pill" data-st="rencana" onclick="setStPill(&#39;ep&#39;,this)">🔵 Rencana</div>
+          <div class="sh-status-pill" data-st="selesai" onclick="setStPill(&#39;ep&#39;,this)">✅ Selesai</div>
         </div>
         <input type="hidden" id="ep-st" value="aktif">
       </div>
@@ -6799,7 +6809,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-archive" onclick="bgc(event,&#39;sh-archive&#39;)">
   <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-archive')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-archive&#39;)">✕</button>
       <span class="sh-header2-title">🗄 Arsip Kegiatan</span>
       <span style="width:34px"></span>
     </div>
@@ -6901,7 +6911,7 @@ input,select,textarea { font-family:inherit; }
 <div class="overlay" id="sh-addap" onclick="bgc(event,&#39;sh-addap&#39;)">
   <div class="sheet" style="padding-bottom:calc(20px + var(--sb))">
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-addap')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addap&#39;)">✕</button>
       <span class="sh-header2-title" id="sh-addap-title">📋 Langkah Kegiatan</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveActionPlan()">Simpan ✓</button>
     </div>
@@ -7064,7 +7074,7 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<div class="toast" id="toast">✅ Done hari ini! Konsisten terus 💪</div>
+<div class="toast" id="toast">Habit dibatalkan</div>
 
 <script>
 // ╔══════════════════════════════════════════════════════════════════╗
@@ -11680,14 +11690,17 @@ function renderAreaToday(){
   } else {
     listHtml = rows.map(({h,area,doneToday})=>{
       const c = area ? area.color : '#16a34a';
-      return '<div class="atd-item" onclick="toggleHabitLog(\''+h.id+'\')">'+
+      const freqShort = _habitFreqLabelShort(h);
+      return '<div class="atd-item'+(doneToday?' done':'')+'" onclick="toggleHabitLog(\''+h.id+'\')">'+
         '<div class="atd-item-accent" style="background:'+c+'"></div>'+
         '<div class="atd-check'+(doneToday?' done':'')+'" style="'+(doneToday?('background:'+c+';border-color:'+c+';'):'')+'">'+(doneToday?'✓':'')+'</div>'+
         '<div class="atd-body">'+
-          '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
-          '<div class="atd-meta">'+
-            (area?('<span class="atd-tag" style="background:'+area.color+'1a;color:'+area.color+'">'+(area.emoji||'🌿')+' '+escHtml(area.name)+'</span>'):'')+
-            '<span class="atd-freq">'+_habitFreqLabel(h)+'</span>'+
+          '<div class="atd-body-txt">'+
+            '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
+            '<div class="atd-meta">'+
+              (area?('<span class="atd-dot" style="background:'+area.color+'"></span><span class="atd-area-name">'+escHtml(area.name)+'</span><span class="atd-meta-sep">·</span>'):'')+
+              '<span class="atd-freq">'+freqShort+'</span>'+
+            '</div>'+
           '</div>'+
         '</div>'+
       '</div>';
@@ -11695,6 +11708,7 @@ function renderAreaToday(){
   }
 
   const countCls = !total ? '' : (done===total ? ' full' : ' partial');
+  const cardCls  = total > 4 ? ' scrollable' : '';
 
   wrap.innerHTML =
     '<div class="atd-head">'+
@@ -11704,7 +11718,7 @@ function renderAreaToday(){
       '</div>'+
       (total?('<div class="atd-head-count'+countCls+'">'+done+'/'+total+'</div>'):'')+
     '</div>'+
-    '<div class="atd-card">'+listHtml+'</div>';
+    '<div class="atd-card'+cardCls+'"><div class="atd-list">'+listHtml+'</div></div>';
 }
 
 // New openProjDetail using pd-header pattern
@@ -12503,6 +12517,11 @@ function _habitFreqLabel(h){
   if(h.freq === 'daily') return `Setiap hari${h.time?' · '+h.time:''}`;
   if(h.freq === 'weekly') return `${h.freqDays||1}x seminggu${h.time?' · '+h.time:''}`;
   return h.freq || 'Setiap hari';
+}
+function _habitFreqLabelShort(h){
+  if(h.freq === 'daily') return 'Harian';
+  if(h.freq === 'weekly') return `${h.freqDays||1}x/minggu`;
+  return h.freq || 'Harian';
 }
 
 function _getWeekMonday(){
