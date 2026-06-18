@@ -1583,7 +1583,8 @@ input,select,textarea { font-family:inherit; }
   background:#1c1c1e;
   border-radius:22px 22px 0 0;
   width:100%; max-width:480px;
-  overflow:hidden;
+  max-height:88vh; overflow-y:auto; overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
   transform:translateY(100%);
   transition:transform .3s cubic-bezier(.32,0,.15,1);
 }
@@ -1674,6 +1675,25 @@ input,select,textarea { font-family:inherit; }
 /* Break sheet variant */
 .pomo-bs-break-time { font-size:36px; font-weight:900; color:#4ade80; text-align:center; letter-spacing:-2px; margin:16px 0 4px; }
 .pomo-bs-break-label { font-size:11px; color:rgba(255,255,255,.45); text-align:center; margin-bottom:14px; }
+
+/* ══ POMO WEEK HISTORY WIDGET (di dalam sheet fokus) ══════ */
+.pomo-week { padding:6px 16px 18px; }
+.pomo-week-divider { height:1px; background:rgba(255,255,255,.08); margin:0 0 16px; }
+.pomo-week-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
+.pomo-week-title { font-size:12px; font-weight:800; color:rgba(255,255,255,.85); letter-spacing:.01em; }
+.pomo-week-total { font-size:11.5px; font-weight:800; color:#ff8a73; }
+.pomo-week-chart { display:flex; align-items:stretch; gap:7px; height:104px; padding:0 2px; }
+.pomo-week-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:5px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+.pomo-week-val { font-size:9.5px; font-weight:800; color:rgba(255,255,255,.5); height:12px; line-height:12px; }
+.pomo-week-col.is-today .pomo-week-val { color:#ffb199; }
+.pomo-week-bar-track { flex:1; width:100%; max-width:26px; display:flex; align-items:flex-end; }
+.pomo-week-bar { width:100%; min-height:4px; height:0%; border-radius:7px 7px 3px 3px; background:rgba(255,255,255,.1); transition:height .6s cubic-bezier(.16,1,.3,1); }
+.pomo-week-bar.has-data { background:linear-gradient(180deg,#ff8a73,var(--pomo-red)); }
+.pomo-week-bar.is-today { background:linear-gradient(180deg,#ffba9f,#e53e2f); box-shadow:0 0 0 1.5px rgba(255,255,255,.3) inset; }
+.pomo-week-lbl { font-size:10px; font-weight:700; color:rgba(255,255,255,.38); }
+.pomo-week-col.is-today .pomo-week-lbl { color:#fff; }
+.pomo-week-foot { margin-top:14px; font-size:11px; font-weight:600; color:rgba(255,255,255,.42); text-align:center; line-height:1.5; }
+.pomo-week-foot b { color:rgba(255,255,255,.78); font-weight:800; }
 
 /* ══ POMODORO TAB ══════════════════════════ */
 
@@ -6263,6 +6283,16 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="pomo-bs-cta" id="pomo-bs-start-btn" onclick="pomoBsStart()">▶ Mulai Fokus</div>
       <div class="pomo-bs-dots" id="pomo-bs-idle-dots"></div>
+
+      <div class="pomo-week">
+        <div class="pomo-week-divider"></div>
+        <div class="pomo-week-head">
+          <span class="pomo-week-title">📊 7 Hari Terakhir</span>
+          <span class="pomo-week-total" id="pomo-week-total">—</span>
+        </div>
+        <div class="pomo-week-chart" id="pomo-week-chart"></div>
+        <div class="pomo-week-foot" id="pomo-week-foot"></div>
+      </div>
     </div>
 
     <!-- ACTIVE FOCUS SHEET -->
@@ -7430,9 +7460,39 @@ let _materiSort=0; // 0=Pertemuan, 1=Status Belajar
 let weekOff=0;
 let mcalY=new Date().getFullYear(), mcalM=new Date().getMonth();
 let D = loadLocal() || DEFAULT_DATA;
-// pomo state (session-only, not persisted)
+// ════════ POMO LOCAL HISTORY (localStorage, per-hari — basis grafik 7 hari) ════════
+const POMO_HIST_KEY='kulyeah_pomo_hist';
+function pomoHistDateNDaysAgo(n){ const d=new Date(tod()+'T12:00:00'); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); }
+function pomoHistLoad(){ try{ return JSON.parse(localStorage.getItem(POMO_HIST_KEY)||'{}'); }catch{ return {}; } }
+function pomoHistSave(h){ try{ localStorage.setItem(POMO_HIST_KEY, JSON.stringify(h)); }catch(e){ console.warn('pomo hist save failed',e); } }
+function pomoHistForDate(ds){ return pomoHistLoad()[ds]||[]; }
+// Simpan satu sesi fokus yang baru selesai ke histori harian lokal (independen dari cloud/Supabase)
+function pomoHistAdd(session, ds){
+  ds = ds || tod();
+  const hist = pomoHistLoad();
+  if(!hist[ds]) hist[ds]=[];
+  hist[ds].push({ label:session.label, dur:session.dur, endAt:session.endAt, ts:Date.now() });
+  const cutoff = pomoHistDateNDaysAgo(60); // buang histori >60 hari biar localStorage tetap ringkas
+  Object.keys(hist).forEach(d=>{ if(d<cutoff) delete hist[d]; });
+  pomoHistSave(hist);
+}
+// Ringkasan 7 hari terakhir (termasuk hari ini), urut dari paling lama -> terbaru, untuk grafik
+function pomoHistWeekSummary(){
+  const DOW=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  const todayStr=tod();
+  const out=[];
+  for(let i=6;i>=0;i--){
+    const ds=pomoHistDateNDaysAgo(i);
+    const sessions = ds===todayStr ? pomoSessions : pomoHistForDate(ds);
+    const totalMin = sessions.reduce((a,s)=>a+(Number(s.dur)||0),0);
+    out.push({ date:ds, totalMin, count:sessions.length, label:DOW[new Date(ds+'T12:00:00').getDay()], isToday: ds===todayStr });
+  }
+  return out;
+}
+
+// pomo state — timer aktif (session-only via sessionStorage) + histori harian (persisten via localStorage di atas)
 let pomoState=false, pomoPhase='focus', pomoTimer=null, pomoEndMs=0;
-let pomoDurIdx=1, pomoTask='', pomoSessions=[], pomoBreakDur=5;
+let pomoDurIdx=1, pomoTask='', pomoSessions=pomoHistForDate(tod()).map(s=>({label:s.label,dur:s.dur,endAt:s.endAt})), pomoBreakDur=5;
 
 // ════════ BOOT ════════════════════════════════
 async function boot(){
@@ -7465,6 +7525,7 @@ async function boot(){
   ensurePAData();
   renderHome(); renderSubjLists(); renderMcal(); renderSidebar(); renderProjects(); renderAreas();
   restorePomoState();
+  renderPomoWeekChart();
   sbLoadPomoSessions();
   startPomoCloudSync(); // always poll — picks up sessions from other devices too
   updateDesktopTopbar('home', null);
@@ -8803,12 +8864,14 @@ function renderPomoIdle(){
     if(pomoPhase==='focus'){
       const session={label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:'—'};
       pomoSessions.push(session);
+      pomoHistAdd(session);
       sbSavePomoSession(session);
     }
     pomoState=false; pomoPhase='focus';
     savePomoState(); sbPushPomoState(); updatePomoPill();
   }
   buildPomoTaskOptions();
+  renderPomoHistory(); // tampilkan histori lokal hari ini & grafik 7 hari langsung, tanpa nunggu cloud
   sbLoadPomoSessions(); // always freshen from cloud when opening tab
   if(pomoState) showPomoActive();
   else showPomoIdleUI();
@@ -9015,7 +9078,9 @@ function phaseEnd(){
   if(pomoPhase==='focus'){
     const session={label:pomoTask||'Sesi Fokus', dur:pomoDurMinutes(), endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})};
     pomoSessions.push(session);
+    pomoHistAdd(session);
     sbSavePomoSession(session);
+    renderPomoWeekChart();
     pomoBeep('focus_done');
     pomoPhase='break';
     const breakMs=pomoBreakDur*60*1000;
@@ -9048,6 +9113,7 @@ function stopPomo(){
     if(elapsed>=5){
       const session={label:pomoTask||'Sesi Fokus',dur:elapsed,endAt:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'})};
       pomoSessions.push(session);
+      pomoHistAdd(session);
       sbSavePomoSession(session);
     }
   }
@@ -9059,6 +9125,7 @@ function stopPomo(){
 }
 
 function renderPomoHistory(){
+  renderPomoWeekChart();
   const el=document.getElementById('pomo-history');
   if(!el) return;
   const today=pomoSessions;
@@ -9085,6 +9152,51 @@ function renderPomoHistory(){
       `</div>`
     ).join('')+
     `</div>`;
+}
+
+// Render grafik histori fokus 7 hari terakhir di dalam sheet fokus (pomo-bs idle)
+function renderPomoWeekChart(){
+  const chartEl=document.getElementById('pomo-week-chart');
+  if(!chartEl) return;
+  const days=pomoHistWeekSummary();
+  const maxMin=Math.max(1, ...days.map(d=>d.totalMin));
+  const weekTotal=days.reduce((a,d)=>a+d.totalMin,0);
+  const weekSessions=days.reduce((a,d)=>a+d.count,0);
+
+  const totalEl=document.getElementById('pomo-week-total');
+  if(totalEl) totalEl.textContent = weekTotal>0 ? weekTotal+' mnt · '+weekSessions+' sesi' : 'Belum ada data';
+
+  chartEl.innerHTML = days.map(d=>{
+    const hasData = d.totalMin>0;
+    const pct = hasData ? Math.round((d.totalMin/maxMin)*100) : 0;
+    const dayNum = d.date.slice(8,10);
+    const tipMsg = `${d.label} ${dayNum}: ${d.totalMin} menit fokus · ${d.count} sesi 🍅`;
+    return `<div class="pomo-week-col${d.isToday?' is-today':''}" onclick="toast('${tipMsg.replace(/'/g,"\\'")}')">`+
+      `<div class="pomo-week-val">${hasData?d.totalMin+"'":''}</div>`+
+      `<div class="pomo-week-bar-track"><div class="pomo-week-bar${hasData?' has-data':''}${d.isToday?' is-today':''}" data-pct="${pct}"></div></div>`+
+      `<div class="pomo-week-lbl">${d.label}</div>`+
+    `</div>`;
+  }).join('');
+
+  // animasikan bar tumbuh dari 0 ke nilai aslinya
+  requestAnimationFrame(()=>{
+    chartEl.querySelectorAll('.pomo-week-bar').forEach(b=>{ b.style.height = b.dataset.pct + '%'; });
+  });
+
+  const footEl=document.getElementById('pomo-week-foot');
+  if(footEl){
+    if(weekTotal===0){
+      footEl.innerHTML = 'Belum ada sesi fokus minggu ini. Yuk mulai yang pertama! 🍅';
+    } else {
+      let streak=0;
+      for(let i=days.length-1;i>=0;i--){
+        if(days[i].count>0) streak++;
+        else if(i===days.length-1) continue; // hari ini belum sesi, jangan putus streak
+        else break;
+      }
+      footEl.innerHTML = (streak>0?`🔥 <b>${streak} hari</b> beruntun · `:'')+`<b>${weekTotal} menit</b> fokus minggu ini`;
+    }
+  }
 }
 
 // ════════ NOTES SHEET ════════════════════════
@@ -13040,6 +13152,7 @@ function openPomoBs(){
   _syncPomoBsState();
   // populate task selector
   _buildPomoBsTaskOptions();
+  renderPomoWeekChart();
 }
 
 function closePomoBs(){
@@ -13207,7 +13320,9 @@ function pomoBsSkipToBreak(){
   clearInterval(pomoTimer);
   const session = {label: pomoTask||'Sesi Fokus', dur: pomoDurMinutes(), endAt: new Date().toISOString()};
   pomoSessions.push(session);
+  pomoHistAdd(session);
   sbSavePomoSession(session);
+  renderPomoWeekChart();
   pomoPhase = 'break';
   const breakMs = pomoBreakDur * 60 * 1000;
   pomoStartMs = Date.now();
