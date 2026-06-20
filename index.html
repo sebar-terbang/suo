@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(50).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(51).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -5011,6 +5011,19 @@ input,select,textarea { font-family:inherit; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 16px 8px;
 }
+
+/* pengaturan area — sengaja dibikin kalem & gak menarik perhatian, karena ini bukan aksi
+   yang harusnya gampang ke-pencet. Mesti scroll ke paling bawah dulu buat nemuin ini. */
+.ad2-footer-settings {
+  margin: 32px 16px 4px; padding-top: 16px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+.ad2-footer-settings button {
+  font-size: 11.5px; font-weight: 600; color: var(--ink3);
+  padding: 8px 12px; opacity: .65; transition: opacity .15s;
+}
+.ad2-footer-settings button:active { opacity: 1; }
 .ad2-sec-title {
   font-size: 12px; font-weight: 800;
   text-transform: uppercase; letter-spacing: .07em;
@@ -6261,6 +6274,13 @@ input,select,textarea { font-family:inherit; }
           <span class="ad2-sec-title">Kegiatan Terkait</span>
         </div>
         <div id="area-projects-list"></div>
+
+        <!-- pengaturan area — sengaja ditaro paling bawah & low-key. Area itu komitmen jangka panjang,
+             jadi edit/hapus bukan aksi yang gampang ke-pencet gak sengaja, tapi tetep bisa diakses
+             kalau memang situasinya ngeharusin. -->
+        <div class="ad2-footer-settings">
+          <button onclick="openEditArea(curAreaId)">⚙️ Pengaturan Area</button>
+        </div>
         <div style="height:24px"></div>
       </div><!-- /ad2-body -->
     </div><!-- /v-area-detail -->
@@ -11250,6 +11270,7 @@ function delArea(){
   D.areas     = D.areas.filter(x => x.id !== editAreaId);
   D.p_tasks   = D.p_tasks.filter(x => x.parentId !== editAreaId);
   D.p_agendas = D.p_agendas.filter(x => x.parentId !== editAreaId);
+  D.habits    = (D.habits||[]).filter(x => x.areaId !== editAreaId);
   save(); closeSheet('sh-editarea');
   navPopGoView('areas');
   toast('🗑 Area dihapus');
