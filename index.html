@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(48).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(50).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -4598,6 +4598,9 @@ input,select,textarea { font-family:inherit; }
 .recur-end-today { background:var(--green-lt); color:var(--green-dk); font-weight:800; }
 .recur-end-over  { background:var(--bg2); color:var(--ink3); }
 
+/* streak checkoff berturut-turut (cuma muncul kalau recurring-nya gak punya endDate) */
+.recur-streak { background:var(--amber-lt); color:var(--amber); font-size:10px; font-weight:800; padding:2px 7px; border-radius:99px; }
+
 /* ── OVERVIEW BANNER ── */
 .ov-section-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
 .pa-archive-link{display:block;text-align:center;padding:12px;font-size:12px;font-weight:700;color:var(--ink3);background:none;border:none;cursor:pointer;width:100%;}
@@ -6187,8 +6190,8 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREAS / SISTEM ══ -->
     <div class="view active" id="v-areas"><div class="pad">
-      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Sab, 20 Jun · gabungan dari semua area</div></div><div class="atd-ring-wrap"><svg viewBox="0 0 44 44" class="atd-ring"><circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle><circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:113.097;stroke-dashoffset:56.5485;stroke:var(--amber)"></circle></svg><div class="atd-ring-num">1/2</div></div></div><div class="atd-card"><div class="atd-list"><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1779776109407&#39;)"><span class="atd-dot" style="background:#be185d"></span><span class="atd-group-name">B</span><span class="atd-group-count full">1/1</span><span class="atd-group-car">▾</span></div><div class="atd-group-items collapsed" data-atd-group="area1779776109407"><div class="atd-item done" style="background:rgba(190,24,93,0.05)" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check done" style="background:#be185d;border-color:#be185d;">✓</div><div class="atd-body"><div class="atd-name done">⭐ tes</div></div></div></div></div><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1780137437831&#39;)"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-group-name">C</span><span class="atd-group-count">0/1</span><span class="atd-group-car open">▾</span></div><div class="atd-group-items" data-atd-group="area1780137437831"><div class="atd-item" style="background:rgba(8,145,178,0.09)" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-name">⭐ kato</div></div></div></div></div></div></div></div>
-      <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-danger">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-projs">0 kegiatan aktif</div><div class="agc-ritual-row"><div class="agc-ritual-bar"><div class="agc-ritual-fill" style="width:0%"></div></div><span class="agc-ritual-txt">0/1</span></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-projs">0 kegiatan aktif</div></div></div></div>
+      <div class="atd-wrap" id="area-today-wrap"></div>
+      <div class="area-gallery" id="areas-list" style="display:grid"></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
 
@@ -10723,9 +10726,16 @@ function toggleApDone(id){
   const t = D.p_tasks.find(x => x.id === id);
   const isRecur = t.recurring && t.recurring.freq && t.recurring.freq !== 'none';
   if(isRecur){
-    // recurring: toggle lastDone = hari ini / null
-    const alreadyDone = t.lastDone === tod();
-    t.lastDone = alreadyDone ? null : tod();
+    // recurring: toggle lastDone = hari ini / null, sambil nyimpen histori (logs) buat ngitung streak
+    const today = tod();
+    const alreadyDone = t.lastDone === today;
+    t.lastDone = alreadyDone ? null : today;
+    if(!t.logs) t.logs = [];
+    if(alreadyDone){
+      t.logs = t.logs.filter(d => d !== today);
+    } else if(!t.logs.includes(today)){
+      t.logs.push(today);
+    }
     save(); refreshPAViews(); renderMcal();
     toast(alreadyDone ? '↩️ Di-reset, belum selesai hari ini' : '✅ Done hari ini! Konsisten terus 💪');
   } else {
@@ -11534,6 +11544,31 @@ function _apRecurOccursOn(t, dateStr){
 
 // Cari next due date utk recurring task, mulai dari hari ini (atau besok kalau udah done hari ini).
 // Return {diff, dateStr} atau null kalau gak ketemu dalam 60 hari ke depan.
+// Itung berapa kali berturut-turut recurring task ini di-checkoff (mundur dari hari ini/kemarin),
+// cuma ngitung occurrence yang emang dijadwalkan (skip hari yang gak relevan, misal weekly Sen/Rab/Jum).
+function _apStreak(t, todayStr){
+  const rec = t.recurring;
+  if(!rec || rec.freq === 'none') return 0;
+  const logs = t.logs || [];
+  if(!logs.length) return 0;
+  const logDates = new Set(logs);
+  const doneToday = logDates.has(todayStr);
+  const d = new Date(todayStr + 'T12:00:00');
+  if(!doneToday) d.setDate(d.getDate() - 1);
+  let streak = 0;
+  for(let i = 0; i < 366; i++){
+    const ds = d.toISOString().slice(0, 10);
+    if(rec.startDate && ds < rec.startDate) break;
+    if(_apRecurOccursOn(t, ds)){
+      if(logDates.has(ds)){ streak++; d.setDate(d.getDate() - 1); }
+      else break;
+    } else {
+      d.setDate(d.getDate() - 1);
+    }
+  }
+  return streak;
+}
+
 function getNextRecurDue(t, todayStr){
   const doneToday = t.lastDone === todayStr;
   const d = new Date(todayStr + 'T12:00:00');
@@ -11570,8 +11605,9 @@ function getRecurBadgeInfo(t, todayStr){
     }
   }
 
-  // ── (2) countdown ke endDate — wajib tampil kalau di-set, terlepas dari status urgency di atas.
-  // Nuansa "progress menuju selesai" (motivasi), bukan "alarm/deadline".
+  // ── (2) kalau endDate DI-SET → countdown ke situ (motivasi "tinggal dikit lagi").
+  //     kalau endDate GAK di-set (recurring tanpa batas akhir) → tampilin streak checkoff
+  //     berturut-turut sebagai gantinya, karena gak ada "garis finish" yang bisa di-countdown.
   let endBadge = '';
   if(rec && rec.endDate){
     const daysLeft = diffD(rec.endDate, todayStr);
@@ -11583,6 +11619,11 @@ function getRecurBadgeInfo(t, todayStr){
       endBadge = '<span class="recur-end recur-end-close">🏁 Tinggal '+daysLeft+' hari lagi</span>';
     } else {
       endBadge = '<span class="recur-end">🏁 Tinggal '+daysLeft+' hari lagi</span>';
+    }
+  } else if(rec){
+    const streak = _apStreak(t, todayStr);
+    if(streak >= 1){
+      endBadge = '<span class="recur-streak">🔥 '+streak+'x berturut-turut</span>';
     }
   }
 
@@ -11964,6 +12005,8 @@ function renderAreaToday(){
   const todayStr = tod();
   const monday   = _getWeekMonday();
 
+  const todayDow = new Date(todayStr + 'T12:00:00').getDay();
+
   const rows = (D.habits||[]).map(h=>{
     const area = gArea(h.areaId);
     const logs = h.logs || [];
@@ -11971,7 +12014,13 @@ function renderAreaToday(){
     const target     = h.freqDays || 7;
     const weekCount  = logs.filter(l=>l.date>=monday && l.date<=todayStr).length;
     const streak     = _habitStreak(h, todayStr);
-    return {h, area, doneToday, target, weekCount, streak, relevant: doneToday || weekCount < target};
+    const hasSpecificDays = h.freq === 'weekly' && Array.isArray(h.days) && h.days.length > 0;
+    // habit "hari tertentu" cuma relevan/muncul pas harinya emang dijadwalkan (atau udah dicentang hari ini).
+    // habit lama yang belum punya h.days (data sebelum fitur ini ada) tetep jalan pakai logic lama (target/minggu).
+    const relevant = hasSpecificDays
+      ? (doneToday || h.days.includes(todayDow))
+      : (doneToday || weekCount < target);
+    return {h, area, doneToday, target, weekCount, streak, hasSpecificDays, relevant};
   }).filter(r=>r.relevant);
 
   const done  = rows.filter(r=>r.doneToday).length;
@@ -12856,14 +12905,24 @@ function _mkHabitRow(h, color){
   return wrap;
 }
 
+const _DOW_SHORT = {0:'Min',1:'Sen',2:'Sel',3:'Rab',4:'Kam',5:'Jum',6:'Sab'};
 function _habitFreqLabel(h){
   if(h.freq === 'daily') return `Setiap hari${h.time?' · '+h.time:''}`;
-  if(h.freq === 'weekly') return `${h.freqDays||1}x seminggu${h.time?' · '+h.time:''}`;
+  if(h.freq === 'weekly'){
+    const dayTxt = Array.isArray(h.days) && h.days.length
+      ? h.days.slice().sort((a,b)=>a-b).map(d=>_DOW_SHORT[d]).join(', ')
+      : `${h.freqDays||1}x seminggu`;
+    return `${dayTxt}${h.time?' · '+h.time:''}`;
+  }
   return h.freq || 'Setiap hari';
 }
 function _habitFreqLabelShort(h){
   if(h.freq === 'daily') return 'Harian';
-  if(h.freq === 'weekly') return `${h.freqDays||1}x/minggu`;
+  if(h.freq === 'weekly'){
+    return (Array.isArray(h.days) && h.days.length)
+      ? h.days.slice().sort((a,b)=>a-b).map(d=>_DOW_SHORT[d]).join(',')
+      : `${h.freqDays||1}x/minggu`;
+  }
   return h.freq || 'Harian';
 }
 
@@ -13067,11 +13126,19 @@ function openAddHabit(){
       `<div class="field"><label class="flbl">Frekuensi</label>` +
       `<select id="ah-freq">` +
       `<option value="daily">Setiap hari</option>` +
-      `<option value="weekly">Beberapa hari seminggu</option>` +
+      `<option value="weekly">Hari tertentu</option>` +
       `</select></div>` +
       `<div class="field" id="ah-days-field" style="display:none">` +
-      `<label class="flbl">Target hari per minggu</label>` +
-      `<input id="ah-days" type="number" min="1" max="7" value="3" style="width:80px"></div>` +
+      `<label class="flbl">Muncul di hari apa aja?</label>` +
+      `<div class="day-picker" id="ah-day-picker">` +
+      `<button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button>` +
+      `<button type="button" class="day-btn" data-day="2" onclick="toggleDayBtn(this)">Sel</button>` +
+      `<button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button>` +
+      `<button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button>` +
+      `<button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button>` +
+      `<button type="button" class="day-btn" data-day="6" onclick="toggleDayBtn(this)">Sab</button>` +
+      `<button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button>` +
+      `</div></div>` +
       `<div class="field"><label class="flbl">Waktu (opsional)</label>` +
       `<input id="ah-time" type="text" placeholder="e.g. Pagi hari, 06.00"></div>` +
       `</div>` +
@@ -13088,6 +13155,7 @@ function openAddHabit(){
   document.getElementById('ah-emoji').value='';
   document.getElementById('ah-freq').value='daily';
   document.getElementById('ah-days-field').style.display='none';
+  document.querySelectorAll('#ah-day-picker .day-btn').forEach(b=>b.classList.remove('sel'));
   document.getElementById('ah-time').value='';
   openSheet('sh-add-habit');
 }
@@ -13097,13 +13165,17 @@ function saveNewHabit(){
   const name = document.getElementById('ah-name').value.trim();
   if(!name){ toast('Nama habit tidak boleh kosong'); return; }
   const freq = document.getElementById('ah-freq').value;
-  const freqDays = freq==='weekly' ? parseInt(document.getElementById('ah-days').value||'3') : 7;
+  const days = freq==='weekly'
+    ? [...document.querySelectorAll('#ah-day-picker .day-btn.sel')].map(b => +b.dataset.day)
+    : [];
+  if(freq==='weekly' && !days.length){ toast('Pilih minimal 1 hari'); return; }
+  const freqDays = freq==='weekly' ? days.length : 7;
   D.habits.push({
     id: 'h'+Date.now(),
     areaId: curAreaId,
     name,
     emoji: document.getElementById('ah-emoji').value.trim() || '⭐',
-    freq, freqDays,
+    freq, freqDays, days,
     time: document.getElementById('ah-time').value.trim(),
     logs: []
   });
@@ -13136,11 +13208,19 @@ function openEditHabit(hid){
       `<div class="field"><label class="flbl">Frekuensi</label>` +
       `<select id="eh-freq">` +
       `<option value="daily">Setiap hari</option>` +
-      `<option value="weekly">Beberapa hari seminggu</option>` +
+      `<option value="weekly">Hari tertentu</option>` +
       `</select></div>` +
       `<div class="field" id="eh-days-field" style="display:none">` +
-      `<label class="flbl">Target hari per minggu</label>` +
-      `<input id="eh-days" type="number" min="1" max="7" value="3" style="width:80px"></div>` +
+      `<label class="flbl">Muncul di hari apa aja?</label>` +
+      `<div class="day-picker" id="eh-day-picker">` +
+      `<button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button>` +
+      `<button type="button" class="day-btn" data-day="2" onclick="toggleDayBtn(this)">Sel</button>` +
+      `<button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button>` +
+      `<button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button>` +
+      `<button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button>` +
+      `<button type="button" class="day-btn" data-day="6" onclick="toggleDayBtn(this)">Sab</button>` +
+      `<button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button>` +
+      `</div></div>` +
       `<div class="field"><label class="flbl">Waktu (opsional)</label>` +
       `<input id="eh-time" type="text" placeholder="e.g. Pagi hari, 06.00"></div>` +
       `</div>` +
@@ -13163,7 +13243,9 @@ function openEditHabit(hid){
   document.getElementById('eh-emoji').value = h.emoji || '';
   document.getElementById('eh-freq').value = h.freq || 'daily';
   document.getElementById('eh-days-field').style.display = h.freq==='weekly'?'':'none';
-  document.getElementById('eh-days').value = h.freqDays || 3;
+  document.querySelectorAll('#eh-day-picker .day-btn').forEach(b=>{
+    b.classList.toggle('sel', (h.days||[]).includes(+b.dataset.day));
+  });
   document.getElementById('eh-time').value = h.time || '';
   // Bind buttons to this specific habit
   document.getElementById('eh-save-btn').onclick = () => saveEditHabit(hid);
@@ -13176,10 +13258,16 @@ function saveEditHabit(hid){
   if(!h) return;
   const name = document.getElementById('eh-name').value.trim();
   if(!name){ toast('Nama habit tidak boleh kosong'); return; }
+  const freq = document.getElementById('eh-freq').value;
+  const days = freq==='weekly'
+    ? [...document.querySelectorAll('#eh-day-picker .day-btn.sel')].map(b => +b.dataset.day)
+    : [];
+  if(freq==='weekly' && !days.length){ toast('Pilih minimal 1 hari'); return; }
   h.name = name;
   h.emoji = document.getElementById('eh-emoji').value.trim() || h.emoji;
-  h.freq = document.getElementById('eh-freq').value;
-  h.freqDays = h.freq==='weekly' ? parseInt(document.getElementById('eh-days').value||'3') : 7;
+  h.freq = freq;
+  h.freqDays = freq==='weekly' ? days.length : 7;
+  h.days = days;
   h.time = document.getElementById('eh-time').value.trim();
   save();
   closeSheet('sh-edit-habit');
