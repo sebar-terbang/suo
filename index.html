@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(47).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(48).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -4743,10 +4743,19 @@ input,select,textarea { font-family:inherit; }
 
 .atd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;transition:border-color .3s;}
 .atd-card.full{border-color:var(--green-bd);}
-.atd-list{max-height:300px;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:8px;display:flex;flex-direction:column;gap:7px;}
-.atd-list::-webkit-scrollbar{display:none;}
-.atd-card.scrollable{position:relative;}
-.atd-card.scrollable::after{content:'';position:absolute;left:0;right:0;bottom:0;height:22px;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--white));pointer-events:none;}
+.atd-list{padding:7px;display:flex;flex-direction:column;}
+
+/* grup per-area: header yang bisa ditoggle, isinya item-item habit area itu */
+.atd-group{margin-bottom:2px;}
+.atd-group-head{display:flex;align-items:center;gap:7px;padding:9px 7px;cursor:pointer;border-radius:10px;transition:background .12s;}
+.atd-group-head:active{background:var(--bg);}
+.atd-group-name{font-size:12.5px;font-weight:800;color:var(--ink2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.atd-group-count{font-size:11px;font-weight:700;color:var(--ink3);flex-shrink:0;}
+.atd-group-count.full{color:var(--green-dk);}
+.atd-group-car{font-size:9px;color:var(--ink3);flex-shrink:0;margin-left:1px;transition:transform .2s;display:inline-block;}
+.atd-group-car.open{transform:rotate(180deg);}
+.atd-group-items{display:flex;flex-direction:column;gap:6px;padding:2px 0 8px;}
+.atd-group-items.collapsed{display:none;}
 
 /* tiap habit = mini-card sendiri dgn tint warna area-nya (bukan baris flat dipisah garis) —
    biar widget ini punya karakter sendiri yang beda dari list .ap-item di tempat lain */
@@ -4761,9 +4770,7 @@ input,select,textarea { font-family:inherit; }
 .atd-body{flex:1;min-width:0;}
 .atd-name{font-size:14px;font-weight:700;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .atd-name.done{color:var(--ink2);text-decoration:line-through;font-weight:600;}
-.atd-meta{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:11px;font-weight:600;color:var(--ink2);white-space:nowrap;overflow:hidden;}
 .atd-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.atd-area-name{overflow:hidden;text-overflow:ellipsis;}
 
 /* slot kanan: streak pill (habit harian) ATAU mini progress bar (habit mingguan) — gak pernah dua²nya bareng */
 .atd-side{display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;}
@@ -6180,7 +6187,7 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREAS / SISTEM ══ -->
     <div class="view active" id="v-areas"><div class="pad">
-      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Sab, 20 Jun · gabungan dari semua area</div></div><div class="atd-ring-wrap"><svg viewBox="0 0 44 44" class="atd-ring"><circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle><circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:113.097;stroke-dashoffset:56.5485;stroke:var(--amber)"></circle></svg><div class="atd-ring-num">1/2</div></div></div><div class="atd-card"><div class="atd-list"><div class="atd-item" style="background:rgba(8,145,178,0.09)" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-name">⭐ kato</div><div class="atd-meta"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-area-name">C</span></div></div></div><div class="atd-item done" style="background:rgba(190,24,93,0.05)" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check done" style="background:#be185d;border-color:#be185d;">✓</div><div class="atd-body"><div class="atd-name done">⭐ tes</div><div class="atd-meta"><span class="atd-dot" style="background:#be185d"></span><span class="atd-area-name">B</span></div></div></div></div></div></div>
+      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Sab, 20 Jun · gabungan dari semua area</div></div><div class="atd-ring-wrap"><svg viewBox="0 0 44 44" class="atd-ring"><circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle><circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:113.097;stroke-dashoffset:56.5485;stroke:var(--amber)"></circle></svg><div class="atd-ring-num">1/2</div></div></div><div class="atd-card"><div class="atd-list"><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1779776109407&#39;)"><span class="atd-dot" style="background:#be185d"></span><span class="atd-group-name">B</span><span class="atd-group-count full">1/1</span><span class="atd-group-car">▾</span></div><div class="atd-group-items collapsed" data-atd-group="area1779776109407"><div class="atd-item done" style="background:rgba(190,24,93,0.05)" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check done" style="background:#be185d;border-color:#be185d;">✓</div><div class="atd-body"><div class="atd-name done">⭐ tes</div></div></div></div></div><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1780137437831&#39;)"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-group-name">C</span><span class="atd-group-count">0/1</span><span class="atd-group-car open">▾</span></div><div class="atd-group-items" data-atd-group="area1780137437831"><div class="atd-item" style="background:rgba(8,145,178,0.09)" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-name">⭐ kato</div></div></div></div></div></div></div></div>
       <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-danger">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-projs">0 kegiatan aktif</div><div class="agc-ritual-row"><div class="agc-ritual-bar"><div class="agc-ritual-fill" style="width:0%"></div></div><span class="agc-ritual-txt">0/1</span></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-projs">0 kegiatan aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
@@ -11939,6 +11946,17 @@ function _habitStreak(h, todayStr){
   return streak;
 }
 
+// state collapse per-area — default-nya pinter: grup yang udah kelar semua otomatis collapse
+// (gak perlu diliat lagi), grup yang masih ada PR tetep kebuka. User bisa override manual,
+// dan override-nya nempel sampai halaman di-reload.
+let _atdGroupOverride = {};
+function toggleAtdGroup(key){
+  const el = document.querySelector('[data-atd-group="'+key+'"]');
+  const curCollapsed = el ? el.classList.contains('collapsed') : false;
+  _atdGroupOverride[key] = !curCollapsed;
+  renderAreaToday();
+}
+
 function renderAreaToday(){
   ensurePAData();
   const wrap = document.getElementById('area-today-wrap');
@@ -11956,41 +11974,67 @@ function renderAreaToday(){
     return {h, area, doneToday, target, weekCount, streak, relevant: doneToday || weekCount < target};
   }).filter(r=>r.relevant);
 
-  rows.sort((a,b)=>(a.doneToday?1:0)-(b.doneToday?1:0));
   const done  = rows.filter(r=>r.doneToday).length;
   const total = rows.length;
   const allDone = total>0 && done===total;
+
+  function renderItem({h,area,doneToday,target,weekCount,streak}){
+    const c = area ? area.color : '#16a34a';
+    const isWeekly = h.freq === 'weekly';
+    const weekPct = isWeekly ? Math.min(100, Math.round(weekCount/target*100)) : 0;
+
+    // slot kanan: pill streak (harian, streak>=2) ATAU mini progress bar (mingguan) — gak pernah numpuk
+    let sideHtml = '';
+    if(isWeekly){
+      sideHtml = '<div class="atd-side"><div class="atd-week">'+
+        '<span class="atd-week-txt">'+weekCount+'/'+target+' mgu</span>'+
+        '<div class="atd-week-bar"><div class="atd-week-fill" style="width:'+weekPct+'%;background:'+c+'"></div></div>'+
+      '</div></div>';
+    } else if(streak >= 2){
+      sideHtml = '<div class="atd-side"><span class="atd-streak-pill">🔥'+streak+'</span></div>';
+    }
+
+    return '<div class="atd-item'+(doneToday?' done':'')+'" style="background:'+_hexToRgba(c, doneToday?0.05:0.09)+'" onclick="toggleHabitLog(\''+h.id+'\')">'+
+      '<div class="atd-item-accent" style="background:'+c+'"></div>'+
+      '<div class="atd-check'+(doneToday?' done':'')+'" style="'+(doneToday?('background:'+c+';border-color:'+c+';'):'')+'">'+(doneToday?'✓':'')+'</div>'+
+      '<div class="atd-body">'+
+        '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
+      '</div>'+
+      sideHtml+
+    '</div>';
+  }
 
   let listHtml;
   if(!total){
     listHtml = '<div class="atd-empty">🌱 Gak ada habit yang perlu dikerjain hari ini.<br>Tambah habit baru lewat salah satu area, atau santai dulu 😌</div>';
   } else {
-    listHtml = rows.map(({h,area,doneToday,target,weekCount,streak})=>{
-      const c = area ? area.color : '#16a34a';
-      const isWeekly = h.freq === 'weekly';
-      const weekPct = isWeekly ? Math.min(100, Math.round(weekCount/target*100)) : 0;
+    // group rows by area, urutannya ngikut urutan D.areas biar konsisten sama gallery di bawah
+    const byArea = {};
+    rows.forEach(r=>{
+      const key = r.area ? r.area.id : '_none';
+      (byArea[key] = byArea[key] || []).push(r);
+    });
+    const groupKeys = [...D.areas.map(a=>a.id).filter(id=>byArea[id]), ...(byArea['_none']?['_none']:[])];
 
-      // slot kanan: pill streak (harian, streak>=2) ATAU mini progress bar (mingguan) — gak pernah numpuk
-      let sideHtml = '';
-      if(isWeekly){
-        sideHtml = '<div class="atd-side"><div class="atd-week">'+
-          '<span class="atd-week-txt">'+weekCount+'/'+target+' mgu</span>'+
-          '<div class="atd-week-bar"><div class="atd-week-fill" style="width:'+weekPct+'%;background:'+c+'"></div></div>'+
-        '</div></div>';
-      } else if(streak >= 2){
-        sideHtml = '<div class="atd-side"><span class="atd-streak-pill">🔥'+streak+'</span></div>';
-      }
-
-      return '<div class="atd-item'+(doneToday?' done':'')+'" style="background:'+_hexToRgba(c, doneToday?0.05:0.09)+'" onclick="toggleHabitLog(\''+h.id+'\')">'+
-        '<div class="atd-item-accent" style="background:'+c+'"></div>'+
-        '<div class="atd-check'+(doneToday?' done':'')+'" style="'+(doneToday?('background:'+c+';border-color:'+c+';'):'')+'">'+(doneToday?'✓':'')+'</div>'+
-        '<div class="atd-body">'+
-          '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
-          '<div class="atd-meta">'+
-            (area?('<span class="atd-dot" style="background:'+area.color+'"></span><span class="atd-area-name">'+escHtml(area.name)+'</span>'):'<span class="atd-area-name">Tanpa area</span>')+
-          '</div>'+
+    listHtml = groupKeys.map(key=>{
+      const groupRows = byArea[key].slice().sort((a,b)=>(a.doneToday?1:0)-(b.doneToday?1:0));
+      const area = groupRows[0].area;
+      const gDone = groupRows.filter(r=>r.doneToday).length;
+      const gTotal = groupRows.length;
+      const defaultCollapsed = gDone === gTotal; // udah kelar semua → gak perlu keliatan terus
+      const collapsed = _atdGroupOverride[key] !== undefined ? _atdGroupOverride[key] : defaultCollapsed;
+      const groupName = area ? area.name : 'Tanpa area';
+      const groupColor = area ? area.color : 'var(--ink3)';
+      return '<div class="atd-group">'+
+        '<div class="atd-group-head" onclick="toggleAtdGroup(\''+key+'\')">'+
+          '<span class="atd-dot" style="background:'+groupColor+'"></span>'+
+          '<span class="atd-group-name">'+escHtml(groupName)+'</span>'+
+          '<span class="atd-group-count'+(gDone===gTotal?' full':'')+'">'+gDone+'/'+gTotal+'</span>'+
+          '<span class="atd-group-car'+(!collapsed?' open':'')+'">▾</span>'+
         '</div>'+
-        sideHtml+
+        '<div class="atd-group-items'+(collapsed?' collapsed':'')+'" data-atd-group="'+key+'">'+
+          groupRows.map(renderItem).join('')+
+        '</div>'+
       '</div>';
     }).join('');
   }
@@ -12014,7 +12058,7 @@ function renderAreaToday(){
     ? 'Semua beres hari ini 🎉'
     : fmtDate(todayStr) + ' · gabungan dari semua area';
 
-  const cardCls = (total > 4 ? ' scrollable' : '') + (allDone ? ' full' : '');
+  const cardCls = allDone ? ' full' : '';
 
   wrap.innerHTML =
     '<div class="atd-head">'+
