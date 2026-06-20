@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_65.html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(44).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Kulyeah!</title>
-<link href="./index_files/css2" rel="stylesheet">
+<link href="file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
@@ -34,6 +34,8 @@
   --red:     #dc2626;
   --red-lt:  #fee2e2;
   --red-bd:  #fca5a5;
+  --red-dk:  #7f1d1d;
+  --red-dk-lt:#fecaca;
 
   --purple:  #7c3aed;
   --purple-lt:#ede9fe;
@@ -1023,6 +1025,13 @@ input,select,textarea { font-family:inherit; }
 .dl-soon { background:var(--amber-lt); color:var(--amber); }
 .dl-late { background:var(--red-lt);   color:var(--red); }
 .dl-done { background:var(--bg2);      color:var(--ink3); }
+
+/* granular smart deadline badges (action plan items) */
+.dl-soon2     { background:var(--amber-lt);   color:var(--amber); }
+.dl-today     { background:var(--red-lt);     color:var(--red);   font-weight:800; }
+.dl-late-y    { background:var(--red-dk-lt);  color:var(--red-dk); font-weight:800; }
+.dl-done-next { background:var(--green-lt);   color:var(--green-dk); }
+.dl-none      { background:var(--bg2);        color:var(--ink3); }
 
 /* tugas action button */
 .ti-btn {
@@ -4575,6 +4584,19 @@ input,select,textarea { font-family:inherit; }
   padding:2px 7px; border-radius:99px;
   background:var(--purple-lt); color:var(--purple);
 }
+.recur-badge.due-today { background:var(--red-lt);   color:var(--red); }
+.recur-badge.due-tom   { background:var(--amber-lt); color:var(--amber); }
+
+/* endDate countdown — nuansa "progress menuju selesai", sengaja BEDA dari warna alarm (.due-today/.due-tom)
+   biar gak ketuker maknanya: ini bukan "buruan", ini "tinggal dikit lagi, semangat" */
+.recur-end {
+  font-size:10px; font-weight:600;
+  padding:2px 7px; border-radius:99px;
+  background:var(--bg2); color:var(--ink3);
+}
+.recur-end-close { background:var(--green-lt); color:var(--green-dk); font-weight:800; }
+.recur-end-today { background:var(--green-lt); color:var(--green-dk); font-weight:800; }
+.recur-end-over  { background:var(--bg2); color:var(--ink3); }
 
 /* ── OVERVIEW BANNER ── */
 .ov-section-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
@@ -4690,45 +4712,60 @@ input,select,textarea { font-family:inherit; }
 .agc-noise{position:absolute;inset:0;opacity:.06;}
 .agc-gradient{position:absolute;inset:0;background:linear-gradient(160deg,rgba(255,255,255,.14) 0%,rgba(0,0,0,.0) 40%,rgba(0,0,0,.38) 100%);}
 .agc-body{position:relative;z-index:2;padding:12px 13px 13px;}
-.agc-icon{font-size:26px;line-height:1;margin-bottom:6px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.18));}
+.agc-icon{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(3px);font-size:17px;line-height:1;margin-bottom:8px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.12));}
 .agc-name{font-size:14px;font-weight:900;color:#fff;letter-spacing:-.25px;line-height:1.2;text-shadow:0 1px 6px rgba(0,0,0,.28);}
-.agc-sub{font-size:10px;font-weight:700;color:rgba(255,255,255,.78);margin-top:3px;letter-spacing:.01em;}
-.agc-pip-row{display:flex;gap:4px;margin-top:7px;align-items:center;}
-.agc-pip{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);}
-.agc-pip.on{background:#fff;box-shadow:0 0 4px rgba(255,255,255,.6);}
-.agc-top-badge{position:absolute;top:11px;right:11px;z-index:3;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);letter-spacing:.03em;}
+.agc-projs{font-size:10px;font-weight:700;color:rgba(255,255,255,.78);margin-top:3px;letter-spacing:.01em;}
+.agc-ritual-row{display:flex;align-items:center;gap:6px;margin-top:7px;}
+.agc-ritual-bar{flex:1;height:4px;border-radius:99px;background:rgba(255,255,255,.26);overflow:hidden;}
+.agc-ritual-fill{height:100%;background:#fff;border-radius:99px;transition:width .45s cubic-bezier(.4,0,.2,1);}
+.agc-ritual-txt{font-size:9.5px;font-weight:800;color:#fff;flex-shrink:0;text-shadow:0 1px 3px rgba(0,0,0,.3);}
+/* state badge = quick color-coded read of "does this area need me today", consistent w/ habit ring's neutral/amber/green language + a 4th red tier for zero-progress */
+.agc-top-badge{position:absolute;top:11px;right:11px;z-index:3;font-size:10px;font-weight:800;padding:3px 9px;border-radius:99px;color:#fff;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);letter-spacing:.03em;}
+.agc-top-badge.state-off{background:rgba(0,0,0,.22);}
+.agc-top-badge.state-danger{background:rgba(127,29,29,.55);}
+.agc-top-badge.state-warn{background:rgba(180,83,9,.55);}
+.agc-top-badge.state-on{background:rgba(20,83,45,.5);}
 
 /* ── SISTEM TAB · "HABIT HARI INI" TODAY WIDGET ── */
 .atd-wrap{margin-bottom:18px;}
-.atd-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px;gap:10px;}
-.atd-head-title{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.2px;}
-.atd-head-sub{font-size:11.5px;font-weight:600;color:var(--ink3);margin-top:2px;}
-.atd-head-count{font-size:12px;font-weight:800;padding:4px 11px;border-radius:99px;background:var(--bg2);color:var(--ink3);flex-shrink:0;}
-.atd-head-count.full{background:var(--green-lt);color:var(--green-dk);}
-.atd-head-count.partial{background:var(--amber-lt);color:#854f0b;}
-.atd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;}
-.atd-list{max-height:230px;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.atd-head{display:flex;align-items:center;justify-content:space-between;margin:0 2px 12px;gap:12px;}
+.atd-head-title{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-.3px;}
+.atd-head-sub{font-size:12px;font-weight:600;color:var(--ink3);margin-top:3px;transition:color .2s;}
+.atd-head-sub.celebrate{color:var(--green-dk);font-weight:700;}
+
+/* progress ring replaces the old flat "x/y" pill — a satisfying, glanceable signature for the widget */
+.atd-ring-wrap{position:relative;width:46px;height:46px;flex-shrink:0;}
+.atd-ring{width:46px;height:46px;display:block;transform:rotate(-90deg);transform-origin:50% 50%;}
+.atd-ring-bg{fill:none;stroke:var(--bg2);stroke-width:4;}
+.atd-ring-fg{fill:none;stroke-width:4;stroke-linecap:round;transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1),stroke .3s;}
+.atd-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--ink2);letter-spacing:-.2px;}
+.atd-ring-num.full{color:var(--green-dk);font-size:16px;}
+
+.atd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);border:1px solid var(--line);overflow:hidden;transition:border-color .3s;}
+.atd-card.full{border-color:var(--green-bd);}
+.atd-list{max-height:280px;overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .atd-list::-webkit-scrollbar{display:none;}
 .atd-card.scrollable{position:relative;}
 .atd-card.scrollable::after{content:'';position:absolute;left:0;right:0;bottom:0;height:22px;background:linear-gradient(to bottom,rgba(255,255,255,0),var(--white));pointer-events:none;}
-.atd-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .12s;position:relative;}
+.atd-item{display:flex;align-items:center;gap:11px;padding:13px 14px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s;position:relative;}
 .atd-item:last-child{border-bottom:none;}
 .atd-item:active{background:var(--bg);}
-.atd-item.done{background:linear-gradient(to right,var(--bg) 0%,var(--white) 40%);}
-.atd-item-accent{position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:0 3px 3px 0;}
-.atd-item.done .atd-item-accent{opacity:.35;}
-.atd-check{width:21px;height:21px;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;transition:transform .15s,background .15s,border-color .15s;}
-.atd-check.done{transform:scale(1.04);}
+.atd-item.done{background:linear-gradient(to right,var(--bg) 0%,var(--white) 50%);}
+.atd-item-accent{position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:0 3px 3px 0;}
+.atd-item.done .atd-item-accent{opacity:.3;}
+.atd-check{width:24px;height:24px;border-radius:50%;border:2px solid var(--line2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;transition:transform .15s,background .15s,border-color .15s;}
+.atd-check.done{transform:scale(1.06);animation:atdCheckPop .28s ease;}
+@keyframes atdCheckPop{0%{transform:scale(.7);}60%{transform:scale(1.18);}100%{transform:scale(1.06);}}
 .atd-body{flex:1;min-width:0;}
-.atd-body-txt{min-width:0;flex:1;}
-.atd-name{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.atd-name{font-size:14px;font-weight:700;color:var(--ink);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .atd-name.done{color:var(--ink3);text-decoration:line-through;font-weight:600;}
-.atd-meta{display:flex;align-items:center;gap:5px;margin-top:2px;font-size:10.5px;font-weight:600;color:var(--ink3);white-space:nowrap;overflow:hidden;}
+.atd-meta{display:flex;align-items:center;gap:5px;margin-top:3px;font-size:11px;font-weight:600;color:var(--ink3);white-space:nowrap;overflow:hidden;}
 .atd-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .atd-area-name{overflow:hidden;text-overflow:ellipsis;}
-.atd-meta-sep{flex-shrink:0;opacity:.6;}
+.atd-meta-sep{flex-shrink:0;opacity:.5;}
 .atd-freq{flex-shrink:0;}
-.atd-empty{padding:22px 16px;text-align:center;font-size:12.5px;font-weight:600;color:var(--ink3);line-height:1.5;}
+.atd-streak{flex-shrink:0;color:var(--amber);font-weight:800;}
+.atd-empty{padding:30px 20px;text-align:center;font-size:13px;font-weight:600;color:var(--ink3);line-height:1.55;}
 
 /* ── PROJECT DETAIL NEW STYLE ── */
 .pd-goal-sub{font-size:12px;font-weight:500;color:var(--ink3);margin-top:3px;line-height:1.4;font-style:italic;}
@@ -5923,7 +5960,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ks-cal-dl">Jum</div>
           <div class="ks-cal-dl">Sab</div>
           <div class="ks-cal-dl">Min</div>
-          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">15</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">16</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">17</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">18</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">19</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">20</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">21</span></div></div></div>
+          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">15</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">16</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">17</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">18</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">19</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">20</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">21</span></div></div></div>
         </div>
         <!-- Selected day detail panel -->
         <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
@@ -6135,8 +6172,8 @@ input,select,textarea { font-family:inherit; }
 
     <!-- ══ AREAS / SISTEM ══ -->
     <div class="view active" id="v-areas"><div class="pad">
-      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Rab, 17 Jun · gabungan dari semua area</div></div><div class="atd-head-count partial">0/2</div></div><div class="atd-card"><div class="atd-list"><div class="atd-item" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-body-txt"><div class="atd-name">⭐ tes</div><div class="atd-meta"><span class="atd-dot" style="background:#be185d"></span><span class="atd-area-name">B</span><span class="atd-meta-sep">·</span><span class="atd-freq">Harian</span></div></div></div></div><div class="atd-item" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-body-txt"><div class="atd-name">⭐ kato</div><div class="atd-meta"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-area-name">C</span><span class="atd-meta-sep">·</span><span class="atd-freq">Harian</span></div></div></div></div></div></div></div>
-      <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-warn" style="background:rgba(0,0,0,.22);color:#fff">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-sub">0 kegiatan aktif · 1 ritual</div><div class="agc-pip-row"><div class="agc-pip"></div></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off" style="background:rgba(0,0,0,.22);color:#fff">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-sub">0 kegiatan aktif</div></div></div></div>
+      <div class="atd-wrap" id="area-today-wrap"></div>
+      <div class="area-gallery" id="areas-list" style="display:grid"></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
 
@@ -10493,13 +10530,8 @@ function mkApItem(t, color){
   const row = document.createElement('div');
   row.className = 'ap-item' + (isDone ? ' is-done' : '');
 
-  // deadline / recur info
-  const dlStr = !isRecur && t.deadline ? fmtDate(t.deadline) : null;
-  const dlDiff = !isRecur && t.deadline ? diffD(t.deadline, todayStr) : null;
-  let dlCls = 'dl-ok';
-  if(dlDiff !== null){ if(dlDiff < 0) dlCls = 'dl-late'; else if(dlDiff <= 2) dlCls = 'dl-soon'; }
-
-  // recurring label
+  // recurring label (info struktural — endDate-nya udah direpresentasikan via countdown badge di bawah,
+  // jadi gak perlu diulang sebagai teks statis di sini)
   let recurLabel = '';
   if(isRecur){
     const freqMap = { daily:'Setiap hari', monthly:'Setiap bulan' };
@@ -10509,14 +10541,15 @@ function mkApItem(t, color){
     } else {
       recurLabel = freqMap[rec.freq] || 'Berulang';
     }
-    if(rec.endDate) recurLabel += ' · s/d ' + fmtDate(rec.endDate);
   }
 
-  // kalender visibility badge
-  const noCalBadge = (t.showCal === false) ? `<span class="recur-badge" style="background:var(--bg2);color:var(--ink3)">📵 Kalender off</span>` : '';
+  // metadata sekunder (kalender off, notes) — ikon polos, BUKAN pill berwarna, biar gak rebutan
+  // perhatian sama badge status/countdown yang lebih penting
+  const noCalBadge = (t.showCal === false) ? `<span class="ap-notes-btn" title="Disembunyikan dari kalender">📵</span>` : '';
 
-  // done label untuk recurring
-  const doneLbl = isRecur && isDone ? `<span class="recur-badge" style="background:var(--green-lt);color:var(--green)">✓ Hari ini</span>` : '';
+  // smart badge: recurring (due-soon / done-today-with-next) vs non-recurring (granular deadline)
+  const smartBadge = isRecur ? getRecurBadgeInfo(t, todayStr).extraBadge : '';
+  const dlBadge = !isRecur ? getNonRecurBadgeInfo(t, todayStr) : '';
 
   row.innerHTML =
     `<div class="ap-check ${isDone ? 'done' : ''}" onclick="toggleApDone('${t.id}')">` + (isDone ? '✓' : '') + `</div>`+
@@ -10524,10 +10557,10 @@ function mkApItem(t, color){
     `<div class="ap-name${isDone ? ' done' : ''}">${escHtml(t.name)}</div>`+
     `<div class="ap-meta">`+
     (isRecur ? `<span class="recur-badge">🔁 ${recurLabel}</span>` : '')+
-    doneLbl+
-    (dlStr ? `<span class="ap-dl ${dlCls}">📅 ${dlStr}</span>` : '')+
+    smartBadge+
+    dlBadge+
     noCalBadge+
-    (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')">📝 Notes</span>` : '')+
+    (t.notes ? `<span class="ap-notes-btn" onclick="openApNotes('${t.id}')" title="Lihat notes">📝</span>` : '')+
     `</div></div>`+
     `<button class="ap-more" onclick="openEditAp('${t.id}')">···</button>`;
   return row;
@@ -11464,6 +11497,99 @@ function apRecurMatchesDate(t, dateStr){
   }
   return false;
 }
+// Sama seperti apRecurMatchesDate tapi TIDAK cek showCal — dipakai utk hitung next-due
+// (task tetap "jatuh tempo" meski disembunyikan dari kalender)
+function _apRecurOccursOn(t, dateStr){
+  const rec = t.recurring;
+  if(!rec || rec.freq === 'none') return false;
+  const d = new Date(dateStr + 'T12:00:00');
+  const start = rec.startDate ? new Date(rec.startDate + 'T12:00:00') : null;
+  const end   = rec.endDate   ? new Date(rec.endDate   + 'T12:00:00') : null;
+  if(start && d < start) return false;
+  if(end   && d > end)   return false;
+  if(rec.freq === 'daily')   return true;
+  if(rec.freq === 'monthly') return start && d.getDate() === start.getDate();
+  if(rec.freq === 'weekly'){
+    const days = rec.days || [];
+    if(!days.length) return false;
+    return days.includes(d.getDay());
+  }
+  return false;
+}
+
+// Cari next due date utk recurring task, mulai dari hari ini (atau besok kalau udah done hari ini).
+// Return {diff, dateStr} atau null kalau gak ketemu dalam 60 hari ke depan.
+function getNextRecurDue(t, todayStr){
+  const doneToday = t.lastDone === todayStr;
+  const d = new Date(todayStr + 'T12:00:00');
+  if(doneToday) d.setDate(d.getDate() + 1);
+  for(let i = 0; i <= 60; i++){
+    const ds = d.toISOString().slice(0, 10);
+    if(_apRecurOccursOn(t, ds)) return { diff: diffD(ds, todayStr), dateStr: ds };
+    d.setDate(d.getDate() + 1);
+  }
+  return null;
+}
+
+// Badge + sort-priority utk SATU recurring task. weight kecil = makin prioritas (naik ke atas).
+// Desain: maksimal 2 badge — (1) status urgency (single, dipilih lewat priority, bukan numpuk),
+// (2) countdown endDate (WAJIB tampil kalau rec.endDate di-set, tapi styling-nya tenang/memotivasi,
+//     bukan warna alarm, supaya gak rebutan perhatian sama badge urgency).
+function getRecurBadgeInfo(t, todayStr){
+  const rec = t.recurring;
+  const doneToday = t.lastDone === todayStr;
+
+  // ── (1) status urgency: pilih SATU aja, prioritas done > due-today > due-tomorrow > none
+  let statusBadge = '', weight = 2;
+  if(doneToday){
+    statusBadge = '<span class="ap-dl dl-done-next">✓ Hari ini</span>';
+    weight = 3;
+  } else {
+    const next = getNextRecurDue(t, todayStr);
+    if(next && next.diff === 0){
+      statusBadge = '<span class="recur-badge due-today">🔥 Due hari ini</span>';
+      weight = 0;
+    } else if(next && next.diff === 1){
+      statusBadge = '<span class="recur-badge due-tom">⏳ Besok</span>';
+      weight = 1;
+    }
+  }
+
+  // ── (2) countdown ke endDate — wajib tampil kalau di-set, terlepas dari status urgency di atas.
+  // Nuansa "progress menuju selesai" (motivasi), bukan "alarm/deadline".
+  let endBadge = '';
+  if(rec && rec.endDate){
+    const daysLeft = diffD(rec.endDate, todayStr);
+    if(daysLeft < 0){
+      endBadge = '<span class="recur-end recur-end-over">🏁 Sudah berakhir</span>';
+    } else if(daysLeft === 0){
+      endBadge = '<span class="recur-end recur-end-today">🎉 Berakhir hari ini!</span>';
+    } else if(daysLeft <= 7){
+      endBadge = '<span class="recur-end recur-end-close">🏁 Tinggal '+daysLeft+' hari lagi</span>';
+    } else {
+      endBadge = '<span class="recur-end">🏁 Tinggal '+daysLeft+' hari lagi</span>';
+    }
+  }
+
+  return { extraBadge: statusBadge + endBadge, weight };
+}
+
+// Badge granular utk NON-recurring task berdasarkan deadline.
+function getNonRecurBadgeInfo(t, todayStr){
+  if(t.done){
+    return '<span class="ap-dl dl-done-next">✓ Selesai</span>';
+  }
+  if(!t.deadline){
+    return '<span class="ap-dl dl-none">Belum dijadwalkan</span>';
+  }
+  const diff = diffD(t.deadline, todayStr);
+  if(diff < -1)  return `<span class="ap-dl dl-late">⚠️ Terlambat ${Math.abs(diff)} hari</span>`;
+  if(diff === -1) return `<span class="ap-dl dl-late-y">⚠️ Terlambat kemarin</span>`;
+  if(diff === 0)  return `<span class="ap-dl dl-today">🔥 Due hari ini!</span>`;
+  if(diff <= 2)   return `<span class="ap-dl dl-soon2">⏳ Tinggal ${diff} hari lagi</span>`;
+  return `<span class="ap-dl dl-ok">📅 ${fmtDate(t.deadline)}</span>`;
+}
+
 function openApNotes(id){
   const t = D.p_tasks.find(x => x.id === id);
   if(!t || !t.notes) return;
@@ -11750,19 +11876,24 @@ function renderAreas(){
     const totalRituals=rituals.length;
     let stateLabel='',stateCls='';
     if(totalRituals===0){stateLabel='Belum ada ritual';stateCls='state-off';}
-    else if(ritualsDoneToday===totalRituals){stateLabel='On track ✓';stateCls='state-on';}
-    else if(ritualsDoneToday>0){stateLabel='Sedang berjalan';stateCls='state-warn';}
-    else{stateLabel='Perlu perhatian';stateCls='state-warn';}
+    else if(ritualsDoneToday===totalRituals){stateLabel='✓ Semua kelar';stateCls='state-on';}
+    else if(ritualsDoneToday>0){stateLabel='Sedang jalan';stateCls='state-warn';}
+    else{stateLabel='Perlu perhatian';stateCls='state-danger';}
     const c=a.color;
     const card=document.createElement('div');card.className='agc';
     card.innerHTML=
       '<div class="agc-bg" style="background:linear-gradient(145deg,'+c+'ee 0%,'+c+'bb 60%,'+c+'99 100%)"></div>'+
       '<div class="agc-noise"></div><div class="agc-gradient"></div>'+
-      '<div class="agc-top-badge '+stateCls+'" style="background:rgba(0,0,0,.22);color:#fff">'+stateLabel+'</div>'+
+      '<div class="agc-top-badge '+stateCls+'">'+stateLabel+'</div>'+
       '<div class="agc-body"><div class="agc-icon">'+(a.emoji||'🌿')+'</div>'+
       '<div class="agc-name">'+escHtml(a.name)+'</div>'+
-      '<div class="agc-sub">'+projs.length+' kegiatan aktif'+(totalRituals?' · '+totalRituals+' ritual':'')+'</div>'+
-      (totalRituals?'<div class="agc-pip-row">'+Array.from({length:Math.min(5,totalRituals)},(_,i)=>'<div class="agc-pip'+(i<ritualsDoneToday?' on':'')+'"></div>').join('')+'</div>':'')+
+      '<div class="agc-projs">'+projs.length+' kegiatan aktif</div>'+
+      (totalRituals?(
+        '<div class="agc-ritual-row">'+
+          '<div class="agc-ritual-bar"><div class="agc-ritual-fill" style="width:'+Math.round(ritualsDoneToday/totalRituals*100)+'%"></div></div>'+
+          '<span class="agc-ritual-txt">'+ritualsDoneToday+'/'+totalRituals+'</span>'+
+        '</div>'
+      ):'')+
       '</div>';
     card.onclick=()=>openAreaDetail(a.id);
     el.appendChild(card);
@@ -11776,6 +11907,21 @@ function renderAreas(){
 //  - ATAU habit yang target minggu ini belum tercapai (masih perlu dikerjain)
 // Habit yang target mingguannya udah kelar & belum disentuh hari ini
 // otomatis ke-hide karena emang gak butuh aksi lagi hari ini.
+function _habitStreak(h, todayStr){
+  const logs = h.logs || [];
+  if(!logs.length) return 0;
+  const logDates = new Set(logs.map(l => l.date));
+  let streak = 0;
+  const d = new Date(todayStr + 'T12:00:00');
+  // belum dicentang hari ini gak mutus streak sampai harinya beneran lewat
+  if(!logDates.has(todayStr)) d.setDate(d.getDate() - 1);
+  while(logDates.has(d.toISOString().slice(0, 10))){
+    streak++;
+    d.setDate(d.getDate() - 1);
+  }
+  return streak;
+}
+
 function renderAreaToday(){
   ensurePAData();
   const wrap = document.getElementById('area-today-wrap');
@@ -11789,46 +11935,70 @@ function renderAreaToday(){
     const doneToday  = logs.some(l=>l.date===todayStr);
     const target     = h.freqDays || 7;
     const weekCount  = logs.filter(l=>l.date>=monday && l.date<=todayStr).length;
-    return {h, area, doneToday, relevant: doneToday || weekCount < target};
+    const streak     = _habitStreak(h, todayStr);
+    return {h, area, doneToday, target, weekCount, streak, relevant: doneToday || weekCount < target};
   }).filter(r=>r.relevant);
 
   rows.sort((a,b)=>(a.doneToday?1:0)-(b.doneToday?1:0));
   const done  = rows.filter(r=>r.doneToday).length;
   const total = rows.length;
+  const allDone = total>0 && done===total;
 
   let listHtml;
   if(!total){
     listHtml = '<div class="atd-empty">🌱 Gak ada habit yang perlu dikerjain hari ini.<br>Tambah habit baru lewat salah satu area, atau santai dulu 😌</div>';
   } else {
-    listHtml = rows.map(({h,area,doneToday})=>{
+    listHtml = rows.map(({h,area,doneToday,target,weekCount,streak})=>{
       const c = area ? area.color : '#16a34a';
-      const freqShort = _habitFreqLabelShort(h);
+      const metaFreq = h.freq === 'weekly'
+        ? (weekCount+'/'+target+' minggu ini')
+        : _habitFreqLabelShort(h);
+      const streakBadge = (h.freq !== 'weekly' && streak >= 2)
+        ? '<span class="atd-meta-sep">·</span><span class="atd-streak">🔥'+streak+'</span>'
+        : '';
       return '<div class="atd-item'+(doneToday?' done':'')+'" onclick="toggleHabitLog(\''+h.id+'\')">'+
         '<div class="atd-item-accent" style="background:'+c+'"></div>'+
         '<div class="atd-check'+(doneToday?' done':'')+'" style="'+(doneToday?('background:'+c+';border-color:'+c+';'):'')+'">'+(doneToday?'✓':'')+'</div>'+
         '<div class="atd-body">'+
-          '<div class="atd-body-txt">'+
-            '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
-            '<div class="atd-meta">'+
-              (area?('<span class="atd-dot" style="background:'+area.color+'"></span><span class="atd-area-name">'+escHtml(area.name)+'</span><span class="atd-meta-sep">·</span>'):'')+
-              '<span class="atd-freq">'+freqShort+'</span>'+
-            '</div>'+
+          '<div class="atd-name'+(doneToday?' done':'')+'">'+(h.emoji||'⭐')+' '+escHtml(h.name)+'</div>'+
+          '<div class="atd-meta">'+
+            (area?('<span class="atd-dot" style="background:'+area.color+'"></span><span class="atd-area-name">'+escHtml(area.name)+'</span><span class="atd-meta-sep">·</span>'):'')+
+            '<span class="atd-freq">'+metaFreq+'</span>'+
+            streakBadge+
           '</div>'+
         '</div>'+
       '</div>';
     }).join('');
   }
 
-  const countCls = !total ? '' : (done===total ? ' full' : ' partial');
-  const cardCls  = total > 4 ? ' scrollable' : '';
+  // ── progress ring (gantiin pill "x/y" lama — lebih kerasa "satu lingkaran yang mau dipenuhin")
+  const circumference = 113.097; // 2 * PI * r(18)
+  const pct = total ? done/total : 0;
+  const offset = circumference * (1 - pct);
+  const ringColor = !total ? 'var(--line2)' : allDone ? 'var(--green)' : (done>0 ? 'var(--amber)' : 'var(--line2)');
+  const ringHtml = total ? (
+    '<div class="atd-ring-wrap">'+
+      '<svg viewBox="0 0 44 44" class="atd-ring">'+
+        '<circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle>'+
+        '<circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:'+circumference+';stroke-dashoffset:'+offset+';stroke:'+ringColor+'"></circle>'+
+      '</svg>'+
+      '<div class="atd-ring-num'+(allDone?' full':'')+'">'+(allDone?'✓':done+'/'+total)+'</div>'+
+    '</div>'
+  ) : '';
+
+  const subText = allDone
+    ? 'Semua beres hari ini 🎉'
+    : fmtDate(todayStr) + ' · gabungan dari semua area';
+
+  const cardCls = (total > 4 ? ' scrollable' : '') + (allDone ? ' full' : '');
 
   wrap.innerHTML =
     '<div class="atd-head">'+
       '<div>'+
         '<div class="atd-head-title">🔥 Habit Hari Ini</div>'+
-        '<div class="atd-head-sub">'+fmtDate(todayStr)+' · gabungan dari semua area</div>'+
+        '<div class="atd-head-sub'+(allDone?' celebrate':'')+'">'+subText+'</div>'+
       '</div>'+
-      (total?('<div class="atd-head-count'+countCls+'">'+done+'/'+total+'</div>'):'')+
+      ringHtml+
     '</div>'+
     '<div class="atd-card'+cardCls+'"><div class="atd-list">'+listHtml+'</div></div>';
 }
@@ -11978,7 +12148,6 @@ function renderProjAp_c(pid,color){
   function buildRow(t,isDone){
     const isRecur=t.recurring&&t.recurring.freq&&t.recurring.freq!=='none';
     const stepNum=allTasks.findIndex(x=>x.id===t.id)+1;
-    const dlDiff=t.deadline?diffD(t.deadline,todStr):null;
 
     // Build inline badge
     let badge='';
@@ -11992,10 +12161,9 @@ function renderProjAp_c(pid,color){
       } else {
         recurLabel=freqMap[rec.freq]||'Berulang';
       }
-      if(rec.endDate) recurLabel+=' · s/d '+fmtDate(rec.endDate);
       const doneToday=t.lastDone===todStr;
       badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--purple-lt);color:var(--purple)">🔁 '+recurLabel+'</span>';
-      if(doneToday) badge+='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--green-lt);color:var(--green-dk)">✓ Hari ini</span>';
+      badge+=getRecurBadgeInfo(t,todStr).extraBadge;
       const doneFlag=doneToday;
       const row=document.createElement('div');
       row.className='ap-item ap-item-rev'+(doneFlag?' is-done':'');
@@ -12015,16 +12183,7 @@ function renderProjAp_c(pid,color){
       return row;
     }
 
-    if(isDone){
-      badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--green-lt);color:var(--green-dk)">✓ Selesai</span>';
-    } else if(t.deadline){
-      if(dlDiff<0) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--red-lt);color:var(--red)">⚠ Telat '+Math.abs(dlDiff)+'h</span>';
-      else if(dlDiff===0) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--amber-lt);color:#854f0b">⏰ Hari ini</span>';
-      else if(dlDiff<=3) badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:var(--amber-lt);color:#854f0b">⚡ '+dlDiff+' hari lagi</span>';
-      else badge='<span style="font-size:9px;font-weight:800;padding:2px 7px;border-radius:99px;background:'+color+'1c;color:'+color+'">📅 '+new Date(t.deadline+'T12:00').toLocaleDateString("id-ID",{day:"numeric",month:"short"})+'</span>';
-    } else {
-      badge='<span style="font-size:9px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--bg2);color:var(--ink3)">Belum dijadwalkan</span>';
-    }
+    badge=getNonRecurBadgeInfo(t,todStr);
 
     const row=document.createElement('div');
     row.className='ap-item ap-item-rev'+(isDone?' is-done':'');
@@ -12044,9 +12203,13 @@ function renderProjAp_c(pid,color){
     return row;
   }
 
-  // Render recurring tasks first (always at top, never in "done" collapse)
+  // Render recurring tasks first (always at top, never in "done" collapse).
+  // Within the recurring group, due-soon (hari ini/besok) tasks are bumped up.
   if(recurTasks.length){
-    recurTasks.forEach(t=>card.appendChild(buildRow(t,false)));
+    recurTasks
+      .slice()
+      .sort((a,b)=>getRecurBadgeInfo(a,todStr).weight-getRecurBadgeInfo(b,todStr).weight)
+      .forEach(t=>card.appendChild(buildRow(t,false)));
   }
 
   if(!undone.length&&!recurTasks.length){
@@ -12993,10 +13156,17 @@ function renderCurrentState_c(areaId,color){
 function renderAreaRituals_c(areaId,color){
   const el=document.getElementById('area-ap-list');if(!el)return;
   el.innerHTML='';
+  const todayStr=tod();
   const items=(D.p_tasks||[]).filter(t=>t.parentId===areaId).sort((a,b)=>{
     const rA=a.recurring&&a.recurring.freq!=='none';
     const rB=b.recurring&&b.recurring.freq!=='none';
     if(rA!==rB)return rA?-1:1;
+    // both recurring: due-soon (hari ini/besok) naik ke atas grup recurring
+    if(rA&&rB){
+      const wA=getRecurBadgeInfo(a,todayStr).weight, wB=getRecurBadgeInfo(b,todayStr).weight;
+      if(wA!==wB)return wA-wB;
+      return 0;
+    }
     if(a.done!==b.done)return a.done?1:-1;
     return 0;
   });
