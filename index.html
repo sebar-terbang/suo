@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(53).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(56).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -5081,27 +5081,38 @@ input,select,textarea { font-family:inherit; }
   margin-bottom: 9px; padding-left: 27px;
 }
 .ad2-habit-dots-wrap {
-  padding: 0 14px 12px;
+  padding: 0 14px 14px;
 }
 .ad2-grid-days {
-  display: flex; gap: 6px;
+  display: flex; gap: 7px;
 }
+/* tiap slot = kotak ukuran tetap (biar semua kartu habit sejajar persis), isinya cuma satu titik
+   yang ukuran & warnanya berubah sesuai status — satu bahasa visual, bukan campur border-style */
 .ad2-grid-dot {
-  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
-  display: block;
-  border: 2px solid var(--line2);
-  background: transparent;
-  transition: transform .15s, background .15s, border-color .15s;
+  width: 18px; height: 18px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
 }
-/* hari yang gak dijadwalkan buat habit ini — placeholder kecil & pudar, cuma buat jaga alignment kolom */
-.ad2-grid-dot.off {
-  width: 5px; height: 5px; margin: 6.5px auto;
-  border: none; background: var(--bg2);
+.ad2-grid-dot::before {
+  content: ''; display: block; border-radius: 50%;
+  width: 7px; height: 7px;
+  background: var(--line2);
+  transition: width .18s, height .18s, background .18s, border-color .18s, opacity .18s, transform .18s;
 }
-.ad2-grid-dot.done { background: var(--green); border-color: var(--green); }
-.ad2-grid-dot.future { border-color: var(--line); opacity: .5; }
-.ad2-grid-dot.today-empty { border-color: var(--ink2); border-style: dashed; cursor: pointer; }
-.ad2-grid-dot.today-empty:active { transform: scale(.88); }
+/* hari yang gak dijadwalkan buat habit ini — titik mini & pudar, cuma jaga alignment kolom */
+.ad2-grid-dot.off::before { width: 3px; height: 3px; opacity: .45; }
+.ad2-grid-dot.done::before {
+  width: 18px; height: 18px;
+  background: var(--c, var(--green));
+  animation: ad2DotPop .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes ad2DotPop { 0%{transform:scale(.4);} 65%{transform:scale(1.18);} 100%{transform:scale(1);} }
+.ad2-grid-dot.future::before { width: 5px; height: 5px; opacity: .4; }
+.ad2-grid-dot.today-empty { cursor: pointer; }
+.ad2-grid-dot.today-empty::before {
+  width: 13px; height: 13px; background: transparent;
+  border: 2px solid var(--c, var(--ink2));
+}
+.ad2-grid-dot.today-empty:active::before { transform: scale(.82); }
 .ad2-habit-divider { height: 1px; background: var(--line); }
 
 /* weekly scoreboard (combined, all-or-nothing) — bisa di-navigasi prev/next minggu */
@@ -5797,10 +5808,10 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><button class="dtb-back" onclick="navPopGoView(&#39;areas&#39;)">‹ Sistem</button><div class="dtb-title">🌿 B</div><div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea(&#39;area1779776109407&#39;)">✏️ Edit</button></div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🌿 Sistem</div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><button class="tb-back" onclick="navPopGoView(&#39;areas&#39;)">‹ Sistem</button><div class="tb-title">🌿 B</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><div class="tb-title">🌿 Sistem</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
@@ -6014,7 +6025,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ks-cal-dl">Jum</div>
           <div class="ks-cal-dl">Sab</div>
           <div class="ks-cal-dl">Min</div>
-          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">15</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">16</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">17</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">18</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">19</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">20</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">21</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div></div>
+          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">22</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">23</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">24</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">25</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">26</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">27</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">28</span></div></div></div>
         </div>
         <!-- Selected day detail panel -->
         <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
@@ -6225,8 +6236,8 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ AREAS / SISTEM ══ -->
-    <div class="view" id="v-areas"><div class="pad">
-      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Min, 21 Jun · gabungan dari semua area</div></div><div class="atd-ring-wrap"><svg viewBox="0 0 44 44" class="atd-ring"><circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle><circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:113.097;stroke-dashoffset:56.5485;stroke:var(--amber)"></circle></svg><div class="atd-ring-num">1/2</div></div></div><div class="atd-card"><div class="atd-list"><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1779776109407&#39;)"><span class="atd-dot" style="background:#be185d"></span><span class="atd-group-name">B</span><span class="atd-group-count full">1/1</span><span class="atd-group-car">▾</span></div><div class="atd-group-items collapsed" data-atd-group="area1779776109407"><div class="atd-item done" style="background:rgba(190,24,93,0.05)" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check done" style="background:#be185d;border-color:#be185d;">✓</div><div class="atd-body"><div class="atd-name done">⭐ tes</div></div><div class="atd-side"><span class="atd-streak-pill">🔥2</span></div></div></div></div><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1780137437831&#39;)"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-group-name">C</span><span class="atd-group-count">0/1</span><span class="atd-group-car open">▾</span></div><div class="atd-group-items" data-atd-group="area1780137437831"><div class="atd-item" style="background:rgba(8,145,178,0.09)" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-name">⭐ kato</div></div></div></div></div></div></div></div>
+    <div class="view active" id="v-areas"><div class="pad">
+      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Min, 21 Jun · gabungan dari semua area</div></div><div class="atd-ring-wrap"><svg viewBox="0 0 44 44" class="atd-ring"><circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle><circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:113.097;stroke-dashoffset:56.5485;stroke:var(--amber)"></circle></svg><div class="atd-ring-num">1/2</div></div></div><div class="atd-card"><div class="atd-list"><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1779776109407&#39;)"><span class="atd-dot" style="background:#be185d"></span><span class="atd-group-name">B</span><span class="atd-group-count full">1/1</span><span class="atd-group-car">▾</span></div><div class="atd-group-items collapsed" data-atd-group="area1779776109407"><div class="atd-item done" style="background:rgba(190,24,93,0.05)" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check done" style="background:#be185d;border-color:#be185d;">✓</div><div class="atd-body"><div class="atd-name done">⭐ tes</div></div><div class="atd-side"><div class="atd-week"><span class="atd-week-txt">1/2 mgu</span><div class="atd-week-bar"><div class="atd-week-fill" style="width:50%;background:#be185d"></div></div></div></div></div></div></div><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1780137437831&#39;)"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-group-name">C</span><span class="atd-group-count">0/1</span><span class="atd-group-car open">▾</span></div><div class="atd-group-items" data-atd-group="area1780137437831"><div class="atd-item" style="background:rgba(8,145,178,0.09)" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-name">⭐ kato</div></div></div></div></div></div></div></div>
       <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-danger">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-projs">0 kegiatan aktif</div><div class="agc-ritual-row"><div class="agc-ritual-bar"><div class="agc-ritual-fill" style="width:0%"></div></div><span class="agc-ritual-txt">0/1</span></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-projs">0 kegiatan aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
@@ -6266,7 +6277,7 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ AREA DETAIL ══ -->
-    <div class="view active" id="v-area-detail">
+    <div class="view" id="v-area-detail">
       <!-- scroll body -->
       <div id="ad2-body">
         <!-- identity card injected by JS -->
@@ -6277,13 +6288,13 @@ input,select,textarea { font-family:inherit; }
           <span class="ad2-sec-title" id="ad2-habits-count">Habits (1)</span>
           <button class="ad2-sec-add" onclick="openAddHabit()">+ Tambah</button>
         </div>
-        <div id="ad2-habits-list"><div class="ad2-habits-card"><div><div class="ad2-habit-row"><div class="ad2-habit-top"><span class="ad2-habit-emoji">⭐</span><span class="ad2-habit-name">tes</span><button class="ad2-check-btn done" id="hc-h1781704881828" style="background:#be185d;border-color:#be185d" onclick="toggleHabitLog(&#39;h1781704881828&#39;)">✓</button><button class="ad2-habit-more" onclick="openEditHabit(&#39;h1781704881828&#39;)">···</button></div><div class="ad2-habit-freq">Sel, Sab</div></div><div class="ad2-habit-dots-wrap"><div class="ad2-grid-days"><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot done" style="background:#be185d;border-color:#be185d"></span><span class="ad2-grid-dot off"></span></div></div></div></div></div>
+        <div id="ad2-habits-list"><div class="ad2-habits-card"><div><div class="ad2-habit-row"><div class="ad2-habit-top"><span class="ad2-habit-emoji">⭐</span><span class="ad2-habit-name">tes</span><button class="ad2-check-btn done" id="hc-h1781704881828" style="background:#be185d;border-color:#be185d" onclick="toggleHabitLog(&#39;h1781704881828&#39;)">✓</button><button class="ad2-habit-more" onclick="openEditHabit(&#39;h1781704881828&#39;)">···</button></div><div class="ad2-habit-freq">Sel, Sab</div></div><div class="ad2-habit-dots-wrap"><div class="ad2-grid-days"><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot future"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot future"></span></div></div></div></div></div>
 
         <!-- weekly scoreboard -->
         <div class="ad2-sec-hd">
           <span class="ad2-sec-title">Minggu Ini</span>
         </div>
-        <div id="ad2-scoreboard"><div class="ad2-score-card"><div class="ad2-score-nav"><button class="ad2-score-navbtn" onclick="navAd2Week(-1)">‹</button><span class="ad2-score-navlbl">Minggu Ini</span><button class="ad2-score-navbtn" disabled="" onclick="navAd2Week(1)">›</button></div><div class="ad2-day-row"><div class="ad2-day-cell"><span class="ad2-day-name">Sen</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Sel</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Rab</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Kam</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Jum</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Sab</span><div class="ad2-day-dot done" style="">✓</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Min</span><div class="ad2-day-dot today" style="background:#be185d">Hari</div></div></div><div class="ad2-score-foot"><span class="ad2-score-num" style="color:#be185d">2/7</span><span class="ad2-score-lbl">hari semua habit dijalankan minggu ini</span></div></div></div>
+        <div id="ad2-scoreboard"><div class="ad2-score-card"><div class="ad2-score-nav"><button class="ad2-score-navbtn" onclick="navAd2Week(-1)">‹</button><span class="ad2-score-navlbl">Minggu Ini</span><button class="ad2-score-navbtn" disabled="" onclick="navAd2Week(1)">›</button></div><div class="ad2-day-row"><div class="ad2-day-cell"><span class="ad2-day-name">Sen</span><div class="ad2-day-dot today" style="background:#be185d">Hari</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Sel</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Rab</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Kam</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Jum</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Sab</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Min</span><div class="ad2-day-dot miss" style="">·</div></div></div><div class="ad2-score-foot"><span class="ad2-score-num" style="color:#be185d">1/1</span><span class="ad2-score-lbl">hari semua habit dijalankan minggu ini</span></div></div></div>
 
         <!-- reflection -->
         <div class="ad2-sec-hd">
@@ -7202,7 +7213,7 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<div class="toast" id="toast">Habit diperbarui ✓</div>
+<div class="toast" id="toast">Habit dibatalkan</div>
 
 <script>
 // ╔══════════════════════════════════════════════════════════════════╗
@@ -12952,9 +12963,9 @@ function _mkHabitDotsRow(h, color){
   const cells = days.map(d=>{
     if(!_isHabitDayApplicable(h, d.dow)) return `<span class="ad2-grid-dot off"></span>`;
     const done = (h.logs||[]).some(l => l.date === d.ds);
-    if(done) return `<span class="ad2-grid-dot done" style="background:${color};border-color:${color}"></span>`;
+    if(done) return `<span class="ad2-grid-dot done" style="--c:${color}"></span>`;
     if(d.isFuture) return `<span class="ad2-grid-dot future"></span>`;
-    if(d.isToday) return `<span class="ad2-grid-dot today-empty" style="border-color:${color}" onclick="toggleHabitLog('${h.id}')"></span>`;
+    if(d.isToday) return `<span class="ad2-grid-dot today-empty" style="--c:${color}" onclick="toggleHabitLog('${h.id}')"></span>`;
     return `<span class="ad2-grid-dot"></span>`; // hari lewat & gak dicentang — netral, gak di-highlight merah
   }).join('');
   return `<div class="ad2-grid-days">${cells}</div>`;
@@ -14740,4 +14751,4 @@ boot();
   </div>
 </div>
 
-<div id="sh-edit-habit" class="overlay"><div class="sheet"><div class="sh-handle"></div><div class="sh-head"><div class="sh-title">Edit Habit</div><button class="sh-x" onclick="closeSheet(&#39;sh-edit-habit&#39;)">✕</button></div><div class="sh-body"><div class="field"><label class="flbl">Nama Habit</label><input id="eh-name" type="text" placeholder="e.g. Olahraga 30 menit"></div><div class="field"><label class="flbl">Emoji</label><input id="eh-emoji" type="text" placeholder="⭐" style="width:64px;font-size:22px;text-align:center"></div><div class="field"><label class="flbl">Frekuensi</label><select id="eh-freq"><option value="daily">Setiap hari</option><option value="weekly">Hari tertentu</option></select></div><div class="field" id="eh-days-field" style=""><label class="flbl">Muncul di hari apa aja?</label><div class="day-picker" id="eh-day-picker"><button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button><button type="button" class="day-btn sel" data-day="2" onclick="toggleDayBtn(this)">Sel</button><button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button><button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button><button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button><button type="button" class="day-btn sel" data-day="6" onclick="toggleDayBtn(this)">Sab</button><button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button></div></div><div class="field"><label class="flbl">Waktu (opsional)</label><input id="eh-time" type="text" placeholder="e.g. Pagi hari, 06.00"></div></div><div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-edit-habit&#39;)">Batal</button><button class="sbtn sbtn-p" id="eh-save-btn">Simpan ✓</button></div><div class="sh-row"><button class="sbtn sbtn-d" id="eh-del-btn">🗑 Hapus Habit</button></div></div></div></div></body></html>
+</body></html>
