@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(51).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(53).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -5080,25 +5080,31 @@ input,select,textarea { font-family:inherit; }
   font-size: 12px; color: var(--ink3);
   margin-bottom: 9px; padding-left: 27px;
 }
-.ad2-streak-row {
-  display: flex; align-items: center; gap: 9px;
+.ad2-habit-dots-wrap {
   padding: 0 14px 12px;
 }
-.ad2-streak-track {
-  flex: 1; height: 5px;
-  background: var(--bg2); border-radius: 99px; overflow: hidden;
+.ad2-grid-days {
+  display: flex; gap: 6px;
 }
-.ad2-streak-fill {
-  height: 100%; border-radius: 99px;
-  transition: width .4s cubic-bezier(.32,.72,0,1);
+.ad2-grid-dot {
+  width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0;
+  display: block;
+  border: 2px solid var(--line2);
+  background: transparent;
+  transition: transform .15s, background .15s, border-color .15s;
 }
-.ad2-streak-lbl {
-  font-size: 11px; color: var(--ink3);
-  white-space: nowrap; flex-shrink: 0;
+/* hari yang gak dijadwalkan buat habit ini — placeholder kecil & pudar, cuma buat jaga alignment kolom */
+.ad2-grid-dot.off {
+  width: 5px; height: 5px; margin: 6.5px auto;
+  border: none; background: var(--bg2);
 }
+.ad2-grid-dot.done { background: var(--green); border-color: var(--green); }
+.ad2-grid-dot.future { border-color: var(--line); opacity: .5; }
+.ad2-grid-dot.today-empty { border-color: var(--ink2); border-style: dashed; cursor: pointer; }
+.ad2-grid-dot.today-empty:active { transform: scale(.88); }
 .ad2-habit-divider { height: 1px; background: var(--line); }
 
-/* weekly scoreboard */
+/* weekly scoreboard (combined, all-or-nothing) — bisa di-navigasi prev/next minggu */
 .ad2-score-card {
   background: var(--white);
   border-radius: 14px;
@@ -5107,6 +5113,23 @@ input,select,textarea { font-family:inherit; }
   box-shadow: var(--sh);
   padding: 14px;
 }
+.ad2-score-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ad2-score-navlbl {
+  font-size: 12.5px; font-weight: 800; color: var(--ink2);
+}
+.ad2-score-navbtn {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: var(--ink2);
+  background: var(--bg2); border: none; cursor: pointer;
+  transition: background .12s, opacity .15s;
+}
+.ad2-score-navbtn:active { background: var(--line2); }
+.ad2-score-navbtn:disabled { opacity: .3; cursor: default; }
+.ad2-score-navbtn:disabled:active { background: var(--bg2); }
 .ad2-day-row {
   display: flex; gap: 4px; justify-content: space-between;
   margin-bottom: 12px;
@@ -5774,10 +5797,10 @@ input,select,textarea { font-family:inherit; }
   <div class="desktop-main">
 
   <!-- desktop topbar — filled by JS -->
-  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><div class="dtb-title">🌿 Sistem</div></div>
+  <div class="desktop-topbar" id="desktop-topbar" style="display: flex;"><button class="dtb-back" onclick="navPopGoView(&#39;areas&#39;)">‹ Sistem</button><div class="dtb-title">🌿 B</div><div class="dtb-actions"><button class="dtb-btn ghost" onclick="openEditArea(&#39;area1779776109407&#39;)">✏️ Edit</button></div></div>
 
   <!-- TOPBAR (mobile) -->
-  <div class="topbar" id="topbar"><div class="tb-title">🌿 Sistem</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
+  <div class="topbar" id="topbar"><button class="tb-back" onclick="navPopGoView(&#39;areas&#39;)">‹ Sistem</button><div class="tb-title">🌿 B</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()" style="font-size:11px;padding:4px 10px">🍅 <span id="pomo-pill-label">Fokus</span></div></div>
 
   <!-- SCROLL AREA -->
   <div class="scroll" id="scroll" style="">
@@ -5991,7 +6014,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ks-cal-dl">Jum</div>
           <div class="ks-cal-dl">Sab</div>
           <div class="ks-cal-dl">Min</div>
-          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">15</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">16</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">17</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">18</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">19</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">20</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">21</span></div></div></div>
+          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">15</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">16</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">17</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">18</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">19</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">20</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">21</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div></div>
         </div>
         <!-- Selected day detail panel -->
         <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
@@ -6202,9 +6225,9 @@ input,select,textarea { font-family:inherit; }
 
 
     <!-- ══ AREAS / SISTEM ══ -->
-    <div class="view active" id="v-areas"><div class="pad">
-      <div class="atd-wrap" id="area-today-wrap"></div>
-      <div class="area-gallery" id="areas-list" style="display:grid"></div>
+    <div class="view" id="v-areas"><div class="pad">
+      <div class="atd-wrap" id="area-today-wrap"><div class="atd-head"><div><div class="atd-head-title">🔥 Habit Hari Ini</div><div class="atd-head-sub">Min, 21 Jun · gabungan dari semua area</div></div><div class="atd-ring-wrap"><svg viewBox="0 0 44 44" class="atd-ring"><circle cx="22" cy="22" r="18" class="atd-ring-bg"></circle><circle cx="22" cy="22" r="18" class="atd-ring-fg" style="stroke-dasharray:113.097;stroke-dashoffset:56.5485;stroke:var(--amber)"></circle></svg><div class="atd-ring-num">1/2</div></div></div><div class="atd-card"><div class="atd-list"><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1779776109407&#39;)"><span class="atd-dot" style="background:#be185d"></span><span class="atd-group-name">B</span><span class="atd-group-count full">1/1</span><span class="atd-group-car">▾</span></div><div class="atd-group-items collapsed" data-atd-group="area1779776109407"><div class="atd-item done" style="background:rgba(190,24,93,0.05)" onclick="toggleHabitLog(&#39;h1781704881828&#39;)"><div class="atd-item-accent" style="background:#be185d"></div><div class="atd-check done" style="background:#be185d;border-color:#be185d;">✓</div><div class="atd-body"><div class="atd-name done">⭐ tes</div></div><div class="atd-side"><span class="atd-streak-pill">🔥2</span></div></div></div></div><div class="atd-group"><div class="atd-group-head" onclick="toggleAtdGroup(&#39;area1780137437831&#39;)"><span class="atd-dot" style="background:#0891b2"></span><span class="atd-group-name">C</span><span class="atd-group-count">0/1</span><span class="atd-group-car open">▾</span></div><div class="atd-group-items" data-atd-group="area1780137437831"><div class="atd-item" style="background:rgba(8,145,178,0.09)" onclick="toggleHabitLog(&#39;h1781704890862&#39;)"><div class="atd-item-accent" style="background:#0891b2"></div><div class="atd-check" style=""></div><div class="atd-body"><div class="atd-name">⭐ kato</div></div></div></div></div></div></div></div>
+      <div class="area-gallery" id="areas-list" style="display:grid"><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#be185dee 0%,#be185dbb 60%,#be185d99 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-danger">Perlu perhatian</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">B</div><div class="agc-projs">0 kegiatan aktif</div><div class="agc-ritual-row"><div class="agc-ritual-bar"><div class="agc-ritual-fill" style="width:0%"></div></div><span class="agc-ritual-txt">0/1</span></div></div></div><div class="agc"><div class="agc-bg" style="background:linear-gradient(145deg,#0891b2ee 0%,#0891b2bb 60%,#0891b299 100%)"></div><div class="agc-noise"></div><div class="agc-gradient"></div><div class="agc-top-badge state-off">Belum ada ritual</div><div class="agc-body"><div class="agc-icon">🌿</div><div class="agc-name">C</div><div class="agc-projs">0 kegiatan aktif</div></div></div></div>
       <button class="pa-add-btn area" onclick="openAddArea()" style="margin-top:12px">🌿 Tambah Area Baru</button>
     </div></div>
 
@@ -6243,37 +6266,37 @@ input,select,textarea { font-family:inherit; }
     </div>
 
     <!-- ══ AREA DETAIL ══ -->
-    <div class="view" id="v-area-detail">
+    <div class="view active" id="v-area-detail">
       <!-- scroll body -->
       <div id="ad2-body">
         <!-- identity card injected by JS -->
-        <div id="ad2-identity-wrap"></div>
+        <div id="ad2-identity-wrap"><div class="ad2-id-hero" style="background:linear-gradient(145deg,#be185dee 0%,#be185d99 100%)" onclick="openEditIdentity(&#39;area1779776109407&#39;)"><div class="ad2-id-hero-noise"></div><div class="ad2-id-hero-label">Identitas Saya</div><div class="ad2-id-hero-text empty">Tap untuk menambahkan pernyataan identitas →</div><button class="ad2-id-hero-edit" onclick="event.stopPropagation();openEditIdentity(&#39;area1779776109407&#39;)">✏ Ubah</button></div></div>
 
         <!-- habits section -->
         <div class="ad2-sec-hd">
-          <span class="ad2-sec-title" id="ad2-habits-count">Habits</span>
+          <span class="ad2-sec-title" id="ad2-habits-count">Habits (1)</span>
           <button class="ad2-sec-add" onclick="openAddHabit()">+ Tambah</button>
         </div>
-        <div id="ad2-habits-list"></div>
+        <div id="ad2-habits-list"><div class="ad2-habits-card"><div><div class="ad2-habit-row"><div class="ad2-habit-top"><span class="ad2-habit-emoji">⭐</span><span class="ad2-habit-name">tes</span><button class="ad2-check-btn done" id="hc-h1781704881828" style="background:#be185d;border-color:#be185d" onclick="toggleHabitLog(&#39;h1781704881828&#39;)">✓</button><button class="ad2-habit-more" onclick="openEditHabit(&#39;h1781704881828&#39;)">···</button></div><div class="ad2-habit-freq">Sel, Sab</div></div><div class="ad2-habit-dots-wrap"><div class="ad2-grid-days"><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot off"></span><span class="ad2-grid-dot done" style="background:#be185d;border-color:#be185d"></span><span class="ad2-grid-dot off"></span></div></div></div></div></div>
 
         <!-- weekly scoreboard -->
         <div class="ad2-sec-hd">
           <span class="ad2-sec-title">Minggu Ini</span>
         </div>
-        <div id="ad2-scoreboard"></div>
+        <div id="ad2-scoreboard"><div class="ad2-score-card"><div class="ad2-score-nav"><button class="ad2-score-navbtn" onclick="navAd2Week(-1)">‹</button><span class="ad2-score-navlbl">Minggu Ini</span><button class="ad2-score-navbtn" disabled="" onclick="navAd2Week(1)">›</button></div><div class="ad2-day-row"><div class="ad2-day-cell"><span class="ad2-day-name">Sen</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Sel</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Rab</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Kam</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Jum</span><div class="ad2-day-dot miss" style="">·</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Sab</span><div class="ad2-day-dot done" style="">✓</div></div><div class="ad2-day-cell"><span class="ad2-day-name">Min</span><div class="ad2-day-dot today" style="background:#be185d">Hari</div></div></div><div class="ad2-score-foot"><span class="ad2-score-num" style="color:#be185d">2/7</span><span class="ad2-score-lbl">hari semua habit dijalankan minggu ini</span></div></div></div>
 
         <!-- reflection -->
         <div class="ad2-sec-hd">
           <span class="ad2-sec-title">Catatan Refleksi</span>
           <button class="ad2-sec-add" onclick="openEditReflection()">Edit</button>
         </div>
-        <div id="ad2-reflection"></div>
+        <div id="ad2-reflection"><div class="ad2-refl-card"><div class="ad2-refl-q">Apa yang berjalan baik?</div><div class="ad2-refl-empty">Belum diisi minggu ini.</div><div style="height:8px"></div><div class="ad2-refl-q">Apa yang perlu diperbaiki?</div><div class="ad2-refl-empty">Belum diisi minggu ini.</div></div></div>
 
         <!-- projects -->
         <div class="ad2-sec-hd">
           <span class="ad2-sec-title">Kegiatan Terkait</span>
         </div>
-        <div id="area-projects-list"></div>
+        <div id="area-projects-list"><div style="margin:0 12px 8px;padding:20px;text-align:center;background:var(--white);border-radius:14px;border:1px solid var(--line);box-shadow:var(--sh)"><span style="font-size:20px;display:block;margin-bottom:6px">🔗</span><div style="font-size:13px;font-weight:700;color:var(--ink2)">Belum ada kegiatan terkait</div></div></div>
 
         <!-- pengaturan area — sengaja ditaro paling bawah & low-key. Area itu komitmen jangka panjang,
              jadi edit/hapus bukan aksi yang gampang ke-pencet gak sengaja, tapi tetep bisa diakses
@@ -7179,7 +7202,7 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<div class="toast" id="toast">Habit dibatalkan</div>
+<div class="toast" id="toast">Habit diperbarui ✓</div>
 
 <script>
 // ╔══════════════════════════════════════════════════════════════════╗
@@ -12767,6 +12790,7 @@ function delResource_c(){
 function openAreaDetail(id){
   ensurePAData();
   curAreaId=id; curView='area-detail';
+  _ad2WeekOffset = 0; // reset ke minggu ini tiap buka area detail
   const a=gArea(id); if(!a) return;
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.getElementById('v-area-detail').classList.add('active');
@@ -12894,13 +12918,6 @@ function _mkHabitRow(h, color){
   const logs = h.logs || [];
   const doneToday = logs.some(l => l.date === todayStr);
 
-  // Weekly stats: freq target
-  const target = h.freqDays || 7;
-  const monday = _getWeekMonday();
-  const weekLogs = logs.filter(l => l.date >= monday && l.date <= todayStr);
-  const weekCount = weekLogs.length;
-  const pct = Math.min(100, Math.round(weekCount / target * 100));
-
   const wrap = document.createElement('div');
 
   const checkId = 'hc-' + h.id;
@@ -12916,14 +12933,37 @@ function _mkHabitRow(h, color){
       `</div>` +
       `<div class="ad2-habit-freq">${_habitFreqLabel(h)}</div>` +
     `</div>` +
-    `<div class="ad2-streak-row">` +
-      `<div class="ad2-streak-track">` +
-        `<div class="ad2-streak-fill" style="width:${pct}%;background:${color}"></div>` +
-      `</div>` +
-      `<span class="ad2-streak-lbl">${weekCount}/${target} minggu ini</span>` +
-    `</div>`;
+    `<div class="ad2-habit-dots-wrap">${_mkHabitDotsRow(h, color)}</div>`;
 
   return wrap;
+}
+
+// Baris 7-dot kecil (Sen..Min) buat satu habit — cuma nyala di hari yang emang dijadwalkan buat habit ini.
+function _mkHabitDotsRow(h, color){
+  const todayStr = tod();
+  const monday = _getWeekMonday();
+  const days = [];
+  for(let i = 0; i < 7; i++){
+    const d = new Date(monday + 'T12:00:00');
+    d.setDate(d.getDate() + i);
+    const ds = d.toISOString().slice(0,10);
+    days.push({ ds, dow: d.getDay(), isToday: ds === todayStr, isFuture: ds > todayStr });
+  }
+  const cells = days.map(d=>{
+    if(!_isHabitDayApplicable(h, d.dow)) return `<span class="ad2-grid-dot off"></span>`;
+    const done = (h.logs||[]).some(l => l.date === d.ds);
+    if(done) return `<span class="ad2-grid-dot done" style="background:${color};border-color:${color}"></span>`;
+    if(d.isFuture) return `<span class="ad2-grid-dot future"></span>`;
+    if(d.isToday) return `<span class="ad2-grid-dot today-empty" style="border-color:${color}" onclick="toggleHabitLog('${h.id}')"></span>`;
+    return `<span class="ad2-grid-dot"></span>`; // hari lewat & gak dicentang — netral, gak di-highlight merah
+  }).join('');
+  return `<div class="ad2-grid-days">${cells}</div>`;
+}
+
+// Hari ini applicable buat habit ini gak? (dipake buat nentuin dot mana yang aktif)
+function _isHabitDayApplicable(h, dow){
+  if(h.freq === 'weekly' && Array.isArray(h.days) && h.days.length) return h.days.includes(dow);
+  return true; // daily, atau weekly lama tanpa hari spesifik (fleksibel, bisa hari apa aja)
 }
 
 const _DOW_SHORT = {0:'Min',1:'Sen',2:'Sel',3:'Rab',4:'Kam',5:'Jum',6:'Sab'};
@@ -12947,12 +12987,12 @@ function _habitFreqLabelShort(h){
   return h.freq || 'Harian';
 }
 
-function _getWeekMonday(){
+function _getWeekMonday(offset=0){
   const now = new Date();
   const dow = now.getDay();
   const diff = dow === 0 ? -6 : 1 - dow;
   const mon = new Date(now);
-  mon.setDate(now.getDate() + diff);
+  mon.setDate(now.getDate() + diff + offset*7);
   return mon.toISOString().slice(0,10);
 }
 
@@ -12975,6 +13015,25 @@ function toggleHabitLog(hid){
   if(curView === 'areas') renderAreaToday();
 }
 
+// state minggu yang lagi diliat di scoreboard "Minggu Ini" (0 = minggu sekarang, -1 = minggu lalu, dst)
+let _ad2WeekOffset = 0;
+function navAd2Week(delta){
+  _ad2WeekOffset += delta;
+  if(_ad2WeekOffset > 0) _ad2WeekOffset = 0; // gak boleh nengok ke minggu depan
+  const a = gArea(curAreaId);
+  if(a) _renderAreaScoreboard(curAreaId, a.color);
+}
+function _ad2WeekLabel(monday){
+  if(_ad2WeekOffset === 0) return 'Minggu Ini';
+  if(_ad2WeekOffset === -1) return 'Minggu Lalu';
+  const mStart = new Date(monday + 'T12:00:00');
+  const mEnd = new Date(mStart); mEnd.setDate(mEnd.getDate() + 6);
+  const mo = d => d.toLocaleDateString('id-ID', {month:'short'});
+  return mStart.getMonth() === mEnd.getMonth()
+    ? `${mStart.getDate()}–${mEnd.getDate()} ${mo(mEnd)}`
+    : `${mStart.getDate()} ${mo(mStart)} – ${mEnd.getDate()} ${mo(mEnd)}`;
+}
+
 function _renderAreaScoreboard(areaId, color){
   const el = document.getElementById('ad2-scoreboard');
   if(!el) return;
@@ -12985,11 +13044,8 @@ function _renderAreaScoreboard(areaId, color){
   }
 
   const todayStr = tod();
-  const monday = _getWeekMonday();
+  const monday = _getWeekMonday(_ad2WeekOffset);
   const dayNames = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
-  const today = new Date();
-  const dow = today.getDay(); // 0=Sun
-  const mondayIdx = dow === 0 ? 6 : dow - 1;
 
   // For each day of week, count how many habits were done
   const days = [];
@@ -13024,6 +13080,11 @@ function _renderAreaScoreboard(areaId, color){
 
   el.innerHTML =
     `<div class="ad2-score-card">` +
+      `<div class="ad2-score-nav">` +
+        `<button class="ad2-score-navbtn" onclick="navAd2Week(-1)">‹</button>` +
+        `<span class="ad2-score-navlbl">${_ad2WeekLabel(monday)}</span>` +
+        `<button class="ad2-score-navbtn" ${_ad2WeekOffset===0?'disabled':''} onclick="navAd2Week(1)">›</button>` +
+      `</div>` +
       `<div class="ad2-day-row">${dotsHtml}</div>` +
       `<div class="ad2-score-foot">` +
         `<span class="ad2-score-num" style="color:${color}">${weekDone}/${weekTotal}</span>` +
@@ -14679,4 +14740,4 @@ boot();
   </div>
 </div>
 
-</body></html>
+<div id="sh-edit-habit" class="overlay"><div class="sheet"><div class="sh-handle"></div><div class="sh-head"><div class="sh-title">Edit Habit</div><button class="sh-x" onclick="closeSheet(&#39;sh-edit-habit&#39;)">✕</button></div><div class="sh-body"><div class="field"><label class="flbl">Nama Habit</label><input id="eh-name" type="text" placeholder="e.g. Olahraga 30 menit"></div><div class="field"><label class="flbl">Emoji</label><input id="eh-emoji" type="text" placeholder="⭐" style="width:64px;font-size:22px;text-align:center"></div><div class="field"><label class="flbl">Frekuensi</label><select id="eh-freq"><option value="daily">Setiap hari</option><option value="weekly">Hari tertentu</option></select></div><div class="field" id="eh-days-field" style=""><label class="flbl">Muncul di hari apa aja?</label><div class="day-picker" id="eh-day-picker"><button type="button" class="day-btn" data-day="1" onclick="toggleDayBtn(this)">Sen</button><button type="button" class="day-btn sel" data-day="2" onclick="toggleDayBtn(this)">Sel</button><button type="button" class="day-btn" data-day="3" onclick="toggleDayBtn(this)">Rab</button><button type="button" class="day-btn" data-day="4" onclick="toggleDayBtn(this)">Kam</button><button type="button" class="day-btn" data-day="5" onclick="toggleDayBtn(this)">Jum</button><button type="button" class="day-btn sel" data-day="6" onclick="toggleDayBtn(this)">Sab</button><button type="button" class="day-btn" data-day="0" onclick="toggleDayBtn(this)">Min</button></div></div><div class="field"><label class="flbl">Waktu (opsional)</label><input id="eh-time" type="text" placeholder="e.g. Pagi hari, 06.00"></div></div><div class="sh-footer"><div class="sh-row"><button class="sbtn sbtn-g" onclick="closeSheet(&#39;sh-edit-habit&#39;)">Batal</button><button class="sbtn sbtn-p" id="eh-save-btn">Simpan ✓</button></div><div class="sh-row"><button class="sbtn sbtn-d" id="eh-del-btn">🗑 Hapus Habit</button></div></div></div></div></body></html>
