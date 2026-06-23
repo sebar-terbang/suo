@@ -5766,6 +5766,418 @@ input,select,textarea { font-family:inherit; }
   .hj-wrap{ max-width:680px; margin:0 auto; }
 }
 
+/* ┌─────────────────────────────────────────────┐
+   │  CSS GROUP 11 · JADWAL TAB                   │
+   │  Kelas sesi, study sesi, timeline jadwal      │
+   └─────────────────────────────────────────────┘ */
+
+/* ══ JADWAL VIEW ══ */
+#v-jadwal { min-height: 100%; }
+
+/* Filter bar jadwal */
+.jadwal-filter-bar {
+  display: flex; gap: 6px;
+  padding: 10px 14px 8px;
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  flex-shrink: 0;
+  position: sticky; top: 0; z-index: 20;
+}
+.jadwal-filter-bar::-webkit-scrollbar { display: none; }
+.jfpill {
+  flex-shrink: 0; font-size: 12px; font-weight: 700;
+  padding: 6px 12px; border-radius: 99px;
+  border: 1.5px solid var(--line2);
+  cursor: pointer; color: var(--ink2); background: var(--white);
+  transition: all .15s; white-space: nowrap;
+  display: flex; align-items: center; gap: 5px;
+}
+.jfpill.on { border-color: currentColor; }
+.jfpill.on[data-cat="kelas"]  { background: var(--blue-lt);   color: var(--blue); }
+.jfpill.on[data-cat="belajar"]{ background: var(--purple-lt); color: var(--purple); }
+.jfpill.on[data-cat="tugas"]  { background: var(--amber-lt);  color: var(--amber); }
+.jfpill.on[data-cat="ujian"]  { background: var(--red-lt);    color: var(--red); }
+.jfpill-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ══ JADWAL WEEK STRIP ══ */
+.jadwal-week-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 8px 10px 10px;
+  display: flex; flex-direction: column; gap: 0;
+  flex-shrink: 0;
+}
+.jws-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2px 4px 8px;
+}
+.jws-month {
+  font-size: 13px; font-weight: 800; color: var(--ink);
+}
+.jws-nav { display: flex; gap: 5px; }
+.jws-arr {
+  width: 28px; height: 28px; border-radius: var(--rsm);
+  background: var(--bg); border: 1.5px solid var(--line);
+  color: var(--ink2); font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .12s;
+}
+.jws-arr:active { background: var(--bg2); }
+.jws-grid {
+  display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px;
+}
+.jws-day {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 4px 2px 5px; border-radius: var(--rsm);
+  cursor: pointer; transition: background .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.jws-day:active { background: var(--bg); }
+.jws-day.jwd-sel { background: var(--blue-lt); }
+.jws-day-name {
+  font-size: 9px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .05em; color: var(--ink3);
+}
+.jws-day.is-today .jws-day-name { color: var(--blue); }
+.jws-day.jwd-sel .jws-day-name  { color: var(--blue); }
+.jws-num-wrap {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.jws-day.is-today .jws-num-wrap { background: var(--blue); }
+.jws-num {
+  font-size: 13px; font-weight: 700; color: var(--ink2);
+}
+.jws-day.is-today .jws-num { color: #fff; }
+.jws-day.jwd-past .jws-num { color: var(--ink3); }
+.jws-dots {
+  display: flex; gap: 2px; justify-content: center;
+  min-height: 5px;
+}
+.jws-dot {
+  width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+}
+.jwd-blue   { background: var(--blue); }
+.jwd-purple { background: var(--purple); }
+.jwd-amber  { background: var(--amber); }
+.jwd-red    { background: var(--red); }
+
+/* ══ JADWAL TIMELINE ══ */
+.jadwal-day-section {
+  padding: 0; border-bottom: 1px solid var(--line);
+}
+.jadwal-day-header {
+  display: flex; align-items: baseline; gap: 8px;
+  padding: 12px 16px 8px;
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.jdh-num {
+  font-size: 22px; font-weight: 900; letter-spacing: -1px;
+  line-height: 1; color: var(--ink3); min-width: 28px;
+}
+.jdh-num.is-today { color: var(--blue); }
+.jdh-name {
+  font-size: 13px; font-weight: 700; color: var(--ink2);
+}
+.jdh-name.is-today { color: var(--blue); }
+.jdh-today-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue); flex-shrink: 0; margin-bottom: 2px;
+}
+
+.jadwal-empty-day {
+  text-align: center; padding: 18px 20px;
+  font-size: 13px; color: var(--ink3); font-weight: 500;
+}
+
+/* ══ KELAS SESI CARD ══ */
+.ks-event-card {
+  display: flex; align-items: flex-start; gap: 0;
+  margin: 6px 12px;
+  border-radius: 12px; overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition: transform .15s cubic-bezier(.32,.72,0,1);
+}
+.ks-event-card:active { transform: scale(.975); }
+.ks-event-card.is-cancelled { opacity: .5; }
+
+.ks-event-accent { width: 4px; flex-shrink: 0; }
+.ks-event-inner {
+  flex: 1; padding: 9px 11px;
+  display: flex; align-items: flex-start; gap: 9px;
+}
+.ks-event-time {
+  min-width: 42px; text-align: right; flex-shrink: 0;
+}
+.ks-event-time-main {
+  font-size: 11px; font-weight: 700; color: var(--ink2); line-height: 1.4;
+}
+.ks-event-time-end {
+  font-size: 10px; color: var(--ink3); line-height: 1.3;
+}
+.ks-event-body { flex: 1; min-width: 0; }
+.ks-event-title {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ks-event-meta {
+  font-size: 11px; color: var(--ink3); margin-top: 2px; line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.ks-event-pills {
+  display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;
+}
+.ks-event-pill {
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 99px;
+}
+.ksp-kuliah     { background: var(--blue-lt);   color: var(--blue); }
+.ksp-praktikum  { background: var(--green-lt);  color: var(--green); }
+.ksp-presentasi { background: var(--purple-lt); color: var(--purple); }
+.ksp-ujian      { background: var(--red-lt);    color: var(--red); }
+.ksp-lainnya    { background: var(--bg2);       color: var(--ink2); }
+.ksp-hadir      { background: var(--green-lt);  color: var(--green); }
+.ksp-izin       { background: var(--amber-lt);  color: var(--amber); }
+.ksp-bolos      { background: var(--red-lt);    color: var(--red); }
+.ksp-dibatalkan { background: var(--bg2);       color: var(--ink3); }
+
+/* ══ STUDY SESI CARD ══ */
+.study-event-card {
+  display: flex; align-items: flex-start; gap: 0;
+  margin: 6px 12px;
+  border-radius: 12px; overflow: hidden;
+  background: var(--purple-lt);
+  box-shadow: 0 1px 6px rgba(0,0,0,.05);
+  border: 1px solid rgba(124,58,237,.2);
+  cursor: pointer;
+  transition: transform .15s;
+}
+.study-event-card:active { transform: scale(.975); }
+.study-event-card.is-selesai { opacity: .6; }
+.study-event-accent { width: 4px; background: var(--purple); flex-shrink: 0; }
+.study-event-inner {
+  flex: 1; padding: 9px 11px;
+  display: flex; align-items: flex-start; gap: 9px;
+}
+.study-event-time {
+  min-width: 42px; text-align: right; flex-shrink: 0;
+}
+.study-event-time-main {
+  font-size: 11px; font-weight: 700; color: var(--purple); line-height: 1.4;
+}
+.study-event-body { flex: 1; min-width: 0; }
+.study-event-title {
+  font-size: 13px; font-weight: 700; color: #4c1d95;
+  line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.study-event-meta {
+  font-size: 11px; color: var(--purple); margin-top: 2px;
+  opacity: .75;
+}
+.study-event-done-btn {
+  flex-shrink: 0; padding: 5px 8px;
+  font-size: 11px; font-weight: 700;
+  border-radius: 99px; border: none;
+  cursor: pointer; white-space: nowrap;
+  align-self: center;
+  transition: all .15s;
+}
+.study-event-done-btn.todo {
+  background: rgba(124,58,237,.15); color: var(--purple);
+}
+.study-event-done-btn.done {
+  background: var(--green-lt); color: var(--green);
+}
+
+/* ══ JADWAL FAB ══ */
+.jadwal-fab {
+  position: fixed; bottom: calc(var(--nav-h) + var(--sb) + 16px); right: 20px;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: var(--blue); color: #fff;
+  font-size: 24px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,99,235,.4);
+  cursor: pointer; z-index: 90;
+  border: none;
+  transition: transform .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.jadwal-fab:active { transform: scale(.92); }
+@media (min-width:768px){
+  .jadwal-fab { bottom: 20px; right: 28px; }
+}
+
+/* ══ JADWAL EMPTY ══ */
+.jadwal-empty-wrap {
+  padding: 40px 24px; text-align: center;
+}
+.jadwal-empty-ic { font-size: 36px; display: block; margin-bottom: 12px; }
+.jadwal-empty-t  { font-size: 16px; font-weight: 700; color: var(--ink2); }
+.jadwal-empty-s  { font-size: 13px; color: var(--ink3); margin-top: 6px; line-height: 1.6; }
+
+/* ══ ADD FAB MENU ══ */
+.fab-menu-overlay {
+  position: fixed; inset: 0; z-index: 499;
+  background: rgba(26,23,20,.3);
+  backdrop-filter: blur(4px);
+  display: none;
+}
+.fab-menu-overlay.open { display: block; }
+.fab-menu {
+  position: fixed; bottom: calc(var(--nav-h) + var(--sb) + 76px); right: 16px;
+  z-index: 500;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+  pointer-events: none; opacity: 0;
+  transform: translateY(12px);
+  transition: all .18s cubic-bezier(.32,.72,0,1);
+}
+.fab-menu.open { pointer-events: all; opacity: 1; transform: none; }
+.fab-menu-item {
+  display: flex; align-items: center; gap: 10px;
+}
+.fab-menu-label {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  background: var(--white); padding: 6px 12px;
+  border-radius: 99px; box-shadow: var(--sh);
+  white-space: nowrap;
+}
+.fab-menu-btn {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; border: none; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  transition: transform .12s;
+  -webkit-tap-highlight-color: transparent;
+}
+.fab-menu-btn:active { transform: scale(.9); }
+.fab-btn-kelas   { background: var(--blue); color: #fff; }
+.fab-btn-belajar { background: var(--purple); color: #fff; }
+@media(min-width:768px){
+  .fab-menu { right: 24px; bottom: calc(76px + 24px); }
+}
+
+/* ══ KELAS SESI SHEET ══ */
+.kelas-materi-list {
+  display: flex; flex-direction: column; gap: 6px;
+  margin-top: 8px;
+}
+.kelas-materi-pick {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: var(--rsm);
+  background: var(--bg); border: 1.5px solid var(--line);
+  cursor: pointer; transition: background .12s;
+}
+.kelas-materi-pick.sel {
+  background: var(--blue-lt); border-color: var(--blue-bd);
+}
+.kmp-check {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 1.5px solid var(--line2); display: flex; align-items: center;
+  justify-content: center; flex-shrink: 0; font-size: 11px;
+}
+.kelas-materi-pick.sel .kmp-check {
+  background: var(--blue); border-color: var(--blue); color: #fff;
+}
+.kmp-name { font-size: 13px; font-weight: 600; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ══ CHIP SELECT (jenis pertemuan) ══ */
+.chip-select-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.chip-select-row .chip-select {
+  padding: 6px 12px; border-radius: 99px;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  background: var(--bg2); color: var(--ink2);
+  border: 1.5px solid var(--line2);
+  transition: all .15s; white-space: nowrap;
+}
+.chip-select-row .chip-select.sel {
+  background: var(--blue-lt); color: var(--blue); border-color: var(--blue-bd);
+}
+
+/* ══ PERTEMUAN TAB di detail matkul ══ */
+.pertemuan-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .1s;
+}
+.pertemuan-item:last-child { border-bottom: none; }
+.pertemuan-item:active { background: var(--bg); }
+.pi-date-col {
+  min-width: 38px; text-align: center; flex-shrink: 0; margin-top: 2px;
+}
+.pi-date-day { font-size: 17px; font-weight: 900; letter-spacing: -.5px; line-height: 1; }
+.pi-date-mon { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink3); }
+.pi-body { flex: 1; min-width: 0; }
+.pi-title { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+.pi-meta { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+.pi-materi-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.pi-materi-chip {
+  font-size: 10px; font-weight: 600;
+  background: var(--blue-lt); color: var(--blue);
+  padding: 2px 7px; border-radius: 99px;
+}
+.pi-status-badge {
+  flex-shrink: 0; font-size: 10px; font-weight: 700;
+  padding: 3px 8px; border-radius: 99px;
+  align-self: flex-start; margin-top: 2px;
+}
+
+/* ══ MATERI STUDY LOG ══ */
+.study-log-section {
+  background: var(--bg); border-radius: var(--rsm);
+  padding: 12px; margin-top: 12px; border: 1px solid var(--line);
+}
+.sls-title {
+  font-size: 11px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--ink3); margin-bottom: 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.sls-add-btn {
+  font-size: 12px; font-weight: 700; color: var(--purple);
+  background: none; border: none; cursor: pointer; padding: 2px 0;
+}
+.sls-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0; border-bottom: 1px solid var(--line);
+}
+.sls-item:last-child { border-bottom: none; }
+.sls-date { font-size: 11px; font-weight: 600; color: var(--ink2); min-width: 70px; }
+.sls-body { flex: 1; min-width: 0; }
+.sls-tipe {
+  font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 99px;
+  display: inline-block; margin-bottom: 1px;
+}
+.sls-tipe.belajar     { background: var(--blue-lt); color: var(--blue); }
+.sls-tipe.review      { background: var(--purple-lt); color: var(--purple); }
+.sls-tipe.persiapan   { background: var(--amber-lt); color: var(--amber); }
+.sls-dur { font-size: 11px; color: var(--ink3); }
+.sls-catatan { font-size: 11px; color: var(--ink3); margin-top: 1px; }
+.sls-del { font-size: 15px; color: var(--ink3); cursor: pointer; padding: 3px; flex-shrink: 0; }
+.sls-del:active { color: var(--red); }
+.sls-empty { font-size: 12px; color: var(--ink3); text-align: center; padding: 8px 0; font-style: italic; }
+
+/* ══ EXCEPTION SCOPE PICKER ══ */
+.scope-row {
+  display: flex; gap: 8px; margin-top: 8px;
+}
+.scope-btn {
+  flex: 1; padding: 9px 8px; border-radius: var(--rsm);
+  border: 1.5px solid var(--line2); background: var(--white);
+  font-size: 12px; font-weight: 700; text-align: center;
+  cursor: pointer; transition: all .15s; color: var(--ink2);
+}
+.scope-btn.sel { background: var(--blue-lt); border-color: var(--blue); color: var(--blue); }
+
 </style>
 </head>
 <body>
@@ -5778,20 +6190,20 @@ input,select,textarea { font-family:inherit; }
       <div class="sb-tagline">Study tracker lo 📚</div>
     </div>
     <div class="sb-nav">
-      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById(&#39;bn-moments&#39;))" style="background:linear-gradient(135deg,#0c3b2e,#145c46);color:#f6e8b8;margin-bottom:4px;">
+      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
+        <span class="sb-item-ic">🎓</span> Home
+        <span class="sb-item-badge" id="sb-badge" style="display:none;"></span>
+      </button>
+      <button class="sb-item" id="sbn-jadwal" onclick="goView(&#39;jadwal&#39;,document.getElementById(&#39;bn-jadwal&#39;))">
+        <span class="sb-item-ic">📅</span> Jadwal
+      </button>
+      <button class="sb-item" id="sbn-moments" onclick="goView(&#39;moments&#39;,document.getElementById(&#39;bn-moments&#39;))" style="background:linear-gradient(135deg,#0c3b2e10,#145c4610);color:#145c46;margin-top:4px;border-top:1px solid var(--line);border-radius:0;padding-top:10px;">
         <span class="sb-item-ic">🌙</span> Kalender Hijriah
       </button>
-      <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
-        <span class="sb-item-ic">🏠</span> Home
-        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">2</span>
-      </button>
-      <!-- cal tab removed — merged into home -->
-      <!-- pomodoro removed — accessible via topbar pill -->
-      <!-- subjects tab removed -->
       <button class="sb-item" id="sbn-projects" onclick="navPopGoView(&#39;projects&#39;)">
         <span class="sb-item-ic">📋</span> Kegiatan
       </button>
-      <button class="sb-item active" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
+      <button class="sb-item" id="sbn-areas" onclick="navPopGoView(&#39;areas&#39;)">
         <span class="sb-item-ic">🌿</span> Sistem
       </button>
     </div>
@@ -6047,6 +6459,46 @@ input,select,textarea { font-family:inherit; }
       </div>
     </div>
 
+    <!-- ══ JADWAL ══ -->
+    <div class="view" id="v-jadwal">
+      <!-- Week strip -->
+      <div class="jadwal-week-strip" id="jws-wrap">
+        <div class="jws-header">
+          <span class="jws-month" id="jws-month-label">Jun 2026</span>
+          <div class="jws-nav">
+            <button class="jws-arr" onclick="shiftJadwalWeek(-1)">‹</button>
+            <button class="jws-arr" onclick="shiftJadwalWeek(1)">›</button>
+          </div>
+        </div>
+        <div class="jws-grid" id="jws-grid"></div>
+      </div>
+
+      <!-- Filter bar -->
+      <div class="jadwal-filter-bar" id="jfbar">
+        <button class="jfpill on" data-cat="kelas"   onclick="toggleJadwalFilter('kelas',this)"><span class="jfpill-dot" style="background:var(--blue)"></span>Kelas</button>
+        <button class="jfpill on" data-cat="belajar" onclick="toggleJadwalFilter('belajar',this)"><span class="jfpill-dot" style="background:var(--purple)"></span>Belajar</button>
+        <button class="jfpill"    data-cat="tugas"   onclick="toggleJadwalFilter('tugas',this)"><span class="jfpill-dot" style="background:var(--amber)"></span>Tugas</button>
+        <button class="jfpill"    data-cat="ujian"   onclick="toggleJadwalFilter('ujian',this)"><span class="jfpill-dot" style="background:var(--red)"></span>Ujian</button>
+      </div>
+
+      <!-- Timeline body -->
+      <div id="jadwal-timeline-body"></div>
+
+      <!-- FAB menu overlay -->
+      <div class="fab-menu-overlay" id="fab-menu-overlay" onclick="closeFabMenu()"></div>
+      <div class="fab-menu" id="fab-menu">
+        <div class="fab-menu-item">
+          <span class="fab-menu-label">Jadwal Belajar</span>
+          <button class="fab-menu-btn fab-btn-belajar" onclick="closeFabMenu();openAddStudySesi()">📚</button>
+        </div>
+        <div class="fab-menu-item">
+          <span class="fab-menu-label">Sesi Kelas</span>
+          <button class="fab-menu-btn fab-btn-kelas" onclick="closeFabMenu();openAddKelasRecurring()">🏫</button>
+        </div>
+      </div>
+      <button class="jadwal-fab" id="jadwal-fab" onclick="toggleFabMenu()">＋</button>
+    </div>
+
     <!-- ══ SUBJECTS ══ -->
     <div class="view" id="v-subjects">
       <div class="pad">
@@ -6088,9 +6540,18 @@ input,select,textarea { font-family:inherit; }
 
       <!-- Detail Tab Nav -->
       <div class="detail-tab-nav" id="detail-tab-nav">
+        <button class="detail-tab" id="dtab-pertemuan" onclick="setDetailTab(&#39;pertemuan&#39;)">🗓 Pertemuan</button>
         <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab(&#39;materi&#39;)">📖 Belajar</button>
         <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab(&#39;tugas&#39;)">📋 Kerjain</button>
         <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab(&#39;ujian&#39;)">📝 Siapin</button>
+      </div>
+
+      <!-- Pertemuan Tab -->
+      <div class="detail-tab-content" id="dtab-content-pertemuan">
+        <div class="pad" style="padding-top:14px">
+          <div class="sec" id="sec-p-label">🗓 Pertemuan <span class="sec-link" id="add-p-btn">+ Tambah</span></div>
+          <div class="card" id="d-pertemuan"></div>
+        </div>
       </div>
 
       <!-- Belajar Tab -->
@@ -6323,18 +6784,18 @@ input,select,textarea { font-family:inherit; }
 
   <!-- BOTTOM NAV -->
   <nav class="bnav">
-    <button class="bn" id="bn-moments" onclick="goView(&#39;moments&#39;, this)" style="color:#145c46">
-      <div class="bn-ic">🌙</div><div>Hijriah</div>
-    </button>
     <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🏠<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
+      <div class="bn-ic">🎓<span class="bn-badge" id="bn-badge" style="display:none;"></span></div><div>Home</div>
     </button>
-    <button class="bn active" id="bn-focus" onclick="toggleNavPopover(this)">
+    <button class="bn" id="bn-jadwal" onclick="goView(&#39;jadwal&#39;, this)">
+      <div class="bn-ic">📅</div><div>Jadwal</div>
+    </button>
+    <button class="bn" id="bn-focus" onclick="toggleNavPopover(this)">
       <div class="bn-ic">⚡</div><div>Lainnya</div>
     </button>
   </nav>
 
-  <!-- Nav Popover: Projects & Areas -->
+  <!-- Nav Popover: Projects, Areas, Hijriah -->
   <div class="nav-popover-bd" id="nav-pop-bd" onclick="closeNavPopover()"></div>
   <div class="nav-popover" id="nav-popover">
     <button class="nav-pop-item" id="nav-pop-proj" onclick="navPopGoView(&#39;projects&#39;)">
@@ -6350,6 +6811,14 @@ input,select,textarea { font-family:inherit; }
       <span class="nav-pop-label">
         <div>Sistem</div>
         <div class="nav-pop-sub">Hal yang dijaga selamanya</div>
+      </span>
+      <span class="nav-pop-arrow">›</span>
+    </button>
+    <button class="nav-pop-item" id="nav-pop-moments" onclick="navPopGoView(&#39;moments&#39;)" style="border-top:1px solid var(--line)">
+      <span class="nav-pop-ic" style="color:#145c46">🌙</span>
+      <span class="nav-pop-label">
+        <div>Kalender Hijriah</div>
+        <div class="nav-pop-sub">Tanggal, bulan & peristiwa Islam</div>
       </span>
       <span class="nav-pop-arrow">›</span>
     </button>
@@ -7213,6 +7682,220 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
+<!-- ════ ADD KELAS RECURRING ════ -->
+<div class="overlay" id="sh-addkelas" onclick="bgc(event,'sh-addkelas')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-addkelas')">✕</button>
+      <span class="sh-header2-title">🏫 Jadwal Kelas</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveKelasRecurring()">Simpan</button>
+    </div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Mata Kuliah</label>
+        <select id="ak-sid"></select>
+      </div>
+      <div class="field"><label class="flbl">Jenis Pertemuan</label>
+        <div class="chip-select-row" id="ak-jenis-row">
+          <div class="chip-select sel" data-v="kuliah" onclick="pickChipType('ak',this)">📚 Kuliah</div>
+          <div class="chip-select" data-v="praktikum" onclick="pickChipType('ak',this)">🔬 Praktikum</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType('ak',this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="ujian" onclick="pickChipType('ak',this)">📝 Ujian</div>
+          <div class="chip-select" data-v="lainnya" onclick="pickChipType('ak',this)">📌 Lainnya</div>
+        </div>
+        <input type="hidden" id="ak-jenis" value="kuliah">
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai</label><input id="ak-start" type="time" value="08:00"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai</label><input id="ak-end" type="time" value="09:40"></div>
+      </div>
+      <div class="field"><label class="flbl">Lokasi (opsional)</label><input id="ak-lokasi" type="text" placeholder="e.g. Ruang B201, Lab AI"></div>
+
+      <!-- Recurring toggle -->
+      <div class="ae-recur-toggle-row">
+        <div>
+          <div class="ae-recur-label">Jadwal Berulang Mingguan</div>
+          <div class="ae-recur-sub">Kelas ini berulang setiap minggu?</div>
+        </div>
+        <label class="ae-switch">
+          <input type="checkbox" id="ak-recurring" checked onchange="toggleKelasRecurUI()">
+          <span class="ae-switch-track"></span>
+        </label>
+      </div>
+
+      <!-- Recurring: hari berulang -->
+      <div id="ak-recur-wrap">
+        <label class="flbl" style="margin-bottom:8px;display:block">Hari dalam Seminggu</label>
+        <div class="ae-day-picker" id="ak-day-picker">
+          <button class="ae-day-btn" data-d="1" onclick="toggleKelasDay(this)">Sen</button>
+          <button class="ae-day-btn" data-d="2" onclick="toggleKelasDay(this)">Sel</button>
+          <button class="ae-day-btn" data-d="3" onclick="toggleKelasDay(this)">Rab</button>
+          <button class="ae-day-btn" data-d="4" onclick="toggleKelasDay(this)">Kam</button>
+          <button class="ae-day-btn" data-d="5" onclick="toggleKelasDay(this)">Jum</button>
+          <button class="ae-day-btn" data-d="6" onclick="toggleKelasDay(this)">Sab</button>
+          <button class="ae-day-btn" data-d="0" onclick="toggleKelasDay(this)">Min</button>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:10px;">
+          <div class="field" style="flex:1;margin-bottom:0"><label class="flbl">Mulai Dari</label><input id="ak-from" type="date"></div>
+          <div class="field" style="flex:1;margin-bottom:0"><label class="flbl">Sampai (opsional)</label><input id="ak-until" type="date"></div>
+        </div>
+      </div>
+
+      <!-- One-time: hanya satu pertemuan -->
+      <div id="ak-onetime-wrap" style="display:none">
+        <div class="field"><label class="flbl">Tanggal</label><input id="ak-date" type="date"></div>
+      </div>
+
+      <div class="field" style="margin-top:4px"><label class="flbl">Catatan (opsional)</label><textarea id="ak-catatan" rows="2" placeholder="e.g. Bawa laptop, buku modul, dsb."></textarea></div>
+    </div>
+    <div style="height:calc(20px + var(--sb))"></div>
+  </div>
+</div>
+
+<!-- ════ EDIT KELAS SESI (satu occurrence) ════ -->
+<div class="overlay" id="sh-editkelas" onclick="bgc(event,'sh-editkelas')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-editkelas')">✕</button>
+      <span class="sh-header2-title">📅 Detail Pertemuan</span>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveEditKelasOccurrence()">Simpan</button>
+    </div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Kehadiran</label>
+        <div class="chip-select-row" id="ek-status-row">
+          <div class="chip-select" data-v="hadir"      onclick="pickChipType('ek-status',this)">✅ Hadir</div>
+          <div class="chip-select" data-v="izin"       onclick="pickChipType('ek-status',this)">📝 Izin</div>
+          <div class="chip-select" data-v="bolos"      onclick="pickChipType('ek-status',this)">❌ Bolos</div>
+          <div class="chip-select" data-v="dibatalkan" onclick="pickChipType('ek-status',this)">🚫 Dibatalkan</div>
+        </div>
+        <input type="hidden" id="ek-status" value="">
+      </div>
+      <div class="field"><label class="flbl">Materi yang Dibahas (opsional)</label>
+        <div class="kelas-materi-list" id="ek-materi-list"></div>
+      </div>
+      <div class="field"><label class="flbl">Catatan Pertemuan (opsional)</label>
+        <textarea id="ek-catatan" rows="2" placeholder="Rangkuman, tugas yang dikasih, dll."></textarea>
+      </div>
+      <input type="hidden" id="ek-occurrence-key">
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="deleteKelasOccurrence()">🗑 Hapus Pertemuan Ini</button>
+      </div>
+      <div class="sh-row" id="ek-recurring-actions" style="display:none">
+        <button class="sbtn sbtn-g" style="font-size:12px" onclick="deleteKelasTemplate()">🗑 Hapus Jadwal Ini Selamanya</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ADD STUDY SESI ════ -->
+<div class="overlay" id="sh-addstudy" onclick="bgc(event,'sh-addstudy')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-addstudy')">✕</button>
+      <span class="sh-header2-title">📚 Jadwal Belajar</span>
+      <button class="sh-save-btn" style="background:var(--purple)" onclick="saveStudySesi()">Simpan</button>
+    </div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Tanggal</label><input id="as2-date" type="date"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="as2-start" type="time" placeholder="--:--"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label><input id="as2-end" type="time" placeholder="--:--"></div>
+      </div>
+      <div class="field"><label class="flbl">Tipe Sesi</label>
+        <div class="chip-select-row" id="as2-tipe-row">
+          <div class="chip-select sel" data-v="belajar"   onclick="pickChipType('as2',this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review"        onclick="pickChipType('as2',this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan"     onclick="pickChipType('as2',this)">📝 Persiapan Ujian</div>
+        </div>
+        <input type="hidden" id="as2-tipe" value="belajar">
+      </div>
+      <div class="field"><label class="flbl">Mata Kuliah</label>
+        <select id="as2-sid"><option value="">— Pilih Matkul (opsional) —</option></select>
+      </div>
+      <div class="field"><label class="flbl">Materi (opsional)</label>
+        <div class="kelas-materi-list" id="as2-materi-list"></div>
+      </div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label>
+        <textarea id="as2-catatan" rows="2"></textarea>
+      </div>
+    </div>
+    <div style="height:calc(20px + var(--sb))"></div>
+  </div>
+</div>
+
+<!-- ════ EDIT STUDY SESI ════ -->
+<div class="overlay" id="sh-editstudy" onclick="bgc(event,'sh-editstudy')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-editstudy')">✕</button>
+      <span class="sh-header2-title">📚 Edit Jadwal Belajar</span>
+      <button class="sh-save-btn" style="background:var(--purple)" onclick="saveEditStudySesi()">Simpan</button>
+    </div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Tanggal</label><input id="es2-date" type="date"></div>
+      <div style="display:flex;gap:10px;">
+        <div class="field" style="flex:1"><label class="flbl">Jam Mulai</label><input id="es2-start" type="time" placeholder="--:--"></div>
+        <div class="field" style="flex:1"><label class="flbl">Jam Selesai</label><input id="es2-end" type="time" placeholder="--:--"></div>
+      </div>
+      <div class="field"><label class="flbl">Tipe Sesi</label>
+        <div class="chip-select-row" id="es2-tipe-row">
+          <div class="chip-select" data-v="belajar"   onclick="pickChipType('es2',this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review"    onclick="pickChipType('es2',this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan" onclick="pickChipType('es2',this)">📝 Persiapan Ujian</div>
+        </div>
+        <input type="hidden" id="es2-tipe" value="belajar">
+      </div>
+      <div class="field"><label class="flbl">Mata Kuliah</label>
+        <select id="es2-sid"><option value="">— Pilih Matkul —</option></select>
+      </div>
+      <div class="field"><label class="flbl">Materi</label>
+        <div class="kelas-materi-list" id="es2-materi-list"></div>
+      </div>
+      <div class="field"><label class="flbl">Catatan</label>
+        <textarea id="es2-catatan" rows="2"></textarea>
+      </div>
+      <input type="hidden" id="es2-id">
+    </div>
+    <div class="sh-footer">
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" onclick="deleteStudySesi()">🗑 Hapus Sesi Ini</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ ADD STUDY LOG (dari detail materi) ════ -->
+<div class="overlay" id="sh-addstudylog" onclick="bgc(event,'sh-addstudylog')">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-header2">
+      <button class="sh-close-btn" onclick="closeSheet('sh-addstudylog')">✕</button>
+      <span class="sh-header2-title">📖 Catat Belajar</span>
+      <button class="sh-save-btn" style="background:var(--purple)" onclick="saveStudyLog()">Simpan</button>
+    </div>
+    <div class="sh-body">
+      <div class="field"><label class="flbl">Tanggal</label><input id="asl-date" type="date"></div>
+      <div class="field"><label class="flbl">Durasi (menit, opsional)</label><input id="asl-dur" type="number" min="1" max="600" placeholder="e.g. 45"></div>
+      <div class="field"><label class="flbl">Tipe</label>
+        <div class="chip-select-row" id="asl-tipe-row">
+          <div class="chip-select sel" data-v="belajar"   onclick="pickChipType('asl',this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review"        onclick="pickChipType('asl',this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan"     onclick="pickChipType('asl',this)">📝 Persiapan</div>
+        </div>
+        <input type="hidden" id="asl-tipe" value="belajar">
+      </div>
+      <div class="field"><label class="flbl">Catatan (opsional)</label><textarea id="asl-catatan" rows="2" placeholder="Apa yang dipelajari, progress, dsb."></textarea></div>
+      <input type="hidden" id="asl-mid">
+    </div>
+    <div style="height:calc(20px + var(--sb))"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast">Habit dibatalkan</div>
 
 <script>
@@ -7333,15 +8016,27 @@ const DEFAULT_DATA = { subjects:[
   {id:'s3',name:'Deep Learning',     type:'personal',color:'#7c3aed',emoji:'🤖',semester:'Semester 4',archived:false},
   {id:'s4',name:'Kalkulus 1',        type:'matkul',  color:'#0891b2',emoji:'📐',semester:'Semester 3',archived:true},
   {id:'s5',name:'Fisika Dasar',      type:'matkul',  color:'#16a34a',emoji:'⚛️', semester:'Semester 3',archived:true},
-], semesters:['Semester 4','Semester 3'], materi:[
-  {id:'m1',sid:'s1',name:'Integral Tak Tentu',    date:ago(5), done:true },
-  {id:'m2',sid:'s1',name:'Integral Substitusi',   date:ago(4), done:true },
-  {id:'m3',sid:'s1',name:'Integral Parsial',      date:ago(1), done:false},
-  {id:'m4',sid:'s1',name:'Integral Trigonometri', date:tod(),  done:false},
-  {id:'m5',sid:'s2',name:'Sorting Algorithms',    date:ago(6), done:true },
-  {id:'m6',sid:'s2',name:'Dynamic Programming',   date:ago(1), done:false},
-  {id:'m7',sid:'s3',name:'Backpropagation',       date:ago(3), done:true },
-  {id:'m8',sid:'s3',name:'CNN Architecture',      date:tod(),  done:false},
+], semesters:['Semester 4','Semester 3'],
+// ── BARU: klasRecurring — template jadwal berulang mingguan ──
+klasRecurring:[
+  {id:'kr1',sid:'s1',days:[1,3],startTime:'08:00',endTime:'09:40',jenis:'kuliah',lokasi:'Ruang B201',from:ago(30),until:'',catatan:''},
+  {id:'kr2',sid:'s2',days:[2,4],startTime:'13:00',endTime:'14:40',jenis:'kuliah',lokasi:'Ruang C301',from:ago(30),until:'',catatan:''},
+  {id:'kr3',sid:'s3',days:[5],  startTime:'15:00',endTime:'16:40',jenis:'praktikum',lokasi:'Lab AI',from:ago(30),until:'',catatan:''},
+],
+// ── BARU: klasSesi — exception/override per occurrence ──
+// (juga termasuk sesi one-off yang bukan dari recurring)
+klasSesi:[],
+// ── BARU: studySesi — jadwal belajar mandiri one-off ──
+studySesi:[],
+materi:[
+  {id:'m1',sid:'s1',name:'Integral Tak Tentu',    done:true,  ngerti:true,  studyLog:[]},
+  {id:'m2',sid:'s1',name:'Integral Substitusi',   done:true,  ngerti:true,  studyLog:[]},
+  {id:'m3',sid:'s1',name:'Integral Parsial',      done:false, ngerti:false, studyLog:[]},
+  {id:'m4',sid:'s1',name:'Integral Trigonometri', done:false, ngerti:false, studyLog:[]},
+  {id:'m5',sid:'s2',name:'Sorting Algorithms',    done:true,  ngerti:true,  studyLog:[]},
+  {id:'m6',sid:'s2',name:'Dynamic Programming',   done:false, ngerti:false, studyLog:[]},
+  {id:'m7',sid:'s3',name:'Backpropagation',       done:true,  ngerti:true,  studyLog:[]},
+  {id:'m8',sid:'s3',name:'CNN Architecture',      done:false, ngerti:false, studyLog:[]},
 ], tugas:[
   {id:'t1',sid:'s1',name:'PR Integral Bab 6',      inputDate:ago(2), deadline:ago(-3), done:false},
   {id:'t2',sid:'s2',name:'Implementasi Quicksort', inputDate:ago(1), deadline:tod(),   done:false},
@@ -7610,29 +8305,20 @@ async function boot(){
   const cloud=await loadFromCloud();
   if(cloud){
     D=cloud;
-    if(!D.ujian) D.ujian=[];
-    if(!D.semesters) D.semesters=[];
-    if(!D.projects) D.projects=[];
-    if(!D.areas) D.areas=[];
-    if(!D.p_tasks) D.p_tasks=[];
-    if(!D.p_agendas) D.p_agendas=[];
-    D.subjects.forEach(s=>{ if(!s.semester) s.semester=''; if(s.archived===undefined) s.archived=false; });
+    _migrateData();
     saveLocal();
     showSyncStatus('✅ Tersinkron');
   } else {
     D=loadLocal()||DEFAULT_DATA;
-    if(!D.ujian) D.ujian=[];
-    if(!D.semesters) D.semesters=[];
-    if(!D.projects) D.projects=[];
-    if(!D.areas) D.areas=[];
-    if(!D.p_tasks) D.p_tasks=[];
-    if(!D.p_agendas) D.p_agendas=[];
-    D.subjects.forEach(s=>{ if(!s.semester) s.semester=''; if(s.archived===undefined) s.archived=false; });
+    _migrateData();
     showSyncStatus('📱 Mode lokal');
   }
 
   ensurePAData();
   renderHome(); renderSubjLists(); renderMcal(); renderSidebar(); renderProjects(); renderAreas();
+  // Activate Home nav
+  document.getElementById('bn-h')?.classList.add('active');
+  document.getElementById('sbn-home')?.classList.add('active');
   restorePomoState();
   renderPomoWeekChart();
   sbLoadPomoSessions();
@@ -7681,12 +8367,12 @@ const isDesktop=()=>window.innerWidth>=768;
 function goView(name, btn){
   closeNavPopover();
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  const vmap={home:'v-home',cal:'v-cal',pomo:'v-pomo',subjects:'v-subjects',detail:'v-detail',projects:'v-projects',areas:'v-areas',moments:'v-moments'};
+  const vmap={home:'v-home',cal:'v-cal',pomo:'v-pomo',subjects:'v-subjects',detail:'v-detail',projects:'v-projects',areas:'v-areas',moments:'v-moments',jadwal:'v-jadwal'};
   const vid=vmap[name]||('v-'+name);
   document.getElementById(vid)?.classList.add('active');
   document.querySelectorAll('.bn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
-  if(name==='projects'||name==='areas'||name==='proj-detail'||name==='area-detail'){
+  if(name==='projects'||name==='areas'||name==='proj-detail'||name==='area-detail'||name==='moments'){
     document.getElementById('bn-focus')?.classList.add('active');
   }
   curView=name; curSid=null;
@@ -7694,6 +8380,7 @@ function goView(name, btn){
   // mobile topbar
   const tb=document.getElementById('topbar');
   if(name==='home')     tb.innerHTML=`<div class="tb-logo">Kul<span>yeah</span>! 🎓</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
+  if(name==='jadwal')   tb.innerHTML=`<div class="tb-title">📅 Jadwal</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='subjects') tb.innerHTML=`<div class="tb-title">📚 Subjek</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='cal')      tb.innerHTML=`<div class="tb-title">📅 Kalender</div><div class="pomo-topbar-pill idle" id="pomo-topbar-pill" onclick="pillTap()">🍅 <span id="pomo-pill-label">Fokus</span></div>`;
   if(name==='pomo')     { tb.innerHTML=`<div class="tb-title">🍅 Pomodoro</div>`; renderPomoIdle(); }
@@ -7711,6 +8398,7 @@ function goView(name, btn){
 
   if(name==='home')     renderHome();
   if(name==='subjects') renderSubjLists();
+  if(name==='jadwal')   renderJadwal();
   if(name==='cal')      renderMcal();
   // Cal view handles its own scroll internally
   const outerScroll = document.getElementById('scroll');
@@ -7765,6 +8453,8 @@ function updateDesktopTopbar(view, subj){
   if(view==='home'){
     dtb.innerHTML=`<div class="dtb-title">Kul<span style="color:var(--blue)">yeah</span>! 🎓</div>`+
       (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
+  } else if(view==='jadwal'){
+    dtb.innerHTML=`<div class="dtb-title">📅 Jadwal</div>`;
   } else if(view==='subjects'){
     dtb.innerHTML=`<div class="dtb-title">📚 Semua Subjek</div>`+
       (pomoState?`<div class="pomo-topbar-pill ${pomoPhase==='focus'?'focus':'brk'} show" style="cursor:pointer" onclick="goView('pomo',document.getElementById('bn-pomo'))">🍅 ${pomoPhase==='focus'?'Fokus aktif':'Break'}</div>`:'');
@@ -7802,11 +8492,10 @@ function updateDesktopTopbar(view, subj){
 function updateSidebarActive(view, sid){
   // nav items
   document.querySelectorAll('.sb-item').forEach(el=>el.classList.remove('active'));
-  if(view==='home')     document.getElementById('sbn-home')?.classList.add('active');
-  if(view==='moments')  document.getElementById('sbn-moments')?.classList.add('active');
-  // cal tab removed from sidebar
-  if(view==='pomo')     document.getElementById('sbn-pomo')?.classList.add('active');
-  // subjects tab removed from sidebar
+  if(view==='home')    document.getElementById('sbn-home')?.classList.add('active');
+  if(view==='jadwal')  document.getElementById('sbn-jadwal')?.classList.add('active');
+  if(view==='moments') document.getElementById('sbn-moments')?.classList.add('active');
+  if(view==='pomo')    document.getElementById('sbn-pomo')?.classList.add('active');
   if(view==='projects' || view==='proj-detail') document.getElementById('sbn-projects')?.classList.add('active');
   if(view==='areas'    || view==='area-detail') document.getElementById('sbn-areas')?.classList.add('active');
   // subject items
@@ -8559,32 +9248,20 @@ function renderDetail(id){
 
   if(!s.absen) s.absen = [];
 
-  // ── Migration: pastikan setiap materi punya nomor pertemuan ──
-  let needSave=false;
-  const matByDate=[...mat].sort((a,b)=>a.date.localeCompare(b.date)||(a.id<b.id?-1:1));
-  matByDate.forEach((m,i)=>{ if(m.pertemuan==null){ m.pertemuan=i+1; needSave=true; } });
-  D.ujian.filter(u=>u.sid===id).forEach(u=>{ if(!u.reviewIds){ u.reviewIds=[]; needSave=true; } });
-
-  // ── Sinkron pertemuan & tanggal dari absensi ──
-  mat.forEach(m=>{
-    const auto=_materiAutoPertemuan(id, m.id);
-    if(auto && (m.pertemuan!==auto.pertemuan || m.date!==auto.date)){
-      m.pertemuan=auto.pertemuan; m.date=auto.date; needSave=true;
-    }
-  });
-  if(needSave) save();
+  // Ensure studyLog on each materi
+  mat.forEach(m=>{ if(!m.studyLog) m.studyLog=[]; });
 
   // Sort materi
   if(_materiSort===1){
-    mat.sort((a,b)=>(a.ngerti?1:0)-(b.ngerti?1:0) || (a.pertemuan||0)-(b.pertemuan||0));
+    mat.sort((a,b)=>(a.ngerti?1:0)-(b.ngerti?1:0));
   } else {
-    mat.sort((a,b)=>(a.pertemuan||0)-(b.pertemuan||0));
+    mat.sort((a,b)=>(a.id||'').localeCompare(b.id||''));
   }
 
   const sortInfoEl=document.getElementById('m-sort-info');
-  if(sortInfoEl) sortInfoEl.textContent = `${mat.length} materi · ${_materiSort===1?'Status Belajar':'Urutan Pertemuan'}`;
+  if(sortInfoEl) sortInfoEl.textContent = `${mat.length} materi · ${_materiSort===1?'Status Belajar':'Urutan'}`;
   const sortTxtEl=document.getElementById('m-sort-txt');
-  if(sortTxtEl) sortTxtEl.textContent = _materiSort===1?'Status Belajar':'Pertemuan';
+  if(sortTxtEl) sortTxtEl.textContent = _materiSort===1?'Status Belajar':'Urutan';
 
   const doneNgerti=mat.filter(m=>m.ngerti).length;
 
@@ -8606,14 +9283,19 @@ function renderDetail(id){
 
   setDetailTab(_detailTab);
 
+  // ─── PERTEMUAN TAB ─────────────────────────
+  renderDetailPertemuan(id);
+
   // ─── BELAJAR TAB ────────────────────────────
   document.getElementById('add-m-btn').onclick=()=>{
     document.getElementById('am-n').value='';
     document.getElementById('am-d').value=tod();
     document.getElementById('am-notes').value='';
-    const nextPert = mat.length ? Math.max(...mat.map(m=>m.pertemuan||0))+1 : 1;
-    document.getElementById('am-pert').value=nextPert;
-    document.getElementById('am-pert-val').textContent=nextPert;
+    const nextPert = mat.length+1;
+    const pertEl = document.getElementById('am-pert');
+    if(pertEl){ pertEl.value=nextPert; }
+    const pertValEl = document.getElementById('am-pert-val');
+    if(pertValEl) pertValEl.textContent=nextPert;
     openSheet('sh-addmateri');
   };
 
@@ -8685,6 +9367,7 @@ function renderDetail(id){
 function mkM(m, showSubj){
   const s=gS(m.sid);
   const status = m.ngerti ? 'paham' : 'belajar';
+  const logCount = (m.studyLog||[]).length;
 
   const row=document.createElement('div');
   row.className='bitem-v4';
@@ -8697,18 +9380,14 @@ function mkM(m, showSubj){
     ? `<div class="bitem-v4-pill paham">✓ Udah Paham</div>`
     : `<div class="bitem-v4-pill belajar">Masih Belum Belajar Lagi</div>`;
 
-  const metaParts=[];
-  if(m.pertemuan) metaParts.push(`Pertemuan ${m.pertemuan}`);
-  if(m.date) metaParts.push(fmtDate(m.date));
-  const metaLabel = metaParts.join(' · ');
-
   row.innerHTML=
     `<div class="bitem-v4-accent ${status}"></div>`+
     `<div class="bitem-v4-body">`+
       (showSubj?`<div style="font-size:11px;font-weight:700;color:${s.color};margin-bottom:2px">${s.emoji} ${s.name}</div>`:'')+
-      (metaLabel?`<div class="bitem-v4-meta">${metaLabel}</div>`:'')+
       `<div class="bitem-v4-name${status==='paham'?' paham':''}">${escHtml(m.name)}</div>`+
       pillHtml+
+      (logCount?`<div style="font-size:11px;color:var(--purple);margin-top:4px;font-weight:600">📖 ${logCount}× belajar</div>`:
+        `<div style="font-size:11px;color:var(--ink3);margin-top:4px;cursor:pointer" onclick="event.stopPropagation();openAddStudyLog('${m.id}')">+ Catat belajar</div>`)+
     `</div>`+
     `<button class="bitem-v4-more" onclick="event.stopPropagation();openEditM('${m.id}')">›</button>`;
 
@@ -10099,46 +10778,74 @@ function openEditM(id){
   editMid=id;
   const m=D.materi.find(x=>x.id===id);
   document.getElementById('em-n').value=m.name;
-  document.getElementById('em-d').value=m.date;
+  document.getElementById('em-d').value=m.date||tod();
   document.getElementById('em-notes').value=m.notes||'';
-  const pert=m.pertemuan||1;
-  document.getElementById('em-pert').value=pert;
-  document.getElementById('em-pert-val').textContent=pert;
+  const pert=1;
+  const pertEl=document.getElementById('em-pert');
+  if(pertEl){ pertEl.value=pert; }
+  const pertValEl=document.getElementById('em-pert-val');
+  if(pertValEl) pertValEl.textContent=pert;
   setStatusCardOpt('em', m.ngerti ? 'paham' : 'belajar');
 
-  // info absen mini-card
-  const s=gS(m.sid);
-  const records=(s.absen||[]).filter(a=>a.mid===id);
-  const subEl=document.getElementById('em-absen-sub');
-  if(subEl) subEl.textContent = records.length ? `${records.length}x pertemuan tercatat` : 'Belum ada catatan';
-  const absenBtn=document.getElementById('em-absen-btn');
-  if(absenBtn) absenBtn.onclick=()=>openAbsenModal(m.sid, id);
+  // Hide old absen section if exists
+  const absenInfo=document.getElementById('em-absen-info');
+  if(absenInfo) absenInfo.style.display='none';
 
-  // Pertemuan & tanggal: kalau sudah ada absensi, ambil otomatis
-  const auto=_materiAutoPertemuan(m.sid, id);
-  const manualEl=document.getElementById('em-pert-date-manual');
-  const autoEl=document.getElementById('em-pert-date-auto');
-  if(auto){
-    if(manualEl) manualEl.style.display='none';
-    if(autoEl) autoEl.style.display='';
-    const autoLbl=document.getElementById('em-auto-pert-lbl');
-    if(autoLbl) autoLbl.textContent = `Pertemuan ${auto.pertemuan} · ${fmtDate(auto.date)}`;
+  // Show study log
+  const logArea = document.getElementById('em-studylog-area');
+  if(logArea){
+    logArea.style.display='';
+    renderEditMStudyLog(id);
   } else {
-    if(manualEl) manualEl.style.display='flex';
-    if(autoEl) autoEl.style.display='none';
+    // inject study log section into sheet body after notes
+    const shBody = document.querySelector('#sh-editm .sh-body');
+    if(shBody){
+      const logDiv = document.createElement('div');
+      logDiv.id = 'em-studylog-area';
+      logDiv.innerHTML = `
+        <div class="study-log-section">
+          <div class="sls-title">
+            📖 Riwayat Belajar
+            <button class="sls-add-btn" onclick="openAddStudyLog('${id}')">＋ Catat</button>
+          </div>
+          <div id="em-studylog-body-${id}"></div>
+        </div>
+        <div style="margin-top:8px">
+          <button style="width:100%;padding:9px;border-radius:var(--rsm);background:var(--purple-lt);color:var(--purple);font-size:13px;font-weight:700;border:none;cursor:pointer" onclick="openAddStudySesi('${id}','${m.sid}');closeSheet('sh-editm')">📅 Jadwalkan Belajar Materi Ini</button>
+        </div>`;
+      shBody.appendChild(logDiv);
+    }
   }
-
+  renderEditMStudyLog(id);
   openSheet('sh-editm');
 }
+
+function renderEditMStudyLog(mid){
+  const m = D.materi.find(x=>x.id===mid);
+  if(!m) return;
+  const bodyId = `em-studylog-body-${mid}`;
+  const el = document.getElementById(bodyId);
+  if(!el) return;
+  const logs = (m.studyLog||[]).filter(l=>!l._auto).sort((a,b)=>b.date.localeCompare(a.date));
+  const allLogs = (m.studyLog||[]).sort((a,b)=>b.date.localeCompare(a.date));
+  el.innerHTML = allLogs.length ? allLogs.map(l=>
+    `<div class="sls-item">`+
+    `<div class="sls-date">${fmtDs(l.date)}</div>`+
+    `<div class="sls-body">`+
+    `<span class="sls-tipe ${l.tipe||'belajar'}">${{belajar:'Belajar',review:'Review',persiapan:'Persiapan'}[l.tipe||'belajar']||l.tipe}</span>`+
+    (l.durMenit?` <span class="sls-dur">${l.durMenit} mnt</span>`:'')+
+    (l._auto?` <span class="sls-dur" style="color:var(--ink3)">(otomatis)</span>`:'')+
+    (l.catatan&&!l._auto?`<div class="sls-catatan">${l.catatan}</div>`:'')+
+    `</div>`+
+    (!l._auto?`<button class="sls-del" onclick="deleteStudyLog('${mid}','${l.id}');renderEditMStudyLog('${mid}')">✕</button>`:'')+
+    `</div>`
+  ).join('') : `<div class="sls-empty">Belum ada riwayat belajar</div>`;
+}
+
 function saveEditM(){
   const m=D.materi.find(x=>x.id===editMid);
   m.name=document.getElementById('em-n').value.trim()||m.name;
   m.notes=document.getElementById('em-notes').value.trim();
-  const auto=_materiAutoPertemuan(m.sid, editMid);
-  if(!auto){
-    m.date=document.getElementById('em-d').value||m.date;
-    m.pertemuan=parseInt(document.getElementById('em-pert').value)||1;
-  }
   const status=document.getElementById('em-status').value;
   if(status==='paham'){ m.ngerti=true; m.done=true; }
   else { m.ngerti=false; m.done=false; }
@@ -10347,6 +11054,862 @@ function toast(msg){
   clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),2500);
 }
 
+
+// ════════ MIGRASI DATA ═══════════════════════
+function _migrateData(){
+  // Ensure core arrays
+  if(!D.ujian)     D.ujian=[];
+  if(!D.semesters) D.semesters=[];
+  if(!D.projects)  D.projects=[];
+  if(!D.areas)     D.areas=[];
+  if(!D.p_tasks)   D.p_tasks=[];
+  if(!D.p_agendas) D.p_agendas=[];
+  if(!D.events)    D.events=[];
+  if(!D.habits)    D.habits=[];
+  // ── Ensure new jadwal fields ──
+  if(!D.klasRecurring) D.klasRecurring=[];
+  if(!D.klasSesi)      D.klasSesi=[];
+  if(!D.studySesi)     D.studySesi=[];
+  // ── Migrate subjects ──
+  D.subjects.forEach(s=>{
+    if(!s.semester)  s.semester='';
+    if(s.archived===undefined) s.archived=false;
+  });
+  // ── Migrate materi: hapus field date & pertemuan, tambah studyLog ──
+  D.materi.forEach(m=>{
+    if(!m.studyLog) m.studyLog=[];
+    // migrate: jika materi punya date dari absen, itu sudah tidak relevan
+    // tapi kita tetap simpan date jika ada, hanya tidak digunakan untuk urutan
+  });
+  // ── Migrate absen lama → klasSesi ──
+  // Setiap absen record lama (s.absen[]) dikonversi ke klasSesi occurrence
+  let needSave = false;
+  D.subjects.forEach(s=>{
+    if(!s.absen || !s.absen.length) return;
+    s.absen.forEach(ab=>{
+      // Cek apakah sudah ada klasSesi untuk kombinasi ini
+      const exists = D.klasSesi.some(ks=>ks._absenId===ab.id);
+      if(exists) return;
+      // Buat klasSesi baru dari absen lama
+      const mat = D.materi.find(m=>m.id===ab.mid);
+      D.klasSesi.push({
+        id: 'ks_mig_'+ab.id,
+        sid: s.id,
+        recurringId: null,
+        date: ab.date,
+        startTime: '', endTime: '',
+        lokasi: '',
+        jenis: 'kuliah',
+        materiIds: ab.mid ? [ab.mid] : [],
+        catatan: '',
+        status: ab.status==='hadir'?'hadir': ab.status==='bolos'?'bolos':'izin',
+        isException: false,
+        isPengganti: false,
+        _absenId: ab.id  // referensi migrasi
+      });
+      needSave = true;
+    });
+    // Hapus absen lama setelah migrasi
+    s.absen = [];
+    needSave = true;
+  });
+  // ── Migrate D.events → D.klasRecurring ──
+  // Events yang sebelumnya dipakai untuk jadwal kuliah, bisa dikonversi
+  // Tapi kita biarkan D.events tetap ada untuk backward-compat
+  // (events dipakai di tab kalender biasa)
+  if(needSave) saveLocal();
+}
+
+// ════════════════════════════════════════════════════════════
+//   JADWAL ENGINE — recurring helpers, render, CRUD
+// ════════════════════════════════════════════════════════════
+
+/* ── State ── */
+let _jadwalWeekOff  = 0;  // week offset
+let _jadwalSelDay   = null; // selected 'YYYY-MM-DD' (null = show full week)
+let _jadwalFilters  = { kelas:true, belajar:true, tugas:false, ujian:false };
+
+const DAY_SHORT = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+const MONTH_SHORT = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+
+/* ── Recurring engine: expand klasRecurring to occurrences for a date range ── */
+function expandKlasRecurring(from, until){
+  // Returns [{date, recurringId, sid, startTime, endTime, jenis, lokasi, catatan, isFromRecurring:true}]
+  const out = [];
+  const d0 = new Date(from + 'T12:00:00');
+  const d1 = new Date(until + 'T12:00:00');
+  (D.klasRecurring || []).forEach(kr => {
+    if(!kr.days || !kr.days.length) return;
+    const kFrom = kr.from ? new Date(kr.from + 'T12:00:00') : d0;
+    const kUntil = kr.until ? new Date(kr.until + 'T12:00:00') : d1;
+    let cur = new Date(Math.max(d0, kFrom));
+    while(cur <= Math.min(d1, kUntil)){
+      const dayOfWeek = cur.getDay();
+      if(kr.days.includes(dayOfWeek)){
+        out.push({
+          date: cur.toISOString().slice(0,10),
+          recurringId: kr.id,
+          sid: kr.sid,
+          startTime: kr.startTime,
+          endTime: kr.endTime,
+          jenis: kr.jenis,
+          lokasi: kr.lokasi,
+          catatan: kr.catatan,
+          isFromRecurring: true,
+        });
+      }
+      cur.setDate(cur.getDate() + 1);
+    }
+  });
+  return out;
+}
+
+/* ── Get effective occurrences for a date range, merging exceptions ── */
+function getKlasOccurrences(fromDs, untilDs){
+  const recurring = expandKlasRecurring(fromDs, untilDs);
+  const exceptions = (D.klasSesi || []).filter(ks => ks.date >= fromDs && ks.date <= untilDs);
+
+  // Build result: start with recurring, then apply overrides / deletions
+  const map = {}; // key: `${recurringId}__${date}` or `onetime__${id}`
+
+  recurring.forEach(occ => {
+    const key = `${occ.recurringId}__${occ.date}`;
+    map[key] = { ...occ, _key: key };
+  });
+
+  // Apply exceptions (overrides or one-off sesi)
+  exceptions.forEach(ks => {
+    if(ks.recurringId){
+      // Override an existing recurring occurrence
+      const key = `${ks.recurringId}__${ks.date}`;
+      if(map[key]){
+        // Merge: exception wins
+        map[key] = { ...map[key], ...ks, _key: key, isException: true };
+      } else {
+        // Occurrence was moved here (date changed) — treat as standalone
+        map['exc__'+ks.id] = { ...ks, _key: 'exc__'+ks.id };
+      }
+    } else {
+      // One-off sesi (no recurring template)
+      map['onetime__'+ks.id] = { ...ks, _key: 'onetime__'+ks.id };
+    }
+  });
+
+  return Object.values(map).sort((a,b) => {
+    if(a.date < b.date) return -1;
+    if(a.date > b.date) return 1;
+    return (a.startTime||'') < (b.startTime||'') ? -1 : 1;
+  });
+}
+
+/* ── Get exception/override record for a specific (recurringId, date) ── */
+function getKlasException(recurringId, date){
+  return (D.klasSesi || []).find(ks => ks.recurringId === recurringId && ks.date === date);
+}
+
+/* ── Week helpers ── */
+function getJadwalWeekStart(){
+  const now = new Date();
+  now.setDate(now.getDate() + _jadwalWeekOff * 7);
+  const dow = now.getDay();
+  const mon = new Date(now);
+  mon.setDate(now.getDate() - ((dow + 6) % 7)); // Monday
+  mon.setHours(0,0,0,0);
+  return mon;
+}
+function getJadwalWeekDays(){
+  const mon = getJadwalWeekStart();
+  return Array.from({length:7}, (_,i) => {
+    const d = new Date(mon);
+    d.setDate(mon.getDate() + i);
+    return d.toISOString().slice(0,10);
+  });
+}
+
+/* ── Main render ── */
+function renderJadwal(){
+  renderJadwalWeekStrip();
+  renderJadwalTimeline();
+}
+
+function renderJadwalWeekStrip(){
+  const days = getJadwalWeekDays();
+  const todDs = tod();
+
+  // Month label
+  const firstD = new Date(days[0]+'T12:00:00');
+  const lastD  = new Date(days[6]+'T12:00:00');
+  let monthLbl = firstD.toLocaleDateString('id-ID',{month:'short',year:'numeric'});
+  if(firstD.getMonth() !== lastD.getMonth()) monthLbl += ' – '+lastD.toLocaleDateString('id-ID',{month:'short'});
+  const lbl = document.getElementById('jws-month-label');
+  if(lbl) lbl.textContent = monthLbl;
+
+  // Get all events this week for dot indicators
+  const fromDs = days[0], untilDs = days[6];
+  const occs = getKlasOccurrences(fromDs, untilDs);
+  const studies = (D.studySesi||[]).filter(s => s.date >= fromDs && s.date <= untilDs);
+  const tugas = (D.tugas||[]).filter(t => t.deadline >= fromDs && t.deadline <= untilDs && !t.done);
+  const ujian = (D.ujian||[]).filter(u => u.date >= fromDs && u.date <= untilDs);
+
+  const grid = document.getElementById('jws-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+
+  days.forEach(ds => {
+    const d = new Date(ds+'T12:00:00');
+    const isToday = ds === todDs;
+    const isSel   = ds === _jadwalSelDay;
+    const isPast  = ds < todDs;
+
+    const dayOccs    = _jadwalFilters.kelas   ? occs.filter(o => o.date === ds) : [];
+    const dayStudy   = _jadwalFilters.belajar  ? studies.filter(s => s.date === ds) : [];
+    const dayTugas   = _jadwalFilters.tugas    ? tugas.filter(t => t.deadline === ds) : [];
+    const dayUjian   = _jadwalFilters.ujian    ? ujian.filter(u => u.date === ds) : [];
+
+    // Build dots (max 3)
+    let dots = [];
+    if(dayOccs.length)  dots.push('jwd-blue');
+    if(dayStudy.length) dots.push('jwd-purple');
+    if(dayTugas.length) dots.push('jwd-amber');
+    if(dayUjian.length) dots.push('jwd-red');
+    dots = dots.slice(0,3);
+
+    const el = document.createElement('button');
+    el.className = 'jws-day' + (isToday?' is-today':'') + (isSel?' jwd-sel':'') + (isPast&&!isToday?' jwd-past':'');
+    el.innerHTML =
+      `<div class="jws-day-name">${DAY_SHORT[d.getDay()]}</div>`+
+      `<div class="jws-num-wrap"><div class="jws-num">${d.getDate()}</div></div>`+
+      `<div class="jws-dots">${dots.map(c=>`<div class="jws-dot ${c}"></div>`).join('')}</div>`;
+    el.onclick = () => {
+      _jadwalSelDay = (_jadwalSelDay === ds) ? null : ds;
+      renderJadwalWeekStrip();
+      renderJadwalTimeline();
+    };
+    grid.appendChild(el);
+  });
+}
+
+function shiftJadwalWeek(dir){
+  _jadwalWeekOff += dir;
+  _jadwalSelDay = null;
+  renderJadwal();
+}
+
+function toggleJadwalFilter(cat, btn){
+  _jadwalFilters[cat] = !_jadwalFilters[cat];
+  btn.classList.toggle('on', _jadwalFilters[cat]);
+  renderJadwalWeekStrip();
+  renderJadwalTimeline();
+}
+
+function renderJadwalTimeline(){
+  const body = document.getElementById('jadwal-timeline-body');
+  if(!body) return;
+  body.innerHTML = '';
+
+  const days = _jadwalSelDay ? [_jadwalSelDay] : getJadwalWeekDays();
+  const todDs = tod();
+  const fromDs = days[0], untilDs = days[days.length-1];
+
+  const allOccs   = _jadwalFilters.kelas  ? getKlasOccurrences(fromDs, untilDs) : [];
+  const allStudy  = _jadwalFilters.belajar ? (D.studySesi||[]).filter(s => s.date >= fromDs && s.date <= untilDs) : [];
+  const allTugas  = _jadwalFilters.tugas  ? (D.tugas||[]).filter(t => t.deadline >= fromDs && t.deadline <= untilDs && !t.done) : [];
+  const allUjian  = _jadwalFilters.ujian  ? (D.ujian||[]).filter(u => u.date >= fromDs && u.date <= untilDs) : [];
+
+  let hasAnything = false;
+
+  days.forEach(ds => {
+    const dayOccs  = allOccs.filter(o => o.date === ds);
+    const dayStudy = allStudy.filter(s => s.date === ds);
+    const dayTugas = allTugas.filter(t => t.deadline === ds);
+    const dayUjian = allUjian.filter(u => u.date === ds);
+
+    const totalItems = dayOccs.length + dayStudy.length + dayTugas.length + dayUjian.length;
+
+    const d = new Date(ds+'T12:00:00');
+    const isToday = ds === todDs;
+
+    const section = document.createElement('div');
+    section.className = 'jadwal-day-section';
+
+    section.innerHTML =
+      `<div class="jadwal-day-header">`+
+      `<div class="jdh-num${isToday?' is-today':''}">${d.getDate()}</div>`+
+      `<div class="jdh-name${isToday?' is-today':''}">${DAY_SHORT[d.getDay()]}, ${MONTH_SHORT[d.getMonth()]}</div>`+
+      (isToday?`<div class="jdh-today-dot"></div>`:'')+
+      `</div>`;
+
+    if(!totalItems){
+      section.innerHTML += `<div class="jadwal-empty-day">Tidak ada jadwal</div>`;
+    } else {
+      hasAnything = true;
+      // Sort all items by startTime
+      const items = [
+        ...dayOccs.map(o => ({...o, _type:'kelas'})),
+        ...dayStudy.map(s => ({...s, _type:'study'})),
+        ...dayTugas.map(t => ({...t, _type:'tugas', startTime: t.startTime||'23:59'}),),
+        ...dayUjian.map(u => ({...u, _type:'ujian', startTime: u.startTime||'08:00'})),
+      ].sort((a,b) => (a.startTime||'') < (b.startTime||'') ? -1 : 1);
+
+      items.forEach(item => {
+        if(item._type === 'kelas')  section.appendChild(buildKlasCard(item));
+        if(item._type === 'study')  section.appendChild(buildStudyCard(item));
+        if(item._type === 'tugas')  section.appendChild(buildTugasChip(item));
+        if(item._type === 'ujian')  section.appendChild(buildUjianChip(item));
+      });
+    }
+
+    body.appendChild(section);
+  });
+
+  if(!hasAnything && !_jadwalSelDay && _jadwalFilters.kelas && !D.klasRecurring.length){
+    body.innerHTML = `<div class="jadwal-empty-wrap">
+      <span class="jadwal-empty-ic">📅</span>
+      <div class="jadwal-empty-t">Belum ada jadwal kelas</div>
+      <div class="jadwal-empty-s">Tap tombol ＋ untuk menambahkan<br>jadwal kelas atau jadwal belajar</div>
+    </div>`;
+  }
+}
+
+function buildKlasCard(occ){
+  const s = gS(occ.sid);
+  const color = s ? s.color : '#888';
+  const matNames = (occ.materiIds||[]).map(mid => {
+    const m = D.materi.find(x=>x.id===mid);
+    return m ? m.name : null;
+  }).filter(Boolean);
+  const isCancelled = occ.status === 'dibatalkan';
+
+  const card = document.createElement('div');
+  card.className = 'ks-event-card' + (isCancelled ? ' is-cancelled' : '');
+  card.innerHTML =
+    `<div class="ks-event-accent" style="background:${color}"></div>`+
+    `<div class="ks-event-inner">`+
+      `<div class="ks-event-time">`+
+        `<div class="ks-event-time-main">${occ.startTime||'—'}</div>`+
+        `<div class="ks-event-time-end">${occ.endTime||''}</div>`+
+      `</div>`+
+      `<div class="ks-event-body">`+
+        `<div class="ks-event-title">${s?s.emoji+' '+s.name:'Matkul'}</div>`+
+        `<div class="ks-event-meta">${[occ.jenis?jenisLabel(occ.jenis):'',occ.lokasi].filter(Boolean).join(' · ')}</div>`+
+        (matNames.length ? `<div class="ks-event-pills">${matNames.map(n=>`<span class="ks-event-pill ksp-${occ.jenis||'kuliah'}">${n}</span>`).join('')}</div>` : '')+
+        (occ.status ? `<div class="ks-event-pills"><span class="ks-event-pill ksp-${occ.status}">${statusAbsenLabel(occ.status)}</span></div>` : '')+
+      `</div>`+
+    `</div>`;
+  card.onclick = () => openEditKelasOccurrence(occ);
+  return card;
+}
+
+function buildStudyCard(sesi){
+  const s = sesi.sid ? gS(sesi.sid) : null;
+  const matNames = (sesi.materiIds||[]).map(mid => {
+    const m = D.materi.find(x=>x.id===mid);
+    return m ? m.name : null;
+  }).filter(Boolean);
+
+  const card = document.createElement('div');
+  card.className = 'study-event-card' + (sesi.selesai ? ' is-selesai' : '');
+  card.innerHTML =
+    `<div class="study-event-accent"></div>`+
+    `<div class="study-event-inner">`+
+      `<div class="study-event-time">`+
+        `<div class="study-event-time-main">${sesi.startTime||'📚'}</div>`+
+      `</div>`+
+      `<div class="study-event-body">`+
+        `<div class="study-event-title">${tipeLabel(sesi.tipe)}: ${s?s.name:'Belajar'}</div>`+
+        `<div class="study-event-meta">${matNames.join(', ')||sesi.catatan||''}</div>`+
+      `</div>`+
+      `<button class="study-event-done-btn ${sesi.selesai?'done':'todo'}" onclick="event.stopPropagation();toggleStudySesiDone('${sesi.id}')">${sesi.selesai?'✓ Selesai':'Tandai'}</button>`+
+    `</div>`;
+  card.onclick = () => openEditStudySesi(sesi.id);
+  return card;
+}
+
+function buildTugasChip(t){
+  const s = gS(t.sid);
+  const div = document.createElement('div');
+  div.className = 'ks-event-card';
+  div.style.cssText = 'margin:6px 12px;cursor:default;border-left:4px solid var(--amber)';
+  div.innerHTML =
+    `<div class="ks-event-inner" style="padding-left:10px">`+
+      `<div class="ks-event-body">`+
+        `<div class="ks-event-title" style="color:var(--amber)">📋 ${t.name}</div>`+
+        `<div class="ks-event-meta">${s?s.name:''}</div>`+
+      `</div>`+
+    `</div>`;
+  return div;
+}
+
+function buildUjianChip(u){
+  const s = gS(u.sid);
+  const div = document.createElement('div');
+  div.className = 'ks-event-card';
+  div.style.cssText = 'margin:6px 12px;cursor:default;border-left:4px solid var(--red)';
+  div.innerHTML =
+    `<div class="ks-event-inner" style="padding-left:10px">`+
+      `<div class="ks-event-body">`+
+        `<div class="ks-event-title" style="color:var(--red)">📝 ${u.name}</div>`+
+        `<div class="ks-event-meta">${s?s.name:''} · ${u.type||''}</div>`+
+      `</div>`+
+    `</div>`;
+  return div;
+}
+
+/* ── Label helpers ── */
+function jenisLabel(j){
+  return {kuliah:'Kuliah',praktikum:'Praktikum',presentasi:'Presentasi',ujian:'Ujian',lainnya:'Lainnya'}[j]||j;
+}
+function statusAbsenLabel(s){
+  return {hadir:'✅ Hadir',izin:'📝 Izin',bolos:'❌ Bolos',dibatalkan:'🚫 Dibatalkan'}[s]||s;
+}
+function tipeLabel(t){
+  return {belajar:'📖 Belajar',review:'🔄 Review',persiapan:'📝 Persiapan'}[t]||t;
+}
+
+/* ── Chip type picker generic ── */
+function pickChipType(prefix, el){
+  const row = el.parentElement;
+  row.querySelectorAll('.chip-select').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+  const hiddenId = prefix + '-tipe';
+  const hidden = document.getElementById(hiddenId) || document.getElementById(prefix+'-jenis') || document.getElementById(prefix+'-status');
+  if(hidden) hidden.value = el.dataset.v;
+}
+
+/* ── FAB menu ── */
+function toggleFabMenu(){
+  const overlay = document.getElementById('fab-menu-overlay');
+  const menu = document.getElementById('fab-menu');
+  if(!overlay||!menu) return;
+  const open = overlay.classList.toggle('open');
+  menu.classList.toggle('open', open);
+}
+function closeFabMenu(){
+  document.getElementById('fab-menu-overlay')?.classList.remove('open');
+  document.getElementById('fab-menu')?.classList.remove('open');
+}
+
+/* ── ADD KELAS RECURRING ── */
+function openAddKelasRecurring(){
+  // populate matkul dropdown
+  const sel = document.getElementById('ak-sid');
+  sel.innerHTML = (D.subjects||[]).filter(s=>!s.archived).map(s=>
+    `<option value="${s.id}">${s.emoji} ${s.name}</option>`
+  ).join('');
+
+  // reset fields
+  document.getElementById('ak-start').value = '08:00';
+  document.getElementById('ak-end').value   = '09:40';
+  document.getElementById('ak-lokasi').value = '';
+  document.getElementById('ak-catatan').value = '';
+  document.getElementById('ak-from').value  = tod();
+  document.getElementById('ak-until').value = '';
+  document.getElementById('ak-recurring').checked = true;
+  document.getElementById('ak-jenis').value = 'kuliah';
+
+  // reset chip
+  document.querySelectorAll('#ak-jenis-row .chip-select').forEach(c => c.classList.toggle('sel', c.dataset.v==='kuliah'));
+  // reset days
+  document.querySelectorAll('#ak-day-picker .ae-day-btn').forEach(b => b.classList.remove('sel'));
+  toggleKelasRecurUI();
+  openSheet('sh-addkelas');
+}
+
+function toggleKelasRecurUI(){
+  const isRecurring = document.getElementById('ak-recurring').checked;
+  document.getElementById('ak-recur-wrap').style.display    = isRecurring ? '' : 'none';
+  document.getElementById('ak-onetime-wrap').style.display  = isRecurring ? 'none' : '';
+  if(!isRecurring){
+    const dateEl = document.getElementById('ak-date');
+    if(dateEl && !dateEl.value) dateEl.value = tod();
+  }
+}
+function toggleKelasDay(btn){
+  btn.classList.toggle('sel');
+}
+
+function saveKelasRecurring(){
+  const sid = document.getElementById('ak-sid').value;
+  const jenis = document.getElementById('ak-jenis').value;
+  const startTime = document.getElementById('ak-start').value;
+  const endTime   = document.getElementById('ak-end').value;
+  const lokasi    = document.getElementById('ak-lokasi').value.trim();
+  const catatan   = document.getElementById('ak-catatan').value.trim();
+  const isRecurring = document.getElementById('ak-recurring').checked;
+
+  if(!sid){ toast('Pilih mata kuliah dulu!'); return; }
+
+  if(isRecurring){
+    const days = [...document.querySelectorAll('#ak-day-picker .ae-day-btn.sel')].map(b=>+b.dataset.d);
+    if(!days.length){ toast('Pilih minimal satu hari!'); return; }
+    const from  = document.getElementById('ak-from').value  || tod();
+    const until = document.getElementById('ak-until').value || '';
+    D.klasRecurring.push({ id:'kr'+Date.now(), sid, days, startTime, endTime, jenis, lokasi, from, until, catatan });
+  } else {
+    const date = document.getElementById('ak-date').value || tod();
+    D.klasSesi.push({ id:'ks'+Date.now(), sid, recurringId:null, date, startTime, endTime, jenis, lokasi, materiIds:[], catatan, status:null, isException:false, isPengganti:true });
+  }
+
+  save();
+  closeSheet('sh-addkelas');
+  toast('✅ Jadwal kelas disimpan');
+  renderJadwal();
+}
+
+/* ── EDIT KELAS OCCURRENCE ── */
+let _editOcc = null; // currently editing occurrence
+
+function openEditKelasOccurrence(occ){
+  _editOcc = occ;
+  const exception = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
+  const current = exception || occ;
+
+  // Status chips
+  const statusVal = current.status || '';
+  document.querySelectorAll('#ek-status-row .chip-select').forEach(c => {
+    c.classList.toggle('sel', c.dataset.v === statusVal);
+  });
+  document.getElementById('ek-status').value = statusVal;
+
+  // Catatan
+  document.getElementById('ek-catatan').value = current.catatan || '';
+
+  // Store occurrence key
+  document.getElementById('ek-occurrence-key').value = occ.recurringId ? `${occ.recurringId}__${occ.date}` : (occ.id||'');
+
+  // Show delete-all button only for recurring
+  document.getElementById('ek-recurring-actions').style.display = occ.recurringId ? '' : 'none';
+
+  // Materi multi-select
+  const matList = document.getElementById('ek-materi-list');
+  const sid = occ.sid;
+  const selIds = current.materiIds || [];
+  const matkul = (D.materi||[]).filter(m => m.sid === sid);
+  matList.innerHTML = matkul.length ? matkul.map(m =>
+    `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" onclick="toggleMateriPick(this,'${m.id}','ek')">`+
+    `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
+    `<div class="kmp-name">${m.name}</div></div>`
+  ).join('') : '<div style="font-size:12px;color:var(--ink3);padding:6px 0">Belum ada materi untuk matkul ini</div>';
+
+  openSheet('sh-editkelas');
+}
+
+function toggleMateriPick(el, mid, prefix){
+  el.classList.toggle('sel');
+  el.querySelector('.kmp-check').textContent = el.classList.contains('sel') ? '✓' : '';
+}
+
+function getSelectedMateriIds(containerEl){
+  return [...containerEl.querySelectorAll('.kelas-materi-pick.sel')].map(el => {
+    const onclick = el.getAttribute('onclick');
+    const m = onclick.match(/'([^']+)',\s*'[a-z]+'\)/);
+    return m ? m[1] : null;
+  }).filter(Boolean);
+}
+
+function saveEditKelasOccurrence(){
+  if(!_editOcc) return;
+  const occ = _editOcc;
+  const status    = document.getElementById('ek-status').value;
+  const catatan   = document.getElementById('ek-catatan').value.trim();
+  const matList   = document.getElementById('ek-materi-list');
+  const materiIds = [...matList.querySelectorAll('.kelas-materi-pick.sel')].map(el => {
+    const m = el.getAttribute('onclick').match(/'([^']+)'/);
+    return m ? m[1] : null;
+  }).filter(Boolean);
+
+  if(occ.recurringId){
+    // Upsert exception
+    const existing = getKlasException(occ.recurringId, occ.date);
+    if(existing){
+      existing.status = status; existing.catatan = catatan; existing.materiIds = materiIds;
+    } else {
+      D.klasSesi.push({
+        id:'ks'+Date.now(),
+        sid: occ.sid,
+        recurringId: occ.recurringId,
+        date: occ.date,
+        startTime: occ.startTime, endTime: occ.endTime,
+        lokasi: occ.lokasi, jenis: occ.jenis,
+        materiIds, catatan, status,
+        isException: true, isPengganti: false,
+      });
+    }
+  } else {
+    // One-off sesi — update directly
+    const existing = (D.klasSesi||[]).find(ks => ks.id === occ.id);
+    if(existing){ existing.status = status; existing.catatan = catatan; existing.materiIds = materiIds; }
+  }
+
+  // Update study log for materi if hadir
+  if(status === 'hadir'){
+    materiIds.forEach(mid => {
+      const m = D.materi.find(x=>x.id===mid);
+      if(m){
+        if(!m.studyLog) m.studyLog = [];
+        const alreadyLogged = m.studyLog.some(l => l.date === occ.date && l.tipe === 'belajar' && l._auto);
+        if(!alreadyLogged){
+          m.studyLog.push({ id:'sl'+Date.now()+Math.random(), date:occ.date, durMenit:null, tipe:'belajar', catatan:'Dicatat otomatis dari pertemuan', _auto:true });
+        }
+      }
+    });
+  }
+
+  save();
+  closeSheet('sh-editkelas');
+  toast('✅ Pertemuan diperbarui');
+  renderJadwal();
+}
+
+function deleteKelasOccurrence(){
+  if(!_editOcc) return;
+  const occ = _editOcc;
+  if(occ.recurringId){
+    // Mark as cancelled by adding exception
+    const existing = getKlasException(occ.recurringId, occ.date);
+    if(existing){ existing.status = 'dibatalkan'; }
+    else {
+      D.klasSesi.push({
+        id:'ks'+Date.now(), sid:occ.sid, recurringId:occ.recurringId, date:occ.date,
+        startTime:occ.startTime, endTime:occ.endTime, lokasi:occ.lokasi, jenis:occ.jenis,
+        materiIds:[], catatan:'', status:'dibatalkan', isException:true, isPengganti:false,
+      });
+    }
+  } else {
+    D.klasSesi = D.klasSesi.filter(ks => ks.id !== occ.id);
+  }
+  save(); closeSheet('sh-editkelas'); toast('🗑 Pertemuan dihapus');
+  renderJadwal();
+}
+
+function deleteKelasTemplate(){
+  if(!_editOcc || !_editOcc.recurringId) return;
+  if(!confirm('Hapus seluruh jadwal ini (semua pertemuan yang akan datang)?')) return;
+  D.klasRecurring = D.klasRecurring.filter(kr => kr.id !== _editOcc.recurringId);
+  D.klasSesi      = D.klasSesi.filter(ks => ks.recurringId !== _editOcc.recurringId);
+  save(); closeSheet('sh-editkelas'); toast('🗑 Jadwal dihapus');
+  renderJadwal();
+}
+
+/* ── ADD STUDY SESI ── */
+function openAddStudySesi(prefillMateriId, prefillSid){
+  const dateEl = document.getElementById('as2-date');
+  if(dateEl) dateEl.value = tod();
+  document.getElementById('as2-start').value = '';
+  document.getElementById('as2-end').value   = '';
+  document.getElementById('as2-tipe').value  = 'belajar';
+  document.getElementById('as2-catatan').value = '';
+  document.querySelectorAll('#as2-tipe-row .chip-select').forEach(c => c.classList.toggle('sel', c.dataset.v==='belajar'));
+
+  // Fill matkul dropdown
+  const sel = document.getElementById('as2-sid');
+  sel.innerHTML = '<option value="">— Pilih Matkul (opsional) —</option>'+
+    (D.subjects||[]).filter(s=>!s.archived).map(s=>`<option value="${s.id}">${s.emoji} ${s.name}</option>`).join('');
+  if(prefillSid) sel.value = prefillSid;
+
+  _renderStudySesiMateriList('as2', prefillSid||'', prefillMateriId ? [prefillMateriId] : []);
+
+  // On matkul change, re-render materi list
+  sel.onchange = () => _renderStudySesiMateriList('as2', sel.value, []);
+
+  openSheet('sh-addstudy');
+}
+
+function _renderStudySesiMateriList(prefix, sid, selIds){
+  const el = document.getElementById(prefix+'-materi-list');
+  if(!el) return;
+  const matkul = sid ? (D.materi||[]).filter(m=>m.sid===sid) : [];
+  el.innerHTML = matkul.length ? matkul.map(m =>
+    `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" onclick="toggleMateriPick(this,'${m.id}','${prefix}')">`+
+    `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
+    `<div class="kmp-name">${m.name}</div></div>`
+  ).join('') : `<div style="font-size:12px;color:var(--ink3);padding:4px 0">${sid?'Belum ada materi':'Pilih matkul dulu'}</div>`;
+}
+
+function saveStudySesi(){
+  const date  = document.getElementById('as2-date').value || tod();
+  const start = document.getElementById('as2-start').value;
+  const end   = document.getElementById('as2-end').value;
+  const tipe  = document.getElementById('as2-tipe').value;
+  const sid   = document.getElementById('as2-sid').value;
+  const cat   = document.getElementById('as2-catatan').value.trim();
+  const matIds = [...document.querySelectorAll('#as2-materi-list .kelas-materi-pick.sel')].map(el => {
+    const m = el.getAttribute('onclick').match(/'([^']+)'/); return m?m[1]:null;
+  }).filter(Boolean);
+
+  D.studySesi.push({ id:'ss'+Date.now(), date, startTime:start, endTime:end, tipe, sid:sid||null, materiIds:matIds, catatan:cat, selesai:false });
+  save(); closeSheet('sh-addstudy'); toast('📚 Jadwal belajar ditambahkan');
+  renderJadwal();
+}
+
+function toggleStudySesiDone(id){
+  const ss = (D.studySesi||[]).find(s=>s.id===id);
+  if(!ss) return;
+  ss.selesai = !ss.selesai;
+
+  // If marked done, auto-add to studyLog for each linked materi
+  if(ss.selesai){
+    (ss.materiIds||[]).forEach(mid => {
+      const m = D.materi.find(x=>x.id===mid);
+      if(m){
+        if(!m.studyLog) m.studyLog=[];
+        const alreadyLogged = m.studyLog.some(l => l._studySesiId === id);
+        if(!alreadyLogged){
+          m.studyLog.push({ id:'sl'+Date.now()+Math.random(), date:ss.date, durMenit:null, tipe:ss.tipe||'belajar', catatan:ss.catatan||'', _studySesiId:id, _auto:true });
+        }
+      }
+    });
+  }
+
+  save(); renderJadwal();
+}
+
+function openEditStudySesi(id){
+  const ss = (D.studySesi||[]).find(s=>s.id===id);
+  if(!ss) return;
+  document.getElementById('es2-date').value    = ss.date||'';
+  document.getElementById('es2-start').value   = ss.startTime||'';
+  document.getElementById('es2-end').value     = ss.endTime||'';
+  document.getElementById('es2-tipe').value    = ss.tipe||'belajar';
+  document.getElementById('es2-catatan').value = ss.catatan||'';
+  document.getElementById('es2-id').value      = id;
+  document.querySelectorAll('#es2-tipe-row .chip-select').forEach(c => c.classList.toggle('sel', c.dataset.v===(ss.tipe||'belajar')));
+
+  const sel = document.getElementById('es2-sid');
+  sel.innerHTML = '<option value="">— Pilih Matkul —</option>'+
+    (D.subjects||[]).filter(s=>!s.archived).map(s=>`<option value="${s.id}">${s.emoji} ${s.name}</option>`).join('');
+  sel.value = ss.sid||'';
+  _renderStudySesiMateriList('es2', ss.sid||'', ss.materiIds||[]);
+  sel.onchange = () => _renderStudySesiMateriList('es2', sel.value, []);
+
+  openSheet('sh-editstudy');
+}
+
+function saveEditStudySesi(){
+  const id = document.getElementById('es2-id').value;
+  const ss = (D.studySesi||[]).find(s=>s.id===id);
+  if(!ss) return;
+  ss.date      = document.getElementById('es2-date').value;
+  ss.startTime = document.getElementById('es2-start').value;
+  ss.endTime   = document.getElementById('es2-end').value;
+  ss.tipe      = document.getElementById('es2-tipe').value;
+  ss.sid       = document.getElementById('es2-sid').value||null;
+  ss.catatan   = document.getElementById('es2-catatan').value.trim();
+  ss.materiIds = [...document.querySelectorAll('#es2-materi-list .kelas-materi-pick.sel')].map(el => {
+    const m = el.getAttribute('onclick').match(/'([^']+)'/); return m?m[1]:null;
+  }).filter(Boolean);
+  save(); closeSheet('sh-editstudy'); toast('✅ Diperbarui'); renderJadwal();
+}
+
+function deleteStudySesi(){
+  const id = document.getElementById('es2-id').value;
+  D.studySesi = (D.studySesi||[]).filter(s=>s.id!==id);
+  save(); closeSheet('sh-editstudy'); toast('🗑 Dihapus'); renderJadwal();
+}
+
+/* ── STUDY LOG (dari detail materi) ── */
+function openAddStudyLog(mid){
+  document.getElementById('asl-date').value    = tod();
+  document.getElementById('asl-dur').value     = '';
+  document.getElementById('asl-tipe').value    = 'belajar';
+  document.getElementById('asl-catatan').value = '';
+  document.getElementById('asl-mid').value     = mid;
+  document.querySelectorAll('#asl-tipe-row .chip-select').forEach(c => c.classList.toggle('sel', c.dataset.v==='belajar'));
+  openSheet('sh-addstudylog');
+}
+
+function saveStudyLog(){
+  const mid     = document.getElementById('asl-mid').value;
+  const date    = document.getElementById('asl-date').value || tod();
+  const dur     = parseInt(document.getElementById('asl-dur').value)||null;
+  const tipe    = document.getElementById('asl-tipe').value;
+  const catatan = document.getElementById('asl-catatan').value.trim();
+  const m = D.materi.find(x=>x.id===mid);
+  if(!m) return;
+  if(!m.studyLog) m.studyLog = [];
+  m.studyLog.push({ id:'sl'+Date.now(), date, durMenit:dur, tipe, catatan });
+  save(); closeSheet('sh-addstudylog'); toast('📖 Dicatat');
+  // re-render if detail view is open
+  if(curSid) renderDetailMateriStudyLog(mid);
+}
+
+function deleteStudyLog(mid, logId){
+  const m = D.materi.find(x=>x.id===mid);
+  if(!m||!m.studyLog) return;
+  m.studyLog = m.studyLog.filter(l=>l.id!==logId);
+  save(); renderDetailMateriStudyLog(mid);
+}
+
+function renderDetailMateriStudyLog(mid){
+  const container = document.getElementById('study-log-'+mid);
+  if(!container) return;
+  const m = D.materi.find(x=>x.id===mid);
+  if(!m) return;
+  const logs = (m.studyLog||[]).sort((a,b)=>b.date.localeCompare(a.date));
+  container.innerHTML = logs.length ? logs.map(l=>
+    `<div class="sls-item">`+
+    `<div class="sls-date">${fmtDs(l.date)}</div>`+
+    `<div class="sls-body">`+
+    `<span class="sls-tipe ${l.tipe||'belajar'}">${tipeLabel(l.tipe||'belajar').replace(/^[^ ]+ /,'')}</span>`+
+    (l.durMenit ? `<span class="sls-dur"> · ${l.durMenit} mnt</span>` : '')+
+    (l.catatan  ? `<div class="sls-catatan">${l.catatan}</div>` : '')+
+    `</div>`+
+    (!l._auto?`<button class="sls-del" onclick="deleteStudyLog('${mid}','${l.id}')">✕</button>`:'')+
+    `</div>`
+  ).join('') : `<div class="sls-empty">Belum ada riwayat belajar</div>`;
+}
+
+/* ── PERTEMUAN TAB in detail view ── */
+function renderDetailPertemuan(sid){
+  const container = document.getElementById('d-pertemuan');
+  if(!container) return;
+
+  // Show recent + upcoming occurrences for this subject
+  const from  = ago(60);
+  const until = ago(-30);
+  const occs = getKlasOccurrences(from, until).filter(o => o.sid === sid);
+
+  // add btn
+  document.getElementById('add-p-btn').onclick = () => {
+    // open add kelas one-off with sid pre-selected
+    const sid2 = sid;
+    openAddKelasRecurring();
+    setTimeout(()=>{
+      const sel = document.getElementById('ak-sid');
+      if(sel) sel.value = sid2;
+      // switch to one-time
+      const rcb = document.getElementById('ak-recurring');
+      if(rcb){ rcb.checked = false; toggleKelasRecurUI(); }
+    }, 50);
+  };
+
+  if(!occs.length){
+    container.innerHTML = '<div style="padding:14px;font-size:13px;color:var(--ink3);text-align:center">Belum ada pertemuan tercatat.<br>Tambahkan jadwal kelas terlebih dahulu.</div>';
+    return;
+  }
+
+  container.innerHTML = occs.reverse().map(occ => {
+    const d = new Date(occ.date+'T12:00:00');
+    const matNames = (occ.materiIds||[]).map(mid => {
+      const m = D.materi.find(x=>x.id===mid); return m?m.name:null;
+    }).filter(Boolean);
+    const exc = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : occ;
+    const status = exc?.status || occ.status || null;
+
+    return `<div class="pertemuan-item" onclick="openEditKelasOccurrence(${JSON.stringify(occ).replace(/"/g,'&quot;')})">
+      <div class="pi-date-col">
+        <div class="pi-date-day">${d.getDate()}</div>
+        <div class="pi-date-mon">${MONTH_SHORT[d.getMonth()]}</div>
+      </div>
+      <div class="pi-body">
+        <div class="pi-title">${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}</div>
+        <div class="pi-meta">${occ.lokasi||''}</div>
+        ${matNames.length?`<div class="pi-materi-chips">${matNames.map(n=>`<span class="pi-materi-chip">${n}</span>`).join('')}</div>`:''}
+      </div>
+      ${status?`<div class="pi-status-badge ksp-${status}">${statusAbsenLabel(status)}</div>`:''}
+    </div>`;
+  }).join('');
+}
 
 // ════════ PROJECT & AREA — DATA DEFAULTS ═══════
 function ensurePAData(){
@@ -11738,6 +13301,7 @@ function navPopGoView(view){
   document.querySelectorAll('.bn').forEach(b => b.classList.remove('active'));
   bnFocus.classList.add('active');
   if(view === 'projects') goView('projects', null);
+  else if(view === 'moments') goView('moments', null);
   else                    goView('areas',    null);
 }
 
