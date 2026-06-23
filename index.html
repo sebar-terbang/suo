@@ -6540,18 +6540,9 @@ input,select,textarea { font-family:inherit; }
 
       <!-- Detail Tab Nav -->
       <div class="detail-tab-nav" id="detail-tab-nav">
-        <button class="detail-tab" id="dtab-pertemuan" onclick="setDetailTab(&#39;pertemuan&#39;)">🗓 Pertemuan</button>
         <button class="detail-tab active" id="dtab-materi" onclick="setDetailTab(&#39;materi&#39;)">📖 Belajar</button>
         <button class="detail-tab" id="dtab-tugas" onclick="setDetailTab(&#39;tugas&#39;)">📋 Kerjain</button>
         <button class="detail-tab" id="dtab-ujian" onclick="setDetailTab(&#39;ujian&#39;)">📝 Siapin</button>
-      </div>
-
-      <!-- Pertemuan Tab -->
-      <div class="detail-tab-content" id="dtab-content-pertemuan">
-        <div class="pad" style="padding-top:14px">
-          <div class="sec" id="sec-p-label">🗓 Pertemuan <span class="sec-link" id="add-p-btn">+ Tambah</span></div>
-          <div class="card" id="d-pertemuan"></div>
-        </div>
       </div>
 
       <!-- Belajar Tab -->
@@ -9231,6 +9222,8 @@ function mkSubjItem(s, isArchived){
 let _detailTab = 'materi';
 
 function setDetailTab(tab){
+  // Guard: pertemuan tab was removed — redirect to materi
+  if(tab === 'pertemuan') tab = 'materi';
   _detailTab = tab;
   document.querySelectorAll('.detail-tab').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.detail-tab-content').forEach(c=>c.classList.remove('active'));
@@ -9282,9 +9275,6 @@ function renderDetail(id){
   if(absenBar) absenBar.style.display='none';
 
   setDetailTab(_detailTab);
-
-  // ─── PERTEMUAN TAB ─────────────────────────
-  renderDetailPertemuan(id);
 
   // ─── BELAJAR TAB ────────────────────────────
   document.getElementById('add-m-btn').onclick=()=>{
@@ -10821,25 +10811,26 @@ function openEditM(id){
 }
 
 function renderEditMStudyLog(mid){
-  const m = D.materi.find(x=>x.id===mid);
-  if(!m) return;
   const bodyId = `em-studylog-body-${mid}`;
   const el = document.getElementById(bodyId);
   if(!el) return;
-  const logs = (m.studyLog||[]).filter(l=>!l._auto).sort((a,b)=>b.date.localeCompare(a.date));
-  const allLogs = (m.studyLog||[]).sort((a,b)=>b.date.localeCompare(a.date));
-  el.innerHTML = allLogs.length ? allLogs.map(l=>
-    `<div class="sls-item">`+
-    `<div class="sls-date">${fmtDs(l.date)}</div>`+
-    `<div class="sls-body">`+
-    `<span class="sls-tipe ${l.tipe||'belajar'}">${{belajar:'Belajar',review:'Review',persiapan:'Persiapan'}[l.tipe||'belajar']||l.tipe}</span>`+
-    (l.durMenit?` <span class="sls-dur">${l.durMenit} mnt</span>`:'')+
-    (l._auto?` <span class="sls-dur" style="color:var(--ink3)">(otomatis)</span>`:'')+
-    (l.catatan&&!l._auto?`<div class="sls-catatan">${l.catatan}</div>`:'')+
-    `</div>`+
-    (!l._auto?`<button class="sls-del" onclick="deleteStudyLog('${mid}','${l.id}');renderEditMStudyLog('${mid}')">✕</button>`:'')+
-    `</div>`
-  ).join('') : `<div class="sls-empty">Belum ada riwayat belajar</div>`;
+
+  const history = getMateriStudyHistory(mid);
+  const sourceLabel = { 'jadwal-belajar':'📅 Jadwal Belajar', 'pertemuan':'🏫 Pertemuan', 'manual':'✏️ Manual' };
+
+  el.innerHTML = history.length ? history.map(l => {
+    const isManual = l._source === 'manual';
+    return `<div class="sls-item">`+
+      `<div class="sls-date">${fmtDs(l.date)}</div>`+
+      `<div class="sls-body">`+
+        `<span class="sls-tipe ${l.tipe||'belajar'}">${{belajar:'Belajar',review:'Review',persiapan:'Persiapan'}[l.tipe||'belajar']||l.tipe}</span>`+
+        ` <span style="font-size:10px;color:var(--ink3)">${sourceLabel[l._source]||''}</span>`+
+        (l.durMenit?`<span class="sls-dur"> · ${l.durMenit} mnt</span>`:'')+
+        (l.catatan&&l._source==='manual'?`<div class="sls-catatan">${l.catatan}</div>`:'')+
+      `</div>`+
+      (isManual?`<button class="sls-del" onclick="deleteStudyLog('${mid}','${l.id}');renderEditMStudyLog('${mid}')">✕</button>`:'')+
+    `</div>`;
+  }).join('') : `<div class="sls-empty">Belum ada riwayat belajar</div>`;
 }
 
 function saveEditM(){
@@ -11429,12 +11420,20 @@ function buildTugasChip(t){
   const s = gS(t.sid);
   const div = document.createElement('div');
   div.className = 'ks-event-card';
-  div.style.cssText = 'margin:6px 12px;cursor:default;border-left:4px solid var(--amber)';
+  div.style.cssText = `margin:6px 12px;border-left:4px solid var(--amber);cursor:pointer;${t.done?'opacity:.55;':''}`;
+
+  const deadline = t.deadline ? `Deadline: ${fmtDs(t.deadline)}` : '';
+  const typeLabel = { soal:'Soal', laporan:'Laporan', video:'Video', presentasi:'Presentasi', lainnya:'Lainnya' }[t.tugasType||'soal'] || '';
+
   div.innerHTML =
-    `<div class="ks-event-inner" style="padding-left:10px">`+
+    `<div class="ks-event-inner" style="padding-left:10px;gap:8px">`+
       `<div class="ks-event-body">`+
-        `<div class="ks-event-title" style="color:var(--amber)">📋 ${t.name}</div>`+
-        `<div class="ks-event-meta">${s?s.name:''}</div>`+
+        `<div class="ks-event-title" style="color:var(--amber)${t.done?';text-decoration:line-through':''}">📋 ${escHtml(t.name)}</div>`+
+        `<div class="ks-event-meta">${[s?s.name:'', typeLabel, deadline].filter(Boolean).join(' · ')}</div>`+
+      `</div>`+
+      `<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0">`+
+        `<button style="font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;border:none;cursor:pointer;${t.done?'background:var(--green-lt);color:var(--green)':'background:var(--amber-lt);color:var(--amber)'}" onclick="event.stopPropagation();quickToggleTugas('${t.id}',this)">${t.done?'✓ Selesai':'Tandai'}</button>`+
+        `<button style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;border:1.5px solid var(--line2);background:var(--white);color:var(--ink2);cursor:pointer" onclick="event.stopPropagation();openEditT('${t.id}')">Edit ›</button>`+
       `</div>`+
     `</div>`;
   return div;
@@ -11444,15 +11443,54 @@ function buildUjianChip(u){
   const s = gS(u.sid);
   const div = document.createElement('div');
   div.className = 'ks-event-card';
-  div.style.cssText = 'margin:6px 12px;cursor:default;border-left:4px solid var(--red)';
+  div.style.cssText = 'margin:6px 12px;border-left:4px solid var(--red);cursor:pointer;';
+
+  const timeStr = u.startTime ? `${u.startTime}${u.endTime?'–'+u.endTime:''}` : '';
+  const typeLabel = u.type || '';
+
   div.innerHTML =
-    `<div class="ks-event-inner" style="padding-left:10px">`+
+    `<div class="ks-event-inner" style="padding-left:10px;gap:8px">`+
       `<div class="ks-event-body">`+
-        `<div class="ks-event-title" style="color:var(--red)">📝 ${u.name}</div>`+
-        `<div class="ks-event-meta">${s?s.name:''} · ${u.type||''}</div>`+
+        `<div class="ks-event-title" style="color:var(--red)">📝 ${escHtml(u.name)}</div>`+
+        `<div class="ks-event-meta">${[s?s.name:'', typeLabel, timeStr].filter(Boolean).join(' · ')}</div>`+
+        (u.ready?`<div style="margin-top:4px"><span style="font-size:10px;font-weight:700;background:var(--green-lt);color:var(--green);padding:2px 7px;border-radius:99px">✓ Siap</span></div>`:
+          `<div style="margin-top:4px"><span style="font-size:10px;font-weight:700;background:var(--red-lt);color:var(--red);padding:2px 7px;border-radius:99px">Belum siap</span></div>`)+
       `</div>`+
+      `<button style="font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;border:1.5px solid var(--line2);background:var(--white);color:var(--ink2);cursor:pointer;flex-shrink:0;align-self:center" onclick="event.stopPropagation();openEditUjianFromId('${u.id}')">Detail ›</button>`+
     `</div>`;
   return div;
+}
+
+function quickToggleTugas(id, btn){
+  const t = D.tugas.find(x=>x.id===id);
+  if(!t) return;
+  t.done = !t.done;
+  btn.style.cssText = t.done
+    ? 'font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;border:none;cursor:pointer;background:var(--green-lt);color:var(--green)'
+    : 'font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;border:none;cursor:pointer;background:var(--amber-lt);color:var(--amber)';
+  btn.textContent = t.done ? '✓ Selesai' : 'Tandai';
+  const card = btn.closest('.ks-event-card');
+  if(card) card.style.opacity = t.done ? '.55' : '1';
+  const titleEl = card?.querySelector('.ks-event-title');
+  if(titleEl) titleEl.style.textDecoration = t.done ? 'line-through' : '';
+  save();
+  toast(t.done ? '✅ Tugas selesai!' : '↩ Ditandai belum selesai');
+  // refresh home badge if needed
+  if(typeof renderHome === 'function') setTimeout(renderHome, 0);
+}
+
+function openEditUjianFromId(uid){
+  // Find and open the ujian edit sheet
+  const u = D.ujian.find(x=>x.id===uid);
+  if(!u) return;
+  // Navigate to the subject detail first if not there
+  if(curSid !== u.sid){
+    // open detail then switch to ujian tab
+    openDetail(u.sid);
+    setTimeout(()=>{ setDetailTab('ujian'); }, 120);
+  } else {
+    setDetailTab('ujian');
+  }
 }
 
 /* ── Label helpers ── */
@@ -11471,8 +11509,12 @@ function pickChipType(prefix, el){
   const row = el.parentElement;
   row.querySelectorAll('.chip-select').forEach(c => c.classList.remove('sel'));
   el.classList.add('sel');
-  const hiddenId = prefix + '-tipe';
-  const hidden = document.getElementById(hiddenId) || document.getElementById(prefix+'-jenis') || document.getElementById(prefix+'-status');
+  // Try all possible hidden field ID patterns
+  const hidden =
+    document.getElementById(prefix) ||           // exact match (e.g. 'ek-status')
+    document.getElementById(prefix + '-tipe') ||
+    document.getElementById(prefix + '-jenis') ||
+    document.getElementById(prefix + '-status');
   if(hidden) hidden.value = el.dataset.v;
 }
 
@@ -11560,96 +11602,131 @@ function saveKelasRecurring(){
 let _editOcc = null; // currently editing occurrence
 
 function openEditKelasOccurrence(occ){
+  // occ can be a plain object or come from inline HTML call — normalise
+  if(typeof occ === 'string') { try { occ = JSON.parse(occ); } catch(e){ return; } }
   _editOcc = occ;
-  const exception = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
-  const current = exception || occ;
 
-  // Status chips
+  // Resolve current (exception overrides template)
+  const exception = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
+  const current   = exception || occ;
+
+  // ── Store all critical data in hidden fields (survives any memory issues) ──
+  document.getElementById('ek-occurrence-key').value  = occ.recurringId ? `${occ.recurringId}__${occ.date}` : (occ.id||'');
+  // Extra hidden fields (add them lazily if missing)
+  _setOrCreate('ek-occ-sid',         occ.sid||'');
+  _setOrCreate('ek-occ-date',        occ.date||'');
+  _setOrCreate('ek-occ-recurId',     occ.recurringId||'');
+  _setOrCreate('ek-occ-id',          occ.id||'');
+  _setOrCreate('ek-occ-startTime',   occ.startTime||'');
+  _setOrCreate('ek-occ-endTime',     occ.endTime||'');
+  _setOrCreate('ek-occ-lokasi',      occ.lokasi||'');
+  _setOrCreate('ek-occ-jenis',       occ.jenis||'kuliah');
+
+  // ── Status chips ──
   const statusVal = current.status || '';
+  document.getElementById('ek-status').value = statusVal;
   document.querySelectorAll('#ek-status-row .chip-select').forEach(c => {
     c.classList.toggle('sel', c.dataset.v === statusVal);
   });
-  document.getElementById('ek-status').value = statusVal;
 
-  // Catatan
+  // ── Catatan ──
   document.getElementById('ek-catatan').value = current.catatan || '';
 
-  // Store occurrence key
-  document.getElementById('ek-occurrence-key').value = occ.recurringId ? `${occ.recurringId}__${occ.date}` : (occ.id||'');
-
-  // Show delete-all button only for recurring
+  // ── Show/hide delete-all button ──
   document.getElementById('ek-recurring-actions').style.display = occ.recurringId ? '' : 'none';
 
-  // Materi multi-select
-  const matList = document.getElementById('ek-materi-list');
-  const sid = occ.sid;
-  const selIds = current.materiIds || [];
-  const matkul = (D.materi||[]).filter(m => m.sid === sid);
-  matList.innerHTML = matkul.length ? matkul.map(m =>
-    `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" onclick="toggleMateriPick(this,'${m.id}','ek')">`+
-    `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
-    `<div class="kmp-name">${m.name}</div></div>`
-  ).join('') : '<div style="font-size:12px;color:var(--ink3);padding:6px 0">Belum ada materi untuk matkul ini</div>';
+  // ── Materi multi-select — use data-mid attribute (reliable) ──
+  const matList  = document.getElementById('ek-materi-list');
+  const sid      = occ.sid;
+  const selIds   = current.materiIds || [];
+  const matkul   = (D.materi||[]).filter(m => m.sid === sid);
+  matList.innerHTML = matkul.length
+    ? matkul.map(m =>
+        `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" data-mid="${m.id}" onclick="toggleMateriPick(this)">`+
+        `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
+        `<div class="kmp-name">${m.name}</div></div>`
+      ).join('')
+    : '<div style="font-size:12px;color:var(--ink3);padding:6px 0">Belum ada materi untuk matkul ini</div>';
 
   openSheet('sh-editkelas');
 }
 
-function toggleMateriPick(el, mid, prefix){
+// Helper: set value on hidden input, creating it if it doesn't exist
+function _setOrCreate(id, value){
+  let el = document.getElementById(id);
+  if(!el){
+    el = document.createElement('input');
+    el.type = 'hidden'; el.id = id;
+    document.getElementById('sh-editkelas')?.appendChild(el);
+  }
+  el.value = value;
+}
+
+function toggleMateriPick(el){
   el.classList.toggle('sel');
   el.querySelector('.kmp-check').textContent = el.classList.contains('sel') ? '✓' : '';
 }
 
-function getSelectedMateriIds(containerEl){
-  return [...containerEl.querySelectorAll('.kelas-materi-pick.sel')].map(el => {
-    const onclick = el.getAttribute('onclick');
-    const m = onclick.match(/'([^']+)',\s*'[a-z]+'\)/);
-    return m ? m[1] : null;
-  }).filter(Boolean);
-}
-
 function saveEditKelasOccurrence(){
-  if(!_editOcc) return;
-  const occ = _editOcc;
-  const status    = document.getElementById('ek-status').value;
-  const catatan   = document.getElementById('ek-catatan').value.trim();
-  const matList   = document.getElementById('ek-materi-list');
-  const materiIds = [...matList.querySelectorAll('.kelas-materi-pick.sel')].map(el => {
-    const m = el.getAttribute('onclick').match(/'([^']+)'/);
-    return m ? m[1] : null;
-  }).filter(Boolean);
+  // Read all data from DOM (hidden fields + inputs) — no reliance on _editOcc closure
+  const status      = document.getElementById('ek-status').value;
+  const catatan     = document.getElementById('ek-catatan').value.trim();
+  const recurringId = document.getElementById('ek-occ-recurId')?.value || '';
+  const date        = document.getElementById('ek-occ-date')?.value || (_editOcc?.date||'');
+  const sid         = document.getElementById('ek-occ-sid')?.value || (_editOcc?.sid||'');
+  const occId       = document.getElementById('ek-occ-id')?.value || '';
+  const startTime   = document.getElementById('ek-occ-startTime')?.value || '';
+  const endTime     = document.getElementById('ek-occ-endTime')?.value || '';
+  const lokasi      = document.getElementById('ek-occ-lokasi')?.value || '';
+  const jenis       = document.getElementById('ek-occ-jenis')?.value || 'kuliah';
 
-  if(occ.recurringId){
-    // Upsert exception
-    const existing = getKlasException(occ.recurringId, occ.date);
+  // Read selected materi via data-mid attribute (reliable)
+  const matList   = document.getElementById('ek-materi-list');
+  const materiIds = [...matList.querySelectorAll('.kelas-materi-pick.sel')].map(el => el.dataset.mid).filter(Boolean);
+
+  if(recurringId){
+    // Upsert exception for this specific occurrence
+    const existing = getKlasException(recurringId, date);
     if(existing){
-      existing.status = status; existing.catatan = catatan; existing.materiIds = materiIds;
+      existing.status = status;
+      existing.catatan = catatan;
+      existing.materiIds = materiIds;
     } else {
       D.klasSesi.push({
-        id:'ks'+Date.now(),
-        sid: occ.sid,
-        recurringId: occ.recurringId,
-        date: occ.date,
-        startTime: occ.startTime, endTime: occ.endTime,
-        lokasi: occ.lokasi, jenis: occ.jenis,
+        id: 'ks' + Date.now(),
+        sid, recurringId, date,
+        startTime, endTime, lokasi, jenis,
         materiIds, catatan, status,
         isException: true, isPengganti: false,
       });
     }
-  } else {
+  } else if(occId) {
     // One-off sesi — update directly
-    const existing = (D.klasSesi||[]).find(ks => ks.id === occ.id);
-    if(existing){ existing.status = status; existing.catatan = catatan; existing.materiIds = materiIds; }
+    const existing = (D.klasSesi||[]).find(ks => ks.id === occId);
+    if(existing){
+      existing.status    = status;
+      existing.catatan   = catatan;
+      existing.materiIds = materiIds;
+    }
   }
 
-  // Update study log for materi if hadir
-  if(status === 'hadir'){
+  // Auto-log study history when hadir (computed approach — store source link)
+  if(status === 'hadir' && date){
     materiIds.forEach(mid => {
-      const m = D.materi.find(x=>x.id===mid);
+      const m = D.materi.find(x => x.id === mid);
       if(m){
         if(!m.studyLog) m.studyLog = [];
-        const alreadyLogged = m.studyLog.some(l => l.date === occ.date && l.tipe === 'belajar' && l._auto);
+        const sourceKey = `pertemuan__${recurringId||occId}__${date}`;
+        const alreadyLogged = m.studyLog.some(l => l._sourceKey === sourceKey);
         if(!alreadyLogged){
-          m.studyLog.push({ id:'sl'+Date.now()+Math.random(), date:occ.date, durMenit:null, tipe:'belajar', catatan:'Dicatat otomatis dari pertemuan', _auto:true });
+          m.studyLog.push({
+            id: 'sl' + Date.now() + Math.random(),
+            date, durMenit: null,
+            tipe: 'belajar',
+            catatan: 'Hadir di pertemuan kelas',
+            _auto: true,
+            _sourceKey: sourceKey,
+          });
         }
       }
     });
@@ -11659,34 +11736,45 @@ function saveEditKelasOccurrence(){
   closeSheet('sh-editkelas');
   toast('✅ Pertemuan diperbarui');
   renderJadwal();
+  // Refresh absen recap if detail view is open
+  if(curSid) renderAbsenRecap(curSid);
 }
 
 function deleteKelasOccurrence(){
-  if(!_editOcc) return;
-  const occ = _editOcc;
-  if(occ.recurringId){
-    // Mark as cancelled by adding exception
-    const existing = getKlasException(occ.recurringId, occ.date);
+  const recurringId = document.getElementById('ek-occ-recurId')?.value || '';
+  const date        = document.getElementById('ek-occ-date')?.value || '';
+  const sid         = document.getElementById('ek-occ-sid')?.value || '';
+  const occId       = document.getElementById('ek-occ-id')?.value || '';
+  const startTime   = document.getElementById('ek-occ-startTime')?.value || '';
+  const endTime     = document.getElementById('ek-occ-endTime')?.value || '';
+  const lokasi      = document.getElementById('ek-occ-lokasi')?.value || '';
+  const jenis       = document.getElementById('ek-occ-jenis')?.value || 'kuliah';
+
+  if(recurringId){
+    const existing = getKlasException(recurringId, date);
     if(existing){ existing.status = 'dibatalkan'; }
     else {
       D.klasSesi.push({
-        id:'ks'+Date.now(), sid:occ.sid, recurringId:occ.recurringId, date:occ.date,
-        startTime:occ.startTime, endTime:occ.endTime, lokasi:occ.lokasi, jenis:occ.jenis,
-        materiIds:[], catatan:'', status:'dibatalkan', isException:true, isPengganti:false,
+        id:'ks'+Date.now(), sid, recurringId, date,
+        startTime, endTime, lokasi, jenis,
+        materiIds:[], catatan:'', status:'dibatalkan',
+        isException:true, isPengganti:false,
       });
     }
-  } else {
-    D.klasSesi = D.klasSesi.filter(ks => ks.id !== occ.id);
+  } else if(occId) {
+    D.klasSesi = D.klasSesi.filter(ks => ks.id !== occId);
   }
   save(); closeSheet('sh-editkelas'); toast('🗑 Pertemuan dihapus');
   renderJadwal();
+  if(curSid) renderAbsenRecap(curSid);
 }
 
 function deleteKelasTemplate(){
-  if(!_editOcc || !_editOcc.recurringId) return;
+  const recurringId = document.getElementById('ek-occ-recurId')?.value || '';
+  if(!recurringId) return;
   if(!confirm('Hapus seluruh jadwal ini (semua pertemuan yang akan datang)?')) return;
-  D.klasRecurring = D.klasRecurring.filter(kr => kr.id !== _editOcc.recurringId);
-  D.klasSesi      = D.klasSesi.filter(ks => ks.recurringId !== _editOcc.recurringId);
+  D.klasRecurring = D.klasRecurring.filter(kr => kr.id !== recurringId);
+  D.klasSesi      = D.klasSesi.filter(ks => ks.recurringId !== recurringId);
   save(); closeSheet('sh-editkelas'); toast('🗑 Jadwal dihapus');
   renderJadwal();
 }
@@ -11720,7 +11808,7 @@ function _renderStudySesiMateriList(prefix, sid, selIds){
   if(!el) return;
   const matkul = sid ? (D.materi||[]).filter(m=>m.sid===sid) : [];
   el.innerHTML = matkul.length ? matkul.map(m =>
-    `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" onclick="toggleMateriPick(this,'${m.id}','${prefix}')">`+
+    `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" data-mid="${m.id}" onclick="toggleMateriPick(this)">`+
     `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
     `<div class="kmp-name">${m.name}</div></div>`
   ).join('') : `<div style="font-size:12px;color:var(--ink3);padding:4px 0">${sid?'Belum ada materi':'Pilih matkul dulu'}</div>`;
@@ -11733,9 +11821,7 @@ function saveStudySesi(){
   const tipe  = document.getElementById('as2-tipe').value;
   const sid   = document.getElementById('as2-sid').value;
   const cat   = document.getElementById('as2-catatan').value.trim();
-  const matIds = [...document.querySelectorAll('#as2-materi-list .kelas-materi-pick.sel')].map(el => {
-    const m = el.getAttribute('onclick').match(/'([^']+)'/); return m?m[1]:null;
-  }).filter(Boolean);
+  const matIds = [...document.querySelectorAll('#as2-materi-list .kelas-materi-pick.sel')].map(el => el.dataset.mid).filter(Boolean);
 
   D.studySesi.push({ id:'ss'+Date.now(), date, startTime:start, endTime:end, tipe, sid:sid||null, materiIds:matIds, catatan:cat, selesai:false });
   save(); closeSheet('sh-addstudy'); toast('📚 Jadwal belajar ditambahkan');
@@ -11746,22 +11832,76 @@ function toggleStudySesiDone(id){
   const ss = (D.studySesi||[]).find(s=>s.id===id);
   if(!ss) return;
   ss.selesai = !ss.selesai;
+  save();
+  renderJadwal();
+  // Refresh materi detail if open
+  if(curSid) renderAbsenRecap(curSid);
+}
 
-  // If marked done, auto-add to studyLog for each linked materi
-  if(ss.selesai){
-    (ss.materiIds||[]).forEach(mid => {
-      const m = D.materi.find(x=>x.id===mid);
-      if(m){
-        if(!m.studyLog) m.studyLog=[];
-        const alreadyLogged = m.studyLog.some(l => l._studySesiId === id);
-        if(!alreadyLogged){
-          m.studyLog.push({ id:'sl'+Date.now()+Math.random(), date:ss.date, durMenit:null, tipe:ss.tipe||'belajar', catatan:ss.catatan||'', _studySesiId:id, _auto:true });
-        }
-      }
+/* ── Computed study history for a materi (single source of truth) ──
+   Combines:
+   1. studySesi that are selesai and link to this materi
+   2. manual studyLog entries on the materi itself
+   Returns sorted array of { date, durMenit, tipe, catatan, _source }
+*/
+function getMateriStudyHistory(mid){
+  const m = D.materi.find(x=>x.id===mid);
+  if(!m) return [];
+  const entries = [];
+
+  // Source 1: completed studySesi
+  (D.studySesi||[]).filter(ss => ss.selesai && (ss.materiIds||[]).includes(mid))
+    .forEach(ss => {
+      entries.push({
+        id: 'ss__'+ss.id,
+        date: ss.date,
+        durMenit: ss.durMenit || null,
+        tipe: ss.tipe || 'belajar',
+        catatan: ss.catatan || '',
+        _source: 'jadwal-belajar',
+        _sourceId: ss.id,
+      });
     });
-  }
 
-  save(); renderJadwal();
+  // Source 2: klasSesi occurrences where materi was covered and status=hadir
+  const allOccs = getKlasOccurrences(ago(365), ago(-7));
+  allOccs.filter(o => {
+    const exc = o.recurringId ? getKlasException(o.recurringId, o.date) : o;
+    const status = exc?.status || o.status;
+    const matIds = exc?.materiIds || o.materiIds || [];
+    return status === 'hadir' && matIds.includes(mid);
+  }).forEach(o => {
+    entries.push({
+      id: 'ks__'+(o.recurringId||o.id)+'__'+o.date,
+      date: o.date,
+      durMenit: null,
+      tipe: 'belajar',
+      catatan: 'Hadir di pertemuan kelas',
+      _source: 'pertemuan',
+      _sourceId: o.recurringId ? `${o.recurringId}__${o.date}` : o.id,
+    });
+  });
+
+  // Source 3: manual studyLog entries (not auto-generated)
+  (m.studyLog||[]).filter(l => !l._auto && !l._studySesiId)
+    .forEach(l => {
+      entries.push({
+        id: l.id,
+        date: l.date,
+        durMenit: l.durMenit,
+        tipe: l.tipe || 'belajar',
+        catatan: l.catatan || '',
+        _source: 'manual',
+        _sourceId: l.id,
+      });
+    });
+
+  // Deduplicate by id, sort descending by date
+  const seen = new Set();
+  return entries.filter(e => {
+    if(seen.has(e.id)) return false;
+    seen.add(e.id); return true;
+  }).sort((a,b) => b.date.localeCompare(a.date));
 }
 
 function openEditStudySesi(id){
@@ -11795,9 +11935,7 @@ function saveEditStudySesi(){
   ss.tipe      = document.getElementById('es2-tipe').value;
   ss.sid       = document.getElementById('es2-sid').value||null;
   ss.catatan   = document.getElementById('es2-catatan').value.trim();
-  ss.materiIds = [...document.querySelectorAll('#es2-materi-list .kelas-materi-pick.sel')].map(el => {
-    const m = el.getAttribute('onclick').match(/'([^']+)'/); return m?m[1]:null;
-  }).filter(Boolean);
+  ss.materiIds = [...document.querySelectorAll('#es2-materi-list .kelas-materi-pick.sel')].map(el => el.dataset.mid).filter(Boolean);
   save(); closeSheet('sh-editstudy'); toast('✅ Diperbarui'); renderJadwal();
 }
 
@@ -11843,72 +11981,97 @@ function deleteStudyLog(mid, logId){
 function renderDetailMateriStudyLog(mid){
   const container = document.getElementById('study-log-'+mid);
   if(!container) return;
-  const m = D.materi.find(x=>x.id===mid);
-  if(!m) return;
-  const logs = (m.studyLog||[]).sort((a,b)=>b.date.localeCompare(a.date));
-  container.innerHTML = logs.length ? logs.map(l=>
+  const history = getMateriStudyHistory(mid);
+  const sourceLabel = { 'jadwal-belajar':'📅','pertemuan':'🏫','manual':'✏️' };
+  container.innerHTML = history.length ? history.map(l =>
     `<div class="sls-item">`+
     `<div class="sls-date">${fmtDs(l.date)}</div>`+
     `<div class="sls-body">`+
-    `<span class="sls-tipe ${l.tipe||'belajar'}">${tipeLabel(l.tipe||'belajar').replace(/^[^ ]+ /,'')}</span>`+
-    (l.durMenit ? `<span class="sls-dur"> · ${l.durMenit} mnt</span>` : '')+
-    (l.catatan  ? `<div class="sls-catatan">${l.catatan}</div>` : '')+
+    `<span class="sls-tipe ${l.tipe||'belajar'}">${{belajar:'Belajar',review:'Review',persiapan:'Persiapan'}[l.tipe||'belajar']||'Belajar'}</span>`+
+    ` <span style="font-size:10px;color:var(--ink3)">${sourceLabel[l._source]||''}</span>`+
+    (l.durMenit?`<span class="sls-dur"> · ${l.durMenit} mnt</span>`:'')+
     `</div>`+
-    (!l._auto?`<button class="sls-del" onclick="deleteStudyLog('${mid}','${l.id}')">✕</button>`:'')+
+    (l._source==='manual'?`<button class="sls-del" onclick="deleteStudyLog('${mid}','${l.id}')">✕</button>`:'')+
     `</div>`
   ).join('') : `<div class="sls-empty">Belum ada riwayat belajar</div>`;
 }
 
-/* ── PERTEMUAN TAB in detail view ── */
-function renderDetailPertemuan(sid){
-  const container = document.getElementById('d-pertemuan');
-  if(!container) return;
-
-  // Show recent + upcoming occurrences for this subject
-  const from  = ago(60);
+/* ── PERTEMUAN SHEET — opened from Catatan Absen tap ── */
+function openPertemuanSheet(sid){
+  const s = gS(sid);
+  const from  = ago(90);
   const until = ago(-30);
-  const occs = getKlasOccurrences(from, until).filter(o => o.sid === sid);
+  const occs  = getKlasOccurrences(from, until)
+    .filter(o => o.sid === sid)
+    .reverse(); // newest first
 
-  // add btn
-  document.getElementById('add-p-btn').onclick = () => {
-    // open add kelas one-off with sid pre-selected
-    const sid2 = sid;
-    openAddKelasRecurring();
-    setTimeout(()=>{
-      const sel = document.getElementById('ak-sid');
-      if(sel) sel.value = sid2;
-      // switch to one-time
-      const rcb = document.getElementById('ak-recurring');
-      if(rcb){ rcb.checked = false; toggleKelasRecurUI(); }
-    }, 50);
-  };
-
-  if(!occs.length){
-    container.innerHTML = '<div style="padding:14px;font-size:13px;color:var(--ink3);text-align:center">Belum ada pertemuan tercatat.<br>Tambahkan jadwal kelas terlebih dahulu.</div>';
-    return;
+  // Lazily create sheet
+  let sh = document.getElementById('sh-pertemuan-list');
+  if(!sh){
+    sh = document.createElement('div');
+    sh.id = 'sh-pertemuan-list';
+    sh.className = 'overlay';
+    sh.onclick = e => { if(e.target === sh) closeSheet('sh-pertemuan-list'); };
+    sh.innerHTML =
+      `<div class="sheet">`+
+        `<div class="sh-handle"></div>`+
+        `<div class="sh-header2">`+
+          `<button class="sh-close-btn" onclick="closeSheet('sh-pertemuan-list')">✕</button>`+
+          `<span class="sh-header2-title" id="pert-sh-title">🗓 Pertemuan</span>`+
+          `<button class="sh-save-btn" style="background:var(--blue)" onclick="openAddKelasRecurring()">＋ Tambah</button>`+
+        `</div>`+
+        `<div class="sh-body" id="pert-sh-body"></div>`+
+        `<div style="height:calc(20px + var(--sb))"></div>`+
+      `</div>`;
+    document.body.appendChild(sh);
   }
 
-  container.innerHTML = occs.reverse().map(occ => {
-    const d = new Date(occ.date+'T12:00:00');
-    const matNames = (occ.materiIds||[]).map(mid => {
-      const m = D.materi.find(x=>x.id===mid); return m?m.name:null;
-    }).filter(Boolean);
-    const exc = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : occ;
-    const status = exc?.status || occ.status || null;
+  // Set title
+  const titleEl = document.getElementById('pert-sh-title');
+  if(titleEl) titleEl.textContent = `🗓 Pertemuan · ${s.emoji} ${s.name}`;
 
-    return `<div class="pertemuan-item" onclick="openEditKelasOccurrence(${JSON.stringify(occ).replace(/"/g,'&quot;')})">
-      <div class="pi-date-col">
-        <div class="pi-date-day">${d.getDate()}</div>
-        <div class="pi-date-mon">${MONTH_SHORT[d.getMonth()]}</div>
-      </div>
-      <div class="pi-body">
-        <div class="pi-title">${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}</div>
-        <div class="pi-meta">${occ.lokasi||''}</div>
-        ${matNames.length?`<div class="pi-materi-chips">${matNames.map(n=>`<span class="pi-materi-chip">${n}</span>`).join('')}</div>`:''}
-      </div>
-      ${status?`<div class="pi-status-badge ksp-${status}">${statusAbsenLabel(status)}</div>`:''}
-    </div>`;
-  }).join('');
+  // Render list
+  const body = document.getElementById('pert-sh-body');
+  if(!body) return;
+
+  if(!occs.length){
+    body.innerHTML =
+      `<div style="text-align:center;padding:32px 20px">`+
+        `<div style="font-size:32px;margin-bottom:10px">🗓</div>`+
+        `<div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada pertemuan</div>`+
+        `<div style="font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.6">Tambahkan jadwal kelas recurring<br>agar pertemuan muncul di sini</div>`+
+      `</div>`;
+  } else {
+    body.innerHTML = occs.map(occ => {
+      const exc = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : occ;
+      const status  = exc?.status  || occ.status  || null;
+      const matIds  = exc?.materiIds || occ.materiIds || [];
+      const catatan = exc?.catatan  || occ.catatan  || '';
+      const d = new Date(occ.date + 'T12:00:00');
+      const matNames = matIds.map(mid => {
+        const m = D.materi.find(x => x.id === mid);
+        return m ? m.name : null;
+      }).filter(Boolean);
+      const statusColors = { hadir:'ksp-hadir', izin:'ksp-izin', bolos:'ksp-bolos', dibatalkan:'ksp-dibatalkan' };
+
+      return `<div class="pertemuan-item" onclick='openEditKelasOccurrence(${JSON.stringify(occ).replace(/'/g,"&#39;")})'>`+
+        `<div class="pi-date-col">`+
+          `<div class="pi-date-day" style="color:${occ.date===tod()?'var(--blue)':'var(--ink)'}">${d.getDate()}</div>`+
+          `<div class="pi-date-mon">${MONTH_SHORT[d.getMonth()]} '${String(d.getFullYear()).slice(2)}</div>`+
+        `</div>`+
+        `<div class="pi-body">`+
+          `<div class="pi-title">${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}</div>`+
+          `<div class="pi-meta">${occ.lokasi||''}</div>`+
+          (matNames.length?`<div class="pi-materi-chips">${matNames.map(n=>`<span class="pi-materi-chip">${n}</span>`).join('')}</div>`:'')+
+          (catatan?`<div class="pi-meta" style="font-style:italic;margin-top:3px">${catatan}</div>`:'')+
+        `</div>`+
+        (status?`<div class="pi-status-badge ${statusColors[status]||''}">${statusAbsenLabel(status)}</div>`:
+          `<div style="font-size:11px;color:var(--ink3);flex-shrink:0;padding:2px 6px">Tap untuk isi</div>`)+
+      `</div>`;
+    }).join('');
+  }
+
+  openSheet('sh-pertemuan-list');
 }
 
 // ════════ PROJECT & AREA — DATA DEFAULTS ═══════
@@ -16129,24 +16292,45 @@ function setStatusCardOpt(prefix, status){
 
 // Render absen recap card di tab Belajar
 function renderAbsenRecap(sid){
-  const s=gS(sid);
-  const wrap=document.getElementById('absen-recap-wrap');
+  const s = gS(sid);
+  const wrap = document.getElementById('absen-recap-wrap');
   if(!wrap) return;
-  const absen=s.absen||[];
-  if(!absen.length){
-    wrap.innerHTML=`<div class="absen-recap-empty">🗓 Belum ada catatan absen.<br>Buka materi lalu tap "Catat absen pertemuan" untuk mulai mencatat kehadiran per pertemuan.</div>`;
-    return;
-  }
-  const hadir=absen.filter(a=>a.status==='hadir').length;
-  const bolos=absen.filter(a=>a.status==='bolos').length;
-  const izin=absen.filter(a=>a.status==='izin').length;
-  wrap.innerHTML=
-    `<div class="absen-recap-card" onclick="openAbsenRecapSheet('${sid}')">`+
-      `<div class="arc-item"><div class="arc-num gn">${hadir}</div><div class="arc-lbl">Hadir</div></div>`+
+
+  // Count from new klasSesi (occurrence-based)
+  const from  = ago(180); // last 6 months
+  const until = ago(-60); // next 2 months
+  const occs  = getKlasOccurrences(from, until).filter(o => o.sid === sid);
+  // Merge exception statuses
+  const withStatus = occs.map(o => {
+    const exc = o.recurringId ? getKlasException(o.recurringId, o.date) : o;
+    return { ...o, status: exc?.status || o.status || null };
+  });
+  const total      = withStatus.length;
+  const hadir      = withStatus.filter(o => o.status === 'hadir').length;
+  const bolos      = withStatus.filter(o => o.status === 'bolos').length;
+  const izin       = withStatus.filter(o => o.status === 'izin').length;
+  const belumDiisi = withStatus.filter(o => !o.status || o.status === 'dibatalkan').length;
+
+  // Also count old absen for backward compat (migrated)
+  const oldAbsen = (s.absen||[]);
+  const hadirOld = oldAbsen.filter(a=>a.status==='hadir').length;
+  const bolosOld = oldAbsen.filter(a=>a.status==='bolos').length;
+  const izinOld  = oldAbsen.filter(a=>a.status==='izin').length;
+
+  const totalHadir = hadir + hadirOld;
+  const totalBolos = bolos + bolosOld;
+  const totalIzin  = izin + izinOld;
+  const totalPertemuan = total + oldAbsen.length;
+
+  wrap.innerHTML =
+    `<div class="absen-recap-card" onclick="openPertemuanSheet('${sid}')">`+
+      `<div class="arc-item"><div class="arc-num gn">${totalHadir}</div><div class="arc-lbl">Hadir</div></div>`+
       `<div class="arc-div"></div>`+
-      `<div class="arc-item"><div class="arc-num rd">${bolos}</div><div class="arc-lbl">Bolos</div></div>`+
+      `<div class="arc-item"><div class="arc-num rd">${totalBolos}</div><div class="arc-lbl">Bolos</div></div>`+
       `<div class="arc-div"></div>`+
-      `<div class="arc-item"><div class="arc-num am">${izin}</div><div class="arc-lbl">Izin</div></div>`+
+      `<div class="arc-item"><div class="arc-num am">${totalIzin}</div><div class="arc-lbl">Izin</div></div>`+
+      `<div class="arc-div"></div>`+
+      `<div class="arc-item"><div class="arc-num" style="color:var(--ink3)">${totalPertemuan}</div><div class="arc-lbl">Total</div></div>`+
       `<div class="arc-chev">›</div>`+
     `</div>`;
 }
