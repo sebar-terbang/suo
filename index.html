@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(59).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(56).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -6011,28 +6011,121 @@ input,select,textarea { font-family:inherit; }
 }
 .jadwal-ujian-detail-btn:active { background:var(--red-bd); }
 
-/* ══ PERTEMUAN LIST SHEET ══ */
-.pertemuan-item {
-  display:flex; align-items:center; gap:12px;
-  padding:13px 16px; border-bottom:1px solid var(--line);
-  cursor:pointer; transition:background .1s;
-  -webkit-tap-highlight-color:transparent; position:relative;
+/* ══ PERTEMUAN SHEET — header ══ */
+.pert-sh-head {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 18px 14px;
+  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; background: var(--white); z-index: 2;
+  border-radius: var(--rxl) var(--rxl) 0 0;
 }
-.pertemuan-item:last-child { border-bottom:none; }
-.pertemuan-item:active { background:var(--bg); }
-.pertemuan-item.editing { background:#eff6ff; border-bottom-color:transparent; }
+.pert-sh-back {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--bg); border: none;
+  color: var(--ink2); font-size: 14px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+  transition: background .12s;
+}
+.pert-sh-back:active { background: var(--bg2); }
+.pert-sh-headinfo { flex: 1; min-width: 0; }
+.pert-sh-name {
+  font-size: 16px; font-weight: 800; letter-spacing: -.3px;
+  color: var(--ink); line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pert-sh-stats {
+  font-size: 11px; color: var(--ink3); margin-top: 2px;
+  font-weight: 500; display: flex; align-items: center; gap: 6px;
+}
+.pert-sh-stat-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.pert-sh-add {
+  flex-shrink: 0; padding: 7px 13px; border-radius: 99px;
+  background: var(--blue); color: #fff;
+  font-size: 12px; font-weight: 800; border: none; cursor: pointer;
+  letter-spacing: -.1px; white-space: nowrap;
+  transition: opacity .12s;
+}
+.pert-sh-add:active { opacity: .8; }
 
-.pi-date-col { min-width:36px; text-align:center; flex-shrink:0; }
-.pi-date-day { font-size:20px; font-weight:900; letter-spacing:-.8px; line-height:1; color:var(--ink); }
-.pi-date-mon { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--ink3); margin-top:2px; }
+/* ══ PERTEMUAN LIST ITEMS ══ */
+.pertemuan-item {
+  display: flex; align-items: center; gap: 0;
+  padding: 0; border-bottom: 1px solid var(--line);
+  cursor: pointer; transition: background .1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.pertemuan-item:last-child { border-bottom: none; }
+.pertemuan-item:active { background: var(--bg); }
 
-.pi-body { flex:1; min-width:0; }
-.pi-title { font-size:13px; font-weight:700; color:var(--ink); line-height:1.35; letter-spacing:-.1px; }
-.pi-meta  { font-size:11px; color:var(--ink3); margin-top:2px; line-height:1.4; }
-.pi-materi-chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:5px; }
-.pi-materi-chip  { font-size:10px; font-weight:700; background:var(--blue-lt); color:var(--blue); padding:2px 7px; border-radius:99px; }
+/* Left date pill */
+.pi-date-col {
+  flex-shrink: 0; width: 56px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 14px 0 14px 16px;
+}
+.pi-date-day {
+  font-size: 22px; font-weight: 900; letter-spacing: -.8px;
+  line-height: 1; color: var(--ink);
+}
+.pi-date-day.is-today { color: var(--blue); }
+.pi-date-mon {
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--ink3); margin-top: 2px;
+}
 
-.pi-status-badge { flex-shrink:0; font-size:10px; font-weight:700; padding:4px 9px; border-radius:99px; align-self:flex-start; margin-top:3px; white-space:nowrap; }
+/* Thin vertical divider */
+.pi-divider {
+  width: 1px; background: var(--line); align-self: stretch;
+  margin: 10px 14px 10px 12px; flex-shrink: 0;
+}
+
+/* Content */
+.pi-body { flex: 1; min-width: 0; padding: 12px 4px 12px 0; }
+.pi-title {
+  font-size: 13px; font-weight: 700; color: var(--ink);
+  line-height: 1.3; letter-spacing: -.1px;
+}
+.pi-meta {
+  font-size: 11px; color: var(--ink3); margin-top: 2px; line-height: 1.4;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* Materi tags — single line, truncated */
+.pi-materi-row {
+  display: flex; align-items: center; gap: 4px; margin-top: 5px;
+  overflow: hidden;
+}
+.pi-materi-chip {
+  font-size: 10px; font-weight: 700;
+  background: var(--blue-lt); color: var(--blue);
+  padding: 2px 8px; border-radius: 99px;
+  white-space: nowrap; flex-shrink: 0;
+  max-width: 140px; overflow: hidden; text-overflow: ellipsis;
+}
+.pi-materi-more {
+  font-size: 10px; font-weight: 700; color: var(--ink3);
+  flex-shrink: 0; white-space: nowrap;
+}
+
+/* Status + chevron */
+.pi-right {
+  display: flex; align-items: center; gap: 8px;
+  padding-right: 14px; flex-shrink: 0;
+  align-self: flex-start; padding-top: 14px;
+}
+.pi-status-badge {
+  font-size: 10px; font-weight: 700;
+  padding: 3px 9px; border-radius: 99px;
+  white-space: nowrap;
+}
+.pi-unfilled {
+  font-size: 10px; color: var(--ink3); font-weight: 500;
+  white-space: nowrap;
+}
+.pi-chev {
+  font-size: 14px; color: var(--line2); flex-shrink: 0; line-height: 1;
+  margin-top: 1px;
+}
 
 .jadwal-fab {
   position: fixed; bottom: calc(var(--nav-h) + var(--sb) + 16px); right: 20px;
@@ -6137,34 +6230,6 @@ input,select,textarea { font-family:inherit; }
   background: var(--blue-lt); color: var(--blue); border-color: var(--blue-bd);
 }
 
-/* ══ PERTEMUAN TAB di detail matkul ══ */
-.pertemuan-item {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 12px 16px; border-bottom: 1px solid var(--line);
-  cursor: pointer; transition: background .1s;
-}
-.pertemuan-item:last-child { border-bottom: none; }
-.pertemuan-item:active { background: var(--bg); }
-.pi-date-col {
-  min-width: 38px; text-align: center; flex-shrink: 0; margin-top: 2px;
-}
-.pi-date-day { font-size: 17px; font-weight: 900; letter-spacing: -.5px; line-height: 1; }
-.pi-date-mon { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--ink3); }
-.pi-body { flex: 1; min-width: 0; }
-.pi-title { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.3; }
-.pi-meta { font-size: 11px; color: var(--ink3); margin-top: 2px; }
-.pi-materi-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
-.pi-materi-chip {
-  font-size: 10px; font-weight: 600;
-  background: var(--blue-lt); color: var(--blue);
-  padding: 2px 7px; border-radius: 99px;
-}
-.pi-status-badge {
-  flex-shrink: 0; font-size: 10px; font-weight: 700;
-  padding: 3px 8px; border-radius: 99px;
-  align-self: flex-start; margin-top: 2px;
-}
-
 /* ══ MATERI STUDY LOG ══ */
 .study-log-section {
   background: var(--bg); border-radius: var(--rsm);
@@ -6260,8 +6325,6 @@ input,select,textarea { font-family:inherit; }
   font-size: 14px; border: none; cursor: pointer;
 }
 .pi-ie-del:active { background: var(--red-lt); color: var(--red); }
-.pertemuan-item { cursor: pointer; }
-.pertemuan-item.editing { background: var(--blue-lt); }
 
 </style>
 </head>
@@ -6277,7 +6340,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sb-nav">
       <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🎓</span> Home
-        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">2</span>
+        <span class="sb-item-badge" id="sb-badge" style="display:none;"></span>
       </button>
       <button class="sb-item" id="sbn-jadwal" onclick="goView(&#39;jadwal&#39;,document.getElementById(&#39;bn-jadwal&#39;))">
         <span class="sb-item-ic">📅</span> Jadwal
@@ -6297,7 +6360,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
-      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">📱 Mode lokal</div>
+      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">✅ Tersinkron</div>
     </div>
   </aside>
 
@@ -6522,7 +6585,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ks-cal-dl">Jum</div>
           <div class="ks-cal-dl">Sab</div>
           <div class="ks-cal-dl">Min</div>
-          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">22</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">23</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">24</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">25</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">26</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">27</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">28</span></div></div></div>
+          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">22</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">23</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">24</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">25</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">26</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">27</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">28</span></div></div></div>
         </div>
         <!-- Selected day detail panel -->
         <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
@@ -6560,10 +6623,10 @@ input,select,textarea { font-family:inherit; }
 
       <!-- Filter bar -->
       <div class="jadwal-filter-bar" id="jfbar">
-        <button class="jfpill on" data-cat="kelas" onclick="toggleJadwalFilter(&#39;kelas&#39;,this)"><span class="jfpill-dot" style="background:var(--blue)"></span>Kelas</button>
-        <button class="jfpill on" data-cat="belajar" onclick="toggleJadwalFilter(&#39;belajar&#39;,this)"><span class="jfpill-dot" style="background:var(--purple)"></span>Belajar</button>
-        <button class="jfpill" data-cat="tugas" onclick="toggleJadwalFilter(&#39;tugas&#39;,this)"><span class="jfpill-dot" style="background:var(--amber)"></span>Tugas</button>
-        <button class="jfpill" data-cat="ujian" onclick="toggleJadwalFilter(&#39;ujian&#39;,this)"><span class="jfpill-dot" style="background:var(--red)"></span>Ujian</button>
+        <button class="jfpill on" data-cat="kelas"   onclick="toggleJadwalFilter('kelas',this)"><span class="jfpill-dot" style="background:var(--blue)"></span>Kelas</button>
+        <button class="jfpill on" data-cat="belajar" onclick="toggleJadwalFilter('belajar',this)"><span class="jfpill-dot" style="background:var(--purple)"></span>Belajar</button>
+        <button class="jfpill"    data-cat="tugas"   onclick="toggleJadwalFilter('tugas',this)"><span class="jfpill-dot" style="background:var(--amber)"></span>Tugas</button>
+        <button class="jfpill"    data-cat="ujian"   onclick="toggleJadwalFilter('ujian',this)"><span class="jfpill-dot" style="background:var(--red)"></span>Ujian</button>
       </div>
 
       <!-- Timeline body -->
@@ -6861,7 +6924,7 @@ input,select,textarea { font-family:inherit; }
   <!-- BOTTOM NAV -->
   <nav class="bnav">
     <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🎓<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
+      <div class="bn-ic">🎓<span class="bn-badge" id="bn-badge" style="display:none;"></span></div><div>Home</div>
     </button>
     <button class="bn" id="bn-jadwal" onclick="goView(&#39;jadwal&#39;, this)">
       <div class="bn-ic">📅</div><div>Jadwal</div>
@@ -6894,7 +6957,7 @@ input,select,textarea { font-family:inherit; }
       <span class="nav-pop-ic" style="color:#145c46">🌙</span>
       <span class="nav-pop-label">
         <div>Kalender Hijriah</div>
-        <div class="nav-pop-sub">Tanggal, bulan &amp; peristiwa Islam</div>
+        <div class="nav-pop-sub">Tanggal, bulan & peristiwa Islam</div>
       </span>
       <span class="nav-pop-arrow">›</span>
     </button>
@@ -7759,11 +7822,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ ADD KELAS RECURRING ════ -->
-<div class="overlay" id="sh-addkelas" onclick="bgc(event,&#39;sh-addkelas&#39;)">
+<div class="overlay" id="sh-addkelas" onclick="bgc(event,'sh-addkelas')">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addkelas&#39;)">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet('sh-addkelas')">✕</button>
       <span class="sh-header2-title">🏫 Jadwal Kelas</span>
       <button class="sh-save-btn" style="background:var(--blue)" onclick="saveKelasRecurring()">Simpan</button>
     </div>
@@ -7773,11 +7836,11 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Jenis Pertemuan</label>
         <div class="chip-select-row" id="ak-jenis-row">
-          <div class="chip-select sel" data-v="kuliah" onclick="pickChipType(&#39;ak&#39;,this)">📚 Kuliah</div>
-          <div class="chip-select" data-v="praktikum" onclick="pickChipType(&#39;ak&#39;,this)">🔬 Praktikum</div>
-          <div class="chip-select" data-v="presentasi" onclick="pickChipType(&#39;ak&#39;,this)">🖥 Presentasi</div>
-          <div class="chip-select" data-v="ujian" onclick="pickChipType(&#39;ak&#39;,this)">📝 Ujian</div>
-          <div class="chip-select" data-v="lainnya" onclick="pickChipType(&#39;ak&#39;,this)">📌 Lainnya</div>
+          <div class="chip-select sel" data-v="kuliah" onclick="pickChipType('ak',this)">📚 Kuliah</div>
+          <div class="chip-select" data-v="praktikum" onclick="pickChipType('ak',this)">🔬 Praktikum</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType('ak',this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="ujian" onclick="pickChipType('ak',this)">📝 Ujian</div>
+          <div class="chip-select" data-v="lainnya" onclick="pickChipType('ak',this)">📌 Lainnya</div>
         </div>
         <input type="hidden" id="ak-jenis" value="kuliah">
       </div>
@@ -7794,7 +7857,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ae-recur-sub">Kelas ini berulang setiap minggu?</div>
         </div>
         <label class="ae-switch">
-          <input type="checkbox" id="ak-recurring" checked="" onchange="toggleKelasRecurUI()">
+          <input type="checkbox" id="ak-recurring" checked onchange="toggleKelasRecurUI()">
           <span class="ae-switch-track"></span>
         </label>
       </div>
@@ -7829,11 +7892,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ EDIT PERTEMUAN ════ -->
-<div class="overlay" id="sh-pert-edit" onclick="bgc(event,&#39;sh-pert-edit&#39;)">
+<div class="overlay" id="sh-pert-edit" onclick="bgc(event,'sh-pert-edit')">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-pert-edit&#39;)">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet('sh-pert-edit')">✕</button>
       <div style="flex:1;min-width:0">
         <div class="sh-header2-title" id="pert-edit-title">📅 Detail Pertemuan</div>
         <div id="pert-edit-subtitle" style="font-size:11px;color:var(--ink3);margin-top:1px;font-weight:500"></div>
@@ -7846,10 +7909,10 @@ input,select,textarea { font-family:inherit; }
       <div class="field">
         <label class="flbl">Kehadiran</label>
         <div class="chip-select-row" id="pert-edit-status-row">
-          <div class="chip-select" data-v="hadir" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">✅ Hadir</div>
-          <div class="chip-select" data-v="izin" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">📝 Izin</div>
-          <div class="chip-select" data-v="bolos" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">❌ Bolos</div>
-          <div class="chip-select" data-v="dibatalkan" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">🚫 Dibatalkan</div>
+          <div class="chip-select" data-v="hadir"      onclick="pickChipType('pert-edit-status',this)">✅ Hadir</div>
+          <div class="chip-select" data-v="izin"       onclick="pickChipType('pert-edit-status',this)">📝 Izin</div>
+          <div class="chip-select" data-v="bolos"      onclick="pickChipType('pert-edit-status',this)">❌ Bolos</div>
+          <div class="chip-select" data-v="dibatalkan" onclick="pickChipType('pert-edit-status',this)">🚫 Dibatalkan</div>
         </div>
         <input type="hidden" id="pert-edit-status" value="">
       </div>
@@ -7880,11 +7943,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ ADD STUDY SESI ════ -->
-<div class="overlay" id="sh-addstudy" onclick="bgc(event,&#39;sh-addstudy&#39;)">
+<div class="overlay" id="sh-addstudy" onclick="bgc(event,'sh-addstudy')">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addstudy&#39;)">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet('sh-addstudy')">✕</button>
       <span class="sh-header2-title">📚 Jadwal Belajar</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveStudySesi()">Simpan</button>
     </div>
@@ -7896,9 +7959,9 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Tipe Sesi</label>
         <div class="chip-select-row" id="as2-tipe-row">
-          <div class="chip-select sel" data-v="belajar" onclick="pickChipType(&#39;as2&#39;,this)">📖 Belajar</div>
-          <div class="chip-select" data-v="review" onclick="pickChipType(&#39;as2&#39;,this)">🔄 Review</div>
-          <div class="chip-select" data-v="persiapan" onclick="pickChipType(&#39;as2&#39;,this)">📝 Persiapan Ujian</div>
+          <div class="chip-select sel" data-v="belajar"   onclick="pickChipType('as2',this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review"        onclick="pickChipType('as2',this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan"     onclick="pickChipType('as2',this)">📝 Persiapan Ujian</div>
         </div>
         <input type="hidden" id="as2-tipe" value="belajar">
       </div>
@@ -7917,11 +7980,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ EDIT STUDY SESI ════ -->
-<div class="overlay" id="sh-editstudy" onclick="bgc(event,&#39;sh-editstudy&#39;)">
+<div class="overlay" id="sh-editstudy" onclick="bgc(event,'sh-editstudy')">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-editstudy&#39;)">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet('sh-editstudy')">✕</button>
       <span class="sh-header2-title">📚 Edit Jadwal Belajar</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveEditStudySesi()">Simpan</button>
     </div>
@@ -7933,9 +7996,9 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Tipe Sesi</label>
         <div class="chip-select-row" id="es2-tipe-row">
-          <div class="chip-select" data-v="belajar" onclick="pickChipType(&#39;es2&#39;,this)">📖 Belajar</div>
-          <div class="chip-select" data-v="review" onclick="pickChipType(&#39;es2&#39;,this)">🔄 Review</div>
-          <div class="chip-select" data-v="persiapan" onclick="pickChipType(&#39;es2&#39;,this)">📝 Persiapan Ujian</div>
+          <div class="chip-select" data-v="belajar"   onclick="pickChipType('es2',this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review"    onclick="pickChipType('es2',this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan" onclick="pickChipType('es2',this)">📝 Persiapan Ujian</div>
         </div>
         <input type="hidden" id="es2-tipe" value="belajar">
       </div>
@@ -7959,11 +8022,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ ADD STUDY LOG (dari detail materi) ════ -->
-<div class="overlay" id="sh-addstudylog" onclick="bgc(event,&#39;sh-addstudylog&#39;)">
+<div class="overlay" id="sh-addstudylog" onclick="bgc(event,'sh-addstudylog')">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addstudylog&#39;)">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet('sh-addstudylog')">✕</button>
       <span class="sh-header2-title">📖 Catat Belajar</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveStudyLog()">Simpan</button>
     </div>
@@ -7972,9 +8035,9 @@ input,select,textarea { font-family:inherit; }
       <div class="field"><label class="flbl">Durasi (menit, opsional)</label><input id="asl-dur" type="number" min="1" max="600" placeholder="e.g. 45"></div>
       <div class="field"><label class="flbl">Tipe</label>
         <div class="chip-select-row" id="asl-tipe-row">
-          <div class="chip-select sel" data-v="belajar" onclick="pickChipType(&#39;asl&#39;,this)">📖 Belajar</div>
-          <div class="chip-select" data-v="review" onclick="pickChipType(&#39;asl&#39;,this)">🔄 Review</div>
-          <div class="chip-select" data-v="persiapan" onclick="pickChipType(&#39;asl&#39;,this)">📝 Persiapan</div>
+          <div class="chip-select sel" data-v="belajar"   onclick="pickChipType('asl',this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review"        onclick="pickChipType('asl',this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan"     onclick="pickChipType('asl',this)">📝 Persiapan</div>
         </div>
         <input type="hidden" id="asl-tipe" value="belajar">
       </div>
@@ -11640,6 +11703,13 @@ function closeFabMenu(){
   document.getElementById('fab-menu')?.classList.remove('open');
 }
 
+/* ── Materi pick toggle (shared by all sheets) ── */
+function toggleMateriPick(el){
+  el.classList.toggle('sel');
+  const check = el.querySelector('.kmp-check');
+  if(check) check.textContent = el.classList.contains('sel') ? '✓' : '';
+}
+
 /* ── ADD KELAS RECURRING ── */
 function openAddKelasRecurring(){
   // populate matkul dropdown
@@ -11936,7 +12006,6 @@ function openPertemuanSheet(sid){
   _pertEditIdx = null;
   const s = gS(sid);
 
-  // Lazily create sheet
   let sh = document.getElementById('sh-pertemuan-list');
   if(!sh){
     sh = document.createElement('div');
@@ -11946,18 +12015,21 @@ function openPertemuanSheet(sid){
     sh.innerHTML =
       `<div class="sheet">`+
         `<div class="sh-handle"></div>`+
-        `<div class="sh-header2">`+
-          `<button class="sh-close-btn" onclick="closeSheet('sh-pertemuan-list')">✕</button>`+
-          `<span class="sh-header2-title" id="pert-sh-title">🗓 Pertemuan</span>`+
-          `<button class="sh-save-btn" style="background:var(--blue)" onclick="openAddKelasRecurring()">＋ Jadwal</button>`+
+        `<div class="pert-sh-head">`+
+          `<button class="pert-sh-back" onclick="closeSheet('sh-pertemuan-list')">✕</button>`+
+          `<div class="pert-sh-headinfo">`+
+            `<div class="pert-sh-name" id="pert-sh-title"></div>`+
+            `<div class="pert-sh-stats" id="pert-sh-stats"></div>`+
+          `</div>`+
+          `<button class="pert-sh-add" onclick="openAddKelasRecurring()">＋ Jadwal</button>`+
         `</div>`+
-        `<div class="sh-body" id="pert-sh-body"></div>`+
-        `<div style="height:calc(20px + var(--sb))"></div>`+
+        `<div id="pert-sh-body"></div>`+
+        `<div style="height:calc(24px + var(--sb))"></div>`+
       `</div>`;
     document.body.appendChild(sh);
   }
 
-  document.getElementById('pert-sh-title').textContent = `🗓 ${s.emoji} ${s.name}`;
+  document.getElementById('pert-sh-title').textContent = `${s.emoji} ${s.name}`;
   _renderPertShBody();
   openSheet('sh-pertemuan-list');
 }
@@ -11971,12 +12043,31 @@ function _renderPertShBody(){
     .filter(o => o.sid === _pertSid)
     .reverse();
 
+  // Stats for header
+  const statuses = _pertOccs.map(o => {
+    const exc = o.recurringId ? getKlasException(o.recurringId, o.date) : null;
+    return exc?.status || o.status || null;
+  });
+  const nHadir = statuses.filter(s => s === 'hadir').length;
+  const nBolos = statuses.filter(s => s === 'bolos').length;
+  const nIzin  = statuses.filter(s => s === 'izin').length;
+  const statsEl = document.getElementById('pert-sh-stats');
+  if(statsEl && _pertOccs.length){
+    statsEl.innerHTML =
+      `<span style="color:#15803d;font-weight:700">${nHadir} hadir</span>`+
+      `<span class="pert-sh-stat-dot" style="background:var(--line2)"></span>`+
+      `<span style="color:#b91c1c;font-weight:700">${nBolos} bolos</span>`+
+      (nIzin?`<span class="pert-sh-stat-dot" style="background:var(--line2)"></span><span style="color:#b45309;font-weight:700">${nIzin} izin</span>`:'')+
+      `<span class="pert-sh-stat-dot" style="background:var(--line2)"></span>`+
+      `<span>${_pertOccs.length} total</span>`;
+  } else if(statsEl) statsEl.innerHTML = '';
+
   if(!_pertOccs.length){
     body.innerHTML =
-      `<div style="text-align:center;padding:32px 20px">`+
-        `<div style="font-size:32px;margin-bottom:10px">🗓</div>`+
-        `<div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada pertemuan</div>`+
-        `<div style="font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.6">Tap "＋ Jadwal" untuk membuat jadwal kelas recurring,<br>pertemuan akan muncul otomatis di sini.</div>`+
+      `<div style="text-align:center;padding:48px 24px">`+
+        `<div style="font-size:40px;margin-bottom:14px">🗓</div>`+
+        `<div style="font-size:15px;font-weight:800;color:var(--ink2);letter-spacing:-.2px">Belum ada pertemuan</div>`+
+        `<div style="font-size:12px;color:var(--ink3);margin-top:8px;line-height:1.7">Tap <strong>＋ Jadwal</strong> di atas untuk membuat<br>jadwal kelas recurring.</div>`+
       `</div>`;
     return;
   }
@@ -11988,34 +12079,59 @@ function _renderPertShBody(){
 }
 
 function _buildPertItem(occ, idx){
-  const exc    = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
-  const status = exc?.status   || occ.status   || null;
-  const matIds = exc?.materiIds || occ.materiIds || [];
-  const d      = new Date(occ.date + 'T12:00:00');
+  const exc     = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
+  const status  = exc?.status    || occ.status    || null;
+  const matIds  = exc?.materiIds || occ.materiIds || [];
+  const d       = new Date(occ.date + 'T12:00:00');
   const isToday = occ.date === tod();
+  const isPast  = occ.date < tod();
 
+  // Resolve materi names — max 2 shown + overflow count
   const matNames = matIds.map(mid => {
     const m = D.materi.find(x => x.id === mid); return m ? m.name : null;
   }).filter(Boolean);
+  const matShow  = matNames.slice(0, 2);
+  const matExtra = matNames.length > 2 ? matNames.length - 2 : 0;
 
-  const statusBadge = status
+  // Status badge HTML
+  const badgeHtml = status
     ? `<div class="pi-status-badge ksp-${status}">${statusAbsenLabel(status)}</div>`
-    : `<div style="font-size:11px;color:var(--ink3);flex-shrink:0;font-weight:500">Belum diisi</div>`;
+    : `<div class="pi-unfilled">${isPast ? 'Belum diisi' : ''}</div>`;
+
+  // Meta line: lokasi or time context
+  const metaLine = [occ.lokasi, isToday ? '📍 Hari ini' : ''].filter(Boolean).join(' · ');
 
   const wrap = document.createElement('div');
   wrap.innerHTML =
     `<div class="pertemuan-item" onclick="_openPertEditSheet(${idx})">`+
+
+      // Date column
       `<div class="pi-date-col">`+
-        `<div class="pi-date-day" style="${isToday?'color:var(--blue)':''}">${d.getDate()}</div>`+
+        `<div class="pi-date-day${isToday?' is-today':''}">${d.getDate()}</div>`+
         `<div class="pi-date-mon">${MONTH_SHORT[d.getMonth()]}</div>`+
       `</div>`+
+
+      // Thin separator line
+      `<div class="pi-divider"></div>`+
+
+      // Main content
       `<div class="pi-body">`+
         `<div class="pi-title">${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}</div>`+
-        `<div class="pi-meta">${occ.lokasi||''}</div>`+
-        (matNames.length ? `<div class="pi-materi-chips">${matNames.map(n=>`<span class="pi-materi-chip">${n}</span>`).join('')}</div>` : '')+
+        (metaLine ? `<div class="pi-meta">${metaLine}</div>` : '')+
+        (matNames.length
+          ? `<div class="pi-materi-row">`+
+              matShow.map(n => `<span class="pi-materi-chip">${n}</span>`).join('')+
+              (matExtra ? `<span class="pi-materi-more">+${matExtra}</span>` : '')+
+            `</div>`
+          : '')+
       `</div>`+
-      statusBadge+
-      `<div class="pi-chev">›</div>`+
+
+      // Right: status + chevron
+      `<div class="pi-right">`+
+        badgeHtml+
+        `<div class="pi-chev">›</div>`+
+      `</div>`+
+
     `</div>`;
   return wrap;
 }
@@ -16333,15 +16449,6 @@ function stepPertemuan(prefix, delta){
   if(v<1) v=1;
   hidden.value=v;
   valEl.textContent=v;
-}
-
-// Chip type selector
-function pickChipType(prefix, el){
-  const row=el.parentElement;
-  row.querySelectorAll('.chip-select').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  const hidden=document.getElementById(prefix+'-type');
-  if(hidden) hidden.value=el.dataset.v;
 }
 
 // Toggle switch (done toggle)
