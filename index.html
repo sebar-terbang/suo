@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(56).html -->
+<!-- saved from url=(0063)file:///C:/Users/Aditya%20Dhafa%20P/Downloads/index%20(59).html -->
 <html lang="id"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -5896,111 +5896,144 @@ input,select,textarea { font-family:inherit; }
   font-size: 13px; color: var(--ink3); font-weight: 500;
 }
 
-/* ══ KELAS SESI CARD ══ */
+/* ══ JADWAL CARDS — kelas, study, tugas, ujian ══ */
+
+/* ── Kelas Event Card ── */
 .ks-event-card {
-  display: flex; align-items: flex-start; gap: 0;
-  margin: 6px 12px;
-  border-radius: 12px; overflow: hidden;
+  display: flex; align-items: stretch;
+  margin: 5px 12px;
+  border-radius: 14px; overflow: hidden;
   background: var(--white);
-  box-shadow: 0 1px 6px rgba(0,0,0,.07);
-  border: 1px solid var(--line);
+  box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.07);
+  border: 1px solid rgba(0,0,0,.06);
   cursor: pointer;
-  transition: transform .15s cubic-bezier(.32,.72,0,1);
+  transition: transform .15s cubic-bezier(.32,.72,0,1), box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
 }
-.ks-event-card:active { transform: scale(.975); }
-.ks-event-card.is-cancelled { opacity: .5; }
-
+.ks-event-card:active { transform: scale(.978); box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+.ks-event-card.is-cancelled { opacity: .45; }
 .ks-event-accent { width: 4px; flex-shrink: 0; }
-.ks-event-inner {
-  flex: 1; padding: 9px 11px;
-  display: flex; align-items: flex-start; gap: 9px;
-}
-.ks-event-time {
-  min-width: 42px; text-align: right; flex-shrink: 0;
-}
-.ks-event-time-main {
-  font-size: 11px; font-weight: 700; color: var(--ink2); line-height: 1.4;
-}
-.ks-event-time-end {
-  font-size: 10px; color: var(--ink3); line-height: 1.3;
-}
-.ks-event-body { flex: 1; min-width: 0; }
-.ks-event-title {
-  font-size: 13px; font-weight: 700; color: var(--ink);
-  line-height: 1.3;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.ks-event-meta {
-  font-size: 11px; color: var(--ink3); margin-top: 2px; line-height: 1.3;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.ks-event-pills {
-  display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;
-}
-.ks-event-pill {
-  font-size: 10px; font-weight: 700;
-  padding: 2px 7px; border-radius: 99px;
-}
-.ksp-kuliah     { background: var(--blue-lt);   color: var(--blue); }
-.ksp-praktikum  { background: var(--green-lt);  color: var(--green); }
-.ksp-presentasi { background: var(--purple-lt); color: var(--purple); }
-.ksp-ujian      { background: var(--red-lt);    color: var(--red); }
-.ksp-lainnya    { background: var(--bg2);       color: var(--ink2); }
-.ksp-hadir      { background: var(--green-lt);  color: var(--green); }
-.ksp-izin       { background: var(--amber-lt);  color: var(--amber); }
-.ksp-bolos      { background: var(--red-lt);    color: var(--red); }
-.ksp-dibatalkan { background: var(--bg2);       color: var(--ink3); }
+.ks-event-inner { flex:1; padding:10px 12px; display:flex; align-items:flex-start; gap:10px; min-width:0; }
+.ks-event-time { min-width:40px; text-align:right; flex-shrink:0; padding-top:1px; }
+.ks-event-time-main { font-size:11px; font-weight:800; color:var(--ink2); line-height:1.3; letter-spacing:-.2px; }
+.ks-event-time-end  { font-size:10px; color:var(--ink3); line-height:1.3; margin-top:1px; }
+.ks-event-body { flex:1; min-width:0; }
+.ks-event-title { font-size:13px; font-weight:700; color:var(--ink); line-height:1.35; letter-spacing:-.1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ks-event-meta  { font-size:11px; color:var(--ink3); margin-top:2px; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.ks-event-pills { display:flex; gap:4px; flex-wrap:wrap; margin-top:5px; }
+.ks-event-pill  { font-size:10px; font-weight:700; letter-spacing:.01em; padding:2px 7px; border-radius:99px; }
+.ksp-kuliah     { background:var(--blue-lt);   color:var(--blue); }
+.ksp-praktikum  { background:var(--green-lt);  color:var(--green); }
+.ksp-presentasi { background:var(--purple-lt); color:var(--purple); }
+.ksp-ujian      { background:var(--red-lt);    color:var(--red); }
+.ksp-lainnya    { background:var(--bg2);       color:var(--ink2); }
+.ksp-hadir      { background:#dcfce7; color:#15803d; }
+.ksp-izin       { background:#fef3c7; color:#b45309; }
+.ksp-bolos      { background:#fee2e2; color:#b91c1c; }
+.ksp-dibatalkan { background:var(--bg2); color:var(--ink3); }
 
-/* ══ STUDY SESI CARD ══ */
+/* ── Study Session Card ── */
 .study-event-card {
-  display: flex; align-items: flex-start; gap: 0;
-  margin: 6px 12px;
-  border-radius: 12px; overflow: hidden;
-  background: var(--purple-lt);
-  box-shadow: 0 1px 6px rgba(0,0,0,.05);
-  border: 1px solid rgba(124,58,237,.2);
-  cursor: pointer;
-  transition: transform .15s;
+  display:flex; align-items:stretch; margin:5px 12px;
+  border-radius:14px; overflow:hidden;
+  background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);
+  box-shadow:0 1px 3px rgba(124,58,237,.08),0 4px 12px rgba(124,58,237,.1);
+  border:1px solid rgba(124,58,237,.15);
+  cursor:pointer; transition:transform .15s cubic-bezier(.32,.72,0,1);
+  -webkit-tap-highlight-color:transparent;
 }
-.study-event-card:active { transform: scale(.975); }
-.study-event-card.is-selesai { opacity: .6; }
-.study-event-accent { width: 4px; background: var(--purple); flex-shrink: 0; }
-.study-event-inner {
-  flex: 1; padding: 9px 11px;
-  display: flex; align-items: flex-start; gap: 9px;
-}
-.study-event-time {
-  min-width: 42px; text-align: right; flex-shrink: 0;
-}
-.study-event-time-main {
-  font-size: 11px; font-weight: 700; color: var(--purple); line-height: 1.4;
-}
-.study-event-body { flex: 1; min-width: 0; }
-.study-event-title {
-  font-size: 13px; font-weight: 700; color: #4c1d95;
-  line-height: 1.3;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.study-event-meta {
-  font-size: 11px; color: var(--purple); margin-top: 2px;
-  opacity: .75;
-}
-.study-event-done-btn {
-  flex-shrink: 0; padding: 5px 8px;
-  font-size: 11px; font-weight: 700;
-  border-radius: 99px; border: none;
-  cursor: pointer; white-space: nowrap;
-  align-self: center;
-  transition: all .15s;
-}
-.study-event-done-btn.todo {
-  background: rgba(124,58,237,.15); color: var(--purple);
-}
-.study-event-done-btn.done {
-  background: var(--green-lt); color: var(--green);
-}
+.study-event-card:active { transform:scale(.978); }
+.study-event-card.is-selesai { opacity:.55; }
+.study-event-accent { width:4px; background:var(--purple); flex-shrink:0; }
+.study-event-inner  { flex:1; padding:10px 12px; display:flex; align-items:center; gap:10px; min-width:0; }
+.study-event-time   { min-width:40px; text-align:right; flex-shrink:0; }
+.study-event-time-main { font-size:11px; font-weight:800; color:var(--purple); line-height:1.3; letter-spacing:-.2px; }
+.study-event-body   { flex:1; min-width:0; }
+.study-event-title  { font-size:13px; font-weight:700; color:#4c1d95; line-height:1.35; letter-spacing:-.1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.study-event-meta   { font-size:11px; color:var(--purple); margin-top:2px; opacity:.7; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.study-event-done-btn { flex-shrink:0; padding:6px 11px; font-size:11px; font-weight:700; border-radius:99px; border:none; cursor:pointer; transition:all .15s; white-space:nowrap; }
+.study-event-done-btn.todo { background:rgba(124,58,237,.13); color:var(--purple); }
+.study-event-done-btn.done { background:#dcfce7; color:#15803d; }
 
-/* ══ JADWAL FAB ══ */
+/* ── Tugas Card (jadwal) ── */
+.jadwal-tugas-card {
+  display:flex; align-items:stretch; margin:5px 12px;
+  border-radius:14px; overflow:hidden; background:var(--white);
+  box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.06);
+  -webkit-tap-highlight-color:transparent;
+}
+.jadwal-tugas-card.is-done { opacity:.5; }
+.jadwal-tugas-accent { width:4px; flex-shrink:0; background:var(--amber); }
+.jadwal-tugas-inner  { flex:1; padding:10px 12px; display:flex; align-items:center; gap:10px; min-width:0; }
+.jadwal-tugas-body   { flex:1; min-width:0; }
+.jadwal-tugas-title  { font-size:13px; font-weight:700; color:var(--ink); letter-spacing:-.1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.jadwal-tugas-title.done { text-decoration:line-through; color:var(--ink3); }
+.jadwal-tugas-meta   { font-size:11px; color:var(--ink3); margin-top:2px; }
+.jadwal-tugas-actions { display:flex; gap:6px; align-items:center; padding-right:10px; flex-shrink:0; }
+.jta-check {
+  width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:15px; border:none; cursor:pointer; transition:all .15s;
+}
+.jta-check.todo { background:var(--amber-lt); color:var(--amber); }
+.jta-check.done { background:#dcfce7; color:#15803d; }
+.jta-check:active { transform:scale(.88); }
+.jta-edit {
+  width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; background:var(--bg2); color:var(--ink3);
+  border:none; cursor:pointer; transition:background .12s;
+}
+.jta-edit:active { background:var(--line2); }
+
+/* ── Ujian Card (jadwal) ── */
+.jadwal-ujian-card {
+  display:flex; align-items:stretch; margin:5px 12px;
+  border-radius:14px; overflow:hidden; background:var(--white);
+  box-shadow:0 1px 3px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.06);
+  border:1px solid rgba(0,0,0,.06);
+  -webkit-tap-highlight-color:transparent;
+}
+.jadwal-ujian-accent { width:4px; flex-shrink:0; background:var(--red); }
+.jadwal-ujian-inner  { flex:1; padding:10px 12px; display:flex; align-items:center; gap:10px; min-width:0; }
+.jadwal-ujian-body   { flex:1; min-width:0; }
+.jadwal-ujian-title  { font-size:13px; font-weight:700; color:var(--ink); letter-spacing:-.1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.jadwal-ujian-meta   { font-size:11px; color:var(--ink3); margin-top:2px; }
+.jadwal-ujian-ready  { font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px; margin-top:4px; display:inline-block; }
+.jadwal-ujian-ready.yes { background:#dcfce7; color:#15803d; }
+.jadwal-ujian-ready.no  { background:#fee2e2; color:#b91c1c; }
+.jadwal-ujian-detail-btn {
+  flex-shrink:0; padding:7px 12px; margin-right:10px;
+  border-radius:99px; font-size:11px; font-weight:700;
+  background:var(--red-lt); color:var(--red); border:none; cursor:pointer;
+  transition:all .15s; white-space:nowrap;
+}
+.jadwal-ujian-detail-btn:active { background:var(--red-bd); }
+
+/* ══ PERTEMUAN LIST SHEET ══ */
+.pertemuan-item {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 16px; border-bottom:1px solid var(--line);
+  cursor:pointer; transition:background .1s;
+  -webkit-tap-highlight-color:transparent; position:relative;
+}
+.pertemuan-item:last-child { border-bottom:none; }
+.pertemuan-item:active { background:var(--bg); }
+.pertemuan-item.editing { background:#eff6ff; border-bottom-color:transparent; }
+
+.pi-date-col { min-width:36px; text-align:center; flex-shrink:0; }
+.pi-date-day { font-size:20px; font-weight:900; letter-spacing:-.8px; line-height:1; color:var(--ink); }
+.pi-date-mon { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--ink3); margin-top:2px; }
+
+.pi-body { flex:1; min-width:0; }
+.pi-title { font-size:13px; font-weight:700; color:var(--ink); line-height:1.35; letter-spacing:-.1px; }
+.pi-meta  { font-size:11px; color:var(--ink3); margin-top:2px; line-height:1.4; }
+.pi-materi-chips { display:flex; flex-wrap:wrap; gap:4px; margin-top:5px; }
+.pi-materi-chip  { font-size:10px; font-weight:700; background:var(--blue-lt); color:var(--blue); padding:2px 7px; border-radius:99px; }
+
+.pi-status-badge { flex-shrink:0; font-size:10px; font-weight:700; padding:4px 9px; border-radius:99px; align-self:flex-start; margin-top:3px; white-space:nowrap; }
+
 .jadwal-fab {
   position: fixed; bottom: calc(var(--nav-h) + var(--sb) + 16px); right: 20px;
   width: 52px; height: 52px; border-radius: 50%;
@@ -6166,17 +6199,69 @@ input,select,textarea { font-family:inherit; }
 .sls-del:active { color: var(--red); }
 .sls-empty { font-size: 12px; color: var(--ink3); text-align: center; padding: 8px 0; font-style: italic; }
 
-/* ══ EXCEPTION SCOPE PICKER ══ */
-.scope-row {
-  display: flex; gap: 8px; margin-top: 8px;
+/* ══ INLINE OCCURRENCE EDITOR (inside pertemuan sheet) ══ */
+.pi-inline-editor {
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  padding: 14px 16px 16px;
+  display: none;
 }
-.scope-btn {
-  flex: 1; padding: 9px 8px; border-radius: var(--rsm);
+.pi-inline-editor.open { display: block; }
+.pi-ie-section { margin-bottom: 12px; }
+.pi-ie-label {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: .06em; color: var(--ink3); margin-bottom: 6px; display: block;
+}
+.pi-ie-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.pi-ie-chip {
+  padding: 6px 12px; border-radius: 99px;
+  font-size: 12px; font-weight: 700; cursor: pointer;
+  background: var(--bg2); color: var(--ink2);
+  border: 1.5px solid var(--line2);
+  transition: all .13s; white-space: nowrap;
+}
+.pi-ie-chip.sel-hadir      { background: var(--green-lt);  color: var(--green);  border-color: var(--green-bd); }
+.pi-ie-chip.sel-izin       { background: var(--amber-lt);  color: var(--amber);  border-color: var(--amber-bd); }
+.pi-ie-chip.sel-bolos      { background: var(--red-lt);    color: var(--red);    border-color: var(--red-bd); }
+.pi-ie-chip.sel-dibatalkan { background: var(--bg2);       color: var(--ink3);   border-color: var(--line2); }
+.pi-ie-materi-list { display: flex; flex-direction: column; gap: 5px; }
+.pi-ie-materi-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; border-radius: 8px;
+  background: var(--white); border: 1.5px solid var(--line);
+  cursor: pointer; font-size: 13px; font-weight: 600; color: var(--ink);
+  transition: all .12s;
+}
+.pi-ie-materi-item.sel { background: var(--blue-lt); border-color: var(--blue-bd); color: var(--blue); }
+.pi-ie-check {
+  width: 17px; height: 17px; border-radius: 4px;
+  border: 1.5px solid var(--line2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800;
+}
+.pi-ie-materi-item.sel .pi-ie-check { background: var(--blue); border-color: var(--blue); color: #fff; }
+.pi-ie-catatan {
+  width: 100%; padding: 8px 10px; border-radius: 8px;
   border: 1.5px solid var(--line2); background: var(--white);
-  font-size: 12px; font-weight: 700; text-align: center;
-  cursor: pointer; transition: all .15s; color: var(--ink2);
+  font-size: 13px; color: var(--ink); resize: none;
+  font-family: inherit;
 }
-.scope-btn.sel { background: var(--blue-lt); border-color: var(--blue); color: var(--blue); }
+.pi-ie-catatan:focus { outline: none; border-color: var(--blue); }
+.pi-ie-actions { display: flex; gap: 8px; margin-top: 14px; }
+.pi-ie-save {
+  flex: 1; padding: 11px; border-radius: 10px;
+  background: var(--blue); color: #fff;
+  font-size: 14px; font-weight: 700; border: none; cursor: pointer;
+}
+.pi-ie-save:active { opacity: .85; }
+.pi-ie-del {
+  padding: 11px 14px; border-radius: 10px;
+  background: var(--bg2); color: var(--ink3);
+  font-size: 14px; border: none; cursor: pointer;
+}
+.pi-ie-del:active { background: var(--red-lt); color: var(--red); }
+.pertemuan-item { cursor: pointer; }
+.pertemuan-item.editing { background: var(--blue-lt); }
 
 </style>
 </head>
@@ -6192,7 +6277,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sb-nav">
       <button class="sb-item" id="sbn-home" onclick="goView(&#39;home&#39;,document.getElementById(&#39;bn-h&#39;))">
         <span class="sb-item-ic">🎓</span> Home
-        <span class="sb-item-badge" id="sb-badge" style="display:none;"></span>
+        <span class="sb-item-badge" id="sb-badge" style="display: inline-block;">2</span>
       </button>
       <button class="sb-item" id="sbn-jadwal" onclick="goView(&#39;jadwal&#39;,document.getElementById(&#39;bn-jadwal&#39;))">
         <span class="sb-item-ic">📅</span> Jadwal
@@ -6212,7 +6297,7 @@ input,select,textarea { font-family:inherit; }
     <div class="sb-subjects" id="sb-subjects-list"><div class="sb-subj-group-label">Semester 4</div><button class="sb-subj-item" data-sid="s2"><span class="sb-subj-emoji">💻</span><span class="sb-subj-name">Algoritma &amp; Pemro</span><span class="sb-subj-pending">1</span></button><button class="sb-subj-item" data-sid="s3"><span class="sb-subj-emoji">🤖</span><span class="sb-subj-name">Deep Learning</span><span class="sb-subj-pending">1</span></button><div class="sb-subj-group-label">Semester 3</div><button class="sb-subj-item" data-sid="s4"><span class="sb-subj-emoji">📐</span><span class="sb-subj-name">Kalkulus 1</span></button></div>
     <div class="sb-footer">
       <button class="sb-add-subj" onclick="openSheet(&#39;sh-addsubj&#39;)">＋ Tambah Subjek</button>
-      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">✅ Tersinkron</div>
+      <div class="sb-sync" id="sb-sync-status" style="margin-top:10px">📱 Mode lokal</div>
     </div>
   </aside>
 
@@ -6437,7 +6522,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ks-cal-dl">Jum</div>
           <div class="ks-cal-dl">Sab</div>
           <div class="ks-cal-dl">Min</div>
-          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">22</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">23</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">24</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">25</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">26</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">27</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">28</span></div></div></div>
+          <div id="hwc-grid" style="display:contents"><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">22</span></div></div><div class="ks-cal-day kcd-past"><div class="ks-num-wrap" style=""><span class="ks-num" style="">23</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style="background:var(--blue);"><span class="ks-num" style="color:#fff;">24</span></div><div class="ks-task-pip ksp-late" style="">Tugas t…</div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">25</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">26</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">27</span></div></div><div class="ks-cal-day"><div class="ks-num-wrap" style=""><span class="ks-num" style="">28</span></div></div></div>
         </div>
         <!-- Selected day detail panel -->
         <div class="ks-day-panel" id="hwc-day-detail" style="display:none"></div>
@@ -6475,10 +6560,10 @@ input,select,textarea { font-family:inherit; }
 
       <!-- Filter bar -->
       <div class="jadwal-filter-bar" id="jfbar">
-        <button class="jfpill on" data-cat="kelas"   onclick="toggleJadwalFilter('kelas',this)"><span class="jfpill-dot" style="background:var(--blue)"></span>Kelas</button>
-        <button class="jfpill on" data-cat="belajar" onclick="toggleJadwalFilter('belajar',this)"><span class="jfpill-dot" style="background:var(--purple)"></span>Belajar</button>
-        <button class="jfpill"    data-cat="tugas"   onclick="toggleJadwalFilter('tugas',this)"><span class="jfpill-dot" style="background:var(--amber)"></span>Tugas</button>
-        <button class="jfpill"    data-cat="ujian"   onclick="toggleJadwalFilter('ujian',this)"><span class="jfpill-dot" style="background:var(--red)"></span>Ujian</button>
+        <button class="jfpill on" data-cat="kelas" onclick="toggleJadwalFilter(&#39;kelas&#39;,this)"><span class="jfpill-dot" style="background:var(--blue)"></span>Kelas</button>
+        <button class="jfpill on" data-cat="belajar" onclick="toggleJadwalFilter(&#39;belajar&#39;,this)"><span class="jfpill-dot" style="background:var(--purple)"></span>Belajar</button>
+        <button class="jfpill" data-cat="tugas" onclick="toggleJadwalFilter(&#39;tugas&#39;,this)"><span class="jfpill-dot" style="background:var(--amber)"></span>Tugas</button>
+        <button class="jfpill" data-cat="ujian" onclick="toggleJadwalFilter(&#39;ujian&#39;,this)"><span class="jfpill-dot" style="background:var(--red)"></span>Ujian</button>
       </div>
 
       <!-- Timeline body -->
@@ -6776,7 +6861,7 @@ input,select,textarea { font-family:inherit; }
   <!-- BOTTOM NAV -->
   <nav class="bnav">
     <button class="bn" id="bn-h" onclick="goView(&#39;home&#39;, this)">
-      <div class="bn-ic">🎓<span class="bn-badge" id="bn-badge" style="display:none;"></span></div><div>Home</div>
+      <div class="bn-ic">🎓<span class="bn-badge" id="bn-badge" style="">2</span></div><div>Home</div>
     </button>
     <button class="bn" id="bn-jadwal" onclick="goView(&#39;jadwal&#39;, this)">
       <div class="bn-ic">📅</div><div>Jadwal</div>
@@ -6809,7 +6894,7 @@ input,select,textarea { font-family:inherit; }
       <span class="nav-pop-ic" style="color:#145c46">🌙</span>
       <span class="nav-pop-label">
         <div>Kalender Hijriah</div>
-        <div class="nav-pop-sub">Tanggal, bulan & peristiwa Islam</div>
+        <div class="nav-pop-sub">Tanggal, bulan &amp; peristiwa Islam</div>
       </span>
       <span class="nav-pop-arrow">›</span>
     </button>
@@ -7674,11 +7759,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ ADD KELAS RECURRING ════ -->
-<div class="overlay" id="sh-addkelas" onclick="bgc(event,'sh-addkelas')">
+<div class="overlay" id="sh-addkelas" onclick="bgc(event,&#39;sh-addkelas&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-addkelas')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addkelas&#39;)">✕</button>
       <span class="sh-header2-title">🏫 Jadwal Kelas</span>
       <button class="sh-save-btn" style="background:var(--blue)" onclick="saveKelasRecurring()">Simpan</button>
     </div>
@@ -7688,11 +7773,11 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Jenis Pertemuan</label>
         <div class="chip-select-row" id="ak-jenis-row">
-          <div class="chip-select sel" data-v="kuliah" onclick="pickChipType('ak',this)">📚 Kuliah</div>
-          <div class="chip-select" data-v="praktikum" onclick="pickChipType('ak',this)">🔬 Praktikum</div>
-          <div class="chip-select" data-v="presentasi" onclick="pickChipType('ak',this)">🖥 Presentasi</div>
-          <div class="chip-select" data-v="ujian" onclick="pickChipType('ak',this)">📝 Ujian</div>
-          <div class="chip-select" data-v="lainnya" onclick="pickChipType('ak',this)">📌 Lainnya</div>
+          <div class="chip-select sel" data-v="kuliah" onclick="pickChipType(&#39;ak&#39;,this)">📚 Kuliah</div>
+          <div class="chip-select" data-v="praktikum" onclick="pickChipType(&#39;ak&#39;,this)">🔬 Praktikum</div>
+          <div class="chip-select" data-v="presentasi" onclick="pickChipType(&#39;ak&#39;,this)">🖥 Presentasi</div>
+          <div class="chip-select" data-v="ujian" onclick="pickChipType(&#39;ak&#39;,this)">📝 Ujian</div>
+          <div class="chip-select" data-v="lainnya" onclick="pickChipType(&#39;ak&#39;,this)">📌 Lainnya</div>
         </div>
         <input type="hidden" id="ak-jenis" value="kuliah">
       </div>
@@ -7709,7 +7794,7 @@ input,select,textarea { font-family:inherit; }
           <div class="ae-recur-sub">Kelas ini berulang setiap minggu?</div>
         </div>
         <label class="ae-switch">
-          <input type="checkbox" id="ak-recurring" checked onchange="toggleKelasRecurUI()">
+          <input type="checkbox" id="ak-recurring" checked="" onchange="toggleKelasRecurUI()">
           <span class="ae-switch-track"></span>
         </label>
       </div>
@@ -7743,50 +7828,63 @@ input,select,textarea { font-family:inherit; }
   </div>
 </div>
 
-<!-- ════ EDIT KELAS SESI (satu occurrence) ════ -->
-<div class="overlay" id="sh-editkelas" onclick="bgc(event,'sh-editkelas')">
+<!-- ════ EDIT PERTEMUAN ════ -->
+<div class="overlay" id="sh-pert-edit" onclick="bgc(event,&#39;sh-pert-edit&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-editkelas')">✕</button>
-      <span class="sh-header2-title">📅 Detail Pertemuan</span>
-      <button class="sh-save-btn" style="background:var(--blue)" onclick="saveEditKelasOccurrence()">Simpan</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-pert-edit&#39;)">✕</button>
+      <div style="flex:1;min-width:0">
+        <div class="sh-header2-title" id="pert-edit-title">📅 Detail Pertemuan</div>
+        <div id="pert-edit-subtitle" style="font-size:11px;color:var(--ink3);margin-top:1px;font-weight:500"></div>
+      </div>
+      <button class="sh-save-btn" style="background:var(--blue)" onclick="_savePertSheet()">Simpan</button>
     </div>
     <div class="sh-body">
-      <div class="field"><label class="flbl">Kehadiran</label>
-        <div class="chip-select-row" id="ek-status-row">
-          <div class="chip-select" data-v="hadir"      onclick="pickChipType('ek-status',this)">✅ Hadir</div>
-          <div class="chip-select" data-v="izin"       onclick="pickChipType('ek-status',this)">📝 Izin</div>
-          <div class="chip-select" data-v="bolos"      onclick="pickChipType('ek-status',this)">❌ Bolos</div>
-          <div class="chip-select" data-v="dibatalkan" onclick="pickChipType('ek-status',this)">🚫 Dibatalkan</div>
+
+      <!-- Kehadiran -->
+      <div class="field">
+        <label class="flbl">Kehadiran</label>
+        <div class="chip-select-row" id="pert-edit-status-row">
+          <div class="chip-select" data-v="hadir" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">✅ Hadir</div>
+          <div class="chip-select" data-v="izin" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">📝 Izin</div>
+          <div class="chip-select" data-v="bolos" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">❌ Bolos</div>
+          <div class="chip-select" data-v="dibatalkan" onclick="pickChipType(&#39;pert-edit-status&#39;,this)">🚫 Dibatalkan</div>
         </div>
-        <input type="hidden" id="ek-status" value="">
+        <input type="hidden" id="pert-edit-status" value="">
       </div>
-      <div class="field"><label class="flbl">Materi yang Dibahas (opsional)</label>
-        <div class="kelas-materi-list" id="ek-materi-list"></div>
+
+      <!-- Materi -->
+      <div class="field">
+        <label class="flbl">Materi yang Dibahas <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label>
+        <div class="kelas-materi-list" id="pert-edit-materi-list"></div>
       </div>
-      <div class="field"><label class="flbl">Catatan Pertemuan (opsional)</label>
-        <textarea id="ek-catatan" rows="2" placeholder="Rangkuman, tugas yang dikasih, dll."></textarea>
+
+      <!-- Catatan -->
+      <div class="field">
+        <label class="flbl">Catatan <span style="font-weight:500;color:var(--ink3)">(opsional)</span></label>
+        <textarea id="pert-edit-catatan" rows="3" placeholder="Rangkuman, tugas yang diberikan, informasi penting, dll."></textarea>
       </div>
-      <input type="hidden" id="ek-occurrence-key">
+
     </div>
     <div class="sh-footer">
-      <div class="sh-row">
-        <button class="sbtn sbtn-d" onclick="deleteKelasOccurrence()">🗑 Hapus Pertemuan Ini</button>
+      <div class="sh-row" id="pert-edit-del-recurring" style="display:none">
+        <button class="sbtn sbtn-d" style="flex:1;font-size:12px" onclick="_deletePertTemplate()">🗑 Hapus Jadwal Ini Selamanya</button>
       </div>
-      <div class="sh-row" id="ek-recurring-actions" style="display:none">
-        <button class="sbtn sbtn-g" style="font-size:12px" onclick="deleteKelasTemplate()">🗑 Hapus Jadwal Ini Selamanya</button>
+      <div class="sh-row">
+        <button class="sbtn sbtn-d" style="flex:1" onclick="_deletePertOccurrence()">🚫 Batalkan Pertemuan Ini</button>
       </div>
     </div>
+    <div style="height:calc(16px + var(--sb))"></div>
   </div>
 </div>
 
 <!-- ════ ADD STUDY SESI ════ -->
-<div class="overlay" id="sh-addstudy" onclick="bgc(event,'sh-addstudy')">
+<div class="overlay" id="sh-addstudy" onclick="bgc(event,&#39;sh-addstudy&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-addstudy')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addstudy&#39;)">✕</button>
       <span class="sh-header2-title">📚 Jadwal Belajar</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveStudySesi()">Simpan</button>
     </div>
@@ -7798,9 +7896,9 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Tipe Sesi</label>
         <div class="chip-select-row" id="as2-tipe-row">
-          <div class="chip-select sel" data-v="belajar"   onclick="pickChipType('as2',this)">📖 Belajar</div>
-          <div class="chip-select" data-v="review"        onclick="pickChipType('as2',this)">🔄 Review</div>
-          <div class="chip-select" data-v="persiapan"     onclick="pickChipType('as2',this)">📝 Persiapan Ujian</div>
+          <div class="chip-select sel" data-v="belajar" onclick="pickChipType(&#39;as2&#39;,this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review" onclick="pickChipType(&#39;as2&#39;,this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan" onclick="pickChipType(&#39;as2&#39;,this)">📝 Persiapan Ujian</div>
         </div>
         <input type="hidden" id="as2-tipe" value="belajar">
       </div>
@@ -7819,11 +7917,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ EDIT STUDY SESI ════ -->
-<div class="overlay" id="sh-editstudy" onclick="bgc(event,'sh-editstudy')">
+<div class="overlay" id="sh-editstudy" onclick="bgc(event,&#39;sh-editstudy&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-editstudy')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-editstudy&#39;)">✕</button>
       <span class="sh-header2-title">📚 Edit Jadwal Belajar</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveEditStudySesi()">Simpan</button>
     </div>
@@ -7835,9 +7933,9 @@ input,select,textarea { font-family:inherit; }
       </div>
       <div class="field"><label class="flbl">Tipe Sesi</label>
         <div class="chip-select-row" id="es2-tipe-row">
-          <div class="chip-select" data-v="belajar"   onclick="pickChipType('es2',this)">📖 Belajar</div>
-          <div class="chip-select" data-v="review"    onclick="pickChipType('es2',this)">🔄 Review</div>
-          <div class="chip-select" data-v="persiapan" onclick="pickChipType('es2',this)">📝 Persiapan Ujian</div>
+          <div class="chip-select" data-v="belajar" onclick="pickChipType(&#39;es2&#39;,this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review" onclick="pickChipType(&#39;es2&#39;,this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan" onclick="pickChipType(&#39;es2&#39;,this)">📝 Persiapan Ujian</div>
         </div>
         <input type="hidden" id="es2-tipe" value="belajar">
       </div>
@@ -7861,11 +7959,11 @@ input,select,textarea { font-family:inherit; }
 </div>
 
 <!-- ════ ADD STUDY LOG (dari detail materi) ════ -->
-<div class="overlay" id="sh-addstudylog" onclick="bgc(event,'sh-addstudylog')">
+<div class="overlay" id="sh-addstudylog" onclick="bgc(event,&#39;sh-addstudylog&#39;)">
   <div class="sheet">
     <div class="sh-handle"></div>
     <div class="sh-header2">
-      <button class="sh-close-btn" onclick="closeSheet('sh-addstudylog')">✕</button>
+      <button class="sh-close-btn" onclick="closeSheet(&#39;sh-addstudylog&#39;)">✕</button>
       <span class="sh-header2-title">📖 Catat Belajar</span>
       <button class="sh-save-btn" style="background:var(--purple)" onclick="saveStudyLog()">Simpan</button>
     </div>
@@ -7874,9 +7972,9 @@ input,select,textarea { font-family:inherit; }
       <div class="field"><label class="flbl">Durasi (menit, opsional)</label><input id="asl-dur" type="number" min="1" max="600" placeholder="e.g. 45"></div>
       <div class="field"><label class="flbl">Tipe</label>
         <div class="chip-select-row" id="asl-tipe-row">
-          <div class="chip-select sel" data-v="belajar"   onclick="pickChipType('asl',this)">📖 Belajar</div>
-          <div class="chip-select" data-v="review"        onclick="pickChipType('asl',this)">🔄 Review</div>
-          <div class="chip-select" data-v="persiapan"     onclick="pickChipType('asl',this)">📝 Persiapan</div>
+          <div class="chip-select sel" data-v="belajar" onclick="pickChipType(&#39;asl&#39;,this)">📖 Belajar</div>
+          <div class="chip-select" data-v="review" onclick="pickChipType(&#39;asl&#39;,this)">🔄 Review</div>
+          <div class="chip-select" data-v="persiapan" onclick="pickChipType(&#39;asl&#39;,this)">📝 Persiapan</div>
         </div>
         <input type="hidden" id="asl-tipe" value="belajar">
       </div>
@@ -11387,8 +11485,17 @@ function buildKlasCard(occ){
         (occ.status ? `<div class="ks-event-pills"><span class="ks-event-pill ksp-${occ.status}">${statusAbsenLabel(occ.status)}</span></div>` : '')+
       `</div>`+
     `</div>`;
-  card.onclick = () => openEditKelasOccurrence(occ);
+  card.onclick = () => _openPertSheetAtOcc(occ);
   return card;
+}
+
+// Open pertemuan sheet for an occ's subject, then auto-expand that occurrence
+function _openPertSheetAtOcc(occ){
+  openPertemuanSheet(occ.sid);
+  setTimeout(() => {
+    const idx = _pertOccs.findIndex(o => o.date === occ.date && (o.recurringId||'') === (occ.recurringId||''));
+    if(idx >= 0) _openPertEditSheet(idx);
+  }, 180);
 }
 
 function buildStudyCard(sesi){
@@ -11418,22 +11525,22 @@ function buildStudyCard(sesi){
 
 function buildTugasChip(t){
   const s = gS(t.sid);
+  const typeLabel = {soal:'Soal',laporan:'Laporan',video:'Video',presentasi:'Presentasi',lainnya:'Lainnya'}[t.tugasType||'soal']||'';
+  const daysLeft = diffD(t.deadline, tod());
+  const urgency = !t.done && daysLeft <= 0 ? '🔴 Hari ini' : !t.done && daysLeft === 1 ? '🟡 Besok' : '';
+
   const div = document.createElement('div');
-  div.className = 'ks-event-card';
-  div.style.cssText = `margin:6px 12px;border-left:4px solid var(--amber);cursor:pointer;${t.done?'opacity:.55;':''}`;
-
-  const deadline = t.deadline ? `Deadline: ${fmtDs(t.deadline)}` : '';
-  const typeLabel = { soal:'Soal', laporan:'Laporan', video:'Video', presentasi:'Presentasi', lainnya:'Lainnya' }[t.tugasType||'soal'] || '';
-
+  div.className = 'jadwal-tugas-card' + (t.done ? ' is-done' : '');
   div.innerHTML =
-    `<div class="ks-event-inner" style="padding-left:10px;gap:8px">`+
-      `<div class="ks-event-body">`+
-        `<div class="ks-event-title" style="color:var(--amber)${t.done?';text-decoration:line-through':''}">📋 ${escHtml(t.name)}</div>`+
-        `<div class="ks-event-meta">${[s?s.name:'', typeLabel, deadline].filter(Boolean).join(' · ')}</div>`+
+    `<div class="jadwal-tugas-accent"></div>`+
+    `<div class="jadwal-tugas-inner">`+
+      `<div class="jadwal-tugas-body">`+
+        `<div class="jadwal-tugas-title${t.done?' done':''}">${escHtml(t.name)}</div>`+
+        `<div class="jadwal-tugas-meta">${[s?s.name:'',typeLabel,urgency].filter(Boolean).join(' · ')}</div>`+
       `</div>`+
-      `<div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0">`+
-        `<button style="font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;border:none;cursor:pointer;${t.done?'background:var(--green-lt);color:var(--green)':'background:var(--amber-lt);color:var(--amber)'}" onclick="event.stopPropagation();quickToggleTugas('${t.id}',this)">${t.done?'✓ Selesai':'Tandai'}</button>`+
-        `<button style="font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px;border:1.5px solid var(--line2);background:var(--white);color:var(--ink2);cursor:pointer" onclick="event.stopPropagation();openEditT('${t.id}')">Edit ›</button>`+
+      `<div class="jadwal-tugas-actions">`+
+        `<button class="jta-check ${t.done?'done':'todo'}" onclick="event.stopPropagation();quickToggleTugas('${t.id}',this)">${t.done?'✓':'○'}</button>`+
+        `<button class="jta-edit" onclick="event.stopPropagation();openEditT('${t.id}')">✎</button>`+
       `</div>`+
     `</div>`;
   return div;
@@ -11441,22 +11548,22 @@ function buildTugasChip(t){
 
 function buildUjianChip(u){
   const s = gS(u.sid);
-  const div = document.createElement('div');
-  div.className = 'ks-event-card';
-  div.style.cssText = 'margin:6px 12px;border-left:4px solid var(--red);cursor:pointer;';
-
   const timeStr = u.startTime ? `${u.startTime}${u.endTime?'–'+u.endTime:''}` : '';
-  const typeLabel = u.type || '';
+  const typeLabel = u.type||'';
+  const daysLeft = diffD(u.date, tod());
+  const countdown = daysLeft === 0 ? '🔴 Hari ini' : daysLeft === 1 ? '🟡 Besok' : daysLeft > 0 ? `${daysLeft} hari lagi` : '';
 
+  const div = document.createElement('div');
+  div.className = 'jadwal-ujian-card';
   div.innerHTML =
-    `<div class="ks-event-inner" style="padding-left:10px;gap:8px">`+
-      `<div class="ks-event-body">`+
-        `<div class="ks-event-title" style="color:var(--red)">📝 ${escHtml(u.name)}</div>`+
-        `<div class="ks-event-meta">${[s?s.name:'', typeLabel, timeStr].filter(Boolean).join(' · ')}</div>`+
-        (u.ready?`<div style="margin-top:4px"><span style="font-size:10px;font-weight:700;background:var(--green-lt);color:var(--green);padding:2px 7px;border-radius:99px">✓ Siap</span></div>`:
-          `<div style="margin-top:4px"><span style="font-size:10px;font-weight:700;background:var(--red-lt);color:var(--red);padding:2px 7px;border-radius:99px">Belum siap</span></div>`)+
+    `<div class="jadwal-ujian-accent"></div>`+
+    `<div class="jadwal-ujian-inner">`+
+      `<div class="jadwal-ujian-body">`+
+        `<div class="jadwal-ujian-title">${escHtml(u.name)}</div>`+
+        `<div class="jadwal-ujian-meta">${[s?s.name:'',typeLabel,timeStr,countdown].filter(Boolean).join(' · ')}</div>`+
+        `<span class="jadwal-ujian-ready ${u.ready?'yes':'no'}">${u.ready?'✓ Siap':'Belum siap'}</span>`+
       `</div>`+
-      `<button style="font-size:11px;font-weight:600;padding:5px 10px;border-radius:99px;border:1.5px solid var(--line2);background:var(--white);color:var(--ink2);cursor:pointer;flex-shrink:0;align-self:center" onclick="event.stopPropagation();openEditUjianFromId('${u.id}')">Detail ›</button>`+
+      `<button class="jadwal-ujian-detail-btn" onclick="event.stopPropagation();openEditUjianFromId('${u.id}')">Buka →</button>`+
     `</div>`;
   return div;
 }
@@ -11465,33 +11572,35 @@ function quickToggleTugas(id, btn){
   const t = D.tugas.find(x=>x.id===id);
   if(!t) return;
   t.done = !t.done;
-  btn.style.cssText = t.done
-    ? 'font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;border:none;cursor:pointer;background:var(--green-lt);color:var(--green)'
-    : 'font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;border:none;cursor:pointer;background:var(--amber-lt);color:var(--amber)';
-  btn.textContent = t.done ? '✓ Selesai' : 'Tandai';
-  const card = btn.closest('.ks-event-card');
-  if(card) card.style.opacity = t.done ? '.55' : '1';
-  const titleEl = card?.querySelector('.ks-event-title');
-  if(titleEl) titleEl.style.textDecoration = t.done ? 'line-through' : '';
+
+  // Update button
+  btn.className = `jta-check ${t.done?'done':'todo'}`;
+  btn.textContent = t.done ? '✓' : '○';
+
+  // Update card
+  const card = btn.closest('.jadwal-tugas-card');
+  if(card){
+    card.classList.toggle('is-done', t.done);
+    const titleEl = card.querySelector('.jadwal-tugas-title');
+    if(titleEl) titleEl.classList.toggle('done', t.done);
+  }
+
   save();
-  toast(t.done ? '✅ Tugas selesai!' : '↩ Ditandai belum selesai');
-  // refresh home badge if needed
+  toast(t.done ? '✅ Tugas selesai!' : '↩ Belum selesai');
   if(typeof renderHome === 'function') setTimeout(renderHome, 0);
 }
 
 function openEditUjianFromId(uid){
-  // Find and open the ujian edit sheet
   const u = D.ujian.find(x=>x.id===uid);
   if(!u) return;
-  // Navigate to the subject detail first if not there
   if(curSid !== u.sid){
-    // open detail then switch to ujian tab
     openDetail(u.sid);
-    setTimeout(()=>{ setDetailTab('ujian'); }, 120);
+    setTimeout(()=>{ setDetailTab('ujian'); }, 150);
   } else {
     setDetailTab('ujian');
   }
 }
+
 
 /* ── Label helpers ── */
 function jenisLabel(j){
@@ -11595,187 +11704,6 @@ function saveKelasRecurring(){
   save();
   closeSheet('sh-addkelas');
   toast('✅ Jadwal kelas disimpan');
-  renderJadwal();
-}
-
-/* ── EDIT KELAS OCCURRENCE ── */
-let _editOcc = null; // currently editing occurrence
-
-function openEditKelasOccurrence(occ){
-  // occ can be a plain object or come from inline HTML call — normalise
-  if(typeof occ === 'string') { try { occ = JSON.parse(occ); } catch(e){ return; } }
-  _editOcc = occ;
-
-  // Resolve current (exception overrides template)
-  const exception = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
-  const current   = exception || occ;
-
-  // ── Store all critical data in hidden fields (survives any memory issues) ──
-  document.getElementById('ek-occurrence-key').value  = occ.recurringId ? `${occ.recurringId}__${occ.date}` : (occ.id||'');
-  // Extra hidden fields (add them lazily if missing)
-  _setOrCreate('ek-occ-sid',         occ.sid||'');
-  _setOrCreate('ek-occ-date',        occ.date||'');
-  _setOrCreate('ek-occ-recurId',     occ.recurringId||'');
-  _setOrCreate('ek-occ-id',          occ.id||'');
-  _setOrCreate('ek-occ-startTime',   occ.startTime||'');
-  _setOrCreate('ek-occ-endTime',     occ.endTime||'');
-  _setOrCreate('ek-occ-lokasi',      occ.lokasi||'');
-  _setOrCreate('ek-occ-jenis',       occ.jenis||'kuliah');
-
-  // ── Status chips ──
-  const statusVal = current.status || '';
-  document.getElementById('ek-status').value = statusVal;
-  document.querySelectorAll('#ek-status-row .chip-select').forEach(c => {
-    c.classList.toggle('sel', c.dataset.v === statusVal);
-  });
-
-  // ── Catatan ──
-  document.getElementById('ek-catatan').value = current.catatan || '';
-
-  // ── Show/hide delete-all button ──
-  document.getElementById('ek-recurring-actions').style.display = occ.recurringId ? '' : 'none';
-
-  // ── Materi multi-select — use data-mid attribute (reliable) ──
-  const matList  = document.getElementById('ek-materi-list');
-  const sid      = occ.sid;
-  const selIds   = current.materiIds || [];
-  const matkul   = (D.materi||[]).filter(m => m.sid === sid);
-  matList.innerHTML = matkul.length
-    ? matkul.map(m =>
-        `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" data-mid="${m.id}" onclick="toggleMateriPick(this)">`+
-        `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
-        `<div class="kmp-name">${m.name}</div></div>`
-      ).join('')
-    : '<div style="font-size:12px;color:var(--ink3);padding:6px 0">Belum ada materi untuk matkul ini</div>';
-
-  openSheet('sh-editkelas');
-}
-
-// Helper: set value on hidden input, creating it if it doesn't exist
-function _setOrCreate(id, value){
-  let el = document.getElementById(id);
-  if(!el){
-    el = document.createElement('input');
-    el.type = 'hidden'; el.id = id;
-    document.getElementById('sh-editkelas')?.appendChild(el);
-  }
-  el.value = value;
-}
-
-function toggleMateriPick(el){
-  el.classList.toggle('sel');
-  el.querySelector('.kmp-check').textContent = el.classList.contains('sel') ? '✓' : '';
-}
-
-function saveEditKelasOccurrence(){
-  // Read all data from DOM (hidden fields + inputs) — no reliance on _editOcc closure
-  const status      = document.getElementById('ek-status').value;
-  const catatan     = document.getElementById('ek-catatan').value.trim();
-  const recurringId = document.getElementById('ek-occ-recurId')?.value || '';
-  const date        = document.getElementById('ek-occ-date')?.value || (_editOcc?.date||'');
-  const sid         = document.getElementById('ek-occ-sid')?.value || (_editOcc?.sid||'');
-  const occId       = document.getElementById('ek-occ-id')?.value || '';
-  const startTime   = document.getElementById('ek-occ-startTime')?.value || '';
-  const endTime     = document.getElementById('ek-occ-endTime')?.value || '';
-  const lokasi      = document.getElementById('ek-occ-lokasi')?.value || '';
-  const jenis       = document.getElementById('ek-occ-jenis')?.value || 'kuliah';
-
-  // Read selected materi via data-mid attribute (reliable)
-  const matList   = document.getElementById('ek-materi-list');
-  const materiIds = [...matList.querySelectorAll('.kelas-materi-pick.sel')].map(el => el.dataset.mid).filter(Boolean);
-
-  if(recurringId){
-    // Upsert exception for this specific occurrence
-    const existing = getKlasException(recurringId, date);
-    if(existing){
-      existing.status = status;
-      existing.catatan = catatan;
-      existing.materiIds = materiIds;
-    } else {
-      D.klasSesi.push({
-        id: 'ks' + Date.now(),
-        sid, recurringId, date,
-        startTime, endTime, lokasi, jenis,
-        materiIds, catatan, status,
-        isException: true, isPengganti: false,
-      });
-    }
-  } else if(occId) {
-    // One-off sesi — update directly
-    const existing = (D.klasSesi||[]).find(ks => ks.id === occId);
-    if(existing){
-      existing.status    = status;
-      existing.catatan   = catatan;
-      existing.materiIds = materiIds;
-    }
-  }
-
-  // Auto-log study history when hadir (computed approach — store source link)
-  if(status === 'hadir' && date){
-    materiIds.forEach(mid => {
-      const m = D.materi.find(x => x.id === mid);
-      if(m){
-        if(!m.studyLog) m.studyLog = [];
-        const sourceKey = `pertemuan__${recurringId||occId}__${date}`;
-        const alreadyLogged = m.studyLog.some(l => l._sourceKey === sourceKey);
-        if(!alreadyLogged){
-          m.studyLog.push({
-            id: 'sl' + Date.now() + Math.random(),
-            date, durMenit: null,
-            tipe: 'belajar',
-            catatan: 'Hadir di pertemuan kelas',
-            _auto: true,
-            _sourceKey: sourceKey,
-          });
-        }
-      }
-    });
-  }
-
-  save();
-  closeSheet('sh-editkelas');
-  toast('✅ Pertemuan diperbarui');
-  renderJadwal();
-  // Refresh absen recap if detail view is open
-  if(curSid) renderAbsenRecap(curSid);
-}
-
-function deleteKelasOccurrence(){
-  const recurringId = document.getElementById('ek-occ-recurId')?.value || '';
-  const date        = document.getElementById('ek-occ-date')?.value || '';
-  const sid         = document.getElementById('ek-occ-sid')?.value || '';
-  const occId       = document.getElementById('ek-occ-id')?.value || '';
-  const startTime   = document.getElementById('ek-occ-startTime')?.value || '';
-  const endTime     = document.getElementById('ek-occ-endTime')?.value || '';
-  const lokasi      = document.getElementById('ek-occ-lokasi')?.value || '';
-  const jenis       = document.getElementById('ek-occ-jenis')?.value || 'kuliah';
-
-  if(recurringId){
-    const existing = getKlasException(recurringId, date);
-    if(existing){ existing.status = 'dibatalkan'; }
-    else {
-      D.klasSesi.push({
-        id:'ks'+Date.now(), sid, recurringId, date,
-        startTime, endTime, lokasi, jenis,
-        materiIds:[], catatan:'', status:'dibatalkan',
-        isException:true, isPengganti:false,
-      });
-    }
-  } else if(occId) {
-    D.klasSesi = D.klasSesi.filter(ks => ks.id !== occId);
-  }
-  save(); closeSheet('sh-editkelas'); toast('🗑 Pertemuan dihapus');
-  renderJadwal();
-  if(curSid) renderAbsenRecap(curSid);
-}
-
-function deleteKelasTemplate(){
-  const recurringId = document.getElementById('ek-occ-recurId')?.value || '';
-  if(!recurringId) return;
-  if(!confirm('Hapus seluruh jadwal ini (semua pertemuan yang akan datang)?')) return;
-  D.klasRecurring = D.klasRecurring.filter(kr => kr.id !== recurringId);
-  D.klasSesi      = D.klasSesi.filter(ks => ks.recurringId !== recurringId);
-  save(); closeSheet('sh-editkelas'); toast('🗑 Jadwal dihapus');
   renderJadwal();
 }
 
@@ -11996,14 +11924,17 @@ function renderDetailMateriStudyLog(mid){
   ).join('') : `<div class="sls-empty">Belum ada riwayat belajar</div>`;
 }
 
-/* ── PERTEMUAN SHEET — opened from Catatan Absen tap ── */
+/* ── PERTEMUAN SHEET — inline editing, no second sheet ── */
+
+// Live occurrence store for the currently open pertemuan sheet
+let _pertSid     = null;  // which subject
+let _pertOccs    = [];    // current occurrence list
+let _pertEditIdx = null;  // index of the occurrence being edited in sheet
+
 function openPertemuanSheet(sid){
+  _pertSid     = sid;
+  _pertEditIdx = null;
   const s = gS(sid);
-  const from  = ago(90);
-  const until = ago(-30);
-  const occs  = getKlasOccurrences(from, until)
-    .filter(o => o.sid === sid)
-    .reverse(); // newest first
 
   // Lazily create sheet
   let sh = document.getElementById('sh-pertemuan-list');
@@ -12018,7 +11949,7 @@ function openPertemuanSheet(sid){
         `<div class="sh-header2">`+
           `<button class="sh-close-btn" onclick="closeSheet('sh-pertemuan-list')">✕</button>`+
           `<span class="sh-header2-title" id="pert-sh-title">🗓 Pertemuan</span>`+
-          `<button class="sh-save-btn" style="background:var(--blue)" onclick="openAddKelasRecurring()">＋ Tambah</button>`+
+          `<button class="sh-save-btn" style="background:var(--blue)" onclick="openAddKelasRecurring()">＋ Jadwal</button>`+
         `</div>`+
         `<div class="sh-body" id="pert-sh-body"></div>`+
         `<div style="height:calc(20px + var(--sb))"></div>`+
@@ -12026,52 +11957,190 @@ function openPertemuanSheet(sid){
     document.body.appendChild(sh);
   }
 
-  // Set title
-  const titleEl = document.getElementById('pert-sh-title');
-  if(titleEl) titleEl.textContent = `🗓 Pertemuan · ${s.emoji} ${s.name}`;
+  document.getElementById('pert-sh-title').textContent = `🗓 ${s.emoji} ${s.name}`;
+  _renderPertShBody();
+  openSheet('sh-pertemuan-list');
+}
 
-  // Render list
+function _renderPertShBody(){
   const body = document.getElementById('pert-sh-body');
   if(!body) return;
 
-  if(!occs.length){
+  const from = ago(90), until = ago(-30);
+  _pertOccs = getKlasOccurrences(from, until)
+    .filter(o => o.sid === _pertSid)
+    .reverse();
+
+  if(!_pertOccs.length){
     body.innerHTML =
       `<div style="text-align:center;padding:32px 20px">`+
         `<div style="font-size:32px;margin-bottom:10px">🗓</div>`+
         `<div style="font-size:14px;font-weight:700;color:var(--ink2)">Belum ada pertemuan</div>`+
-        `<div style="font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.6">Tambahkan jadwal kelas recurring<br>agar pertemuan muncul di sini</div>`+
+        `<div style="font-size:12px;color:var(--ink3);margin-top:6px;line-height:1.6">Tap "＋ Jadwal" untuk membuat jadwal kelas recurring,<br>pertemuan akan muncul otomatis di sini.</div>`+
       `</div>`;
-  } else {
-    body.innerHTML = occs.map(occ => {
-      const exc = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : occ;
-      const status  = exc?.status  || occ.status  || null;
-      const matIds  = exc?.materiIds || occ.materiIds || [];
-      const catatan = exc?.catatan  || occ.catatan  || '';
-      const d = new Date(occ.date + 'T12:00:00');
-      const matNames = matIds.map(mid => {
-        const m = D.materi.find(x => x.id === mid);
-        return m ? m.name : null;
-      }).filter(Boolean);
-      const statusColors = { hadir:'ksp-hadir', izin:'ksp-izin', bolos:'ksp-bolos', dibatalkan:'ksp-dibatalkan' };
-
-      return `<div class="pertemuan-item" onclick='openEditKelasOccurrence(${JSON.stringify(occ).replace(/'/g,"&#39;")})'>`+
-        `<div class="pi-date-col">`+
-          `<div class="pi-date-day" style="color:${occ.date===tod()?'var(--blue)':'var(--ink)'}">${d.getDate()}</div>`+
-          `<div class="pi-date-mon">${MONTH_SHORT[d.getMonth()]} '${String(d.getFullYear()).slice(2)}</div>`+
-        `</div>`+
-        `<div class="pi-body">`+
-          `<div class="pi-title">${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}</div>`+
-          `<div class="pi-meta">${occ.lokasi||''}</div>`+
-          (matNames.length?`<div class="pi-materi-chips">${matNames.map(n=>`<span class="pi-materi-chip">${n}</span>`).join('')}</div>`:'')+
-          (catatan?`<div class="pi-meta" style="font-style:italic;margin-top:3px">${catatan}</div>`:'')+
-        `</div>`+
-        (status?`<div class="pi-status-badge ${statusColors[status]||''}">${statusAbsenLabel(status)}</div>`:
-          `<div style="font-size:11px;color:var(--ink3);flex-shrink:0;padding:2px 6px">Tap untuk isi</div>`)+
-      `</div>`;
-    }).join('');
+    return;
   }
 
-  openSheet('sh-pertemuan-list');
+  body.innerHTML = '';
+  _pertOccs.forEach((occ, idx) => {
+    body.appendChild(_buildPertItem(occ, idx));
+  });
+}
+
+function _buildPertItem(occ, idx){
+  const exc    = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
+  const status = exc?.status   || occ.status   || null;
+  const matIds = exc?.materiIds || occ.materiIds || [];
+  const d      = new Date(occ.date + 'T12:00:00');
+  const isToday = occ.date === tod();
+
+  const matNames = matIds.map(mid => {
+    const m = D.materi.find(x => x.id === mid); return m ? m.name : null;
+  }).filter(Boolean);
+
+  const statusBadge = status
+    ? `<div class="pi-status-badge ksp-${status}">${statusAbsenLabel(status)}</div>`
+    : `<div style="font-size:11px;color:var(--ink3);flex-shrink:0;font-weight:500">Belum diisi</div>`;
+
+  const wrap = document.createElement('div');
+  wrap.innerHTML =
+    `<div class="pertemuan-item" onclick="_openPertEditSheet(${idx})">`+
+      `<div class="pi-date-col">`+
+        `<div class="pi-date-day" style="${isToday?'color:var(--blue)':''}">${d.getDate()}</div>`+
+        `<div class="pi-date-mon">${MONTH_SHORT[d.getMonth()]}</div>`+
+      `</div>`+
+      `<div class="pi-body">`+
+        `<div class="pi-title">${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}</div>`+
+        `<div class="pi-meta">${occ.lokasi||''}</div>`+
+        (matNames.length ? `<div class="pi-materi-chips">${matNames.map(n=>`<span class="pi-materi-chip">${n}</span>`).join('')}</div>` : '')+
+      `</div>`+
+      statusBadge+
+      `<div class="pi-chev">›</div>`+
+    `</div>`;
+  return wrap;
+}
+
+/* ── Sheet-based occurrence editor ── */
+
+function _openPertEditSheet(idx){
+  const occ = _pertOccs[idx];
+  if(!occ) return;
+  _pertEditIdx = idx;
+
+  const exc     = occ.recurringId ? getKlasException(occ.recurringId, occ.date) : null;
+  const current = exc || occ;
+  const d       = new Date(occ.date + 'T12:00:00');
+  const s       = gS(occ.sid);
+  const statusVal = current.status || '';
+
+  // Header
+  document.getElementById('pert-edit-title').textContent =
+    `${jenisLabel(occ.jenis)} · ${occ.startTime||'?'}${occ.endTime?'–'+occ.endTime:''}`;
+  document.getElementById('pert-edit-subtitle').textContent =
+    `${DAY_SHORT[d.getDay()]}, ${d.getDate()} ${MONTH_SHORT[d.getMonth()]} ${d.getFullYear()}` +
+    (occ.lokasi ? ` · ${occ.lokasi}` : '');
+
+  // Status chips
+  document.getElementById('pert-edit-status').value = statusVal;
+  document.querySelectorAll('#pert-edit-status-row .chip-select').forEach(c => {
+    c.classList.toggle('sel', c.dataset.v === statusVal);
+  });
+
+  // Catatan
+  document.getElementById('pert-edit-catatan').value = current.catatan || '';
+
+  // Materi list — use kelas-materi-pick with data-mid
+  const selIds  = current.materiIds || [];
+  const matkul  = (D.materi||[]).filter(m => m.sid === occ.sid);
+  const matList = document.getElementById('pert-edit-materi-list');
+  matList.innerHTML = matkul.length
+    ? matkul.map(m =>
+        `<div class="kelas-materi-pick${selIds.includes(m.id)?' sel':''}" data-mid="${m.id}" onclick="toggleMateriPick(this)">`+
+        `<div class="kmp-check">${selIds.includes(m.id)?'✓':''}</div>`+
+        `<div class="kmp-name">${m.name}</div></div>`
+      ).join('')
+    : `<div style="font-size:12px;color:var(--ink3);padding:6px 0">Belum ada materi untuk matkul ini</div>`;
+
+  // Show/hide delete-template button
+  document.getElementById('pert-edit-del-recurring').style.display = occ.recurringId ? '' : 'none';
+
+  openSheet('sh-pert-edit');
+}
+
+function _savePertSheet(){
+  const idx = _pertEditIdx;
+  const occ = _pertOccs[idx];
+  if(!occ) return;
+
+  const status    = document.getElementById('pert-edit-status').value || null;
+  const catatan   = document.getElementById('pert-edit-catatan').value.trim();
+  const materiIds = [...document.querySelectorAll('#pert-edit-materi-list .kelas-materi-pick.sel')]
+                      .map(el => el.dataset.mid).filter(Boolean);
+
+  if(occ.recurringId){
+    const existing = getKlasException(occ.recurringId, occ.date);
+    if(existing){
+      existing.status = status; existing.materiIds = materiIds; existing.catatan = catatan;
+    } else {
+      D.klasSesi.push({
+        id:'ks'+Date.now(), sid:occ.sid, recurringId:occ.recurringId, date:occ.date,
+        startTime:occ.startTime, endTime:occ.endTime, lokasi:occ.lokasi, jenis:occ.jenis,
+        materiIds, catatan, status, isException:true, isPengganti:false,
+      });
+    }
+  } else {
+    const existing = (D.klasSesi||[]).find(ks => ks.id === occ.id);
+    if(existing){ existing.status = status; existing.materiIds = materiIds; existing.catatan = catatan; }
+  }
+
+  save();
+  closeSheet('sh-pert-edit');
+  toast('✅ Pertemuan tersimpan');
+  _renderPertShBody();
+  if(curSid) renderAbsenRecap(curSid);
+  if(curView === 'jadwal') renderJadwalTimeline();
+}
+
+function _deletePertOccurrence(){
+  const idx = _pertEditIdx;
+  const occ = _pertOccs[idx];
+  if(!occ) return;
+
+  if(occ.recurringId){
+    const existing = getKlasException(occ.recurringId, occ.date);
+    if(existing){ existing.status = 'dibatalkan'; }
+    else {
+      D.klasSesi.push({
+        id:'ks'+Date.now(), sid:occ.sid, recurringId:occ.recurringId, date:occ.date,
+        startTime:occ.startTime, endTime:occ.endTime, lokasi:occ.lokasi, jenis:occ.jenis,
+        materiIds:[], catatan:'', status:'dibatalkan', isException:true, isPengganti:false,
+      });
+    }
+  } else {
+    D.klasSesi = (D.klasSesi||[]).filter(ks => ks.id !== occ.id);
+  }
+
+  save();
+  closeSheet('sh-pert-edit');
+  toast('🚫 Pertemuan dibatalkan');
+  _renderPertShBody();
+  if(curSid) renderAbsenRecap(curSid);
+  if(curView === 'jadwal') renderJadwalTimeline();
+}
+
+function _deletePertTemplate(){
+  const idx = _pertEditIdx;
+  const occ = _pertOccs[idx];
+  if(!occ?.recurringId) return;
+  if(!confirm('Hapus seluruh jadwal ini (semua pertemuan)?')) return;
+  D.klasRecurring = D.klasRecurring.filter(kr => kr.id !== occ.recurringId);
+  D.klasSesi      = D.klasSesi.filter(ks => ks.recurringId !== occ.recurringId);
+  save();
+  closeSheet('sh-pert-edit');
+  toast('🗑 Jadwal dihapus');
+  _renderPertShBody();
+  if(curSid) renderAbsenRecap(curSid);
+  if(curView === 'jadwal') renderJadwal();
 }
 
 // ════════ PROJECT & AREA — DATA DEFAULTS ═══════
